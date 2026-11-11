@@ -1,0 +1,1430 @@
+{
+  "schema_version": 1,
+  "modules": {
+    "native": {
+      "type": "tint::Parameters",
+      "fields": [
+        {
+          "name": "amount",
+          "kind": "number",
+          "member": "amount",
+          "id": "Zt00"
+        },
+        {
+          "name": "black0",
+          "kind": "number",
+          "member": "black[0]",
+          "id": "Zt01"
+        },
+        {
+          "name": "black1",
+          "kind": "number",
+          "member": "black[1]",
+          "id": "Zt02"
+        },
+        {
+          "name": "black2",
+          "kind": "number",
+          "member": "black[2]",
+          "id": "Zt03"
+        },
+        {
+          "name": "white0",
+          "kind": "number",
+          "member": "white[0]",
+          "id": "Zt04"
+        },
+        {
+          "name": "white1",
+          "kind": "number",
+          "member": "white[1]",
+          "id": "Zt05"
+        },
+        {
+          "name": "white2",
+          "kind": "number",
+          "member": "white[2]",
+          "id": "Zt06"
+        }
+      ]
+    },
+    "fractal": {
+      "type": "fractal::Parameters",
+      "fields": [
+        {
+          "name": "contrast",
+          "kind": "number",
+          "member": "contrast",
+          "id": "Zf00"
+        },
+        {
+          "name": "brightness",
+          "kind": "number",
+          "member": "brightness",
+          "id": "Zf01"
+        },
+        {
+          "name": "scale",
+          "kind": "number",
+          "member": "scale",
+          "id": "Zf02"
+        },
+        {
+          "name": "rotation",
+          "kind": "number",
+          "member": "rotation",
+          "id": "Zf03"
+        },
+        {
+          "name": "offset_x",
+          "kind": "number",
+          "member": "offset_x",
+          "id": "Zf04"
+        },
+        {
+          "name": "offset_y",
+          "kind": "number",
+          "member": "offset_y",
+          "id": "Zf05"
+        },
+        {
+          "name": "complexity",
+          "kind": "number",
+          "member": "complexity",
+          "id": "Zf06"
+        },
+        {
+          "name": "sub_influence",
+          "kind": "number",
+          "member": "sub_influence",
+          "id": "Zf07"
+        },
+        {
+          "name": "sub_scale",
+          "kind": "number",
+          "member": "sub_scale",
+          "id": "Zf08"
+        },
+        {
+          "name": "evolution",
+          "kind": "number",
+          "member": "evolution",
+          "id": "Zf09"
+        },
+        {
+          "name": "opacity",
+          "kind": "number",
+          "member": "opacity",
+          "id": "Zf0A"
+        },
+        {
+          "name": "scale_width",
+          "kind": "number",
+          "member": "scale_width",
+          "id": "Zf0B"
+        },
+        {
+          "name": "scale_height",
+          "kind": "number",
+          "member": "scale_height",
+          "id": "Zf0C"
+        },
+        {
+          "name": "sub_rotation",
+          "kind": "number",
+          "member": "sub_rotation",
+          "id": "Zf0D"
+        },
+        {
+          "name": "sub_offset_x",
+          "kind": "number",
+          "member": "sub_offset_x",
+          "id": "Zf0E"
+        },
+        {
+          "name": "sub_offset_y",
+          "kind": "number",
+          "member": "sub_offset_y",
+          "id": "Zf0F"
+        },
+        {
+          "name": "cycles",
+          "kind": "number",
+          "member": "cycles",
+          "id": "Zf0G"
+        },
+        {
+          "name": "seed",
+          "kind": "integer",
+          "member": "seed",
+          "id": "Zf0H"
+        },
+        {
+          "name": "fractal",
+          "kind": "integer",
+          "member": "fractal",
+          "id": "Zf0I"
+        },
+        {
+          "name": "noise",
+          "kind": "integer",
+          "member": "noise",
+          "id": "Zf0J"
+        },
+        {
+          "name": "overflow",
+          "kind": "integer",
+          "member": "overflow",
+          "id": "Zf0K"
+        },
+        {
+          "name": "blend",
+          "kind": "integer",
+          "member": "blend",
+          "id": "Zf0L"
+        },
+        {
+          "name": "invert",
+          "kind": "flag",
+          "member": "invert",
+          "id": "Zf0M"
+        },
+        {
+          "name": "uniform_scale",
+          "kind": "flag",
+          "member": "uniform_scale",
+          "id": "Zf0N"
+        },
+        {
+          "name": "perspective_offset",
+          "kind": "flag",
+          "member": "perspective_offset",
+          "id": "Zf0O"
+        },
+        {
+          "name": "center_subscale",
+          "kind": "flag",
+          "member": "center_subscale",
+          "id": "Zf0P"
+        },
+        {
+          "name": "cycle_evolution",
+          "kind": "flag",
+          "member": "cycle_evolution",
+          "id": "Zf0Q"
+        }
+      ]
+    },
+    "displacement": {
+      "type": "displacement::Parameters",
+      "fields": [
+        {
+          "name": "amount_x",
+          "kind": "number",
+          "member": "amount_x",
+          "id": "Zd00"
+        },
+        {
+          "name": "amount_y",
+          "kind": "number",
+          "member": "amount_y",
+          "id": "Zd01"
+        },
+        {
+          "name": "horizontal",
+          "kind": "integer",
+          "member": "horizontal",
+          "id": "Zd02"
+        },
+        {
+          "name": "vertical",
+          "kind": "integer",
+          "member": "vertical",
+          "id": "Zd03"
+        },
+        {
+          "name": "placement",
+          "kind": "integer",
+          "member": "placement",
+          "id": "Zd04"
+        },
+        {
+          "name": "wrap",
+          "kind": "flag",
+          "member": "wrap",
+          "id": "Zd05"
+        },
+        {
+          "name": "layer_name_layer",
+          "kind": "layer",
+          "member": "layer_name_key",
+          "transient": "layer_id",
+          "id": "Zd06"
+        }
+      ]
+    },
+    "glow": {
+      "type": "glow::Parameters",
+      "fields": [
+        {
+          "name": "threshold",
+          "kind": "number",
+          "member": "threshold",
+          "id": "Zg00"
+        },
+        {
+          "name": "radius",
+          "kind": "number",
+          "member": "radius",
+          "id": "Zg01"
+        },
+        {
+          "name": "intensity",
+          "kind": "number",
+          "member": "intensity",
+          "id": "Zg02"
+        },
+        {
+          "name": "loops",
+          "kind": "number",
+          "member": "loops",
+          "id": "Zg03"
+        },
+        {
+          "name": "phase",
+          "kind": "number",
+          "member": "phase",
+          "id": "Zg04"
+        },
+        {
+          "name": "midpoint",
+          "kind": "number",
+          "member": "midpoint",
+          "id": "Zg05"
+        },
+        {
+          "name": "smoothness",
+          "kind": "number",
+          "member": "smoothness",
+          "id": "Zg06"
+        },
+        {
+          "name": "saturation_bias",
+          "kind": "number",
+          "member": "saturation_bias",
+          "id": "Zg07"
+        },
+        {
+          "name": "gamma",
+          "kind": "number",
+          "member": "gamma",
+          "id": "Zg08"
+        },
+        {
+          "name": "gamma_amount",
+          "kind": "number",
+          "member": "gamma_amount",
+          "id": "Zg09"
+        },
+        {
+          "name": "aspect",
+          "kind": "number",
+          "member": "aspect",
+          "id": "Zg0A"
+        },
+        {
+          "name": "angle",
+          "kind": "number",
+          "member": "angle",
+          "id": "Zg0B"
+        },
+        {
+          "name": "chromatic_shift",
+          "kind": "number",
+          "member": "chromatic_shift",
+          "id": "Zg0C"
+        },
+        {
+          "name": "chromatic_spread",
+          "kind": "number",
+          "member": "chromatic_spread",
+          "id": "Zg0D"
+        },
+        {
+          "name": "tint_amount",
+          "kind": "number",
+          "member": "tint_amount",
+          "id": "Zg0E"
+        },
+        {
+          "name": "source_opacity",
+          "kind": "number",
+          "member": "source_opacity",
+          "id": "Zg0F"
+        },
+        {
+          "name": "texture_opacity",
+          "kind": "number",
+          "member": "texture_opacity",
+          "id": "Zg0G"
+        },
+        {
+          "name": "texture_glow",
+          "kind": "number",
+          "member": "texture_glow",
+          "id": "Zg0H"
+        },
+        {
+          "name": "texture_exposure",
+          "kind": "number",
+          "member": "texture_exposure",
+          "id": "Zg0I"
+        },
+        {
+          "name": "texture_gamma",
+          "kind": "number",
+          "member": "texture_gamma",
+          "id": "Zg0J"
+        },
+        {
+          "name": "kind",
+          "kind": "integer",
+          "member": "kind",
+          "id": "Zg0K"
+        },
+        {
+          "name": "based_on",
+          "kind": "integer",
+          "member": "based_on",
+          "id": "Zg0L"
+        },
+        {
+          "name": "composite",
+          "kind": "integer",
+          "member": "composite",
+          "id": "Zg0M"
+        },
+        {
+          "name": "colors",
+          "kind": "integer",
+          "member": "colors",
+          "id": "Zg0N"
+        },
+        {
+          "name": "looping",
+          "kind": "integer",
+          "member": "looping",
+          "id": "Zg0O"
+        },
+        {
+          "name": "dimensions",
+          "kind": "integer",
+          "member": "dimensions",
+          "id": "Zg0P"
+        },
+        {
+          "name": "blend",
+          "kind": "integer",
+          "member": "blend",
+          "id": "Zg0Q"
+        },
+        {
+          "name": "falloff",
+          "kind": "integer",
+          "member": "falloff",
+          "id": "Zg0R"
+        },
+        {
+          "name": "threshold_mode",
+          "kind": "integer",
+          "member": "threshold_mode",
+          "id": "Zg0S"
+        },
+        {
+          "name": "tint",
+          "kind": "integer",
+          "member": "tint",
+          "id": "Zg0T"
+        },
+        {
+          "name": "tone",
+          "kind": "integer",
+          "member": "tone",
+          "id": "Zg0U"
+        },
+        {
+          "name": "quality",
+          "kind": "integer",
+          "member": "quality",
+          "id": "Zg0V"
+        },
+        {
+          "name": "view",
+          "kind": "integer",
+          "member": "view",
+          "id": "Zg0W"
+        },
+        {
+          "name": "mask_mode",
+          "kind": "integer",
+          "member": "mask_mode",
+          "id": "Zg0X"
+        },
+        {
+          "name": "invert_mask",
+          "kind": "flag",
+          "member": "invert_mask",
+          "id": "Zg0Y"
+        },
+        {
+          "name": "unmult",
+          "kind": "flag",
+          "member": "unmult",
+          "id": "Zg0Z"
+        },
+        {
+          "name": "repeat_edges",
+          "kind": "flag",
+          "member": "repeat_edges",
+          "id": "Zg10"
+        },
+        {
+          "name": "mask_layer",
+          "kind": "layer",
+          "member": "mask_key",
+          "id": "Zg11"
+        },
+        {
+          "name": "texture_layer",
+          "kind": "layer",
+          "member": "texture_key",
+          "id": "Zg12"
+        },
+        {
+          "name": "color_a0",
+          "kind": "number",
+          "member": "color_a[0]",
+          "id": "Zg13"
+        },
+        {
+          "name": "color_a1",
+          "kind": "number",
+          "member": "color_a[1]",
+          "id": "Zg14"
+        },
+        {
+          "name": "color_a2",
+          "kind": "number",
+          "member": "color_a[2]",
+          "id": "Zg15"
+        },
+        {
+          "name": "color_b0",
+          "kind": "number",
+          "member": "color_b[0]",
+          "id": "Zg16"
+        },
+        {
+          "name": "color_b1",
+          "kind": "number",
+          "member": "color_b[1]",
+          "id": "Zg17"
+        },
+        {
+          "name": "color_b2",
+          "kind": "number",
+          "member": "color_b[2]",
+          "id": "Zg18"
+        }
+      ]
+    },
+    "chromatic": {
+      "type": "chromatic::Parameters",
+      "fields": [
+        {
+          "name": "amount",
+          "kind": "number",
+          "member": "amount",
+          "id": "Zh00"
+        },
+        {
+          "name": "angle",
+          "kind": "number",
+          "member": "angle",
+          "id": "Zh01"
+        },
+        {
+          "name": "mix",
+          "kind": "number",
+          "member": "mix",
+          "id": "Zh02"
+        },
+        {
+          "name": "center_x",
+          "kind": "number",
+          "member": "center_x",
+          "id": "Zh03"
+        },
+        {
+          "name": "center_y",
+          "kind": "number",
+          "member": "center_y",
+          "id": "Zh04"
+        },
+        {
+          "name": "protect",
+          "kind": "number",
+          "member": "protect",
+          "id": "Zh05"
+        },
+        {
+          "name": "falloff_power",
+          "kind": "number",
+          "member": "falloff_power",
+          "id": "Zh06"
+        },
+        {
+          "name": "softness",
+          "kind": "number",
+          "member": "softness",
+          "id": "Zh07"
+        },
+        {
+          "name": "dispersion_power",
+          "kind": "number",
+          "member": "dispersion_power",
+          "id": "Zh08"
+        },
+        {
+          "name": "hue",
+          "kind": "number",
+          "member": "hue",
+          "id": "Zh09"
+        },
+        {
+          "name": "saturation",
+          "kind": "number",
+          "member": "saturation",
+          "id": "Zh0A"
+        },
+        {
+          "name": "gamma",
+          "kind": "number",
+          "member": "gamma",
+          "id": "Zh0B"
+        },
+        {
+          "name": "threshold",
+          "kind": "number",
+          "member": "threshold",
+          "id": "Zh0C"
+        },
+        {
+          "name": "knee",
+          "kind": "number",
+          "member": "knee",
+          "id": "Zh0D"
+        },
+        {
+          "name": "mode",
+          "kind": "integer",
+          "member": "mode",
+          "id": "Zh0E"
+        },
+        {
+          "name": "geometry",
+          "kind": "integer",
+          "member": "geometry",
+          "id": "Zh0F"
+        },
+        {
+          "name": "samples",
+          "kind": "integer",
+          "member": "samples",
+          "id": "Zh0G"
+        },
+        {
+          "name": "edge",
+          "kind": "integer",
+          "member": "edge",
+          "id": "Zh0H"
+        },
+        {
+          "name": "alpha",
+          "kind": "integer",
+          "member": "alpha",
+          "id": "Zh0I"
+        },
+        {
+          "name": "mask_mode",
+          "kind": "integer",
+          "member": "mask_mode",
+          "id": "Zh0J"
+        },
+        {
+          "name": "reverse",
+          "kind": "flag",
+          "member": "reverse",
+          "id": "Zh0K"
+        },
+        {
+          "name": "falloff",
+          "kind": "flag",
+          "member": "falloff",
+          "id": "Zh0L"
+        },
+        {
+          "name": "invert_falloff",
+          "kind": "flag",
+          "member": "invert_falloff",
+          "id": "Zh0M"
+        },
+        {
+          "name": "linear_light",
+          "kind": "flag",
+          "member": "linear_light",
+          "id": "Zh0N"
+        },
+        {
+          "name": "highlights_only",
+          "kind": "flag",
+          "member": "highlights_only",
+          "id": "Zh0O"
+        },
+        {
+          "name": "invert_mask",
+          "kind": "flag",
+          "member": "invert_mask",
+          "id": "Zh0P"
+        },
+        {
+          "name": "mask_layer",
+          "kind": "layer",
+          "member": "mask_key",
+          "id": "Zh0Q"
+        },
+        {
+          "name": "channel0_amount",
+          "kind": "number",
+          "member": "channels[0].amount",
+          "id": "Zh0R"
+        },
+        {
+          "name": "channel0_x",
+          "kind": "number",
+          "member": "channels[0].x",
+          "id": "Zh0S"
+        },
+        {
+          "name": "channel0_y",
+          "kind": "number",
+          "member": "channels[0].y",
+          "id": "Zh0T"
+        },
+        {
+          "name": "channel0_scale",
+          "kind": "number",
+          "member": "channels[0].scale",
+          "id": "Zh0U"
+        },
+        {
+          "name": "channel0_rotation",
+          "kind": "number",
+          "member": "channels[0].rotation",
+          "id": "Zh0V"
+        },
+        {
+          "name": "channel0_blur",
+          "kind": "number",
+          "member": "channels[0].blur",
+          "id": "Zh0W"
+        },
+        {
+          "name": "channel1_amount",
+          "kind": "number",
+          "member": "channels[1].amount",
+          "id": "Zh0X"
+        },
+        {
+          "name": "channel1_x",
+          "kind": "number",
+          "member": "channels[1].x",
+          "id": "Zh0Y"
+        },
+        {
+          "name": "channel1_y",
+          "kind": "number",
+          "member": "channels[1].y",
+          "id": "Zh0Z"
+        },
+        {
+          "name": "channel1_scale",
+          "kind": "number",
+          "member": "channels[1].scale",
+          "id": "Zh10"
+        },
+        {
+          "name": "channel1_rotation",
+          "kind": "number",
+          "member": "channels[1].rotation",
+          "id": "Zh11"
+        },
+        {
+          "name": "channel1_blur",
+          "kind": "number",
+          "member": "channels[1].blur",
+          "id": "Zh12"
+        },
+        {
+          "name": "channel2_amount",
+          "kind": "number",
+          "member": "channels[2].amount",
+          "id": "Zh13"
+        },
+        {
+          "name": "channel2_x",
+          "kind": "number",
+          "member": "channels[2].x",
+          "id": "Zh14"
+        },
+        {
+          "name": "channel2_y",
+          "kind": "number",
+          "member": "channels[2].y",
+          "id": "Zh15"
+        },
+        {
+          "name": "channel2_scale",
+          "kind": "number",
+          "member": "channels[2].scale",
+          "id": "Zh16"
+        },
+        {
+          "name": "channel2_rotation",
+          "kind": "number",
+          "member": "channels[2].rotation",
+          "id": "Zh17"
+        },
+        {
+          "name": "channel2_blur",
+          "kind": "number",
+          "member": "channels[2].blur",
+          "id": "Zh18"
+        }
+      ]
+    },
+    "vector": {
+      "type": "vectorblur::Parameters",
+      "fields": [
+        {
+          "name": "amount",
+          "kind": "number",
+          "member": "amount",
+          "id": "Zv00"
+        },
+        {
+          "name": "angle",
+          "kind": "number",
+          "member": "angle",
+          "id": "Zv01"
+        },
+        {
+          "name": "ridge",
+          "kind": "number",
+          "member": "ridge",
+          "id": "Zv02"
+        },
+        {
+          "name": "revolutions",
+          "kind": "number",
+          "member": "revolutions",
+          "id": "Zv03"
+        },
+        {
+          "name": "map_softness",
+          "kind": "number",
+          "member": "map_softness",
+          "id": "Zv04"
+        },
+        {
+          "name": "mix",
+          "kind": "number",
+          "member": "mix",
+          "id": "Zv05"
+        },
+        {
+          "name": "type",
+          "kind": "integer",
+          "member": "type",
+          "id": "Zv06"
+        },
+        {
+          "name": "property",
+          "kind": "integer",
+          "member": "property",
+          "id": "Zv07"
+        },
+        {
+          "name": "edge",
+          "kind": "integer",
+          "member": "edge",
+          "id": "Zv08"
+        },
+        {
+          "name": "quality",
+          "kind": "integer",
+          "member": "quality",
+          "id": "Zv09"
+        },
+        {
+          "name": "kernel_version",
+          "kind": "integer",
+          "member": "kernel_version",
+          "id": "Zv0A"
+        },
+        {
+          "name": "invert_map",
+          "kind": "flag",
+          "member": "invert_map",
+          "id": "Zv0B"
+        },
+        {
+          "name": "follow",
+          "kind": "flag",
+          "member": "follow",
+          "id": "Zv0C"
+        },
+        {
+          "name": "preserve_alpha",
+          "kind": "flag",
+          "member": "preserve_alpha",
+          "id": "Zv0D"
+        },
+        {
+          "name": "linear_light",
+          "kind": "flag",
+          "member": "linear_light",
+          "id": "Zv0E"
+        },
+        {
+          "name": "map_layer",
+          "kind": "layer",
+          "member": "map_key",
+          "id": "Zv0F"
+        }
+      ]
+    },
+    "patterns": {
+      "type": "patterns::Parameters",
+      "fields": [
+        {
+          "name": "anchor_x",
+          "kind": "number",
+          "member": "anchor_x",
+          "id": "Zp00"
+        },
+        {
+          "name": "anchor_y",
+          "kind": "number",
+          "member": "anchor_y",
+          "id": "Zp01"
+        },
+        {
+          "name": "corner_x",
+          "kind": "number",
+          "member": "corner_x",
+          "id": "Zp02"
+        },
+        {
+          "name": "corner_y",
+          "kind": "number",
+          "member": "corner_y",
+          "id": "Zp03"
+        },
+        {
+          "name": "width",
+          "kind": "number",
+          "member": "width",
+          "id": "Zp04"
+        },
+        {
+          "name": "height",
+          "kind": "number",
+          "member": "height",
+          "id": "Zp05"
+        },
+        {
+          "name": "border",
+          "kind": "number",
+          "member": "border",
+          "id": "Zp06"
+        },
+        {
+          "name": "feather_x",
+          "kind": "number",
+          "member": "feather_x",
+          "id": "Zp07"
+        },
+        {
+          "name": "feather_y",
+          "kind": "number",
+          "member": "feather_y",
+          "id": "Zp08"
+        },
+        {
+          "name": "opacity",
+          "kind": "number",
+          "member": "opacity",
+          "id": "Zp09"
+        },
+        {
+          "name": "rotation",
+          "kind": "number",
+          "member": "rotation",
+          "id": "Zp0A"
+        },
+        {
+          "name": "size_from",
+          "kind": "integer",
+          "member": "size_from",
+          "id": "Zp0B"
+        },
+        {
+          "name": "blend",
+          "kind": "integer",
+          "member": "blend",
+          "id": "Zp0C"
+        },
+        {
+          "name": "invert",
+          "kind": "flag",
+          "member": "invert",
+          "id": "Zp0D"
+        },
+        {
+          "name": "color0",
+          "kind": "number",
+          "member": "color[0]",
+          "id": "Zp0E"
+        },
+        {
+          "name": "color1",
+          "kind": "number",
+          "member": "color[1]",
+          "id": "Zp0F"
+        },
+        {
+          "name": "color2",
+          "kind": "number",
+          "member": "color[2]",
+          "id": "Zp0G"
+        }
+      ]
+    },
+    "cell": {
+      "type": "cell::Parameters",
+      "fields": [
+        {
+          "name": "contrast",
+          "kind": "number",
+          "member": "contrast",
+          "id": "Ze00"
+        },
+        {
+          "name": "disperse",
+          "kind": "number",
+          "member": "disperse",
+          "id": "Ze01"
+        },
+        {
+          "name": "size",
+          "kind": "number",
+          "member": "size",
+          "id": "Ze02"
+        },
+        {
+          "name": "offset_x",
+          "kind": "number",
+          "member": "offset_x",
+          "id": "Ze03"
+        },
+        {
+          "name": "offset_y",
+          "kind": "number",
+          "member": "offset_y",
+          "id": "Ze04"
+        },
+        {
+          "name": "evolution",
+          "kind": "number",
+          "member": "evolution",
+          "id": "Ze05"
+        },
+        {
+          "name": "mode",
+          "kind": "integer",
+          "member": "mode",
+          "id": "Ze06"
+        },
+        {
+          "name": "overflow",
+          "kind": "integer",
+          "member": "overflow",
+          "id": "Ze07"
+        },
+        {
+          "name": "cells_x",
+          "kind": "integer",
+          "member": "cells_x",
+          "id": "Ze08"
+        },
+        {
+          "name": "cells_y",
+          "kind": "integer",
+          "member": "cells_y",
+          "id": "Ze09"
+        },
+        {
+          "name": "cycle",
+          "kind": "integer",
+          "member": "cycle",
+          "id": "Ze0A"
+        },
+        {
+          "name": "seed",
+          "kind": "integer",
+          "member": "seed",
+          "id": "Ze0B"
+        },
+        {
+          "name": "invert",
+          "kind": "flag",
+          "member": "invert",
+          "id": "Ze0C"
+        },
+        {
+          "name": "tiling",
+          "kind": "flag",
+          "member": "tiling",
+          "id": "Ze0D"
+        },
+        {
+          "name": "cycle_evolution",
+          "kind": "flag",
+          "member": "cycle_evolution",
+          "id": "Ze0E"
+        }
+      ]
+    },
+    "lens": {
+      "type": "lens::Parameters",
+      "fields": [
+        {
+          "name": "fov",
+          "kind": "number",
+          "member": "fov",
+          "id": "Zl00"
+        },
+        {
+          "name": "cx",
+          "kind": "number",
+          "member": "cx",
+          "id": "Zl01"
+        },
+        {
+          "name": "cy",
+          "kind": "number",
+          "member": "cy",
+          "id": "Zl02"
+        },
+        {
+          "name": "size",
+          "kind": "number",
+          "member": "size",
+          "id": "Zl03"
+        },
+        {
+          "name": "convergence",
+          "kind": "number",
+          "member": "convergence",
+          "id": "Zl04"
+        },
+        {
+          "name": "kind",
+          "kind": "integer",
+          "member": "kind",
+          "id": "Zl05"
+        },
+        {
+          "name": "axis",
+          "kind": "integer",
+          "member": "axis",
+          "id": "Zl06"
+        },
+        {
+          "name": "reverse",
+          "kind": "flag",
+          "member": "reverse",
+          "id": "Zl07"
+        },
+        {
+          "name": "optimal",
+          "kind": "flag",
+          "member": "optimal",
+          "id": "Zl08"
+        }
+      ]
+    },
+    "jpeg": {
+      "type": "jpegfx::Parameters",
+      "fields": [
+        {
+          "name": "quality",
+          "kind": "number",
+          "member": "quality",
+          "id": "Zj00"
+        },
+        {
+          "name": "resolution",
+          "kind": "number",
+          "member": "resolution",
+          "id": "Zj01"
+        },
+        {
+          "name": "aspect",
+          "kind": "number",
+          "member": "aspect",
+          "id": "Zj02"
+        },
+        {
+          "name": "chroma_damage",
+          "kind": "number",
+          "member": "chroma_damage",
+          "id": "Zj03"
+        },
+        {
+          "name": "all_freq",
+          "kind": "number",
+          "member": "all_freq",
+          "id": "Zj04"
+        },
+        {
+          "name": "x_freq",
+          "kind": "number",
+          "member": "x_freq",
+          "id": "Zj05"
+        },
+        {
+          "name": "y_freq",
+          "kind": "number",
+          "member": "y_freq",
+          "id": "Zj06"
+        },
+        {
+          "name": "low_freq",
+          "kind": "number",
+          "member": "low_freq",
+          "id": "Zj07"
+        },
+        {
+          "name": "mid_freq",
+          "kind": "number",
+          "member": "mid_freq",
+          "id": "Zj08"
+        },
+        {
+          "name": "high_freq",
+          "kind": "number",
+          "member": "high_freq",
+          "id": "Zj09"
+        },
+        {
+          "name": "affect_luma",
+          "kind": "number",
+          "member": "affect_luma",
+          "id": "Zj0A"
+        },
+        {
+          "name": "affect_chroma",
+          "kind": "number",
+          "member": "affect_chroma",
+          "id": "Zj0B"
+        },
+        {
+          "name": "error_rate",
+          "kind": "number",
+          "member": "error_rate",
+          "id": "Zj0C"
+        },
+        {
+          "name": "density",
+          "kind": "number",
+          "member": "density",
+          "id": "Zj0D"
+        },
+        {
+          "name": "error_amp",
+          "kind": "number",
+          "member": "error_amp",
+          "id": "Zj0E"
+        },
+        {
+          "name": "coherence",
+          "kind": "number",
+          "member": "coherence",
+          "id": "Zj0F"
+        },
+        {
+          "name": "block_shift",
+          "kind": "number",
+          "member": "block_shift",
+          "id": "Zj0G"
+        },
+        {
+          "name": "color_error",
+          "kind": "number",
+          "member": "color_error",
+          "id": "Zj0H"
+        },
+        {
+          "name": "lights",
+          "kind": "number",
+          "member": "lights",
+          "id": "Zj0I"
+        },
+        {
+          "name": "darks",
+          "kind": "number",
+          "member": "darks",
+          "id": "Zj0J"
+        },
+        {
+          "name": "saturation",
+          "kind": "number",
+          "member": "saturation",
+          "id": "Zj0K"
+        },
+        {
+          "name": "mix",
+          "kind": "number",
+          "member": "mix",
+          "id": "Zj0L"
+        },
+        {
+          "name": "mask_blur",
+          "kind": "number",
+          "member": "mask_blur",
+          "id": "Zj0M"
+        },
+        {
+          "name": "chroma",
+          "kind": "integer",
+          "member": "chroma",
+          "id": "Zj0N"
+        },
+        {
+          "name": "error_mode",
+          "kind": "integer",
+          "member": "error_mode",
+          "id": "Zj0O"
+        },
+        {
+          "name": "seed",
+          "kind": "integer",
+          "member": "seed",
+          "id": "Zj0P"
+        },
+        {
+          "name": "variation",
+          "kind": "integer",
+          "member": "variation",
+          "id": "Zj0Q"
+        },
+        {
+          "name": "mask_mode",
+          "kind": "integer",
+          "member": "mask_mode",
+          "id": "Zj0R"
+        },
+        {
+          "name": "flip_noise",
+          "kind": "flag",
+          "member": "flip_noise",
+          "id": "Zj0S"
+        },
+        {
+          "name": "preserve_hdr",
+          "kind": "flag",
+          "member": "preserve_hdr",
+          "id": "Zj0T"
+        },
+        {
+          "name": "invert_mask",
+          "kind": "flag",
+          "member": "invert_mask",
+          "id": "Zj0U"
+        },
+        {
+          "name": "mask_layer",
+          "kind": "layer",
+          "member": "mask_key",
+          "id": "Zj0V"
+        }
+      ]
+    }
+  },
+  "profiles": {
+    "native/src/TintPiPL.json": {
+      "event": "ZpTi",
+      "magic": 1414090289
+    },
+    "fractal/src/PiPL.json": {
+      "event": "ZpFn",
+      "magic": 1179799090
+    },
+    "displacement/src/PiPL.json": {
+      "event": "ZpDm",
+      "magic": 1514426417
+    },
+    "glow/src/PiPL-Glow.json": {
+      "event": "ZpGw",
+      "magic": 1514622001
+    },
+    "glow/src/PiPL-DeepGlow.json": {
+      "event": "ZpDg",
+      "magic": 1514424113
+    },
+    "chromatic/src/PiPL.json": {
+      "event": "ZpCd",
+      "magic": 1514357809
+    },
+    "vector/src/PiPL.json": {
+      "event": "ZpVb",
+      "magic": 1515602481
+    },
+    "patterns/src/PiPL-Grid.json": {
+      "event": "ZpGr",
+      "magic": 1514623537
+    },
+    "patterns/src/PiPL-Checkerboard.json": {
+      "event": "ZpCh",
+      "magic": 1514359601
+    },
+    "cell/src/PiPL.json": {
+      "event": "ZpCe",
+      "magic": 1514358065
+    },
+    "lens/src/PiPL-OpticsCompensation.json": {
+      "event": "ZpOc",
+      "magic": 1514950449
+    },
+    "lens/src/PiPL-CCLens.json": {
+      "event": "ZpLn",
+      "magic": 1514947377
+    },
+    "jpeg/src/PiPL.json": {
+      "event": "ZpJd",
+      "magic": 1514816561
+    }
+  }
+}

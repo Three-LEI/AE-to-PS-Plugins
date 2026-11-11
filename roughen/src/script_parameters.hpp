@@ -2,12 +2,13 @@
 #include "roughen_host.hpp"
 #include "PIActions.h"
 #include "SPBasic.h"
+#include "../../native/common/descriptor_parameters.hpp"
 namespace roughen::script {
 constexpr DescriptorKeyID key(char a,char b,char c,char d){return(std::uint32_t(a)<<24)|(std::uint32_t(b)<<16)|(std::uint32_t(c)<<8)|std::uint32_t(d);}
 inline DescriptorKeyID id(const char* s){return key(s[0],s[1],s[2],s[3]);}
 struct Number {const char* id;double Parameters::*member;};
 constexpr Number numbers[]={{"ZrBo",&Parameters::border},{"ZrSh",&Parameters::sharpness},{"ZrIn",&Parameters::influence},{"ZrSc",&Parameters::scale},{"ZrSt",&Parameters::stretch},{"ZrOX",&Parameters::offset_x},{"ZrOY",&Parameters::offset_y},{"ZrCo",&Parameters::complexity},{"ZrEv",&Parameters::evolution},{"ZrCt",&Parameters::cycles},{"ZrSe",&Parameters::seed},{"ZrMx",&Parameters::mix}};
-struct Suite {SPBasicSuite* basic;const PSActionDescriptorProcs* d=nullptr;PIActionDescriptor desc=nullptr;explicit Suite(FilterRecord* f):basic(f->sSPBasic){if(basic&&basic->AcquireSuite(kPSActionDescriptorSuite,kPSActionDescriptorSuiteVersion,reinterpret_cast<const void**>(&d)))d=nullptr;}~Suite(){if(d){if(desc)d->Free(desc);basic->ReleaseSuite(kPSActionDescriptorSuite,kPSActionDescriptorSuiteVersion);}}};
+using Suite=psfilter::parameters::Suite;
 inline OSErr read(FilterRecord* f,Parameters& p,bool& interactive){
  auto* dp=f->descriptorParameters;if(!dp||!dp->descriptor)return noErr;Suite q(f);if(!q.d||q.d->HandleToDescriptor(dp->descriptor,&q.desc))return filterBadParameters;
  Boolean present=false;if(q.d->HasKey(q.desc,id("ZrSv"),&present))return filterBadParameters;if(!present)return noErr;
@@ -21,6 +22,6 @@ inline OSErr write(FilterRecord* f,const Parameters& p){
  auto integer=[&](DescriptorKeyID k,int v){if(!error)error=q.d->PutInteger(q.desc,k,v);};integer(id("ZrSv"),1);integer(id("ZrTy"),p.type);integer(id("ZrCE"),p.cycle);
  for(const auto& n:numbers)if(!error)error=q.d->PutFloat(q.desc,id(n.id),p.*n.member);
  for(int i=0;i<3;i++)if(!error)error=q.d->PutFloat(q.desc,key('Z','r','L',"RGB"[i]),p.color[i]);
- if(error)return error;PIDescriptorHandle handle=nullptr;if((error=q.d->AsHandle(q.desc,&handle)))return error;if(dp->descriptor&&f->handleProcs&&f->handleProcs->disposeProc)f->handleProcs->disposeProc(reinterpret_cast<Handle>(dp->descriptor));dp->descriptor=handle;dp->recordInfo=plugInDialogOptional;return noErr;
+ if(error)return error;return psfilter::parameters::commit(f,q,q.desc);
 }
 }

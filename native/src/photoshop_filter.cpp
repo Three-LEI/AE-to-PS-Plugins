@@ -4,6 +4,7 @@
 #include "tint_core.hpp"
 #include "tint_dialog.hpp"
 #include "tint_info.hpp"
+#include "parameter_schema.hpp"
 namespace {
 HINSTANCE module_instance=nullptr;
 struct TintEffect {

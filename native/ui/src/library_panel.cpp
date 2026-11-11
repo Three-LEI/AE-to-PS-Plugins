@@ -9,6 +9,7 @@
 #include "imgui_impl_win32.h"
 #include "psui/ui_metrics.hpp"
 #include "psui/win_compat.hpp"
+#include "psui/host_layers.hpp"
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
@@ -512,11 +513,7 @@ bool parameter_reset_icon(LibraryPanel &ui, const char *label) {
   const ImVec2 center{a.x+9*s,a.y+h*.5f};
   auto *draw=ImGui::GetWindowDrawList();
   const auto blue=ImGui::GetColorU32(numeric_color(ImGui::GetStyle().Colors[ImGuiCol_WindowBg]));
-  draw->PathArcTo(center,5*s,-.25f,4.65f,24);
-  draw->PathStroke(blue,0,1.4f*s);
-  draw->AddTriangleFilled({center.x-3.7f*s,center.y-5.9f*s},
-                          {center.x+1.1f*s,center.y-8*s},
-                          {center.x+.1f*s,center.y-2.8f*s},blue);
+  draw_reset_icon(draw,center,16*s,blue);
   if(ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal))
     ImGui::SetTooltip("%s",ui.text("重置此参数 / Reset this parameter").c_str());
   ImGui::PopID();ImGui::SameLine(0,3*s);
@@ -995,6 +992,9 @@ INT_PTR run_library_panel(HINSTANCE module, HWND owner, FilterRecord *host,
     glyph_builder.AddText(info->name);
   if (localized_text)
     glyph_builder.AddText(localized_text);
+  // Names are document content, not a fixed UI vocabulary. Add their actual
+  // Unicode characters once before baking, including uncommon Chinese glyphs.
+  for(const auto& layer:host_layers(host))glyph_builder.AddText(layer.name.c_str());
   glyph_builder.BuildRanges(&state.glyphs);
   bool win_ready = false, dx_ready = false;
   win_ready = ImGui_ImplWin32_Init(state.window);

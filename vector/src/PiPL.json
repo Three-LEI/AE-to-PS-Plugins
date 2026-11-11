@@ -76,7 +76,151 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/VectorBlur=Vector Blur 矢量模糊",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻"
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpVb"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Vector Blur",
+                "EventDescription": "Editable Vector Blur",
+                "ClassID": "ZpEf",
+                "EventType": "ZpVb",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "amount",
+                    "ParamKeyword": "Zv00",
+                    "ParamType": "doub",
+                    "ParamDescription": "amount"
+                  },
+                  {
+                    "ParamName": "angle",
+                    "ParamKeyword": "Zv01",
+                    "ParamType": "doub",
+                    "ParamDescription": "angle"
+                  },
+                  {
+                    "ParamName": "ridge",
+                    "ParamKeyword": "Zv02",
+                    "ParamType": "doub",
+                    "ParamDescription": "ridge"
+                  },
+                  {
+                    "ParamName": "revolutions",
+                    "ParamKeyword": "Zv03",
+                    "ParamType": "doub",
+                    "ParamDescription": "revolutions"
+                  },
+                  {
+                    "ParamName": "map_softness",
+                    "ParamKeyword": "Zv04",
+                    "ParamType": "doub",
+                    "ParamDescription": "map_softness"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Zv05",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  },
+                  {
+                    "ParamName": "type",
+                    "ParamKeyword": "Zv06",
+                    "ParamType": "long",
+                    "ParamDescription": "type"
+                  },
+                  {
+                    "ParamName": "property",
+                    "ParamKeyword": "Zv07",
+                    "ParamType": "long",
+                    "ParamDescription": "property"
+                  },
+                  {
+                    "ParamName": "edge",
+                    "ParamKeyword": "Zv08",
+                    "ParamType": "long",
+                    "ParamDescription": "edge"
+                  },
+                  {
+                    "ParamName": "quality",
+                    "ParamKeyword": "Zv09",
+                    "ParamType": "long",
+                    "ParamDescription": "quality"
+                  },
+                  {
+                    "ParamName": "kernel_version",
+                    "ParamKeyword": "Zv0A",
+                    "ParamType": "long",
+                    "ParamDescription": "kernel_version"
+                  },
+                  {
+                    "ParamName": "invert_map",
+                    "ParamKeyword": "Zv0B",
+                    "ParamType": "bool",
+                    "ParamDescription": "invert_map"
+                  },
+                  {
+                    "ParamName": "follow",
+                    "ParamKeyword": "Zv0C",
+                    "ParamType": "bool",
+                    "ParamDescription": "follow"
+                  },
+                  {
+                    "ParamName": "preserve_alpha",
+                    "ParamKeyword": "Zv0D",
+                    "ParamType": "bool",
+                    "ParamDescription": "preserve_alpha"
+                  },
+                  {
+                    "ParamName": "linear_light",
+                    "ParamKeyword": "Zv0E",
+                    "ParamType": "bool",
+                    "ParamDescription": "linear_light"
+                  },
+                  {
+                    "ParamName": "map_layer",
+                    "ParamKeyword": "Zv0F",
+                    "ParamType": "TEXT",
+                    "ParamDescription": "map_layer"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

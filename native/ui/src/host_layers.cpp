@@ -28,8 +28,13 @@ std::vector<HostLayer> host_layers(FilterRecord* f){
       const int bytes=WideCharToMultiByte(CP_UTF8,0,wide,n,nullptr,0,nullptr,nullptr);
       item.name.resize(bytes);WideCharToMultiByte(CP_UTF8,0,wide,n,item.name.data(),bytes,nullptr,nullptr);
     }else if(l->name){
-      const int n=MultiByteToWideChar(CP_ACP,0,l->name,-1,nullptr,0);
-      std::wstring wide(n,L'\0');MultiByteToWideChar(CP_ACP,0,l->name,-1,wide.data(),n);
+      // Some older host adapters expose UTF-8 in the legacy name slot; others
+      // use the system ANSI code page. Prefer the Unicode slot above, then
+      // accept valid UTF-8 before falling back to the host code page.
+      UINT page=CP_UTF8;DWORD flags=MB_ERR_INVALID_CHARS;
+      int n=MultiByteToWideChar(page,flags,l->name,-1,nullptr,0);
+      if(!n){page=CP_ACP;flags=0;n=MultiByteToWideChar(page,flags,l->name,-1,nullptr,0);}
+      std::wstring wide(n,L'\0');if(n)MultiByteToWideChar(page,flags,l->name,-1,wide.data(),n);
       const int bytes=WideCharToMultiByte(CP_UTF8,0,wide.data(),n? n-1:0,nullptr,0,nullptr,nullptr);
       item.name.resize(bytes);WideCharToMultiByte(CP_UTF8,0,wide.data(),n? n-1:0,item.name.data(),bytes,nullptr,nullptr);
     }

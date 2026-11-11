@@ -42,6 +42,8 @@ template<class Effect> struct CachedRuntime {
   auto source=Effect::from_host(std::move(pixels));auto layers=psui::host_layers(f);typename Effect::Inputs inputs;
   if constexpr(requires{Effect::read_descriptor(f,layers,session->saved.values,inputs,interactive);})
    if((error=Effect::read_descriptor(f,layers,session->saved.values,inputs,interactive)))return error;
+  if constexpr(!requires{Effect::read_descriptor(f,layers,session->saved.values,inputs,interactive);})
+   if((error=Store::read_descriptor(f,layers,session->saved.values,interactive)))return error;
   if(interactive){
    HWND owner=f->platformData?reinterpret_cast<HWND>(reinterpret_cast<PlatformData*>(f->platformData)->hwnd):nullptr;
    const auto answer=Effect::dialog(module,owner,f,source,layers,session->saved.values,inputs);
@@ -52,6 +54,8 @@ template<class Effect> struct CachedRuntime {
   if(!Effect::process(source,session->saved.values,session->output,inputs,cancel))return cancel()?userCanceledErr:filterBadParameters;
   if constexpr(requires{Effect::write_descriptor(f,session->saved.values,inputs);})
    if((error=Effect::write_descriptor(f,session->saved.values,inputs)))return error;
+  if constexpr(!requires{Effect::write_descriptor(f,session->saved.values,inputs);})
+   if((error=Store::write_descriptor(f,layers,session->saved.values)))return error;
   if(!Store::save_parameters(f,session->saved))return memFullErr;
   f->autoMask=true;f->wantLayout=0;f->inputRate=f->maskRate=65536;
   const auto all=Store::full_rect(f);request(f,all.right>all.left&&all.bottom>all.top?Store::tile(all.left,all.top,all):VRect{});

@@ -14,7 +14,7 @@ for module in project['modules']:
   if(root/module/name).exists():selected.add(root/module/name)
  for part in ('include','src','tests')+ (('common','ui')if module=='native'else()):
   for path in (root/module/part).rglob('*'):
-   if path.is_file()and path.suffix in {'.cpp','.hpp','.h','.inc','.json','.rc','.md'}and 'build'not in path.relative_to(root/module/part).parts:selected.add(path)
+   if path.is_file()and path.suffix in {'.cpp','.hpp','.h','.inc','.jsxinc','.json','.rc','.md'}and 'build'not in path.relative_to(root/module/part).parts:selected.add(path)
 selected.add(root/'native/tests/build-scrub-tests.ps1');selected.add(root/'native/ui/verify-contract.ps1');selected.add(root/'native/build-library-ui.ps1')
 for source in sorted(selected):
  target=output/source.relative_to(root);target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target)

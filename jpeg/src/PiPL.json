@@ -76,7 +76,247 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/JPEGDamage=JPEG Damage JPEG 损坏",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻"
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpJd"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "JPEG Damage",
+                "EventDescription": "Editable JPEG Damage",
+                "ClassID": "ZpEf",
+                "EventType": "ZpJd",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "quality",
+                    "ParamKeyword": "Zj00",
+                    "ParamType": "doub",
+                    "ParamDescription": "quality"
+                  },
+                  {
+                    "ParamName": "resolution",
+                    "ParamKeyword": "Zj01",
+                    "ParamType": "doub",
+                    "ParamDescription": "resolution"
+                  },
+                  {
+                    "ParamName": "aspect",
+                    "ParamKeyword": "Zj02",
+                    "ParamType": "doub",
+                    "ParamDescription": "aspect"
+                  },
+                  {
+                    "ParamName": "chroma_damage",
+                    "ParamKeyword": "Zj03",
+                    "ParamType": "doub",
+                    "ParamDescription": "chroma_damage"
+                  },
+                  {
+                    "ParamName": "all_freq",
+                    "ParamKeyword": "Zj04",
+                    "ParamType": "doub",
+                    "ParamDescription": "all_freq"
+                  },
+                  {
+                    "ParamName": "x_freq",
+                    "ParamKeyword": "Zj05",
+                    "ParamType": "doub",
+                    "ParamDescription": "x_freq"
+                  },
+                  {
+                    "ParamName": "y_freq",
+                    "ParamKeyword": "Zj06",
+                    "ParamType": "doub",
+                    "ParamDescription": "y_freq"
+                  },
+                  {
+                    "ParamName": "low_freq",
+                    "ParamKeyword": "Zj07",
+                    "ParamType": "doub",
+                    "ParamDescription": "low_freq"
+                  },
+                  {
+                    "ParamName": "mid_freq",
+                    "ParamKeyword": "Zj08",
+                    "ParamType": "doub",
+                    "ParamDescription": "mid_freq"
+                  },
+                  {
+                    "ParamName": "high_freq",
+                    "ParamKeyword": "Zj09",
+                    "ParamType": "doub",
+                    "ParamDescription": "high_freq"
+                  },
+                  {
+                    "ParamName": "affect_luma",
+                    "ParamKeyword": "Zj0A",
+                    "ParamType": "doub",
+                    "ParamDescription": "affect_luma"
+                  },
+                  {
+                    "ParamName": "affect_chroma",
+                    "ParamKeyword": "Zj0B",
+                    "ParamType": "doub",
+                    "ParamDescription": "affect_chroma"
+                  },
+                  {
+                    "ParamName": "error_rate",
+                    "ParamKeyword": "Zj0C",
+                    "ParamType": "doub",
+                    "ParamDescription": "error_rate"
+                  },
+                  {
+                    "ParamName": "density",
+                    "ParamKeyword": "Zj0D",
+                    "ParamType": "doub",
+                    "ParamDescription": "density"
+                  },
+                  {
+                    "ParamName": "error_amp",
+                    "ParamKeyword": "Zj0E",
+                    "ParamType": "doub",
+                    "ParamDescription": "error_amp"
+                  },
+                  {
+                    "ParamName": "coherence",
+                    "ParamKeyword": "Zj0F",
+                    "ParamType": "doub",
+                    "ParamDescription": "coherence"
+                  },
+                  {
+                    "ParamName": "block_shift",
+                    "ParamKeyword": "Zj0G",
+                    "ParamType": "doub",
+                    "ParamDescription": "block_shift"
+                  },
+                  {
+                    "ParamName": "color_error",
+                    "ParamKeyword": "Zj0H",
+                    "ParamType": "doub",
+                    "ParamDescription": "color_error"
+                  },
+                  {
+                    "ParamName": "lights",
+                    "ParamKeyword": "Zj0I",
+                    "ParamType": "doub",
+                    "ParamDescription": "lights"
+                  },
+                  {
+                    "ParamName": "darks",
+                    "ParamKeyword": "Zj0J",
+                    "ParamType": "doub",
+                    "ParamDescription": "darks"
+                  },
+                  {
+                    "ParamName": "saturation",
+                    "ParamKeyword": "Zj0K",
+                    "ParamType": "doub",
+                    "ParamDescription": "saturation"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Zj0L",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  },
+                  {
+                    "ParamName": "mask_blur",
+                    "ParamKeyword": "Zj0M",
+                    "ParamType": "doub",
+                    "ParamDescription": "mask_blur"
+                  },
+                  {
+                    "ParamName": "chroma",
+                    "ParamKeyword": "Zj0N",
+                    "ParamType": "long",
+                    "ParamDescription": "chroma"
+                  },
+                  {
+                    "ParamName": "error_mode",
+                    "ParamKeyword": "Zj0O",
+                    "ParamType": "long",
+                    "ParamDescription": "error_mode"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Zj0P",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "variation",
+                    "ParamKeyword": "Zj0Q",
+                    "ParamType": "long",
+                    "ParamDescription": "variation"
+                  },
+                  {
+                    "ParamName": "mask_mode",
+                    "ParamKeyword": "Zj0R",
+                    "ParamType": "long",
+                    "ParamDescription": "mask_mode"
+                  },
+                  {
+                    "ParamName": "flip_noise",
+                    "ParamKeyword": "Zj0S",
+                    "ParamType": "bool",
+                    "ParamDescription": "flip_noise"
+                  },
+                  {
+                    "ParamName": "preserve_hdr",
+                    "ParamKeyword": "Zj0T",
+                    "ParamType": "bool",
+                    "ParamDescription": "preserve_hdr"
+                  },
+                  {
+                    "ParamName": "invert_mask",
+                    "ParamKeyword": "Zj0U",
+                    "ParamType": "bool",
+                    "ParamDescription": "invert_mask"
+                  },
+                  {
+                    "ParamName": "mask_layer",
+                    "ParamKeyword": "Zj0V",
+                    "ParamType": "TEXT",
+                    "ParamDescription": "mask_layer"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

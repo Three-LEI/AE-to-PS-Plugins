@@ -76,7 +76,97 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/DisplacementMap=Displacement Map 置换图",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻"
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpDm"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Displacement Map",
+                "EventDescription": "Editable Displacement Map",
+                "ClassID": "ZpEf",
+                "EventType": "ZpDm",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "amount_x",
+                    "ParamKeyword": "Zd00",
+                    "ParamType": "doub",
+                    "ParamDescription": "amount_x"
+                  },
+                  {
+                    "ParamName": "amount_y",
+                    "ParamKeyword": "Zd01",
+                    "ParamType": "doub",
+                    "ParamDescription": "amount_y"
+                  },
+                  {
+                    "ParamName": "horizontal",
+                    "ParamKeyword": "Zd02",
+                    "ParamType": "long",
+                    "ParamDescription": "horizontal"
+                  },
+                  {
+                    "ParamName": "vertical",
+                    "ParamKeyword": "Zd03",
+                    "ParamType": "long",
+                    "ParamDescription": "vertical"
+                  },
+                  {
+                    "ParamName": "placement",
+                    "ParamKeyword": "Zd04",
+                    "ParamType": "long",
+                    "ParamDescription": "placement"
+                  },
+                  {
+                    "ParamName": "wrap",
+                    "ParamKeyword": "Zd05",
+                    "ParamType": "bool",
+                    "ParamDescription": "wrap"
+                  },
+                  {
+                    "ParamName": "layer_name_layer",
+                    "ParamKeyword": "Zd06",
+                    "ParamType": "TEXT",
+                    "ParamDescription": "layer_name_layer"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

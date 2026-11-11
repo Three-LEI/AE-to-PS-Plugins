@@ -69,3 +69,5 @@ python scripts/set-repository.py https://github.com/your-account/your-repository
 维护者发布下载包时，`scripts/github-release.py`使用Git已配置的GitHub登录会话，验证账号、目标仓库及上传资产哈希后发布；请仅对准备公开的`dist`文件显式调用该脚本。
 
 `qa/build-locale-probe.ps1 -Report <本地报告>`构建维护者专用语言诊断滤镜，记录原生属性和兼容路径返回值。该测试滤镜不进入发行整包，临时安装验证后应移除。
+
+0.36参数保存升级使用`qa/verify-persistence.py`审查；`qa/check-parameter-fields.py`独立核对逻辑参数覆盖，`qa/run-parameter-store.ps1`生成非默认夹具并验证类型化读写和失败路径，`qa/run-font-reset.ps1`检查实际图层名字形及重置操作。真实宿主的创建／重开测试见[PARAMETER_PERSISTENCE.md](PARAMETER_PERSISTENCE.md)。这些工具不属于插件运行依赖。

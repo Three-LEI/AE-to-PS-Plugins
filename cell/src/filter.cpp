@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "../../native/common/generator_filter_runtime.hpp"
 #include "cell_host.hpp"
+#include "parameter_schema.hpp"
 namespace {
 HINSTANCE instance=nullptr;
 struct Effect {

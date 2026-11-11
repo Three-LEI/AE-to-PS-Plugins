@@ -2,12 +2,15 @@
 #include <windows.h>
 #include "PIFilter.h"
 #include "psui/plugin_info.hpp"
+#include "descriptor_parameters.hpp"
 #include <algorithm>
 #include <cstring>
 namespace psfilter {
 template<class Effect> struct Runtime {
 static constexpr unsigned long saved_magic=Effect::magic;
 struct Saved { unsigned long magic=saved_magic; typename Effect::Parameters values; };
+static OSErr read_descriptor(FilterRecord* f,const std::vector<psui::HostLayer>& layers,typename Effect::Parameters& p,bool& interactive){return parameters::read<Effect>(f,layers,p,interactive);}
+static OSErr write_descriptor(FilterRecord* f,const std::vector<psui::HostLayer>& layers,const typename Effect::Parameters& p){return parameters::write<Effect>(f,layers,p);}
 
 static bool read_parameters(FilterRecord* f, Saved& saved) {
     const auto* h=f->handleProcs;
@@ -96,18 +99,21 @@ static void entry(HINSTANCE module_instance,const int16 selector,FilterRecord* f
             f->bufferSpace=0; f->bufferSpace64=0;
             break;
         case filterSelectorStart: {
-            const bool show_dialog=*data==1; *data=0;
+            bool show_dialog=*data==1; *data=0;
             if(!supported_mode(f->imageMode) || !supported_depth(f->depth) || f->planes<3) { *result=filterBadMode; break; }
             Saved saved; saved.values=Effect::defaults(f);
             if(!read_parameters(f,saved)) { *result=memFullErr; break; }
+            const std::vector<psui::HostLayer> layers;
+            if((*result=read_descriptor(f,layers,saved.values,show_dialog)))break;
             if(show_dialog) {
                 auto next=saved.values;
                 HWND parent=f->platformData ? reinterpret_cast<HWND>(reinterpret_cast<PlatformData*>(f->platformData)->hwnd) : nullptr;
                 const auto answer=Effect::dialog(module_instance,parent,f,next);
                 if(answer!=IDOK) { *result=answer==-1 ? filterBadParameters : (answer<0 ? static_cast<int16>(answer) : userCanceledErr); break; }
                 saved.values=next;
-                if(!save_parameters(f,saved)) { *result=memFullErr; break; }
             }
+            if((*result=write_descriptor(f,layers,saved.values)))break;
+            if(!save_parameters(f,saved)) { *result=memFullErr; break; }
             f->autoMask=true;
             f->wantLayout=0; // SDK traditional layout: rows, columns, planes.
             const auto all=full_rect(f);

@@ -76,7 +76,145 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/CellPattern=Cell Pattern 单元格图案",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻"
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpCe"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Cell Pattern",
+                "EventDescription": "Editable Cell Pattern",
+                "ClassID": "ZpEf",
+                "EventType": "ZpCe",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "contrast",
+                    "ParamKeyword": "Ze00",
+                    "ParamType": "doub",
+                    "ParamDescription": "contrast"
+                  },
+                  {
+                    "ParamName": "disperse",
+                    "ParamKeyword": "Ze01",
+                    "ParamType": "doub",
+                    "ParamDescription": "disperse"
+                  },
+                  {
+                    "ParamName": "size",
+                    "ParamKeyword": "Ze02",
+                    "ParamType": "doub",
+                    "ParamDescription": "size"
+                  },
+                  {
+                    "ParamName": "offset_x",
+                    "ParamKeyword": "Ze03",
+                    "ParamType": "doub",
+                    "ParamDescription": "offset_x"
+                  },
+                  {
+                    "ParamName": "offset_y",
+                    "ParamKeyword": "Ze04",
+                    "ParamType": "doub",
+                    "ParamDescription": "offset_y"
+                  },
+                  {
+                    "ParamName": "evolution",
+                    "ParamKeyword": "Ze05",
+                    "ParamType": "doub",
+                    "ParamDescription": "evolution"
+                  },
+                  {
+                    "ParamName": "mode",
+                    "ParamKeyword": "Ze06",
+                    "ParamType": "long",
+                    "ParamDescription": "mode"
+                  },
+                  {
+                    "ParamName": "overflow",
+                    "ParamKeyword": "Ze07",
+                    "ParamType": "long",
+                    "ParamDescription": "overflow"
+                  },
+                  {
+                    "ParamName": "cells_x",
+                    "ParamKeyword": "Ze08",
+                    "ParamType": "long",
+                    "ParamDescription": "cells_x"
+                  },
+                  {
+                    "ParamName": "cells_y",
+                    "ParamKeyword": "Ze09",
+                    "ParamType": "long",
+                    "ParamDescription": "cells_y"
+                  },
+                  {
+                    "ParamName": "cycle",
+                    "ParamKeyword": "Ze0A",
+                    "ParamType": "long",
+                    "ParamDescription": "cycle"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Ze0B",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "invert",
+                    "ParamKeyword": "Ze0C",
+                    "ParamType": "bool",
+                    "ParamDescription": "invert"
+                  },
+                  {
+                    "ParamName": "tiling",
+                    "ParamKeyword": "Ze0D",
+                    "ParamType": "bool",
+                    "ParamDescription": "tiling"
+                  },
+                  {
+                    "ParamName": "cycle_evolution",
+                    "ParamKeyword": "Ze0E",
+                    "ParamType": "bool",
+                    "ParamDescription": "cycle_evolution"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

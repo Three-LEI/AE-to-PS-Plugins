@@ -9,18 +9,21 @@ template<class Effect> struct GeneratorRuntime {
  using Store=Runtime<Effect>;
  using Session=typename Base::Session;
  static int16 start(HINSTANCE module,FilterRecord* f,intptr_t* data){
-  const bool interactive=*data==1;*data=0;
+  bool interactive=*data==1;*data=0;
   if(f->abortProc&&f->abortProc())return userCanceledErr;
   if((f->depth!=8&&f->depth!=16&&f->depth!=32)||f->planes<3||
    (f->imageMode!=plugInModeRGBColor&&f->imageMode!=plugInModeRGB48&&f->imageMode!=plugInModeRGB96))return filterBadMode;
   auto session=std::make_unique<Session>();session->saved.values=Effect::defaults(f);
   if(!Store::read_parameters(f,session->saved))return filterBadParameters;
+  const std::vector<psui::HostLayer> layers;
+  if(const auto error=Store::read_descriptor(f,layers,session->saved.values,interactive))return error;
   if(interactive){
    HWND owner=f->platformData?reinterpret_cast<HWND>(reinterpret_cast<PlatformData*>(f->platformData)->hwnd):nullptr;
    const auto answer=Effect::dialog(module,owner,f,session->saved.values);
    if(answer!=IDOK)return answer<0?int16(answer):userCanceledErr;
   }
   if(!Effect::valid(session->saved.values))return filterBadParameters;
+  if(const auto error=Store::write_descriptor(f,layers,session->saved.values))return error;
   if(!Store::save_parameters(f,session->saved))return memFullErr;
   f->autoMask=true;f->wantLayout=0;f->inputRate=f->maskRate=65536;
   const auto all=Store::full_rect(f);Base::request(f,all.right>all.left&&all.bottom>all.top?Store::tile(all.left,all.top,all):VRect{});

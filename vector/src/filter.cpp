@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "../../native/common/cached_filter_runtime.hpp"
 #include "vector_host.hpp"
+#include "parameter_schema.hpp"
 namespace {
 HINSTANCE instance=nullptr;
 struct Effect {

@@ -1,0 +1,20 @@
+var ZySmart=(function(){
+ var s=stringIDToTypeID,c=charIDToTypeID;
+ function select(id){var r=new ActionReference();r.putIdentifier(c('Lyr '),id);var d=new ActionDescriptor();d.putReference(c('null'),r);d.putBoolean(c('MkVs'),false);executeAction(c('slct'),d,DialogModes.NO);}
+ function layer(id){var r=new ActionReference();r.putIdentifier(c('Lyr '),id);return executeActionGet(r);}
+ function filters(id){return layer(id).getObjectValue(s('smartObject')).getList(s('filterFX'));}
+ function state(id,index){var fx=filters(id).getObjectValue(index-1);return {event:fx.getObjectType(s('filter')),parameters:fx.getObjectValue(s('filter')),item:fx};}
+ function set(id,index,event,parameters,dialogs){var r=new ActionReference();r.putIndex(s('filterFX'),index);r.putIdentifier(c('Lyr '),id);var d=new ActionDescriptor();d.putReference(c('null'),r);var fx=new ActionDescriptor();fx.putObject(s('filter'),event,parameters);d.putObject(s('filterFX'),s('filterFX'),fx);return executeAction(c('setd'),d,dialogs===undefined?DialogModes.NO:dialogs);}
+ function findNames(layers,name,result){for(var i=0;i<layers.length;i++){var l=layers[i];if(l.name===name)result.push(l);if(l.typename==='LayerSet')findNames(l.layers,name,result);}}
+ function refresh(id,index){var x=state(id,index),p=x.parameters,name=p.getString(c('ZyNm')),refID=p.getInteger(c('ZyId'));
+  if(name){if(refID>0){var ref=layer(refID);name=ref.getString(c('Nm  '));}var matches=[];findNames(app.activeDocument.layers,name,matches);if(matches.length!==1)throw Error('Reference layer must have a unique name: '+name);if(refID>0&&matches[0].id!==refID)throw Error('Reference layer identity changed: '+name);p.putInteger(c('ZyId'),matches[0].id);p.putString(c('ZyNm'),name);}
+  p.putInteger(c('ZyRf'),(p.getInteger(c('ZyRf'))+1)%1000000000);set(id,index,x.event,p);return state(id,index);}
+ function params(kind,mapID,mapName,variant){
+  var d=new ActionDescriptor();d.putInteger(c('ZySv'),1);d.putInteger(c('ZyKd'),kind);d.putInteger(c('ZyPr'),5);d.putInteger(c('ZyLt'),1);d.putInteger(c('ZyId'),mapID||0);d.putString(c('ZyNm'),mapName||'');d.putInteger(c('ZyRf'),0);
+  var keys=['ZySf','ZyCt','ZyHt','ZyDp','ZyIn','ZyLH','ZyLX','ZyLY','ZyDr','ZyAm','ZyDf','ZySp','ZyRo','ZyMe','ZyLR','ZyLG','ZyLB'];
+  var vals=variant?[11,32,-27,119,137,58,37,49,22,59,41,63,.17,38,.3,.8,.6]:[7,25,41,73,100,65,17,29,-45,67,23,36,.11,17,.8,.4,.2];
+  for(var i=0;i<keys.length;i++)d.putDouble(c(keys[i]),vals[i]);return d;
+ }
+ function report(id,index){var x=state(id,index),d=x.parameters,r={event:typeIDToCharID(x.event),version:d.getInteger(c('ZySv')),kind:d.getInteger(c('ZyKd')),softness:d.getDouble(c('ZySf')),height:d.getDouble(c('ZyHt')),map_id:d.getInteger(c('ZyId')),map_name:d.getString(c('ZyNm')),revision:d.getInteger(c('ZyRf')),light_x:d.getDouble(c('ZyLX')),light_y:d.getDouble(c('ZyLY')),light_red:d.getDouble(c('ZyLR'))};var keys=['ZyCt','ZyDp','ZyIn','ZyLH','ZyDr','ZyAm','ZyDf','ZySp','ZyRo','ZyMe','ZyLG','ZyLB'];for(var i=0;i<keys.length;i++)r[keys[i]]=d.getDouble(c(keys[i]));r.property=d.getInteger(c('ZyPr'));r.light_type=d.getInteger(c('ZyLt'));return r;}
+ return {select:select,layer:layer,filters:filters,state:state,set:set,refresh:refresh,params:params,report:report};
+})();

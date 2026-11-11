@@ -9,6 +9,7 @@ $out=Join-Path $PSScriptRoot 'build'
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 $flags=@('-std=c++20','-O3','-ffp-contract=off','-Wall','-Wextra','-Wpedantic','-static','-I',"$PSScriptRoot\include",'-I',"$project\native\ui\include",'-I',"$project\displacement\include",'-I',$aepsPaths.ImGui)
 $flags+=$aepsPaths.CompilerFlags
+$flags+=@('-I',"$PSScriptRoot\build")
 & $compiler @flags "$PSScriptRoot\src\glow_core.cpp" "$PSScriptRoot\tests\core_tests.cpp" "$PSScriptRoot\tests\strength_tests.cpp" -o "$out\core_tests.exe"
 if($LASTEXITCODE -ne 0){throw 'Glow core build failed'}
 & "$out\core_tests.exe" | Tee-Object "$out\core-test-results.txt"

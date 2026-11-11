@@ -6,6 +6,7 @@
 namespace fractal {
 INT_PTR show_dialog(HINSTANCE, HWND, FilterRecord *, Parameters &);
 }
+#include "parameter_schema.hpp"
 namespace {
 HINSTANCE module_instance = nullptr;
 struct FractalEffect {

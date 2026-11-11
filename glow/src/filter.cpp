@@ -4,6 +4,7 @@
 #include "glow_host.hpp"
 #include <cmath>
 #include <memory>
+#include "parameter_schema.hpp"
 namespace {
 HINSTANCE instance=nullptr;
 struct Metadata {
@@ -30,7 +31,7 @@ OSErr read_optional(FilterRecord* f,const std::vector<psui::HostLayer>& layers,s
  if(!error)image=glow::from_host(std::move(pixels));return error;
 }
 int16 start(FilterRecord* f,intptr_t* data){
- const bool interactive=*data==1;*data=0;
+ bool interactive=*data==1;*data=0;
  if((f->depth!=8&&f->depth!=16&&f->depth!=32)||f->planes<3||
   (f->imageMode!=plugInModeRGBColor&&f->imageMode!=plugInModeRGB48&&f->imageMode!=plugInModeRGB96))return filterBadMode;
  if(!f->documentInfo||!f->channelPortProcs||!f->channelPortProcs->readPixelsProc)
@@ -44,6 +45,7 @@ int16 start(FilterRecord* f,intptr_t* data){
  psui::LayerPixels pixels;auto error=psui::host_read_layer(f,target,f->documentInfo->bounds,0,pixels);if(error)return error;
  auto source=glow::from_host(std::move(pixels));glow::Image mask,texture;
  const auto layers=psui::host_layers(f);
+ if((error=Store::read_descriptor(f,layers,s->saved.values,interactive)))return error;
  if(interactive){
   HWND parent=f->platformData?reinterpret_cast<HWND>(reinterpret_cast<PlatformData*>(f->platformData)->hwnd):nullptr;
   const auto answer=glow::show_dialog(instance,parent,f,source,layers,s->saved.values,mask,texture);
@@ -56,6 +58,7 @@ int16 start(FilterRecord* f,intptr_t* data){
  if(f->progressProc)f->progressProc(0,100);
  if(!glow::render(source,s->saved.values,s->output,mask.valid()?&mask:nullptr,texture.valid()?&texture:nullptr,cancel))
   return cancel()?userCanceledErr:filterBadParameters;
+ if((error=Store::write_descriptor(f,layers,s->saved.values)))return error;
  if(!Store::save_parameters(f,s->saved))return memFullErr;
  f->autoMask=true;f->wantLayout=0;f->inputRate=f->maskRate=65536;
  const auto all=Store::full_rect(f);request(f,all.right>all.left&&all.bottom>all.top?Store::tile(all.left,all.top,all):VRect{});

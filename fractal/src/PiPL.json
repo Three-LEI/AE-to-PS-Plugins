@@ -76,7 +76,217 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/FractalNoise=Fractal Noise 分形杂色",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻"
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpFn"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Fractal Noise",
+                "EventDescription": "Editable Fractal Noise",
+                "ClassID": "ZpEf",
+                "EventType": "ZpFn",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "contrast",
+                    "ParamKeyword": "Zf00",
+                    "ParamType": "doub",
+                    "ParamDescription": "contrast"
+                  },
+                  {
+                    "ParamName": "brightness",
+                    "ParamKeyword": "Zf01",
+                    "ParamType": "doub",
+                    "ParamDescription": "brightness"
+                  },
+                  {
+                    "ParamName": "scale",
+                    "ParamKeyword": "Zf02",
+                    "ParamType": "doub",
+                    "ParamDescription": "scale"
+                  },
+                  {
+                    "ParamName": "rotation",
+                    "ParamKeyword": "Zf03",
+                    "ParamType": "doub",
+                    "ParamDescription": "rotation"
+                  },
+                  {
+                    "ParamName": "offset_x",
+                    "ParamKeyword": "Zf04",
+                    "ParamType": "doub",
+                    "ParamDescription": "offset_x"
+                  },
+                  {
+                    "ParamName": "offset_y",
+                    "ParamKeyword": "Zf05",
+                    "ParamType": "doub",
+                    "ParamDescription": "offset_y"
+                  },
+                  {
+                    "ParamName": "complexity",
+                    "ParamKeyword": "Zf06",
+                    "ParamType": "doub",
+                    "ParamDescription": "complexity"
+                  },
+                  {
+                    "ParamName": "sub_influence",
+                    "ParamKeyword": "Zf07",
+                    "ParamType": "doub",
+                    "ParamDescription": "sub_influence"
+                  },
+                  {
+                    "ParamName": "sub_scale",
+                    "ParamKeyword": "Zf08",
+                    "ParamType": "doub",
+                    "ParamDescription": "sub_scale"
+                  },
+                  {
+                    "ParamName": "evolution",
+                    "ParamKeyword": "Zf09",
+                    "ParamType": "doub",
+                    "ParamDescription": "evolution"
+                  },
+                  {
+                    "ParamName": "opacity",
+                    "ParamKeyword": "Zf0A",
+                    "ParamType": "doub",
+                    "ParamDescription": "opacity"
+                  },
+                  {
+                    "ParamName": "scale_width",
+                    "ParamKeyword": "Zf0B",
+                    "ParamType": "doub",
+                    "ParamDescription": "scale_width"
+                  },
+                  {
+                    "ParamName": "scale_height",
+                    "ParamKeyword": "Zf0C",
+                    "ParamType": "doub",
+                    "ParamDescription": "scale_height"
+                  },
+                  {
+                    "ParamName": "sub_rotation",
+                    "ParamKeyword": "Zf0D",
+                    "ParamType": "doub",
+                    "ParamDescription": "sub_rotation"
+                  },
+                  {
+                    "ParamName": "sub_offset_x",
+                    "ParamKeyword": "Zf0E",
+                    "ParamType": "doub",
+                    "ParamDescription": "sub_offset_x"
+                  },
+                  {
+                    "ParamName": "sub_offset_y",
+                    "ParamKeyword": "Zf0F",
+                    "ParamType": "doub",
+                    "ParamDescription": "sub_offset_y"
+                  },
+                  {
+                    "ParamName": "cycles",
+                    "ParamKeyword": "Zf0G",
+                    "ParamType": "doub",
+                    "ParamDescription": "cycles"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Zf0H",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "fractal",
+                    "ParamKeyword": "Zf0I",
+                    "ParamType": "long",
+                    "ParamDescription": "fractal"
+                  },
+                  {
+                    "ParamName": "noise",
+                    "ParamKeyword": "Zf0J",
+                    "ParamType": "long",
+                    "ParamDescription": "noise"
+                  },
+                  {
+                    "ParamName": "overflow",
+                    "ParamKeyword": "Zf0K",
+                    "ParamType": "long",
+                    "ParamDescription": "overflow"
+                  },
+                  {
+                    "ParamName": "blend",
+                    "ParamKeyword": "Zf0L",
+                    "ParamType": "long",
+                    "ParamDescription": "blend"
+                  },
+                  {
+                    "ParamName": "invert",
+                    "ParamKeyword": "Zf0M",
+                    "ParamType": "bool",
+                    "ParamDescription": "invert"
+                  },
+                  {
+                    "ParamName": "uniform_scale",
+                    "ParamKeyword": "Zf0N",
+                    "ParamType": "bool",
+                    "ParamDescription": "uniform_scale"
+                  },
+                  {
+                    "ParamName": "perspective_offset",
+                    "ParamKeyword": "Zf0O",
+                    "ParamType": "bool",
+                    "ParamDescription": "perspective_offset"
+                  },
+                  {
+                    "ParamName": "center_subscale",
+                    "ParamKeyword": "Zf0P",
+                    "ParamType": "bool",
+                    "ParamDescription": "center_subscale"
+                  },
+                  {
+                    "ParamName": "cycle_evolution",
+                    "ParamKeyword": "Zf0Q",
+                    "ParamType": "bool",
+                    "ParamDescription": "cycle_evolution"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

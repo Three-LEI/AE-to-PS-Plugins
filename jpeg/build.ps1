@@ -9,6 +9,7 @@ $out=Join-Path $PSScriptRoot 'build'
 New-Item -ItemType Directory -Path $out -Force | Out-Null
 $flags=@('-std=c++20','-O3','-ffp-contract=off','-static','-Wall','-Wextra','-Wpedantic','-I',"$PSScriptRoot\include",'-I',"$project\native\ui\include",'-I',"$project\displacement\include",'-I',$aepsPaths.ImGui)
 $flags+=$aepsPaths.CompilerFlags
+$flags+=@('-I',"$PSScriptRoot\build")
 & $cxx @flags "$PSScriptRoot\src\jpeg_core.cpp" "$PSScriptRoot\tests\core_tests.cpp" '-o' "$out\core_tests.exe"
 if($LASTEXITCODE -ne 0){throw 'JPEG core build failed'}
 & "$out\core_tests.exe" "$project\evidence\jpeg-v01\renders" | Tee-Object "$out\core-results.txt"

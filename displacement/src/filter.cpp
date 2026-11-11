@@ -11,6 +11,7 @@
 #include <fstream>
 #include <filesystem>
 #endif
+#include "parameter_schema.hpp"
 namespace {
 HINSTANCE instance=nullptr;
 struct Metadata {
@@ -41,7 +42,7 @@ void request(FilterRecord* f,VRect r){
 }
 VRect tile_at(int x,int y,VRect all){return {y,x,y+std::min(64,all.bottom-y),x+std::min(512,all.right-x)};}
 int16 start(FilterRecord* f,intptr_t* data){
- const bool interactive=*data==1;*data=0;
+ bool interactive=*data==1;*data=0;
  if((f->depth!=8&&f->depth!=16&&f->depth!=32)||f->planes<3||
    (f->imageMode!=plugInModeRGBColor&&f->imageMode!=plugInModeRGB48&&f->imageMode!=plugInModeRGB96))return filterBadMode;
  auto layers=psui::host_layers(f);
@@ -60,6 +61,7 @@ int16 start(FilterRecord* f,intptr_t* data){
  auto session=std::make_unique<Session>();
  if(!Store::read_parameters(f,session->saved))return memFullErr;
  auto& p=session->saved.values;
+ if(const auto error=Store::read_descriptor(f,layers,p,interactive))return error;
  // SDK sheetID is a per-invocation layer index in Photoshop 27.7, not the
  // persistent Action Manager layer ID. Validate a saved reference by its name.
  auto map=layers.end();
@@ -87,6 +89,7 @@ int16 start(FilterRecord* f,intptr_t* data){
   psui::LayerPixels pixels;error=psui::host_read_layer(f,*map,displacement::layer_bounds(*map),0,pixels);
   if(error)return error;session->map=displacement::from_host(std::move(pixels));
  }
+ if(const auto error=Store::write_descriptor(f,layers,p))return error;
  if(!Store::save_parameters(f,session->saved))return memFullErr;
  f->autoMask=true;f->wantLayout=0;f->inputRate=f->maskRate=65536;
  const auto all=Store::full_rect(f);

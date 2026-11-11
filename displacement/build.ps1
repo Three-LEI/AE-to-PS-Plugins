@@ -9,6 +9,7 @@ $out=Join-Path $PSScriptRoot 'build'
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 $flags=@('-std=c++20','-O3','-ffp-contract=off','-Wall','-Wextra','-Wpedantic','-static','-I',"$PSScriptRoot\include",'-I',"$project\native\ui\include",'-I',$aepsPaths.ImGui)
 $flags+=$aepsPaths.CompilerFlags
+$flags+=@('-I',"$PSScriptRoot\build")
 if($PortProbe){$flags+='-DZAYU_PORT_PROBE'}
 & $compiler @flags "$PSScriptRoot\src\displacement_core.cpp" "$PSScriptRoot\tests\core_tests.cpp" -o "$out\core_tests.exe"
 if($LASTEXITCODE -ne 0){throw 'Displacement core build failed'}

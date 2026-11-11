@@ -76,7 +76,97 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/Tint=Tint 色调",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻"
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpTi"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Tint",
+                "EventDescription": "Editable Tint",
+                "ClassID": "ZpEf",
+                "EventType": "ZpTi",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "amount",
+                    "ParamKeyword": "Zt00",
+                    "ParamType": "doub",
+                    "ParamDescription": "amount"
+                  },
+                  {
+                    "ParamName": "black0",
+                    "ParamKeyword": "Zt01",
+                    "ParamType": "doub",
+                    "ParamDescription": "black0"
+                  },
+                  {
+                    "ParamName": "black1",
+                    "ParamKeyword": "Zt02",
+                    "ParamType": "doub",
+                    "ParamDescription": "black1"
+                  },
+                  {
+                    "ParamName": "black2",
+                    "ParamKeyword": "Zt03",
+                    "ParamType": "doub",
+                    "ParamDescription": "black2"
+                  },
+                  {
+                    "ParamName": "white0",
+                    "ParamKeyword": "Zt04",
+                    "ParamType": "doub",
+                    "ParamDescription": "white0"
+                  },
+                  {
+                    "ParamName": "white1",
+                    "ParamKeyword": "Zt05",
+                    "ParamType": "doub",
+                    "ParamDescription": "white1"
+                  },
+                  {
+                    "ParamName": "white2",
+                    "ParamKeyword": "Zt06",
+                    "ParamType": "doub",
+                    "ParamDescription": "white2"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

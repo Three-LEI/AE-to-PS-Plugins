@@ -76,7 +76,109 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/CCLens=Lens 镜头",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻"
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpLn"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Lens",
+                "EventDescription": "Editable Lens",
+                "ClassID": "ZpEf",
+                "EventType": "ZpLn",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "fov",
+                    "ParamKeyword": "Zl00",
+                    "ParamType": "doub",
+                    "ParamDescription": "fov"
+                  },
+                  {
+                    "ParamName": "cx",
+                    "ParamKeyword": "Zl01",
+                    "ParamType": "doub",
+                    "ParamDescription": "cx"
+                  },
+                  {
+                    "ParamName": "cy",
+                    "ParamKeyword": "Zl02",
+                    "ParamType": "doub",
+                    "ParamDescription": "cy"
+                  },
+                  {
+                    "ParamName": "size",
+                    "ParamKeyword": "Zl03",
+                    "ParamType": "doub",
+                    "ParamDescription": "size"
+                  },
+                  {
+                    "ParamName": "convergence",
+                    "ParamKeyword": "Zl04",
+                    "ParamType": "doub",
+                    "ParamDescription": "convergence"
+                  },
+                  {
+                    "ParamName": "kind",
+                    "ParamKeyword": "Zl05",
+                    "ParamType": "long",
+                    "ParamDescription": "kind"
+                  },
+                  {
+                    "ParamName": "axis",
+                    "ParamKeyword": "Zl06",
+                    "ParamType": "long",
+                    "ParamDescription": "axis"
+                  },
+                  {
+                    "ParamName": "reverse",
+                    "ParamKeyword": "Zl07",
+                    "ParamType": "bool",
+                    "ParamDescription": "reverse"
+                  },
+                  {
+                    "ParamName": "optimal",
+                    "ParamKeyword": "Zl08",
+                    "ParamType": "bool",
+                    "ParamDescription": "optimal"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

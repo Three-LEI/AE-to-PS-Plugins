@@ -76,7 +76,157 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/Grid=Grid 网格",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻"
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpGr"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Grid",
+                "EventDescription": "Editable Grid",
+                "ClassID": "ZpEf",
+                "EventType": "ZpGr",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "anchor_x",
+                    "ParamKeyword": "Zp00",
+                    "ParamType": "doub",
+                    "ParamDescription": "anchor_x"
+                  },
+                  {
+                    "ParamName": "anchor_y",
+                    "ParamKeyword": "Zp01",
+                    "ParamType": "doub",
+                    "ParamDescription": "anchor_y"
+                  },
+                  {
+                    "ParamName": "corner_x",
+                    "ParamKeyword": "Zp02",
+                    "ParamType": "doub",
+                    "ParamDescription": "corner_x"
+                  },
+                  {
+                    "ParamName": "corner_y",
+                    "ParamKeyword": "Zp03",
+                    "ParamType": "doub",
+                    "ParamDescription": "corner_y"
+                  },
+                  {
+                    "ParamName": "width",
+                    "ParamKeyword": "Zp04",
+                    "ParamType": "doub",
+                    "ParamDescription": "width"
+                  },
+                  {
+                    "ParamName": "height",
+                    "ParamKeyword": "Zp05",
+                    "ParamType": "doub",
+                    "ParamDescription": "height"
+                  },
+                  {
+                    "ParamName": "border",
+                    "ParamKeyword": "Zp06",
+                    "ParamType": "doub",
+                    "ParamDescription": "border"
+                  },
+                  {
+                    "ParamName": "feather_x",
+                    "ParamKeyword": "Zp07",
+                    "ParamType": "doub",
+                    "ParamDescription": "feather_x"
+                  },
+                  {
+                    "ParamName": "feather_y",
+                    "ParamKeyword": "Zp08",
+                    "ParamType": "doub",
+                    "ParamDescription": "feather_y"
+                  },
+                  {
+                    "ParamName": "opacity",
+                    "ParamKeyword": "Zp09",
+                    "ParamType": "doub",
+                    "ParamDescription": "opacity"
+                  },
+                  {
+                    "ParamName": "rotation",
+                    "ParamKeyword": "Zp0A",
+                    "ParamType": "doub",
+                    "ParamDescription": "rotation"
+                  },
+                  {
+                    "ParamName": "size_from",
+                    "ParamKeyword": "Zp0B",
+                    "ParamType": "long",
+                    "ParamDescription": "size_from"
+                  },
+                  {
+                    "ParamName": "blend",
+                    "ParamKeyword": "Zp0C",
+                    "ParamType": "long",
+                    "ParamDescription": "blend"
+                  },
+                  {
+                    "ParamName": "invert",
+                    "ParamKeyword": "Zp0D",
+                    "ParamType": "bool",
+                    "ParamDescription": "invert"
+                  },
+                  {
+                    "ParamName": "color0",
+                    "ParamKeyword": "Zp0E",
+                    "ParamType": "doub",
+                    "ParamDescription": "color0"
+                  },
+                  {
+                    "ParamName": "color1",
+                    "ParamKeyword": "Zp0F",
+                    "ParamType": "doub",
+                    "ParamDescription": "color1"
+                  },
+                  {
+                    "ParamName": "color2",
+                    "ParamKeyword": "Zp0G",
+                    "ParamType": "doub",
+                    "ParamDescription": "color2"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

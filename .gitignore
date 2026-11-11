@@ -51,6 +51,9 @@ Thumbs.db
 /tests/
 **/tests/*.jsx
 **/tests/*.jsxinc
+!surface/tests/smart_helpers.jsxinc
+!creative/tests/smart_helpers.jsxinc
+!roughen/tests/smart_helpers.jsxinc
 **/tests/*.py
 **/tests/*.ps1
 !native/tests/build-scrub-tests.ps1

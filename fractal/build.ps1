@@ -10,6 +10,7 @@ $tintOut=Join-Path $PSScriptRoot 'build'
 New-Item -ItemType Directory -Path $tintOut -Force | Out-Null
 $tintFlags=@('-std=c++20','-O3','-ffp-contract=off','-Wall','-Wextra','-Wpedantic','-static','-I',"$PSScriptRoot\include",'-I',"$tintNative\ui\include")
 $tintFlags+=$aepsPaths.CompilerFlags
+$tintFlags+=@('-I',"$PSScriptRoot\build")
 & $tintCxx @tintFlags "$PSScriptRoot\src\fractal_core.cpp" "$PSScriptRoot\tests\core_tests.cpp" '-o' "$tintOut\core_tests.exe"
 if($LASTEXITCODE -ne 0){throw 'Fractal core build failed'}
 Push-Location $tintOut

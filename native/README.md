@@ -1,5 +1,7 @@
 0.21 图标微调：按用户参考图重绘空心吸管图标，使用圆润胶头、圆角护圈、细长管身和渐窄尖端。新增可复用 ui/include/psui/icons.hpp，统一跟随主题文字色与 DPI 缩放。按钮无边框、无背景，仅在悬停/按下时将图标变为蓝色。此次只修改按钮图形及显示版本，保持原有全屏取色、拖动操作与 PS 原生吸管鼠标指针。100%/200% 共用面板已检查。
 
+整包0.36-rc1：本效果已接入完整智能滤镜参数保存，可随PSD保留并重编辑；使用方法与旧文件限制见[共用说明](../docs/PARAMETER_PERSISTENCE.md)。
+
 0.20 共用吸管增强：色块旁改为 PS 风格矢量吸管图标，鼠标指针通过官方 UI Hooks 使用 PS 原生吸管。支持点击后选色，也支持按住图标拖至目标、松开取色。缩览图采样当前预览；画布、其它软件、桌面及界面区域统一读取屏幕显示 RGB，不调用宿主交互式 SamplePoint，完整支持全屏幕取色，无法读取时保持原色。支持负坐标多显示器，预览缩放/平移/裁切，Esc/右键取消以及鼠标捕获清理。版本：Tint 0.21 / Fractal Noise 0.15 / Displacement Map 0.8 / Glow 0.6 / Deep Glow 0.7 / Chromatic Dispersion 0.5 / Vector Blur 0.5 / Grid 0.4 / Checkerboard 0.4。
 
 0.19 共用颜色控件：保留 PS 原生拾色器，在所有颜色块旁新增“取色 / Pick”，可从缩览图的可见结果取色，也可请求 PS 从窗口外的画布采样；Esc/右键/丢失鼠标捕获取消，无法取色的位置保留模式以便重试。统一处理缩放/平移/裁切、显示色彩管理之前的 RGB、目标隔离与鼠标捕获清理，不修改前景色、图层或预览视点。新效果复用 LibraryPanel::color_swatch / color_control 即可继承。详见 native/ui/COLOR-CONTROLS.md。版本：Tint 0.20 / Fractal Noise 0.14 / Displacement Map 0.7 / Glow 0.5 / Deep Glow 0.6 / Chromatic Dispersion 0.4 / Vector Blur 0.4 / Grid 0.3 / Checkerboard 0.3。
@@ -77,7 +79,7 @@ Windows x64 Photoshop `.8bf`，独立 C++ 实现，不调用 AE、不加载 `.ae
 
 `output = input + amount (mapped - input)`
 
-亮度系数、量化和色彩空间仍是待 AE 实测校准的复刻模型。HEX 解释为当前图像的数值 RGB。内核已有 PS16（白色 32768）和 float32，但 `.8bf` 尚未开放这些位深。尚无动作参数描述或智能滤镜参数重编辑。
+亮度系数、量化和色彩空间仍是待 AE 实测校准的复刻模型。HEX 解释为当前图像的数值 RGB。内核已有 PS16（白色 32768）和 float32，但 `.8bf` 尚未开放这些位深。智能滤镜参数保存见上方共用说明。
 
 ## 构建
 

@@ -76,7 +76,325 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/ChromaticDispersion=Chromatic Dispersion 色差色散",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻"
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpCd"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Chromatic Dispersion",
+                "EventDescription": "Editable Chromatic Dispersion",
+                "ClassID": "ZpEf",
+                "EventType": "ZpCd",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "amount",
+                    "ParamKeyword": "Zh00",
+                    "ParamType": "doub",
+                    "ParamDescription": "amount"
+                  },
+                  {
+                    "ParamName": "angle",
+                    "ParamKeyword": "Zh01",
+                    "ParamType": "doub",
+                    "ParamDescription": "angle"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Zh02",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  },
+                  {
+                    "ParamName": "center_x",
+                    "ParamKeyword": "Zh03",
+                    "ParamType": "doub",
+                    "ParamDescription": "center_x"
+                  },
+                  {
+                    "ParamName": "center_y",
+                    "ParamKeyword": "Zh04",
+                    "ParamType": "doub",
+                    "ParamDescription": "center_y"
+                  },
+                  {
+                    "ParamName": "protect",
+                    "ParamKeyword": "Zh05",
+                    "ParamType": "doub",
+                    "ParamDescription": "protect"
+                  },
+                  {
+                    "ParamName": "falloff_power",
+                    "ParamKeyword": "Zh06",
+                    "ParamType": "doub",
+                    "ParamDescription": "falloff_power"
+                  },
+                  {
+                    "ParamName": "softness",
+                    "ParamKeyword": "Zh07",
+                    "ParamType": "doub",
+                    "ParamDescription": "softness"
+                  },
+                  {
+                    "ParamName": "dispersion_power",
+                    "ParamKeyword": "Zh08",
+                    "ParamType": "doub",
+                    "ParamDescription": "dispersion_power"
+                  },
+                  {
+                    "ParamName": "hue",
+                    "ParamKeyword": "Zh09",
+                    "ParamType": "doub",
+                    "ParamDescription": "hue"
+                  },
+                  {
+                    "ParamName": "saturation",
+                    "ParamKeyword": "Zh0A",
+                    "ParamType": "doub",
+                    "ParamDescription": "saturation"
+                  },
+                  {
+                    "ParamName": "gamma",
+                    "ParamKeyword": "Zh0B",
+                    "ParamType": "doub",
+                    "ParamDescription": "gamma"
+                  },
+                  {
+                    "ParamName": "threshold",
+                    "ParamKeyword": "Zh0C",
+                    "ParamType": "doub",
+                    "ParamDescription": "threshold"
+                  },
+                  {
+                    "ParamName": "knee",
+                    "ParamKeyword": "Zh0D",
+                    "ParamType": "doub",
+                    "ParamDescription": "knee"
+                  },
+                  {
+                    "ParamName": "mode",
+                    "ParamKeyword": "Zh0E",
+                    "ParamType": "long",
+                    "ParamDescription": "mode"
+                  },
+                  {
+                    "ParamName": "geometry",
+                    "ParamKeyword": "Zh0F",
+                    "ParamType": "long",
+                    "ParamDescription": "geometry"
+                  },
+                  {
+                    "ParamName": "samples",
+                    "ParamKeyword": "Zh0G",
+                    "ParamType": "long",
+                    "ParamDescription": "samples"
+                  },
+                  {
+                    "ParamName": "edge",
+                    "ParamKeyword": "Zh0H",
+                    "ParamType": "long",
+                    "ParamDescription": "edge"
+                  },
+                  {
+                    "ParamName": "alpha",
+                    "ParamKeyword": "Zh0I",
+                    "ParamType": "long",
+                    "ParamDescription": "alpha"
+                  },
+                  {
+                    "ParamName": "mask_mode",
+                    "ParamKeyword": "Zh0J",
+                    "ParamType": "long",
+                    "ParamDescription": "mask_mode"
+                  },
+                  {
+                    "ParamName": "reverse",
+                    "ParamKeyword": "Zh0K",
+                    "ParamType": "bool",
+                    "ParamDescription": "reverse"
+                  },
+                  {
+                    "ParamName": "falloff",
+                    "ParamKeyword": "Zh0L",
+                    "ParamType": "bool",
+                    "ParamDescription": "falloff"
+                  },
+                  {
+                    "ParamName": "invert_falloff",
+                    "ParamKeyword": "Zh0M",
+                    "ParamType": "bool",
+                    "ParamDescription": "invert_falloff"
+                  },
+                  {
+                    "ParamName": "linear_light",
+                    "ParamKeyword": "Zh0N",
+                    "ParamType": "bool",
+                    "ParamDescription": "linear_light"
+                  },
+                  {
+                    "ParamName": "highlights_only",
+                    "ParamKeyword": "Zh0O",
+                    "ParamType": "bool",
+                    "ParamDescription": "highlights_only"
+                  },
+                  {
+                    "ParamName": "invert_mask",
+                    "ParamKeyword": "Zh0P",
+                    "ParamType": "bool",
+                    "ParamDescription": "invert_mask"
+                  },
+                  {
+                    "ParamName": "mask_layer",
+                    "ParamKeyword": "Zh0Q",
+                    "ParamType": "TEXT",
+                    "ParamDescription": "mask_layer"
+                  },
+                  {
+                    "ParamName": "channel0_amount",
+                    "ParamKeyword": "Zh0R",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel0_amount"
+                  },
+                  {
+                    "ParamName": "channel0_x",
+                    "ParamKeyword": "Zh0S",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel0_x"
+                  },
+                  {
+                    "ParamName": "channel0_y",
+                    "ParamKeyword": "Zh0T",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel0_y"
+                  },
+                  {
+                    "ParamName": "channel0_scale",
+                    "ParamKeyword": "Zh0U",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel0_scale"
+                  },
+                  {
+                    "ParamName": "channel0_rotation",
+                    "ParamKeyword": "Zh0V",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel0_rotation"
+                  },
+                  {
+                    "ParamName": "channel0_blur",
+                    "ParamKeyword": "Zh0W",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel0_blur"
+                  },
+                  {
+                    "ParamName": "channel1_amount",
+                    "ParamKeyword": "Zh0X",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel1_amount"
+                  },
+                  {
+                    "ParamName": "channel1_x",
+                    "ParamKeyword": "Zh0Y",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel1_x"
+                  },
+                  {
+                    "ParamName": "channel1_y",
+                    "ParamKeyword": "Zh0Z",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel1_y"
+                  },
+                  {
+                    "ParamName": "channel1_scale",
+                    "ParamKeyword": "Zh10",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel1_scale"
+                  },
+                  {
+                    "ParamName": "channel1_rotation",
+                    "ParamKeyword": "Zh11",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel1_rotation"
+                  },
+                  {
+                    "ParamName": "channel1_blur",
+                    "ParamKeyword": "Zh12",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel1_blur"
+                  },
+                  {
+                    "ParamName": "channel2_amount",
+                    "ParamKeyword": "Zh13",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel2_amount"
+                  },
+                  {
+                    "ParamName": "channel2_x",
+                    "ParamKeyword": "Zh14",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel2_x"
+                  },
+                  {
+                    "ParamName": "channel2_y",
+                    "ParamKeyword": "Zh15",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel2_y"
+                  },
+                  {
+                    "ParamName": "channel2_scale",
+                    "ParamKeyword": "Zh16",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel2_scale"
+                  },
+                  {
+                    "ParamName": "channel2_rotation",
+                    "ParamKeyword": "Zh17",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel2_rotation"
+                  },
+                  {
+                    "ParamName": "channel2_blur",
+                    "ParamKeyword": "Zh18",
+                    "ParamType": "doub",
+                    "ParamDescription": "channel2_blur"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

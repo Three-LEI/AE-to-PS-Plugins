@@ -1,198 +1,59 @@
 {
   "status": "PASS",
-  "release": "0.35-rc2",
+  "release": "0.36-rc1",
   "repository": "https://github.com/Three-LEI/AE-to-PS-Plugins",
   "core_and_parameter_abi_unchanged": true,
   "build": {
     "modules": 13,
-    "status": "PASS"
-  },
-  "about": {
     "status": "PASS",
-    "profiles": 32,
-    "legacy_dpi_fallback_profiles": 16,
-    "renderer": "D3D11 WARP; pinned SM4 shaders"
+    "clean_export_native": "PASS"
   },
   "host": {
     "status": "PASS",
     "effects": 19,
     "effect_depth_combinations": 55,
     "pixel_equal_exports": 113,
-    "depths": [
+    "version": "21.2.9"
+  },
+  "smart_filters": {
+    "status": "PASS",
+    "effect_depth_combinations": 55,
+    "independent_instances": 110,
+    "psd_depths": [
       8,
       16,
       32
     ],
-    "tint_depth": 8,
-    "rollback": "one-state pixel exact",
-    "version": "21.2.9",
-    "platform": "Windows 11 x64, build 26200"
+    "pixel_equal_comparisons": 110,
+    "photoshop_restarted": true,
+    "legacy_psds": 12,
+    "legacy_instances": 54,
+    "reference_name": "鎏金_参考图层"
   },
-  "language": {
+  "parameter_store": {
     "status": "PASS",
-    "native_host": "21.2.9",
-    "primary_property_status": -30901,
-    "fallback_locale": "zh_CN",
-    "phase": "filterSelectorParameters",
-    "manual_language_profiles": 3,
-    "suite_and_descriptor_error_cleanup": "PASS",
-    "actual_production_ui": {
-      "plugin": "Tint",
-      "mode": "Auto",
-      "language": "Chinese",
-      "status": "PASS"
-    }
+    "checks": 8642,
+    "new_schema_effects": 13,
+    "legacy_schema_effects": 6
   },
-  "legacy_hosts": {
-    "Windows 7 / PS 2018": "pending external test",
-    "other Windows / PS 2020 combinations": "pending external test"
+  "font_reset": {
+    "status": "PASS",
+    "glyph": "鎏",
+    "dpi_scales": [
+      1,
+      2
+    ]
   },
-  "clean_source_build": {
-    "module": "native",
-    "status": "PASS"
+  "about": {
+    "status": "PASS",
+    "profiles": 32,
+    "legacy_dpi_fallback_profiles": 16
   },
+  "external_compatibility": "rc2 user-confirmed PS2018/2020; this candidate still needs external retest",
   "registration": {
-    "format": "legacy binary PiPL/aete",
     "plugins": 19,
-    "terminology_effects": 6,
-    "terminology_parameters": 159,
-    "canonical_metadata_preserved": true,
-    "runtime_shader_compiler_required": false,
-    "mandatory_windows10_dpi_imports": false
-  },
-  "plugins": [
-    {
-      "name": "Tint 色调",
-      "version": "0.23",
-      "modes": "RGB8",
-      "file": "ZaYuTint.8bf",
-      "sha256": "8017e4b26235a92c29c019c372a94fe610d729dea6c01254e338757dad25e48d"
-    },
-    {
-      "name": "Fractal Noise 分形杂色",
-      "version": "0.18",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuFractalNoise.8bf",
-      "sha256": "91bbb71856c0cba3975e9f3cf95248ca498e72dd8aeb4f5850b7f609077645b7"
-    },
-    {
-      "name": "Displacement Map 置换图",
-      "version": "0.10",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuDisplacementMap.8bf",
-      "sha256": "ae65bc284a9e552add26793dc34387cfa24451e903a92b92e011429f00fb0db9"
-    },
-    {
-      "name": "Glow 发光",
-      "version": "0.9",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuGlow.8bf",
-      "sha256": "69f9fa9ddcae754871fd42e3385b73d46d5016bff174d94667d191a0528a0cab"
-    },
-    {
-      "name": "Deep Glow 深度发光",
-      "version": "0.10",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuDeepGlow.8bf",
-      "sha256": "72b7cf37aa2d671012af8c1810d9881948e9432f6406085ee0723dd1c96916bb"
-    },
-    {
-      "name": "Chromatic Dispersion 色差色散",
-      "version": "0.8",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuChromaticDispersion.8bf",
-      "sha256": "5a34167fc78918701acfef5076299a224eed34cfe558299ba5d99bc400006d6c"
-    },
-    {
-      "name": "Vector Blur 矢量模糊",
-      "version": "0.7",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuVectorBlur.8bf",
-      "sha256": "6c9080c8ecb63c202e7e8c9f1d3b450ef05bd042324e989b549b4e8dd58718e0"
-    },
-    {
-      "name": "Grid 网格",
-      "version": "0.6",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuGrid.8bf",
-      "sha256": "cb5ced09143d443d986e8f0064ba24623f94e2fbce648ee9c4996b4681fc227e"
-    },
-    {
-      "name": "Checkerboard 棋盘",
-      "version": "0.6",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuCheckerboard.8bf",
-      "sha256": "9d6843d5d35c4bac4496fd50c3c40d2651c46ceeee5ed6fb2cec1a49fc32e985"
-    },
-    {
-      "name": "Cell Pattern 单元格图案",
-      "version": "0.3",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuCellPattern.8bf",
-      "sha256": "f59460a68955cf62945b1d49f49049020a61926a708fc8b2e6fc208d84c14d6c"
-    },
-    {
-      "name": "Optics Compensation 光学补偿",
-      "version": "0.2",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuOpticsCompensation.8bf",
-      "sha256": "1672627a49f0a4debe1649233207889caba93cc18ddd76aedeae24f7cc1ba93b"
-    },
-    {
-      "name": "Lens 镜头",
-      "version": "0.3",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuCCLens.8bf",
-      "sha256": "3511fbf3b4888b01d5e2135749ca38234fea6b402034a447cf22ec602940b57a"
-    },
-    {
-      "name": "JPEG Damage JPEG 损坏",
-      "version": "0.1",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuJPEGDamage.8bf",
-      "sha256": "bd84258b6512d31fef67ee8da9260295552bba0f08c9835c61ae95b62ce6965d"
-    },
-    {
-      "name": "Blobbylize 胶状化",
-      "version": "0.2",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuBlobbylize.8bf",
-      "sha256": "8bde55f58d1219429867815e50ff0e2a5fa9c45bf8afb779173e328de0bc1713"
-    },
-    {
-      "name": "Glass 玻璃",
-      "version": "0.2",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuGlass.8bf",
-      "sha256": "bbde2cf9e653a9eb8e33b60f8fe5ba5650de09d2435a0459ef12dcb7db0f04ef"
-    },
-    {
-      "name": "Turbulent Displace 湍流置换",
-      "version": "0.1",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuTurbulentDisplace.8bf",
-      "sha256": "95366fd45a8d10b188d4a3f2a9c2aafd648fd1463fa96b8251e07ca5130b0114"
-    },
-    {
-      "name": "Light Sweep 扫光",
-      "version": "0.1",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuLightSweep.8bf",
-      "sha256": "9d0385ed966d16442f0be3b2d0aaa1f60564ed19608b9adf4f96b8928cc4e50e"
-    },
-    {
-      "name": "Kaleida 万花筒",
-      "version": "0.1",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuKaleida.8bf",
-      "sha256": "d7b9a421cedbefaeb372e1e46350ca2d479a540d7aeeaa9989fad634432f8e13"
-    },
-    {
-      "name": "Roughen Edges 毛边",
-      "version": "0.1",
-      "modes": "RGB8/16/32",
-      "file": "ZaYuRoughenEdges.8bf",
-      "sha256": "35ecc7874cbe8f838c8852a6429462b2d2a3461a918f994e2a31d8b092f81d0c"
-    }
-  ]
+    "aete_parameters": 476,
+    "win7_import_audit": "PASS",
+    "previous_six_contracts": "unchanged"
+  }
 }

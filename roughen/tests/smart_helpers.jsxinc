@@ -1,0 +1,16 @@
+var ZyRoughen=(function(){
+ var s=stringIDToTypeID,c=charIDToTypeID;
+ function select(id){var r=new ActionReference();r.putIdentifier(c('Lyr '),id);var d=new ActionDescriptor();d.putReference(c('null'),r);d.putBoolean(c('MkVs'),false);executeAction(c('slct'),d,DialogModes.NO);}
+ function layer(id){var r=new ActionReference();r.putIdentifier(c('Lyr '),id);return executeActionGet(r);}
+ function filters(id){return layer(id).getObjectValue(s('smartObject')).getList(s('filterFX'));}
+ function state(id,index){var fx=filters(id).getObjectValue(index-1);return {event:fx.getObjectType(s('filter')),parameters:fx.getObjectValue(s('filter'))};}
+ function set(id,index,event,p){var r=new ActionReference();r.putIndex(s('filterFX'),index);r.putIdentifier(c('Lyr '),id);var d=new ActionDescriptor(),fx=new ActionDescriptor();d.putReference(c('null'),r);fx.putObject(s('filter'),event,p);d.putObject(s('filterFX'),s('filterFX'),fx);return executeAction(c('setd'),d,DialogModes.NO);}
+ function params(kind,w,h,variant){
+  var p=new ActionDescriptor();p.putInteger(c('ZrSv'),1);p.putInteger(c('ZrTy'),kind);p.putInteger(c('ZrCE'),1);
+  var keys=['ZrBo','ZrSh','ZrIn','ZrSc','ZrSt','ZrOX','ZrOY','ZrCo','ZrEv','ZrCt','ZrSe','ZrMx','ZrLR','ZrLG','ZrLB'];
+  var values=[7+kind,1.25,.8,43+kind*3,kind*9-28,-3+kind,5+kind,2.5,37.5+kind*30,2,23+kind*3,75,.9,.3,.15];
+  for(var i=0;i<keys.length;i++)p.putDouble(c(keys[i]),values[i]);return p;
+ }
+ function snapshot(id){var result=[];for(var i=1;i<=filters(id).count;i++){var x=state(id,i),p=x.parameters,r={event:typeIDToCharID(x.event)};for(var k=0;k<p.count;k++){var key=p.getKey(k),name=typeIDToCharID(key),type=p.getType(key);r[name]=type===DescValueType.INTEGERTYPE?p.getInteger(key):p.getDouble(key);}result.push(r);}return result;}
+ return {select:select,layer:layer,filters:filters,state:state,set:set,params:params,snapshot:snapshot};
+})();

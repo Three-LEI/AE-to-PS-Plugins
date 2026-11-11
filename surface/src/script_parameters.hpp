@@ -3,6 +3,7 @@
 #include "PIActions.h"
 #include "ASZStringSuite.h"
 #include "SPBasic.h"
+#include "../../native/common/descriptor_parameters.hpp"
 #include <string>
 #include <vector>
 namespace surface::script {
@@ -13,17 +14,10 @@ constexpr Number numbers[]={
  {key('Z','y','S','f'),&Parameters::softness},{key('Z','y','C','t'),&Parameters::cut},{key('Z','y','H','t'),&Parameters::height},{key('Z','y','D','p'),&Parameters::displacement},
  {key('Z','y','I','n'),&Parameters::intensity},{key('Z','y','L','H'),&Parameters::light_height},{key('Z','y','L','X'),&Parameters::light_x},{key('Z','y','L','Y'),&Parameters::light_y},{key('Z','y','D','r'),&Parameters::direction},
  {key('Z','y','A','m'),&Parameters::ambient},{key('Z','y','D','f'),&Parameters::diffuse},{key('Z','y','S','p'),&Parameters::specular},{key('Z','y','R','o'),&Parameters::roughness},{key('Z','y','M','e'),&Parameters::metal}};
-struct Suites {
- SPBasicSuite* basic=nullptr;const PSActionDescriptorProcs* d=nullptr;const ASZStringSuite2* z=nullptr;
- explicit Suites(FilterRecord* f):basic(f?f->sSPBasic:nullptr){if(basic){if(basic->AcquireSuite(kPSActionDescriptorSuite,kPSActionDescriptorSuiteVersion,reinterpret_cast<const void**>(&d)))d=nullptr;if(basic->AcquireSuite(kASZStringSuite,kASZStringSuiteVersion2,reinterpret_cast<const void**>(&z)))z=nullptr;}}
- ~Suites(){if(basic&&z)basic->ReleaseSuite(kASZStringSuite,kASZStringSuiteVersion2);if(basic&&d)basic->ReleaseSuite(kPSActionDescriptorSuite,kPSActionDescriptorSuiteVersion);}
-};
-struct Desc {const PSActionDescriptorProcs* d;PIActionDescriptor value=nullptr;explicit Desc(const PSActionDescriptorProcs* p):d(p){}~Desc(){if(value&&d)d->Free(value);}};
-struct ZText {const ASZStringSuite2* suite;ASZString value=nullptr;explicit ZText(const ASZStringSuite2* p):suite(p){}~ZText(){if(value&&suite)suite->Release(value);}};
-// Descriptor GetString/PutString use the host code page. Use ZStrings so map
-// names keep Unicode and match Channel Ports' UTF-8 names on every locale.
-inline bool text(const Suites& q,PIActionDescriptor object,DescriptorKeyID k,std::string& result){ZText value(q.z);if(q.d->GetZString(object,k,&value.value))return false;const auto length=q.z->LengthAsUTF8String(value.value);if(!length||length>8193)return false;std::vector<unsigned char> buffer(length);if(q.z->AsUTF8String(value.value,buffer.data(),length,true))return false;result=reinterpret_cast<const char*>(buffer.data());return true;}
-inline OSErr put_text(const Suites& q,PIActionDescriptor object,DescriptorKeyID k,const char* text){ZText value(q.z);if(q.z->MakeFromUTF8String(reinterpret_cast<const unsigned char*>(text),&value.value))return filterBadParameters;return q.d->PutZString(object,k,value.value);}
+using Suites=psfilter::parameters::TextSuites;
+using Desc=psfilter::parameters::Object;
+using psfilter::parameters::text;
+using psfilter::parameters::put_text;
 // Channel Ports exports invocation-local sheet indexes, not Action Manager IDs.
 // Native rendering resolves only a unique name. The companion refresh script
 // validates persistent IDs outside the filter and synchronizes the saved name.
@@ -55,7 +49,6 @@ inline OSErr write(FilterRecord* f,const Parameters& values,const MapBinding& bi
  for(const auto& field:numbers)if(!error)error=q.d->PutFloat(desc.value,field.key,values.*field.member);
  for(int i=0;i<3;++i)if(!error)error=q.d->PutFloat(desc.value,key('Z','y','L',"RGB"[i]),values.light_color[i]);
  if(!error)error=put_text(q,desc.value,name_key,values.map_key?binding.name.c_str():"");integer(id_key,values.map_key?binding.layer_id:0);integer(revision_key,binding.revision);
- if(error)return error;PIDescriptorHandle handle=nullptr;if((error=q.d->AsHandle(desc.value,&handle)))return error;
- if(parameters->descriptor&&f->handleProcs&&f->handleProcs->disposeProc)f->handleProcs->disposeProc(reinterpret_cast<Handle>(parameters->descriptor));parameters->descriptor=handle;parameters->recordInfo=plugInDialogOptional;return noErr;
+ if(error)return error;return psfilter::parameters::commit(f,q,desc.value);
 }
 }

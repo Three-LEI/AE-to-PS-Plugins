@@ -8,6 +8,7 @@ $sdk=$aepsPaths.Sdk
 New-Item -ItemType Directory -Force -Path (Join-Path $root 'build') | Out-Null
 $flags=@('-std=c++20','-O3','-ffp-contract=off','-Wall','-Wextra','-Wpedantic','-static','-I',"$root\include",'-I',"$root\ui\include")
 $flags+=$aepsPaths.CompilerFlags
+$flags+=@('-I',"$PSScriptRoot\build")
 & $cxx @flags "$root\src\tint_core.cpp" "$root\tests\core_tests.cpp" '-o' "$root\build\core_tests.exe"
 if($LASTEXITCODE -ne 0){throw 'C++ core compilation failed'}
 & "$root\build\core_tests.exe" | Tee-Object -FilePath "$root\build\core-test-results.txt"
