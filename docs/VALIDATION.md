@@ -1,5 +1,18 @@
 # 验证与限制
 
+**0.35-rc2：PS2020自动语言识别修复。** 当前摘要见 [validation-summary.json](validation-summary.json)。
+
+本机Windows 11 x64（26200）＋Photoshop 2020（21.2.9）上，原生propLocale返回-30901（属性未定义），而界面首选项uiLanguageKey为zh_CN。旧逻辑在原属性不可用时默认英文；现在通过只读Basic Action Control读取interfacePrefs.uiLanguageKey。有效原属性仍优先，手动中文／English选择继续有效。
+
+- 在真实原生参数选择阶段确认返回zh_CN，并观察实际Tint面板在“跟随PS／Auto”下显示中文；取消后临时文档关闭。
+- 单元检查覆盖缺失旧回调、原属性失败、中英文、超长／无效字符串、套件获取与各读取阶段失败后的引用／描述符释放。
+- 三组中文／英文／缺失语言下的手动切换、Auto恢复、重复／取消及参数不变检查通过；另有32组关于／主题／DPI检查通过。
+- 十三模块完整构建及适配检查、干净导出目录native构建通过；十九份传统PiPL、六份aete的159参数、Win7依赖检查保持通过。
+- 在同一PS2020中，升级前后55个效果／位深组合的113份TIFF像素相同，单步回退相同。效果内核、参数结构及原JSON元数据指纹不变。
+- 本机PS2020和PS2026的十九款插件均已备份安装；临时语言诊断插件已移除。
+
+本次实机环境是Windows 11＋PS2020，不能替代Windows 10＋PS2020和Windows 7＋PS2018的外部验证。继续发布为Pre-release。此前PS2026实机结果保留如下。
+
 **0.35-rc1：兼容修复候选版。** 机器可读摘要见 [validation-summary.json](validation-summary.json)。
 
 十九款改用传统二进制PiPL／aete注册，较新DPI接口改为动态检测与旧Win32回退，并采用固定ImGui HLSL的预编译SM4字节码。发行DLL不再强制导入三个Win10专属DPI接口或D3DCompiler DLL；没有改动像素内核、参数元数据和组件身份。Microsoft的[线程DPI接口要求](https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setthreaddpiawarenesscontext)说明该接口最低为Windows 10 1607；这是0.34的Win7加载阻碍之一。

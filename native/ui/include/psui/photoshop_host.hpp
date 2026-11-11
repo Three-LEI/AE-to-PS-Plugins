@@ -6,7 +6,8 @@
 #include <vector>
 namespace psui {
 int host_brightness(FilterRecord* host) noexcept;
-// Reads propLocale using host-owned Handle callbacks; releases the returned handle.
+// Reads propLocale using host-owned Handle callbacks; on old hosts reads the
+// interfacePrefs.uiLanguageKey preference through read-only Action suites.
 std::string host_locale(FilterRecord* host);
 // Calls Photoshop's preferred picker. RGB values are normalized 0..1.
 OSErr host_pick_rgb(FilterRecord* host,double color[3]);

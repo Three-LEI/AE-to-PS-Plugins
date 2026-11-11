@@ -5,7 +5,7 @@ from inspect_binaries import inspect
 from legacy_metadata import validate
 from tiff_pixels import tiff
 root=Path(__file__).resolve().parents[1]
-parser=argparse.ArgumentParser();parser.add_argument('--evidence',type=Path,required=True);parser.add_argument('--installed',type=Path);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--evidence',type=Path,required=True);parser.add_argument('--installed',type=Path);parser.add_argument('--native-locale-report',type=Path);args=parser.parse_args()
 out=args.evidence;baseline=json.loads((out/'baseline.json').read_text(encoding='utf-8'));project=json.loads((root/'project.json').read_text(encoding='utf-8'));plugins=json.loads((root/'plugins.json').read_text(encoding='utf-8'))
 digest=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 unchanged=[]
@@ -39,8 +39,18 @@ if args.installed:
     for entry in result:assert digest(args.installed/entry['file'])==entry['sha256']
     before={p.name:p for p in(out/'host-baseline').glob('*.tif')};after={p.name:p for p in(out/'host-updated').glob('*.tif')};assert len(before)==113 and before.keys()==after.keys()
     for name,path in before.items():assert tiff(path)==tiff(after[name]),('changed Photoshop pixels',name)
-    for folder in ('host-baseline','host-updated'):assert(out/folder/'results.txt').read_text(encoding='utf-8-sig').count(' PASS')==55
-    host={'status':'PASS','effects':19,'effect_depth_combinations':55,'pixel_equal_exports':113,'depths':[8,16,32],'tint_depth':8,'rollback':'one-state pixel exact','version':'27.7.0'}
-report={'status':'PASS','release':project['release'],'repository':project['repository'],'plugins':result,'source_files':source,'unchanged_effect_files':unchanged,'core_and_parameter_abi_unchanged':True,'build':{'modules':13,'status':'PASS'},'about':{'status':'PASS','profiles':32,'legacy_dpi_fallback_profiles':16,'renderer':'D3D11 WARP; pinned SM4 shaders'},'host':host,'legacy_hosts':{'Windows 7 / PS 2018':'pending external test','Windows 10 / PS 2020':'pending external test'}}
+    versions=[]
+    for folder in ('host-baseline','host-updated'):
+        log=(out/folder/'results.txt').read_text(encoding='utf-8-sig');assert log.count(' PASS')==55
+        assert log.startswith('PS ');versions.append(log.splitlines()[0][3:])
+    assert versions[0]==versions[1],'pixel comparison requires the same Photoshop version'
+    host={'status':'PASS','effects':19,'effect_depth_combinations':55,'pixel_equal_exports':113,'depths':[8,16,32],'tint_depth':8,'rollback':'one-state pixel exact','version':versions[0]}
+language=None
+if args.native_locale_report:
+    text=args.native_locale_report.read_text(encoding='utf-8-sig');assert 'selector=1'in text and 'status=-30901'in text and 'resolved=zh_CN'in text
+    for value in ('zh','en','missing'):assert 'PASS: follow PS locale'in(out/('language-'+value+'.log')).read_text(encoding='utf-8-sig')
+    assert 'PASS: PS locale property and legacy interfacePrefs fallback'in(out/'native-build.log').read_text(encoding='utf-8-sig')
+    language={'status':'PASS','native_host':'21.2.9','primary_property_status':-30901,'fallback_locale':'zh_CN','phase':'filterSelectorParameters','manual_language_profiles':3,'suite_and_descriptor_error_cleanup':'PASS'}
+report={'status':'PASS','release':project['release'],'repository':project['repository'],'plugins':result,'source_files':source,'unchanged_effect_files':unchanged,'core_and_parameter_abi_unchanged':True,'build':{'modules':13,'status':'PASS'},'about':{'status':'PASS','profiles':32,'legacy_dpi_fallback_profiles':16,'renderer':'D3D11 WARP; pinned SM4 shaders'},'host':host,'language':language,'legacy_hosts':{'Windows 7 / PS 2018':'pending external test','other Windows / PS 2020 combinations':'pending external test'}}
 (out/('qa.json'if args.installed else'preinstall.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print('PASS: nineteen legacy PiPL registrations; matching terminology/alpha flags; no mandatory Win10 DPI or D3DCompiler imports; 32 UI profiles; effect code and parameter ABI unchanged'+('; 55 host cases / 113 identical exports'if host else''))

@@ -9,6 +9,7 @@
 #include "psui/preview_view.hpp"
 #include "psui/plugin_info.hpp"
 #include "PIProperties.h"
+#include "locale_suite_qa.hpp"
 #include <algorithm>
 #include <cstdlib>
 #include <cstring>
@@ -61,6 +62,14 @@ void localization_tests() {
     check(locale_live==0&&locale_locks==0,"failed locale reads release handle without unlocking unowned locks");
     check(psui::host_locale(nullptr).empty(),"missing host supported");
     host.handleProcs=nullptr;check(psui::host_locale(&host).empty(),"missing handle suite does not allocate");
+    localeqa::run();
+    SPBasicSuite basic{};basic.AcquireSuite=localeqa::acquire;basic.ReleaseSuite=localeqa::release;host.sSPBasic=&basic;
+    localeqa::reset();localeqa::locale="zh_CN";
+    check(psui::host_locale(&host)=="zh_CN","missing legacy callbacks use Photoshop interface preference");
+    host.handleProcs=&handles;locale_value="en_US";localeqa::reset();
+    check(psui::host_locale(&host)=="en_US"&&localeqa::acquired==0,"valid host locale wins over fallback without suite calls");
+    locale_fail=true;localeqa::reset();
+    check(psui::host_locale(&host)=="zh_CN"&&locale_live==0&&locale_locks==0,"old PS undefined locale uses interface preference and releases failed handle");locale_fail=false;
     using psui::Language;using psui::LanguageMode;
     for(const auto value:{"zh_CN","zh-Hans","ZH_tw","zh"})check(psui::language_for_locale(value)==Language::Chinese,"Chinese locale family");
     for(const auto value:{"","en_US","de_DE","zhong"})check(psui::language_for_locale(value)==Language::English,"non-Chinese/missing locale uses English");
@@ -69,7 +78,7 @@ void localization_tests() {
     check(psui::localized_text("子位移 X / Sub Offset X",Language::English)=="Sub Offset X","English parameter translation");
     check(psui::localized_text("子位移 X / Sub Offset X",Language::Chinese)=="子位移 X","Chinese parameter translation");
     check(psui::localized_text("English only",Language::Chinese)=="English only","unpaired metadata preserved");
-    std::cout<<"PASS: PS locale property ownership/failure; language selection and fallbacks.\n";
+    std::cout<<"PASS: PS locale property and legacy interfacePrefs fallback; suite/descriptor ownership on errors; language selection.\n";
 }
 void generator_preview_tests() {
     using psui::preview_channel;
