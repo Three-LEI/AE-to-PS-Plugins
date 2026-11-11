@@ -16,6 +16,6 @@ BEGIN
  CONTROL "",220,"ZaYu.PSUI.ScrollPanel.1",WS_CLIPCHILDREN,126,8,298,261,WS_EX_CONTROLPARENT
  LTEXT "",204,8,272,416,12
 END
-JSON_PIPL JSON "build/PiPL-host.json"
+#include "../build/PiPL-legacy.rc"
 
 IMGUI_LICENSE RCDATA "../third_party/imgui/LICENSE.txt"

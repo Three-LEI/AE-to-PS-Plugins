@@ -18,8 +18,9 @@ if($LASTEXITCODE -ne 0){throw 'Cell reference renderer build failed'}
 if($CoreOnly){return}
 & "$project\native\ui\verify-contract.ps1"
 $hostFlags=@('-DWIN32=1','-D_WINDOWS','-DUNICODE','-D_UNICODE','-isystem',"$sdk\photoshopapi\photoshop",'-isystem',"$sdk\photoshopapi\pica_sp")
-$libraries=@("$project\native\build\library_ui.lib","$project\native\build\psui.lib",'-ld3d11','-ldxgi','-ld3dcompiler','-limm32','-luser32','-lgdi32','-ldwmapi','-lshell32')
+$libraries=@("$project\native\build\library_ui.lib","$project\native\build\psui.lib",'-ld3d11','-ldxgi','-limm32','-luser32','-lgdi32','-ldwmapi','-lshell32')
 [IO.File]::WriteAllText("$out\PiPL-host.json",[IO.File]::ReadAllText("$PSScriptRoot\src\PiPL.json",[Text.Encoding]::UTF8),[Text.Encoding]::GetEncoding(936))
+ & (Join-Path (Split-Path $PSScriptRoot -Parent) "scripts\build-legacy-resources.ps1") -Metadata "$PSScriptRoot\src\PiPL.json" -Output "$out\PiPL-legacy.rc" -Sdk $aepsPaths.Sdk
 Push-Location "$PSScriptRoot\src"
 try {& "$tool\x86_64-w64-mingw32-windres.exe" --codepage=65001 -i cell.rc -o "$out\cell-resource.o" -O coff} finally {Pop-Location}
 if($LASTEXITCODE -ne 0){throw 'Cell resources failed'}

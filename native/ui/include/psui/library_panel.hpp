@@ -77,6 +77,7 @@ struct PanelTestHook {
   bool software = false;
   float initial_scale = 0;
   bool native_wheel_input = false;
+  bool force_legacy_dpi = false;
   // Deterministic sampling providers for the standalone panel harness only.
   std::function<bool(POINT,double*)> screen_sample;
   // Standalone UI tests capture the requested public URL without launching a browser.

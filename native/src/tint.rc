@@ -23,6 +23,6 @@ BEGIN
     CONTROL "重置 / Reset",209,"Button",BS_OWNERDRAW | WS_TABSTOP,236,53,58,17
     LTEXT "",204,114,130,180,24
 END
-JSON_PIPL JSON "build/TintPiPL-host.json"
+#include "../build/TintPiPL-legacy.rc"
 
 IMGUI_LICENSE RCDATA "../third_party/imgui/LICENSE.txt"

@@ -2,6 +2,7 @@
 #define _WIN32_WINNT 0x0A00
 #include "psui/scroll_panel.hpp"
 #include <algorithm>
+#include "psui/win_compat.hpp"
 #include <new>
 #include <vector>
 #include <windowsx.h>
@@ -22,13 +23,13 @@ struct Panel {
   int height = 0, offset = 0, wheel = 0, drag_y = 0, drag_offset = 0;
   bool dragging = false;
 };
-int strip(HWND w) { return MulDiv(12, GetDpiForWindow(w), 96); }
+int strip(HWND w) { return MulDiv(12, wincompat::window_dpi(w), 96); }
 RECT thumb(HWND w, Panel &p) {
   RECT r;
   GetClientRect(w, &r);
   const int size =
       p.height > r.bottom
-          ? std::min<int>(r.bottom, std::max(MulDiv(24, GetDpiForWindow(w), 96),
+          ? std::min<int>(r.bottom, std::max(MulDiv(24, wincompat::window_dpi(w), 96),
                                              static_cast<int>(
                                                  static_cast<double>(r.bottom) *
                                                  r.bottom / p.height)))

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "../../native/tests/legacy_pipl.hpp"
 
 namespace {
 void check(bool condition,const char* message) {
@@ -117,24 +118,14 @@ int main() {
     auto entry=reinterpret_cast<Entry>(GetProcAddress(module,"PluginMain"));
     check(entry!=nullptr,"PluginMain export");
     check(FindResourceW(module,L"IMGUI_LICENSE",RT_RCDATA)!=nullptr,"embedded UI library license");
-    const auto resource=FindResourceW(module,L"JSON_PIPL",L"JSON");
-    check(resource!=nullptr,"JSON PiPL resource");
-    const auto loaded=LoadResource(module,resource);
-    check(loaded!=nullptr,"load PiPL resource");
-    const std::string json(static_cast<const char*>(LockResource(loaded)),SizeofResource(module,resource));
-    check(json.find("ZaYuFractalNoiseReconstruction")!=std::string::npos,"embedded identity");
-    check(json.find("ZaYu-AE Recreated Effects")!=std::string::npos,"branded menu group embedded");
-    auto case_at=json.find("\"FilterCaseInfo\"");
-    check(case_at!=std::string::npos,"embedded filter cases");
-    for(int index=0;index<7;++index){
-        case_at=json.find('{',case_at+1);const auto end=json.find('}',case_at);
-        check(case_at!=std::string::npos&&end!=std::string::npos,"seven filter cases present");
-        const auto config=json.substr(case_at,end-case_at);
-        if(index==3||index==4){
-            check(config.find("InWhiteZap")!=std::string::npos&&config.find("OutFillMask")!=std::string::npos&&config.find("\"WorksWithBlankData\": true")!=std::string::npos,"editable cases accept blank input, white invisible RGB and fill output alpha");
-            check(config.find("\"WriteOutsideSelection\": false")!=std::string::npos,"host selection clips generation");
-        }else check(config.find("OutFillMask")==std::string::npos,"protected/flat cases do not request alpha filling");
-        case_at=end;
+    const auto properties=legacy_pipl(module);
+    check(properties.at("cmpt").find("ZaYuFractalNoiseReconstruction")!=std::string::npos,"embedded identity");
+    check(properties.at("catg").find("ZaYu-AE Recreated Effects")!=std::string::npos,"branded menu group embedded");
+    const auto cases=properties.at("fici");
+    check(cases.size()==28,"seven binary filter cases");
+    for(int i=0;i<7;++i){
+        if(i==3||i==4)check(cases[i*4]==filterDataHandlingWhiteZap&&cases[i*4+1]==filterDataHandlingFillMask&&cases[i*4+2]==(1<<PIFilterWorksWithBlankDataBit),"editable cases generate blank alpha while preserving host selection");
+        else check(cases[i*4+1]!=filterDataHandlingFillMask,"protected/flat cases do not request alpha filling");
     }
     const auto dialog=FindResourceW(module,MAKEINTRESOURCEW(101),RT_DIALOG);
     check(dialog!=nullptr,"parameter dialog resource");

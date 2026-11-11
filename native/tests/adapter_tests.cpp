@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "legacy_pipl.hpp"
 
 namespace {
 void check(bool condition,const char* message) {
@@ -119,14 +120,12 @@ int main() {
     auto entry=reinterpret_cast<Entry>(GetProcAddress(module,"PluginMain"));
     check(entry!=nullptr,"PluginMain export");
     check(FindResourceW(module,L"IMGUI_LICENSE",RT_RCDATA)!=nullptr,"embedded UI library license");
-    const auto resource=FindResourceW(module,L"JSON_PIPL",L"JSON");
-    check(resource!=nullptr,"JSON PiPL resource");
-    const auto loaded=LoadResource(module,resource);
-    check(loaded!=nullptr,"load PiPL resource");
-    const std::string json(static_cast<const char*>(LockResource(loaded)),SizeofResource(module,resource));
-    check(json.find("ZaYuTintReconstruction")!=std::string::npos,"embedded identity");
-    check(json.find("ZaYu-AE Recreated Effects")!=std::string::npos,"branded menu group embedded");
-    check(json.find("OutFillMask")==std::string::npos,"Tint does not acquire generator alpha behavior");
+    const auto properties=legacy_pipl(module);
+    check(properties.at("cmpt").find("ZaYuTintReconstruction")!=std::string::npos,"embedded identity");
+    check(properties.at("catg").find("ZaYu-AE Recreated Effects")!=std::string::npos,"branded menu group embedded");
+    const auto cases=properties.at("fici");
+    check(cases.size()==28,"seven binary filter cases");
+    for(int i=0;i<7;++i)check(cases[i*4]==(i==2?0:1)&&cases[i*4+1]==(i==2?0:1)&&cases[i*4+2]==0,"Tint preserves input alpha and selection clipping");
     const auto dialog=FindResourceW(module,MAKEINTRESOURCEW(101),RT_DIALOG);
     check(dialog!=nullptr,"parameter dialog resource");
     const auto dialog_memory=LoadResource(module,dialog);

@@ -2,6 +2,7 @@
 #define _WIN32_WINNT 0x0A00
 #include "psui/combo.hpp"
 #include "psui/paint.hpp"
+#include "psui/win_compat.hpp"
 #include <new>
 namespace psui {
 namespace {
@@ -17,7 +18,7 @@ void paint(HWND w, const Theme &t, HDC dc) {
   auto brush = CreateSolidBrush(t.colors().border);
   FrameRect(dc, &r, brush);
   DeleteObject(brush);
-  const int arrow = MulDiv(22, GetDpiForWindow(w), 96), x = r.right - arrow / 2,
+  const int arrow = MulDiv(22, wincompat::window_dpi(w), 96), x = r.right - arrow / 2,
             y = r.bottom / 2;
   POINT points[] = {{x - 4, y - 2}, {x + 4, y - 2}, {x, y + 3}};
   brush = CreateSolidBrush(IsWindowEnabled(w) ? t.colors().text

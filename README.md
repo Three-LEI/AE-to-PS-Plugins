@@ -10,7 +10,7 @@
 2. 退出 Photoshop，备份已有同名插件，将所需 `.8bf` 放入 Photoshop 的 `Plug-ins` 目录。
 3. 启动 Photoshop，在 **滤镜 → ZaYu-AE 效果复刻** 中选择效果。
 
-普通使用无需 AE、原版效果插件、SDK 或 Python。已验证环境为 Windows x64、Photoshop 2026（27.7.0）；其它宿主版本尚未系统验证。
+普通使用无需 AE、原版效果插件、SDK 或 Python。当前兼容修复候选版为 **0.35-rc1**，使用传统 PiPL 注册，并移除强制的 Win10 DPI／D3DCompiler 依赖。已验证环境为 Windows x64、Photoshop 2026（27.7.0）；Windows 7＋PS2018、Windows 10＋PS2020 仍待外部实机复测，不能视为已认证支持。
 
 多数效果支持 RGB8／16／32，Tint 当前仅 RGB8。十九款包含色调、分形杂色、置换图、发光／深度发光、色差色散、矢量模糊、网格／棋盘、单元格图案、光学补偿、镜头、JPEG损坏、胶状化、玻璃、湍流置换、扫光、万花筒和毛边。参数与限制见[完整清单](docs/EFFECTS.md)及各模块 README。
 
@@ -32,7 +32,7 @@
 
 Glass／Blobbylize 的外部参考层修改后需要重新打开效果确认更新，未附带自动刷新脚本。建议在透明文字或图形的智能对象上进行小图验证，再处理正式作品。
 
-0.34 只调整开源项目组织、构建配置和关于链接，保留0.33的效果参数、组件身份和生成内核。验证记录见 [VALIDATION.md](docs/VALIDATION.md)。
+0.35-rc1 修复加载兼容问题，保留0.34的效果参数、组件身份和生成内核。请在关闭 Photoshop 后用候选包替换同名插件，避免不同目录中留有重复副本；Windows 和 Photoshop 都需要64位。验证记录见 [VALIDATION.md](docs/VALIDATION.md)。
 
 ## 许可与贡献
 

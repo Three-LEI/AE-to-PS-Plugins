@@ -16,11 +16,12 @@ if($LASTEXITCODE -ne 0){throw 'Creative core tests failed'}
 if($CoreOnly){return}
 & "$project\native\ui\verify-contract.ps1"
 $hostFlags=@('-DWIN32=1','-D_WINDOWS','-DUNICODE','-D_UNICODE','-isystem',"$sdk\photoshopapi\photoshop",'-isystem',"$sdk\photoshopapi\pica_sp")
-$libs=@("$project\native\build\library_ui.lib","$project\native\build\psui.lib",'-ld3d11','-ldxgi','-ld3dcompiler','-limm32','-luser32','-lgdi32','-ldwmapi','-lshell32')
+$libs=@("$project\native\build\library_ui.lib","$project\native\build\psui.lib",'-ld3d11','-ldxgi','-limm32','-luser32','-lgdi32','-ldwmapi','-lshell32')
 $effects=@('TurbulentDisplace','LightSweep','Kaleida')
 for($kind=0;$kind -lt 3;$kind++){
  $effect=$effects[$kind];$variant=@("-DCREATIVE_KIND=$kind")
  [IO.File]::WriteAllText("$out\PiPL-$effect-host.json",[IO.File]::ReadAllText("$PSScriptRoot\src\PiPL-$effect.json",[Text.Encoding]::UTF8),[Text.Encoding]::GetEncoding(936))
+ & (Join-Path (Split-Path $PSScriptRoot -Parent) "scripts\build-legacy-resources.ps1") -Metadata "$PSScriptRoot\src\PiPL-$effect.json" -Output "$out\PiPL-$effect-legacy.rc" -Sdk $aepsPaths.Sdk
  Push-Location "$PSScriptRoot\src";try{& "$tool\x86_64-w64-mingw32-windres.exe" --codepage=65001 -i "$effect.rc" -o "$out\$effect-resource.o" -O coff}finally{Pop-Location}
  if($LASTEXITCODE -ne 0){throw 'Creative resources failed'}
  & $cxx @flags @hostFlags @variant -shared "$PSScriptRoot\src\creative_core.cpp" "$PSScriptRoot\src\filter.cpp" "$PSScriptRoot\src\library_dialog.cpp" "$out\$effect-resource.o" @libs '-o' "$out\ZaYu$effect.8bf"

@@ -8,6 +8,7 @@
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 #include "psui/ui_metrics.hpp"
+#include "psui/win_compat.hpp"
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
@@ -115,16 +116,16 @@ void about_popup(LibraryPanel &ui, const PluginInfo &info) {
   }
 }
 struct ThreadDpiScope {
-  DPI_AWARENESS_CONTEXT previous =
-      SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+  HANDLE previous =
+      wincompat::set_thread_dpi(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
   ThreadDpiScope() {
     if (!previous)
       previous =
-          SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE);
+          wincompat::set_thread_dpi(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE);
   }
   ~ThreadDpiScope() {
     if (previous)
-      SetThreadDpiAwarenessContext(previous);
+      wincompat::set_thread_dpi(previous);
   }
 };
 template <class T> void release(T *&p) {
@@ -364,7 +365,7 @@ LRESULT CALLBACK proc(HWND w, UINT msg, WPARAM wp, LPARAM lp) {
     GetMonitorInfoW(MonitorFromWindow(w, MONITOR_DEFAULTTONEAREST), &info);
     RECT frame{0, 0, LONG((p ? p->min_width : 600) * s),
                LONG((p ? p->min_height : 400) * s)};
-    AdjustWindowRectExForDpi(&frame,
+    wincompat::adjust_window_rect(&frame,
         WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME,
         FALSE, WS_EX_DLGMODALFRAME, UINT(std::round(96 * s)));
     m->ptMinTrackSize = {std::min(frame.right - frame.left,
@@ -891,6 +892,7 @@ INT_PTR run_library_panel(HINSTANCE module, HWND owner, FilterRecord *host,
                           const wchar_t *title, int width, int height,
                           const std::function<void(LibraryPanel &)> &draw,
                           const char *localized_text, const PluginInfo *info) {
+  wincompat::ScopedLegacyDpi legacy_dpi(test_hook && test_hook->force_legacy_dpi);
   ThreadDpiScope dpi_scope;
   const wchar_t *cls = L"ZaYu.LibraryPanel.ImGui.1";
   LibraryPanel::Impl state;
@@ -929,7 +931,7 @@ INT_PTR run_library_panel(HINSTANCE module, HWND owner, FilterRecord *host,
   auto outer_size = [&](float dpi) {
     RECT r{0, 0, LONG(std::round(width * dpi)),
             LONG(std::round(height * dpi))};
-    AdjustWindowRectExForDpi(&r,
+    wincompat::adjust_window_rect(&r,
         WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME,
         FALSE, WS_EX_DLGMODALFRAME, UINT(std::round(96 * dpi)));
     return SIZE{std::min(r.right - r.left,
@@ -949,7 +951,7 @@ INT_PTR run_library_panel(HINSTANCE module, HWND owner, FilterRecord *host,
     return -1;
   }
   if (!(test_hook && test_hook->initial_scale > 0)) {
-    const float actual = GetDpiForWindow(state.window) / 96.f;
+    const float actual = wincompat::window_dpi(state.window) / 96.f;
     if (actual > 0 && actual != state.dpi) {
       state.dpi = actual;
       const auto resized = outer_size(actual);

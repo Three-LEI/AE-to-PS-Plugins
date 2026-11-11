@@ -1,5 +1,19 @@
 # 验证与限制
 
+**0.35-rc1：兼容修复候选版。** 机器可读摘要见 [validation-summary.json](validation-summary.json)。
+
+十九款改用传统二进制PiPL／aete注册，较新DPI接口改为动态检测与旧Win32回退，并采用固定ImGui HLSL的预编译SM4字节码。发行DLL不再强制导入三个Win10专属DPI接口或D3DCompiler DLL；没有改动像素内核、参数元数据和组件身份。Microsoft的[线程DPI接口要求](https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setthreaddpiawarenesscontext)说明该接口最低为Windows 10 1607；这是0.34的Win7加载阻碍之一。
+
+- 十三模块完整构建及各自核心、实际DLL／模拟宿主检查通过；干净源码目录另外完成native模块、共享界面及传统资源构建。
+- 从实际PE资源反读十九份PiPL、六份aete，对照原JSON验证中文名称、组件版本、模式、透明度／选区标志和159个术语参数。
+- 十九份PE导入表中无强制Win10 DPI接口或D3DCompiler依赖。
+- 中英文、四主题、两缩放共16组界面，以及强制旧DPI路径的另外16组通过。使用D3D11 WARP验证固定着色器、链接和窗口行为。
+- 明确在Photoshop 2026（27.7.0）执行55个效果／位深组合，113份TIFF与已安装0.34的像素相同，并验证单步回退。
+
+**旧环境实机结果待补充**：Win7＋PS2018、Win10＋PS2020尚不能写作已验证支持；在现代系统强制旧DPI分支不能替代真正旧系统测试。当前包标为Pre-release，需在反馈出问题的两台机器上复测菜单、面板、预览和应用。未附加外部参考层刷新脚本。
+
+以下保留0.34已完成的验证范围。
+
 **0.34：以下检查已通过。** 机器可读摘要见 [validation-summary.json](validation-summary.json)。
 
 0.34 的改变为开源目录与构建配置、共用蓝色“开源地址”及默认浏览器跳转。生成内核、参数结构、组件身份和滤镜版本保持0.33。

@@ -6,7 +6,7 @@ API reference: https://docs.github.com/en/rest/releases/releases
 from pathlib import Path
 import argparse,hashlib,json,os,subprocess,urllib.error,urllib.parse,urllib.request
 root=Path(__file__).resolve().parents[1]
-parser=argparse.ArgumentParser();parser.add_argument('--commit',required=True);parser.add_argument('--asset',type=Path,action='append',required=True);parser.add_argument('--report',type=Path,required=True);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--commit',required=True);parser.add_argument('--asset',type=Path,action='append',required=True);parser.add_argument('--report',type=Path,required=True);parser.add_argument('--prerelease',action='store_true');parser.add_argument('--title');parser.add_argument('--notes',type=Path,default=root/'docs/RELEASE_NOTES.md');args=parser.parse_args()
 project=json.loads((root/'project.json').read_text(encoding='utf-8'));owner,repo=project['repository'].rstrip('/').split('/')[-2:];base='https://api.github.com/repos/'+owner+'/'+repo;tag='v'+project['release']
 assets=[]
 for path in args.asset:
@@ -31,8 +31,9 @@ def request(url,method='GET',data=None,content_type='application/json',missing=F
 account=request('https://api.github.com/user');assert account['login'].lower()==owner.lower(),'Git account differs from repository owner'
 release=request(base+'/releases/tags/'+tag,missing=True)
 if release is None:
- release=request(base+'/releases','POST',{'tag_name':tag,'target_commitish':args.commit,'name':'0.34 · 十九款滤镜开源与开源地址链接','body':'首次公开整理十九款 Photoshop Windows x64 原生滤镜源码，按 MIT 许可发布。\n\n- 全部关于窗口改为蓝色可点击开源地址。\n- 提供统一构建入口、依赖说明、贡献说明及干净源码包。\n- 生成内核及参数兼容性保持0.33；55个PS效果／位深组合、113份导出像素一致。\n- 插件包普通使用无需 AE、SDK 或 Python；Tint仅RGB8，其余位深及限制见模块说明。\n\n下载插件整包或源码ZIP，校验值见 SHA256SUMS-0.34.txt。','draft':True,'prerelease':False})
+ release=request(base+'/releases','POST',{'tag_name':tag,'target_commitish':args.commit,'name':args.title or project['release']+' · 十九款原生滤镜','body':args.notes.read_text(encoding='utf-8'),'draft':True,'prerelease':args.prerelease,'make_latest':'false'if args.prerelease else'true'})
 assert release['target_commitish']==args.commit,'existing release targets a different commit'
+assert release['prerelease']==args.prerelease,'existing release has a different release channel'
 release_id=release['id'];assert isinstance(release_id,int)and release_id>0
 uploaded={entry['name']:entry for entry in release['assets']};checks=[]
 for path in assets:
@@ -47,5 +48,5 @@ for path in assets:
  checks.append({'name':path.name,'bytes':len(data),'sha256':sha,'url':entry['browser_download_url']});print('Verified release asset: '+path.name,flush=True)
 if release['draft']:release=request(base+'/releases/'+str(release_id),'PATCH',{'draft':False})
 verified=request(base+'/releases/tags/'+tag);assert not verified['draft']and{a['name']for a in verified['assets']}=={p.name for p in assets}
-report={'status':'PASS','release':project['release'],'repository':project['repository'],'commit':args.commit,'url':verified['html_url'],'assets':checks}
+report={'status':'PASS','release':project['release'],'prerelease':verified['prerelease'],'repository':project['repository'],'commit':args.commit,'url':verified['html_url'],'assets':checks}
 args.report.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');print('PASS: published '+verified['html_url'])

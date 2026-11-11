@@ -13,9 +13,9 @@ OSErr property(PIType signature,PIType key,int32,intptr_t* value,Handle*){
  if(signature!=0x3842494d||key!=propUIBrightness||!value)return -1;*value=theme;return noErr;
 }
 int main(int argc,char** argv){
- if(argc!=5)return 2;SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+ if(argc!=5&&argc!=6)return 2;SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
  theme=std::stoi(argv[2]);const float scale=std::stof(argv[3]);const std::filesystem::path folder(argv[4]);std::filesystem::create_directories(folder);
- psui::PanelTestHook hook;hook.software=true;hook.host_locale=argv[1];hook.initial_scale=scale;
+ psui::PanelTestHook hook;hook.software=true;hook.host_locale=argv[1];hook.initial_scale=scale;hook.force_legacy_dpi=argc==6;
  PropertyProcs properties{};properties.getPropertyProc=property;FilterRecord host{};host.propertyProcs=&properties;
  const psui::PluginInfo info{"Roughen Edges 毛边","0.1"};int calls=0;bool legacy=false;double value=42.125;bool saw_error=false;
  hook.open_url=[&](const char* url){libraryqa::require(std::string(url)==psui::source_repository,"click targets configured public repository");++calls;return legacy||calls==1;};
@@ -43,5 +43,5 @@ int main(int argc,char** argv){
  psui::set_panel_test_hook(nullptr);if(answer!=IDCANCEL||value!=42.125||calls!=2||!saw_error||!hook.error.empty()){std::cerr<<"FAIL panel: "<<hook.error<<" calls="<<calls<<'\n';return 3;}
  legacy=true;psui::set_panel_test_hook(&hook);psui::show_host_about(info,L"AE-to-PS Host About QA");psui::set_panel_test_hook(nullptr);
  if(calls!=3||!hook.error.empty()){std::cerr<<"FAIL host About: "<<hook.error<<'\n';return 4;}
- std::cout<<"PASS: About source URL; blue borderless link; success/failure; copy fallback; Escape/Close; effect unchanged; host About; "<<argv[1]<<" theme="<<theme<<" scale="<<scale<<'\n';
+ std::cout<<"PASS: About source URL; blue borderless link; success/failure; copy fallback; Escape/Close; effect unchanged; host About; "<<argv[1]<<" theme="<<theme<<" scale="<<scale<<" legacy_dpi="<<hook.force_legacy_dpi<<'\n';
 }

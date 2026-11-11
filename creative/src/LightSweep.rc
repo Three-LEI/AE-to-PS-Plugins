@@ -1,5 +1,5 @@
 #pragma code_page(65001)
 #include <windows.h>
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
-JSON_PIPL JSON "../build/PiPL-LightSweep-host.json"
+#include "../build/PiPL-LightSweep-legacy.rc"
 IMGUI_LICENSE RCDATA "../../third_party/imgui/LICENSE.txt"
