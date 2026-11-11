@@ -1,0 +1,305 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Turbulent Displace",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 1,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuTurbulentDisplaceReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/TurbulentDisplace=Turbulent Displace 湍流置换",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZyCr",
+        "EventID": "ZyTD"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "ZaYu Creative",
+            "SuitID": "ZyCr",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Single-input creative effects",
+            "Events": [
+              {
+                "EventName": "ZaYu TurbulentDisplace",
+                "EventDescription": "Editable Turbulent Displace 湍流置换",
+                "ClassID": "ZyCr",
+                "EventType": "ZyTD",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "ListOfItems": false,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "ZcSv",
+                    "ParamKeyword": "ZcSv",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcSv"
+                  },
+                  {
+                    "ParamName": "ZcKd",
+                    "ParamKeyword": "ZcKd",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcKd"
+                  },
+                  {
+                    "ParamName": "ZcCX",
+                    "ParamKeyword": "ZcCX",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcCX"
+                  },
+                  {
+                    "ParamName": "ZcCY",
+                    "ParamKeyword": "ZcCY",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcCY"
+                  },
+                  {
+                    "ParamName": "ZcAm",
+                    "ParamKeyword": "ZcAm",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcAm"
+                  },
+                  {
+                    "ParamName": "ZcSz",
+                    "ParamKeyword": "ZcSz",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcSz"
+                  },
+                  {
+                    "ParamName": "ZcCo",
+                    "ParamKeyword": "ZcCo",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcCo"
+                  },
+                  {
+                    "ParamName": "ZcEv",
+                    "ParamKeyword": "ZcEv",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcEv"
+                  },
+                  {
+                    "ParamName": "ZcCy",
+                    "ParamKeyword": "ZcCy",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcCy"
+                  },
+                  {
+                    "ParamName": "ZcSe",
+                    "ParamKeyword": "ZcSe",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcSe"
+                  },
+                  {
+                    "ParamName": "ZcHX",
+                    "ParamKeyword": "ZcHX",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcHX"
+                  },
+                  {
+                    "ParamName": "ZcVY",
+                    "ParamKeyword": "ZcVY",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcVY"
+                  },
+                  {
+                    "ParamName": "ZcMx",
+                    "ParamKeyword": "ZcMx",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcMx"
+                  },
+                  {
+                    "ParamName": "ZcDr",
+                    "ParamKeyword": "ZcDr",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcDr"
+                  },
+                  {
+                    "ParamName": "ZcWi",
+                    "ParamKeyword": "ZcWi",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcWi"
+                  },
+                  {
+                    "ParamName": "ZcIn",
+                    "ParamKeyword": "ZcIn",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcIn"
+                  },
+                  {
+                    "ParamName": "ZcEI",
+                    "ParamKeyword": "ZcEI",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcEI"
+                  },
+                  {
+                    "ParamName": "ZcTh",
+                    "ParamKeyword": "ZcTh",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcTh"
+                  },
+                  {
+                    "ParamName": "ZcRo",
+                    "ParamKeyword": "ZcRo",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcRo"
+                  },
+                  {
+                    "ParamName": "ZcTy",
+                    "ParamKeyword": "ZcTy",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcTy"
+                  },
+                  {
+                    "ParamName": "ZcPi",
+                    "ParamKeyword": "ZcPi",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcPi"
+                  },
+                  {
+                    "ParamName": "ZcEd",
+                    "ParamKeyword": "ZcEd",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcEd"
+                  },
+                  {
+                    "ParamName": "ZcSh",
+                    "ParamKeyword": "ZcSh",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcSh"
+                  },
+                  {
+                    "ParamName": "ZcRe",
+                    "ParamKeyword": "ZcRe",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcRe"
+                  },
+                  {
+                    "ParamName": "ZcMi",
+                    "ParamKeyword": "ZcMi",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcMi"
+                  },
+                  {
+                    "ParamName": "ZcQu",
+                    "ParamKeyword": "ZcQu",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcQu"
+                  },
+                  {
+                    "ParamName": "ZcLR",
+                    "ParamKeyword": "ZcLR",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcLR"
+                  },
+                  {
+                    "ParamName": "ZcLG",
+                    "ParamKeyword": "ZcLG",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcLG"
+                  },
+                  {
+                    "ParamName": "ZcLB",
+                    "ParamKeyword": "ZcLB",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZcLB"
+                  },
+                  {
+                    "ParamName": "ZcCE",
+                    "ParamKeyword": "ZcCE",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcCE"
+                  },
+                  {
+                    "ParamName": "ZcFC",
+                    "ParamKeyword": "ZcFC",
+                    "ParamType": "long",
+                    "ParamDescription": "ZcFC"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

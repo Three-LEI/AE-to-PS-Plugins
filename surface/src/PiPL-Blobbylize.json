@@ -1,0 +1,263 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Blobbylize",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 2,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuBlobbylizeReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/Blobbylize=Blobbylize 胶状化",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZyEf",
+        "EventID": "ZyBl"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "ZaYu Surface",
+            "SuitID": "ZyEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "ZaYu native surface effects",
+            "Events": [
+              {
+                "EventName": "ZaYu Blobbylize",
+                "EventDescription": "Editable Blobbylize surface effect",
+                "ClassID": "ZyEf",
+                "EventType": "ZyBl",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "ListOfItems": false,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZySv",
+                    "ParamType": "long",
+                    "ParamDescription": "schemaVersion"
+                  },
+                  {
+                    "ParamName": "effectKind",
+                    "ParamKeyword": "ZyKd",
+                    "ParamType": "long",
+                    "ParamDescription": "effectKind"
+                  },
+                  {
+                    "ParamName": "mapName",
+                    "ParamKeyword": "ZyNm",
+                    "ParamType": "TEXT",
+                    "ParamDescription": "mapName"
+                  },
+                  {
+                    "ParamName": "mapLayerID",
+                    "ParamKeyword": "ZyId",
+                    "ParamType": "long",
+                    "ParamDescription": "mapLayerID"
+                  },
+                  {
+                    "ParamName": "refreshRevision",
+                    "ParamKeyword": "ZyRf",
+                    "ParamType": "long",
+                    "ParamDescription": "refreshRevision"
+                  },
+                  {
+                    "ParamName": "property",
+                    "ParamKeyword": "ZyPr",
+                    "ParamType": "long",
+                    "ParamDescription": "property"
+                  },
+                  {
+                    "ParamName": "lightType",
+                    "ParamKeyword": "ZyLt",
+                    "ParamType": "long",
+                    "ParamDescription": "lightType"
+                  },
+                  {
+                    "ParamName": "softness",
+                    "ParamKeyword": "ZySf",
+                    "ParamType": "doub",
+                    "ParamDescription": "softness"
+                  },
+                  {
+                    "ParamName": "cutAway",
+                    "ParamKeyword": "ZyCt",
+                    "ParamType": "doub",
+                    "ParamDescription": "cutAway"
+                  },
+                  {
+                    "ParamName": "height",
+                    "ParamKeyword": "ZyHt",
+                    "ParamType": "doub",
+                    "ParamDescription": "height"
+                  },
+                  {
+                    "ParamName": "displacement",
+                    "ParamKeyword": "ZyDp",
+                    "ParamType": "doub",
+                    "ParamDescription": "displacement"
+                  },
+                  {
+                    "ParamName": "lightIntensity",
+                    "ParamKeyword": "ZyIn",
+                    "ParamType": "doub",
+                    "ParamDescription": "lightIntensity"
+                  },
+                  {
+                    "ParamName": "lightHeight",
+                    "ParamKeyword": "ZyLH",
+                    "ParamType": "doub",
+                    "ParamDescription": "lightHeight"
+                  },
+                  {
+                    "ParamName": "lightX",
+                    "ParamKeyword": "ZyLX",
+                    "ParamType": "doub",
+                    "ParamDescription": "lightX"
+                  },
+                  {
+                    "ParamName": "lightY",
+                    "ParamKeyword": "ZyLY",
+                    "ParamType": "doub",
+                    "ParamDescription": "lightY"
+                  },
+                  {
+                    "ParamName": "lightDirection",
+                    "ParamKeyword": "ZyDr",
+                    "ParamType": "doub",
+                    "ParamDescription": "lightDirection"
+                  },
+                  {
+                    "ParamName": "ambient",
+                    "ParamKeyword": "ZyAm",
+                    "ParamType": "doub",
+                    "ParamDescription": "ambient"
+                  },
+                  {
+                    "ParamName": "diffuse",
+                    "ParamKeyword": "ZyDf",
+                    "ParamType": "doub",
+                    "ParamDescription": "diffuse"
+                  },
+                  {
+                    "ParamName": "specular",
+                    "ParamKeyword": "ZySp",
+                    "ParamType": "doub",
+                    "ParamDescription": "specular"
+                  },
+                  {
+                    "ParamName": "roughness",
+                    "ParamKeyword": "ZyRo",
+                    "ParamType": "doub",
+                    "ParamDescription": "roughness"
+                  },
+                  {
+                    "ParamName": "metal",
+                    "ParamKeyword": "ZyMe",
+                    "ParamType": "doub",
+                    "ParamDescription": "metal"
+                  },
+                  {
+                    "ParamName": "lightRed",
+                    "ParamKeyword": "ZyLR",
+                    "ParamType": "doub",
+                    "ParamDescription": "lightRed"
+                  },
+                  {
+                    "ParamName": "lightGreen",
+                    "ParamKeyword": "ZyLG",
+                    "ParamType": "doub",
+                    "ParamDescription": "lightGreen"
+                  },
+                  {
+                    "ParamName": "lightBlue",
+                    "ParamKeyword": "ZyLB",
+                    "ParamType": "doub",
+                    "ParamDescription": "lightBlue"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

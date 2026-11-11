@@ -1,0 +1,227 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Roughen Edges",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 1,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuRoughenEdgesReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/RoughenEdges=Roughen Edges 毛边",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZyRg",
+        "EventID": "ZyRE"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "ZaYu Roughen Edges",
+            "SuitID": "ZyRg",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Single-input alpha edge effect",
+            "Events": [
+              {
+                "EventName": "ZaYu Roughen Edges",
+                "EventDescription": "Editable Roughen Edges effect",
+                "ClassID": "ZyRg",
+                "EventType": "ZyRE",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "ListOfItems": false,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "ZrSv",
+                    "ParamKeyword": "ZrSv",
+                    "ParamType": "long",
+                    "ParamDescription": "ZrSv"
+                  },
+                  {
+                    "ParamName": "ZrTy",
+                    "ParamKeyword": "ZrTy",
+                    "ParamType": "long",
+                    "ParamDescription": "ZrTy"
+                  },
+                  {
+                    "ParamName": "ZrCE",
+                    "ParamKeyword": "ZrCE",
+                    "ParamType": "long",
+                    "ParamDescription": "ZrCE"
+                  },
+                  {
+                    "ParamName": "ZrBo",
+                    "ParamKeyword": "ZrBo",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrBo"
+                  },
+                  {
+                    "ParamName": "ZrSh",
+                    "ParamKeyword": "ZrSh",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrSh"
+                  },
+                  {
+                    "ParamName": "ZrIn",
+                    "ParamKeyword": "ZrIn",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrIn"
+                  },
+                  {
+                    "ParamName": "ZrSc",
+                    "ParamKeyword": "ZrSc",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrSc"
+                  },
+                  {
+                    "ParamName": "ZrSt",
+                    "ParamKeyword": "ZrSt",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrSt"
+                  },
+                  {
+                    "ParamName": "ZrOX",
+                    "ParamKeyword": "ZrOX",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrOX"
+                  },
+                  {
+                    "ParamName": "ZrOY",
+                    "ParamKeyword": "ZrOY",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrOY"
+                  },
+                  {
+                    "ParamName": "ZrCo",
+                    "ParamKeyword": "ZrCo",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrCo"
+                  },
+                  {
+                    "ParamName": "ZrEv",
+                    "ParamKeyword": "ZrEv",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrEv"
+                  },
+                  {
+                    "ParamName": "ZrCt",
+                    "ParamKeyword": "ZrCt",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrCt"
+                  },
+                  {
+                    "ParamName": "ZrSe",
+                    "ParamKeyword": "ZrSe",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrSe"
+                  },
+                  {
+                    "ParamName": "ZrMx",
+                    "ParamKeyword": "ZrMx",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrMx"
+                  },
+                  {
+                    "ParamName": "ZrLR",
+                    "ParamKeyword": "ZrLR",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrLR"
+                  },
+                  {
+                    "ParamName": "ZrLG",
+                    "ParamKeyword": "ZrLG",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrLG"
+                  },
+                  {
+                    "ParamName": "ZrLB",
+                    "ParamKeyword": "ZrLB",
+                    "ParamType": "doub",
+                    "ParamDescription": "ZrLB"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

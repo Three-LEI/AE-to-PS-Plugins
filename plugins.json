@@ -1,0 +1,135 @@
+[
+  {
+    "name": "Tint 色调",
+    "version": "0.23",
+    "modes": "RGB8",
+    "file": "ZaYuTint.8bf",
+    "module": "native"
+  },
+  {
+    "name": "Fractal Noise 分形杂色",
+    "version": "0.18",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuFractalNoise.8bf",
+    "module": "fractal"
+  },
+  {
+    "name": "Displacement Map 置换图",
+    "version": "0.10",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuDisplacementMap.8bf",
+    "module": "displacement"
+  },
+  {
+    "name": "Glow 发光",
+    "version": "0.9",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuGlow.8bf",
+    "module": "glow"
+  },
+  {
+    "name": "Deep Glow 深度发光",
+    "version": "0.10",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuDeepGlow.8bf",
+    "module": "glow"
+  },
+  {
+    "name": "Chromatic Dispersion 色差色散",
+    "version": "0.8",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuChromaticDispersion.8bf",
+    "module": "chromatic"
+  },
+  {
+    "name": "Vector Blur 矢量模糊",
+    "version": "0.7",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuVectorBlur.8bf",
+    "module": "vector"
+  },
+  {
+    "name": "Grid 网格",
+    "version": "0.6",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuGrid.8bf",
+    "module": "patterns"
+  },
+  {
+    "name": "Checkerboard 棋盘",
+    "version": "0.6",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuCheckerboard.8bf",
+    "module": "patterns"
+  },
+  {
+    "name": "Cell Pattern 单元格图案",
+    "version": "0.3",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuCellPattern.8bf",
+    "module": "cell"
+  },
+  {
+    "name": "Optics Compensation 光学补偿",
+    "version": "0.2",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuOpticsCompensation.8bf",
+    "module": "lens"
+  },
+  {
+    "name": "Lens 镜头",
+    "version": "0.3",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuCCLens.8bf",
+    "module": "lens"
+  },
+  {
+    "name": "JPEG Damage JPEG 损坏",
+    "version": "0.1",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuJPEGDamage.8bf",
+    "module": "jpeg"
+  },
+  {
+    "name": "Blobbylize 胶状化",
+    "version": "0.2",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuBlobbylize.8bf",
+    "module": "surface"
+  },
+  {
+    "name": "Glass 玻璃",
+    "version": "0.2",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuGlass.8bf",
+    "module": "surface"
+  },
+  {
+    "name": "Turbulent Displace 湍流置换",
+    "version": "0.1",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuTurbulentDisplace.8bf",
+    "module": "creative"
+  },
+  {
+    "name": "Light Sweep 扫光",
+    "version": "0.1",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuLightSweep.8bf",
+    "module": "creative"
+  },
+  {
+    "name": "Kaleida 万花筒",
+    "version": "0.1",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuKaleida.8bf",
+    "module": "creative"
+  },
+  {
+    "name": "Roughen Edges 毛边",
+    "version": "0.1",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuRoughenEdges.8bf",
+    "module": "roughen"
+  }
+]
