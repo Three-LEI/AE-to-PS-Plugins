@@ -4,7 +4,7 @@
 
 These are actual outputs from this project's native Photoshop plugins, not original AE screenshots. Left: input. Right: output. Resizing, JPEG encoding and checkerboards are only used for presentation.
 
-[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37-rc1/AE-to-PS-Plugins-0.37-rc1-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
+[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
 
 ## 输入与复现
 

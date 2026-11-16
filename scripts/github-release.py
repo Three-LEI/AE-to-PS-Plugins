@@ -4,13 +4,18 @@ Credentials stay in process memory and are sent only to GitHub's documented API.
 API reference: https://docs.github.com/en/rest/releases/releases
 """
 from pathlib import Path
-import argparse,hashlib,json,os,subprocess,urllib.error,urllib.parse,urllib.request
+import argparse,hashlib,json,os,re,subprocess,urllib.error,urllib.parse,urllib.request
 root=Path(__file__).resolve().parents[1]
-parser=argparse.ArgumentParser();parser.add_argument('--commit',required=True);parser.add_argument('--asset',type=Path,action='append',required=True);parser.add_argument('--report',type=Path,required=True);parser.add_argument('--prerelease',action='store_true');parser.add_argument('--title');parser.add_argument('--notes',type=Path,default=root/'docs/RELEASE_NOTES.md');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--commit',required=True);parser.add_argument('--asset',type=Path,action='append',required=True);parser.add_argument('--report',type=Path,required=True);parser.add_argument('--publish',action='store_true',help='Upload and publish only after an explicit maintainer request');parser.add_argument('--title');parser.add_argument('--notes',type=Path,default=root/'docs/RELEASE_NOTES.md');args=parser.parse_args()
 project=json.loads((root/'project.json').read_text(encoding='utf-8'));owner,repo=project['repository'].rstrip('/').split('/')[-2:];base='https://api.github.com/repos/'+owner+'/'+repo;tag='v'+project['release']
+assert re.fullmatch(r'\d+\.\d+(?:\.\d+)?',project['release']),'Only stable version numbers may be published'
+assert project['release_policy']['channel']=='stable' and project['release_policy']['trigger']=='explicit-user-request'
 assets=[]
 for path in args.asset:
  path=path.resolve();assert path.is_relative_to(root/'dist')and path.is_file()and path.suffix in {'.zip','.txt'};assets.append(path)
+if not args.publish:
+ report={'status':'DRY_RUN','release':project['release'],'published':False,'assets':[{'name':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}for p in assets]}
+ args.report.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8');print('DRY RUN: local assets checked; no network request or publication. Explicit --publish is required.');raise SystemExit(0)
 env=os.environ.copy();env['GCM_INTERACTIVE']='Never';env['GIT_TERMINAL_PROMPT']='0'
 credential=subprocess.run(['git','credential','fill'],input='protocol=https\nhost=github.com\nusername='+owner+'\n\n',capture_output=True,text=True,env=env)
 if credential.returncode:raise SystemExit('Existing Git credential session unavailable; no new login or credential was created.')
@@ -31,9 +36,9 @@ def request(url,method='GET',data=None,content_type='application/json',missing=F
 account=request('https://api.github.com/user');assert account['login'].lower()==owner.lower(),'Git account differs from repository owner'
 release=request(base+'/releases/tags/'+tag,missing=True)
 if release is None:
- release=request(base+'/releases','POST',{'tag_name':tag,'target_commitish':args.commit,'name':args.title or project['release']+' · 十九款原生滤镜','body':args.notes.read_text(encoding='utf-8'),'draft':True,'prerelease':args.prerelease,'make_latest':'false'if args.prerelease else'true'})
+ release=request(base+'/releases','POST',{'tag_name':tag,'target_commitish':args.commit,'name':args.title or project['release']+' · 23 款原生滤镜','body':args.notes.read_text(encoding='utf-8'),'draft':True,'prerelease':False,'make_latest':'true'})
 assert release['target_commitish']==args.commit,'existing release targets a different commit'
-assert release['prerelease']==args.prerelease,'existing release has a different release channel'
+assert release['prerelease'] is False,'existing release has a different release channel'
 release_id=release['id'];assert isinstance(release_id,int)and release_id>0
 uploaded={entry['name']:entry for entry in release['assets']};checks=[]
 for path in assets:
@@ -46,7 +51,9 @@ for path in assets:
  else:
   with urllib.request.urlopen(entry['browser_download_url'],timeout=60)as response:assert hashlib.sha256(response.read()).hexdigest()==sha
  checks.append({'name':path.name,'bytes':len(data),'sha256':sha,'url':entry['browser_download_url']});print('Verified release asset: '+path.name,flush=True)
-if release['draft']:release=request(base+'/releases/'+str(release_id),'PATCH',{'draft':False})
-verified=request(base+'/releases/tags/'+tag);assert not verified['draft']and{a['name']for a in verified['assets']}=={p.name for p in assets}
+release=request(base+'/releases/'+str(release_id),'PATCH',{'draft':False,'prerelease':False,'make_latest':'true'})
+verified=request(base+'/releases/tags/'+tag);assert not verified['draft']and not verified['prerelease']and{a['name']for a in verified['assets']}=={p.name for p in assets}
+latest=request(base+'/releases/latest');assert latest['id']==release_id and latest['tag_name']==tag
+for check in checks:check['url']=next(a['browser_download_url']for a in verified['assets']if a['name']==check['name'])
 report={'status':'PASS','release':project['release'],'prerelease':verified['prerelease'],'repository':project['repository'],'commit':args.commit,'url':verified['html_url'],'assets':checks}
 args.report.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');print('PASS: published '+verified['html_url'])

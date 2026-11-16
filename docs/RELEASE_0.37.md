@@ -1,6 +1,6 @@
-# 0.37-rc1 · 23 款滤镜、性能优化与效果图集
+# 0.37 · 23 款滤镜、性能优化与效果图集
 
-**安装请选择 [Windows-x64.zip 插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37-rc1/AE-to-PS-Plugins-0.37-rc1-Windows-x64.zip)**。源码 ZIP 面向开发者。历史版本全部保留，方便回退。
+**安装请选择 [Windows-x64.zip 插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip)**。源码 ZIP 面向开发者。0.37 为新的正式发布起点；此前 Releases 已清理并在本地备份，Git 提交历史保留。
 
 ## 新增与改进
 
@@ -17,7 +17,7 @@
 
 保留 x64、OS／Subsystem 6.0、传统 PiPL／aete、旧 DPI 回退及预编译界面着色器；相对性能优化前候选没有新增强制导入 API。
 
-**仍为 Pre-release**：用户确认此前 0.7 本地整包在 Win7＋CC2018 可运行，但本次整包仍需外机复测。PS2026 本轮仅安装，未新增完整实机回归声明。效果是独立近似实现，不保证与原版逐像素相同。效果生成使用 CPU。
+**兼容范围**：用户确认此前 0.7 本地整包在 Win7＋CC2018 可运行，本版本保留兼容路径，仍需外机复测。PS2026 本轮仅安装，未新增完整实机回归声明。效果是独立近似实现，不保证与原版逐像素相同。效果生成使用 CPU。
 
 ## 安装
 
@@ -29,4 +29,8 @@
 
 23 native Windows x64 Photoshop filters, with four additions since 0.36-rc1: Starglow, Shine, Saber and Venetian Blinds. Includes adaptive previews, CPU thread reuse, Glow/Deep Glow preparation caches, chromatic mode extensions, 16 Saber presets and a full native-rendered example gallery.
 
-Download **Windows-x64.zip** for installation. End users do not need AE or the SDK. This candidate was tested in PS2020 21.2.9; PS2026 is installed-only for this round, and Win7/CC2018 still requires external retesting. Existing releases remain available. See the repository for precise validation and compatibility limits.
+Download **Windows-x64.zip** for installation. End users do not need AE or the SDK. This release was tested in PS2020 21.2.9; PS2026 is installed-only for this round, and Win7/CC2018 still requires external retesting. Earlier Releases were archived locally and removed as a one-time cleanup. See the repository for precise validation and compatibility limits.
+
+## 后续更新约定
+
+默认仅本机开发和测试，收到维护者明确的“更新到 GitHub”指令后才同步源码和发布当次正式版，不再自动发布预发布版本。详见 [发布约定](RELEASE_POLICY.md)。

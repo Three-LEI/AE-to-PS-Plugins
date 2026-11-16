@@ -152,7 +152,7 @@
     "modes": "RGB8/16/32",
     "file": "ZaYuSaber.8bf",
     "module": "energy",
-    "development_status": "release-candidate",
+    "development_status": "stable",
     "stage": "unified-presets"
   },
   {
@@ -161,6 +161,6 @@
     "modes": "RGB8/16/32",
     "file": "ZaYuVenetianBlinds.8bf",
     "module": "blinds",
-    "development_status": "release-candidate"
+    "development_status": "stable"
   }
 ]

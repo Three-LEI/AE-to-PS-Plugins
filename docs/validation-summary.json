@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "release": "0.37-rc1",
+  "release": "0.37",
   "repository": "https://github.com/Three-LEI/AE-to-PS-Plugins",
   "build": {
     "modules": 16,
@@ -163,5 +163,7 @@
       "sha256": "e12a0ed0f784fb3ad2db9b53748789028d92ca41acb38bde3c4c733fbae3031e",
       "bytes": 2699264
     }
-  ]
+  ],
+  "release_channel": "stable",
+  "binary_equivalence": "Same 23 verified plugin binaries as 0.37-rc1; publication metadata and policy update only"
 }

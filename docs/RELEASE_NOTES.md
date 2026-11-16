@@ -1,5 +1,5 @@
 # 发布说明
 
-当前候选为 [0.37-rc1：23 款滤镜、性能与效果图集](RELEASE_0.37.md)。
+当前正式版为 [0.37：23 款滤镜、性能与效果图集](RELEASE_0.37.md)，设为 Latest。
 
-[全部历史版本](https://github.com/Three-LEI/AE-to-PS-Plugins/releases)保持独立保留；0.36-rc1 及 0.35 等版本的原始说明见各自 Release 页面。
+从 0.37 开始作为新的正式发布起点。此前的 Releases 已清理并在维护者本地备份；Git 提交历史保留。后续只在维护者明确要求更新到 GitHub 时发布当次正式版。[发布约定](RELEASE_POLICY.md)

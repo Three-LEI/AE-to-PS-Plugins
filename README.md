@@ -6,11 +6,11 @@
 
 [English](README.en.md) · 简体中文
 
-![Release](https://img.shields.io/badge/release-0.37--rc1-blue) ![Platform](https://img.shields.io/badge/Windows-x64-0078D4) ![Code license](https://img.shields.io/badge/code-MIT-green)
+![Release](https://img.shields.io/badge/release-0.37-blue) ![Platform](https://img.shields.io/badge/Windows-x64-0078D4) ![Code license](https://img.shields.io/badge/code-MIT-green)
 
 发光、色散、能量光束、玻璃、程序纹理与画面变形，都能在 Photoshop 内完成。支持智能滤镜参数保存、中英文界面、蓝色单项重置，以及拖动时快速预览、停止后自动补全质量。
 
-**[下载 Windows 插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37-rc1/AE-to-PS-Plugins-0.37-rc1-Windows-x64.zip)** · [本次更新](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.37-rc1) · **[23 款效果图集](docs/GALLERY.md)** · [完整清单](docs/EFFECTS.md)
+**[下载 Windows 插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip)** · [本次更新](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.37) · **[23 款效果图集](docs/GALLERY.md)** · [完整清单](docs/EFFECTS.md)
 
 ## 看看效果
 
@@ -45,7 +45,7 @@
 
 色差色散包含光谱扭曲与棱镜散焦模式；Saber 支持两点、路径、Alpha 输入及 16 款自有预设。多数效果支持 RGB8／16／32，Tint 当前仅 RGB8。[参数与模块列表](docs/EFFECTS.md)
 
-## 本次更新：0.37-rc1
+## 本次更新：0.37 正式版
 
 - 相对 0.36-rc1 增加 Starglow、Shine、Saber 和百叶窗，整包达到 23 款。
 - 平衡预览画质：按实际耗时调整草图分辨率，停止约 180ms 后恢复精细预览；改进透明采样与百叶窗遮罩预览。
@@ -60,7 +60,7 @@
 | --- | --- |
 | PS2020 21.2.9，本机 Windows 11 | 本次 23 款／67 个效果位深组合、撤销与旧 PSD 回放通过 |
 | PS2026 27.7.0 | 已安装本次包；本轮未增加完整实机回归声明 |
-| Win7＋CC2018 | 用户已确认此前 0.7 本地整包可运行；本候选保留兼容路径，仍需外机复测 |
+| Win7＋CC2018 | 用户已确认此前 0.7 本地整包可运行；本版本保留兼容路径，仍需外机复测 |
 | 其他 Windows／PS 版本 | 未覆盖所有组合，请反馈具体系统、PS 版本与位深 |
 
 这是依据公开行为独立实现的效果集合，与原版不保证逐像素一致；随机纹理也不保证同一种子形态相同。效果生成使用 **CPU**，GPU 用于界面与预览显示。部分效果不能自动扩展 Photoshop 画布。
@@ -68,6 +68,9 @@
 Glass／Blobbylize 的外部参考层修改后，需要重新进入效果确认更新。旧 PSD 中此前没有保存的参数无法追溯恢复。[完整验证范围](docs/VALIDATION.md) · [智能滤镜参数保存](docs/PARAMETER_PERSISTENCE.md)
 
 ## 开发与贡献
+
+默认只在本机开发和测试；只有维护者明确要求更新到 GitHub 时才发布正式版。[开发与发布约定](docs/RELEASE_POLICY.md)
+
 
 实现采用 C++20、LLVM-MinGW、Win32、Dear ImGui 与 D3D11，共 16 个模块。纯 CPU 核心测试无需 Photoshop 或 SDK：
 

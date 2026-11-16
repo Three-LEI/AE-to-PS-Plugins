@@ -5,7 +5,7 @@ from source_checks import check,digest
 parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--archive',type=Path);parser.add_argument('--report',type=Path);args=parser.parse_args()
 root=Path(__file__).resolve().parents[1];output=args.output.resolve();assert output!=root and root not in output.parents or output.is_relative_to(root/'publish')or output.is_relative_to(root/'dist'),'use a separate export folder'
 project=json.loads((root/'project.json').read_text(encoding='utf-8'));selected=set()
-for name in ('README.md','README.en.md','LICENSE','THIRD_PARTY.md','CONTRIBUTING.md','.gitignore','.gitattributes','project.json','plugins.json','dependencies.lock.json','build.ps1'):selected.add(root/name)
+for name in ('AGENTS.md','README.md','README.en.md','LICENSE','THIRD_PARTY.md','CONTRIBUTING.md','.gitignore','.gitattributes','project.json','plugins.json','dependencies.lock.json','build.ps1'):selected.add(root/name)
 for folder in ('scripts','docs','.github','third_party/imgui'):
  for path in (root/folder).rglob('*'):
   if path.is_file()and 'build'not in path.relative_to(root/folder).parts and '__pycache__'not in path.parts and (path.suffix in {'.py','.ps1','.cpp','.hpp','.h','.jsx','.md','.yml','.yaml','.json','.txt'}or (folder=='docs' and path.is_relative_to(root/'docs/assets') and path.suffix in {'.png','.jpg','.webp','.svg'})):selected.add(path)

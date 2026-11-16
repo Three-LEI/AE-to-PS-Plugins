@@ -1,6 +1,6 @@
 {
   "name": "AE-to-PS-Plugins",
-  "release": "0.37-rc1",
+  "release": "0.37",
   "repository": "https://github.com/Three-LEI/AE-to-PS-Plugins",
   "license": "MIT",
   "author": "淚泪泪",
@@ -22,5 +22,11 @@
     "energy",
     "blinds"
   ],
-  "development_status": "release-candidate"
+  "development_status": "stable",
+  "release_policy": {
+    "development": "local-only",
+    "trigger": "explicit-user-request",
+    "channel": "stable",
+    "automatic_publish": false
+  }
 }

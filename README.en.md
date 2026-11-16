@@ -6,11 +6,11 @@
 
 English · [简体中文](README.md)
 
-![Release](https://img.shields.io/badge/release-0.37--rc1-blue) ![Platform](https://img.shields.io/badge/Windows-x64-0078D4) ![Code license](https://img.shields.io/badge/code-MIT-green)
+![Release](https://img.shields.io/badge/release-0.37-blue) ![Platform](https://img.shields.io/badge/Windows-x64-0078D4) ![Code license](https://img.shields.io/badge/code-MIT-green)
 
 Independent implementations inspired by familiar After Effects effects. Work inside Photoshop with editable Smart Filters, Chinese/English controls, individual parameter resets and fast previews that refine after dragging stops.
 
-**[Download Windows plugins](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37-rc1/AE-to-PS-Plugins-0.37-rc1-Windows-x64.zip)** · [Release notes](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.37-rc1) · **[All 23 before/after examples](docs/GALLERY.md)** · [Effect catalog](docs/EFFECTS.md)
+**[Download Windows plugins](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip)** · [Release notes](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.37) · **[All 23 before/after examples](docs/GALLERY.md)** · [Effect catalog](docs/EFFECTS.md)
 
 ## Actual plugin output
 
@@ -43,7 +43,7 @@ Both Windows and Photoshop must be 64-bit. End users do not need After Effects, 
 
 Chromatic Dispersion includes spectral warp and prism defocus modes. Saber supports endpoints, paths, Alpha inputs and 16 original presets. Most filters support RGB8/16/32; Tint currently supports RGB8 only.
 
-## What changed in 0.37-rc1
+## What changed in 0.37
 
 - Four new filters since 0.36-rc1: Starglow, Shine, Saber and Venetian Blinds.
 - Adaptive preview resolution, improved Alpha sampling and source-preserving Blinds previews.
@@ -56,7 +56,7 @@ A 768×512 synthetic Deep Glow exposure test took approximately 351ms without th
 
 - **PS2020 21.2.9 on the development Windows 11 PC:** 23 filters, 67 effect/depth combinations, undo and old PSD replay checked.
 - **PS2026 27.7.0:** this package is installed; no new full native regression claim for this round.
-- **Windows 7 + CC2018:** the user confirmed the earlier local 0.7 bundle works. Compatibility paths are retained; this candidate still needs external retesting.
+- **Windows 7 + CC2018:** the user confirmed the earlier local 0.7 bundle works. Compatibility paths are retained; this version still needs external retesting.
 - Other combinations are not comprehensively tested.
 
 Effects use the **CPU**; the GPU draws the UI and displays previews. These are independent approximations, with no guarantee of pixel or random-seed equivalence to the original effects. Some effects cannot expand the canvas. Changes to external Glass/Blobbylize reference layers require reopening the filter. Previously unsaved parameters cannot be recovered retroactively.
@@ -64,6 +64,9 @@ Effects use the **CPU**; the GPU draws the UI and displays previews. These are i
 [Validation scope](docs/VALIDATION.md) · [Parameter persistence](docs/PARAMETER_PERSISTENCE.md)
 
 ## Build and contribute
+
+Development stays local until the maintainer explicitly requests a GitHub update. Publications are stable releases. [Release policy](docs/RELEASE_POLICY.md)
+
 
 C++20, LLVM-MinGW, Win32, Dear ImGui and D3D11; 16 modules. CPU tests do not require Photoshop or its SDK:
 
