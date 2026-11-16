@@ -9,7 +9,7 @@
 - 所有效果使用统一的交互快速预览。草图从 512 起步，按耗时调整分辨率，停止后自动补全质量；改善透明采样和百叶窗预览细节。
 - 公共 CPU 线程复用、模糊缓冲复用；Glow／Deep Glow 的合成参数调整可复用前置缓存。768×512 合成测试的曝光调整约从 351ms 降至缓存命中后的 19.5ms；首次计算、改变半径仍需重算，收益因素材和机器而异。
 - 操作按钮加高，Fit 对齐，计算提示浮动在预览内，减少布局抖动；保持蓝色单项重置、中英文和智能滤镜参数保存。
-- 新增[全部 23 款前后对照图](https://github.com/Three-LEI/AE-to-PS-Plugins/blob/main/docs/GALLERY.md)、英文首页、复现参数、构建和性能说明。
+- 提供[全部 23 款参数窗口图集](https://github.com/Three-LEI/AE-to-PS-Plugins/blob/main/docs/GALLERY.md)，可同时查看精细效果预览和示例参数；另有英文首页、复现参数、构建和性能说明。
 
 ## 验证范围
 
@@ -27,10 +27,14 @@
 
 ## English
 
-23 native Windows x64 Photoshop filters, with four additions since 0.36-rc1: Starglow, Shine, Saber and Venetian Blinds. Includes adaptive previews, CPU thread reuse, Glow/Deep Glow preparation caches, chromatic mode extensions, 16 Saber presets and a full native-rendered example gallery.
+23 native Windows x64 Photoshop filters, with four additions since 0.36-rc1: Starglow, Shine, Saber and Venetian Blinds. Includes adaptive previews, CPU thread reuse, Glow/Deep Glow preparation caches, chromatic mode extensions, 16 Saber presets and a gallery of actual production parameter windows with effect previews.
 
 Download **Windows-x64.zip** for installation. End users do not need AE or the SDK. This release was tested in PS2020 21.2.9; PS2026 is installed-only for this round, and Win7/CC2018 still requires external retesting. Earlier Releases were archived locally and removed as a one-time cleanup. See the repository for precise validation and compatibility limits.
 
 ## 后续更新约定
 
 默认仅本机开发和测试，收到维护者明确的“更新到 GitHub”指令后才同步源码和发布当次正式版，不再自动发布预发布版本。详见 [发布约定](RELEASE_POLICY.md)。
+
+## 介绍与图集更新
+
+图集已改为 23 款生产参数窗口截图，包含精细效果预览和调整数值；首图保持不变。色调与分形杂色的截图取图适配已修正。本次只更新说明、图片及展示工具，0.37 的插件程序与三个 Release 附件均保持。

@@ -12,8 +12,14 @@ def jpeg_size(data):
   if marker in [192,193,194]:height,width=struct.unpack_from('>HH',data,at+3);return width,height
   at+=size
  raise AssertionError('JPEG size missing')
+presentations={row.get('presentation','before-after') for row in manifest};assert len(presentations)==1
 for row in manifest:
- file=root/'docs'/row['image'];data=file.read_bytes();assert jpeg_size(data)==(1024,616) and len(data)<1_000_000
+ file=root/'docs'/row['image'];data=file.read_bytes()
+ if row.get('presentation')=='parameter-window':
+  assert data[:8]==b'\x89PNG\r\n\x1a\n' and struct.unpack_from('>II',data,16)==(row['width'],row['height'])
+  assert 600<=row['width']<=2000 and 350<=row['height']<=1600 and len(data)<2_500_000
+  assert row['capture']=='production-dialog-standalone' and row['preview']=='full'
+ else:assert jpeg_size(data)==(1024,616) and len(data)<1_000_000
 hero=(root/'docs/assets/social-preview.jpg').read_bytes();assert jpeg_size(hero)==(1280,640) and len(hero)<1_000_000
 photo=(root/'docs/assets/demo-source.png').read_bytes();assert photo[:8]==b'\x89PNG\r\n\x1a\n' and struct.unpack_from('>II',photo,16)==(768,768)
 at=8
@@ -30,5 +36,6 @@ for name in ['README.md','README.en.md','docs/GALLERY.md','docs/EFFECTS.md','doc
   link=next(s for s in pair if s).strip('<>');parsed=urllib.parse.urlsplit(link)
   if parsed.scheme or not parsed.path:continue
   assert (file.parent/urllib.parse.unquote(parsed.path)).resolve().exists(),(name,link)
-assert (root/'docs/GALLERY.md').read_text('utf8').count('before and after native Photoshop plugin output]')==23
-print('PASS: 23 gallery cards/settings/events, image sizes, privacy metadata, asset notice and primary documentation links')
+alt='production parameter window and full effect preview]' if presentations=={'parameter-window'} else 'before and after native Photoshop plugin output]'
+assert (root/'docs/GALLERY.md').read_text('utf8').count(alt)==23
+print('PASS: 23 gallery images/settings/events, image sizes, privacy metadata, asset notice and primary documentation links')

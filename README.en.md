@@ -10,17 +10,19 @@ English · [简体中文](README.md)
 
 Independent implementations inspired by familiar After Effects effects. Work inside Photoshop with editable Smart Filters, Chinese/English controls, individual parameter resets and fast previews that refine after dragging stops.
 
-**[Download Windows plugins](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip)** · [Release notes](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.37) · **[All 23 before/after examples](docs/GALLERY.md)** · [Effect catalog](docs/EFFECTS.md)
+**[Download Windows plugins](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip)** · [Release notes](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.37) · **[All 23 parameter-window examples](docs/GALLERY.md)** · [Effect catalog](docs/EFFECTS.md)
 
-## Actual plugin output
+## Parameter-window examples
 
-These examples were rendered by the installed plugins in Photoshop. The maintainer supplied the photo; inputs and settings are documented in the gallery. They are not screenshots of the original AE effects or a claim of pixel equivalence.
+Actual production parameter windows show the effect preview together with its configured controls. The cover is unchanged; see [all 23 windows](docs/GALLERY.md) for inputs and settings. The standalone capture tool uses the same production dialog and preview code without changing personal Photoshop documents.
 
-| Deep Glow | Chromatic Dispersion |
-| --- | --- |
-| ![Deep Glow before and after](docs/assets/effects/deep-glow.jpg) | ![Chromatic dispersion before and after](docs/assets/effects/chromatic-dispersion.jpg) |
-| Saber energy | Glass |
-| ![Saber path energy before and after](docs/assets/effects/saber.jpg) | ![Glass before and after](docs/assets/effects/glass.jpg) |
+### Deep Glow
+
+![Deep Glow parameter window and effect preview](docs/assets/effects/deep-glow.png)
+
+### Saber energy
+
+![Saber parameter window and effect preview](docs/assets/effects/saber.png)
 
 ## Install
 

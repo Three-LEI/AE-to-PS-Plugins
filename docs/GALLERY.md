@@ -1,25 +1,26 @@
-# 效果图集 / Effect gallery
+# 参数窗口图集 / Parameter-window gallery
 
-23 款效果均由本项目安装在 **Photoshop 2020 21.2.9** 中的原生 `.8bf` 实际渲染。每张左侧为输入，右侧为输出；图片缩放和 JPEG 编码仅用于网页展示，棋盘只表示透明度。
+下图展示 23 款插件的**实际生产参数窗口**，同时包含精细效果预览、主要参数及当前数值。除首页 `social-preview.jpg` 保持原样，其余展示图均使用清晰的 PNG 参数界面截图，不再采用左右对照排版。
 
-These are actual outputs from this project's native Photoshop plugins, not original AE screenshots. Left: input. Right: output. Resizing, JPEG encoding and checkerboards are only used for presentation.
+These are actual production parameter-window captures, including the full-quality effect preview and the configured controls. The homepage cover is unchanged. Individual examples use lossless PNG window captures rather than before/after cards.
 
 [返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
 
 ## 输入与复现
 
-演示照片由项目维护者提供，公开输入已缩小到 768×768 并移除非必要元数据：[demo-source.png](assets/demo-source.png)。不同效果使用不同参数；毛边使用椭圆 Alpha 输入，Starglow 输入添加少量高光点，置换图使用照片的隐藏副本，Saber 使用明确的椭圆路径。这些条件均在对应例子注明。
+照片由维护者提供，公开输入为已清理非必要元数据的 768×768 图像：[demo-source.png](assets/demo-source.png)。毛边使用椭圆 Alpha 输入，Starglow 输入添加少量高光点，置换图使用参考副本，Saber 使用明确的椭圆路径；各例在下方注明。
 
-普通使用直接在插件界面调整即可。开发者完整构建并安装插件后，可使用仓库中的参数数据重新渲染：
+截图工具复用插件的生产界面和预览代码，加载对应素材与参数，等待精细预览完成后截取窗口。它独立运行，不打开或修改个人 Photoshop 文档；不是原版 AE 参数面板。参数较多的效果保留窗口正常的分组折叠与滚动布局。
+
+开发者先完成正常构建，再准备示例输入并截取参数窗口：
 
 ```powershell
-./scripts/render-gallery.ps1 -Source docs/assets/demo-source.png -Parameters docs/gallery-parameters.json -Output gallery-output
-./scripts/package-gallery.ps1 -Renders gallery-output -Parameters docs/gallery-parameters.json -Assets gallery-assets
+./scripts/render-gallery.ps1 -Source docs/assets/demo-source.png -Parameters docs/gallery-parameters.json -Output gallery-inputs
+./scripts/capture-gallery-ui.ps1 -Renders gallery-inputs -Output gallery-ui
+./scripts/package-gallery-ui.ps1 -Captures gallery-ui/captures -Assets gallery-assets
 ```
 
-脚本默认连接 PS2020 21.2.9；其他版本需显式传入正确的 `-PhotoshopProgId` 和 `-ExpectedVersion`。只修改自身创建的文档。重新生成类型化参数数据时，先完成正常构建，再运行 `scripts/build-gallery-parameters.ps1`。
-
-All examples use non-default demonstration settings. They describe this project's behavior and do not claim equivalence to proprietary originals.
+第一步使用已安装的插件生成演示输入，默认连接 PS2020 21.2.9，其他版本需指定 `-PhotoshopProgId` 和 `-ExpectedVersion`；后两步为独立界面截取与无损打包。打包不修改首页分享封面。截图仅展示本项目实际行为，不表示与商业原版逐像素一致。
 
 ## 目录 / Index
 
@@ -51,7 +52,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 01. Tint 色调
 
-![Tint 色调 — before and after native Photoshop plugin output](assets/effects/tint.jpg)
+![Tint 色调 — production parameter window and full effect preview](assets/effects/tint.png)
 
 暗部蓝色、亮部暖色 / Navy shadows and warm highlights.
 
@@ -59,7 +60,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 02. Fractal Noise 分形杂色
 
-![Fractal Noise 分形杂色 — before and after native Photoshop plugin output](assets/effects/fractal-noise.jpg)
+![Fractal Noise 分形杂色 — production parameter window and full effect preview](assets/effects/fractal-noise.png)
 
 对比度 165，比例 145，复杂度 5；本例为独立纹理生成 / Contrast 165, scale 145, complexity 5; generated texture.
 
@@ -67,7 +68,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 03. Displacement Map 置换图
 
-![Displacement Map 置换图 — before and after native Photoshop plugin output](assets/effects/displacement-map.jpg)
+![Displacement Map 置换图 — production parameter window and full effect preview](assets/effects/displacement-map.png)
 
 同一照片的隐藏副本作为置换图；水平 38、垂直 17 / A hidden photo duplicate supplies the map; X 38, Y 17.
 
@@ -75,7 +76,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 04. Glow 发光
 
-![Glow 发光 — before and after native Photoshop plugin output](assets/effects/glow.jpg)
+![Glow 发光 — production parameter window and full effect preview](assets/effects/glow.png)
 
 半径 32，强度 0.9，阈值 56 / Radius 32, intensity 0.9, threshold 56.
 
@@ -83,7 +84,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 05. Deep Glow 深度发光
 
-![Deep Glow 深度发光 — before and after native Photoshop plugin output](assets/effects/deep-glow.jpg)
+![Deep Glow 深度发光 — production parameter window and full effect preview](assets/effects/deep-glow.png)
 
 半径 100，曝光 0.8，阈值 25，平滑 25 / Radius 100, exposure 0.8, threshold 25, smoothness 25.
 
@@ -91,7 +92,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 06. Chromatic Dispersion 色差色散
 
-![Chromatic Dispersion 色差色散 — before and after native Photoshop plugin output](assets/effects/chromatic-dispersion.jpg)
+![Chromatic Dispersion 色差色散 — production parameter window and full effect preview](assets/effects/chromatic-dispersion.png)
 
 光谱扭曲模式；红蓝缩放 103%／97%，旋转 ±0.7° / Spectral warp; red/blue scales 103%/97%, rotations ±0.7°.
 
@@ -99,7 +100,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 07. Vector Blur 矢量模糊
 
-![Vector Blur 矢量模糊 — before and after native Photoshop plugin output](assets/effects/vector-blur.jpg)
+![Vector Blur 矢量模糊 — production parameter window and full effect preview](assets/effects/vector-blur.png)
 
 流动预设；数量 18，参考柔和 8，混合 75% / Flow preset; amount 18, map softness 8, mix 75%.
 
@@ -107,7 +108,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 08. Grid 网格
 
-![Grid 网格 — before and after native Photoshop plugin output](assets/effects/grid.jpg)
+![Grid 网格 — production parameter window and full effect preview](assets/effects/grid.png)
 
 64×64 网格，边宽 2，青色，不透明度 80%，正常叠加 / 64×64 grid, border 2, cyan, opacity 80%, Normal.
 
@@ -115,7 +116,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 09. Checkerboard 棋盘
 
-![Checkerboard 棋盘 — before and after native Photoshop plugin output](assets/effects/checkerboard.jpg)
+![Checkerboard 棋盘 — production parameter window and full effect preview](assets/effects/checkerboard.png)
 
 96×96 棋盘，青色，不透明度 55%，正常叠加 / 96×96 checkerboard, cyan, opacity 55%, Normal.
 
@@ -123,7 +124,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 10. Cell Pattern 单元格图案
 
-![Cell Pattern 单元格图案 — before and after native Photoshop plugin output](assets/effects/cell-pattern.jpg)
+![Cell Pattern 单元格图案 — production parameter window and full effect preview](assets/effects/cell-pattern.png)
 
 单元格纹理生成，尺寸 35 / Generated cell texture, size 35.
 
@@ -131,7 +132,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 11. Optics Compensation 光学补偿
 
-![Optics Compensation 光学补偿 — before and after native Photoshop plugin output](assets/effects/optics-compensation.jpg)
+![Optics Compensation 光学补偿 — production parameter window and full effect preview](assets/effects/optics-compensation.png)
 
 视场 78，开启反转 / FOV 78, reverse enabled.
 
@@ -139,7 +140,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 12. Lens 镜头
 
-![Lens 镜头 — before and after native Photoshop plugin output](assets/effects/lens.jpg)
+![Lens 镜头 — production parameter window and full effect preview](assets/effects/lens.png)
 
 尺寸 66，汇聚 55 / Size 66, convergence 55.
 
@@ -147,7 +148,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 13. JPEG Damage JPEG 损坏
 
-![JPEG Damage JPEG 损坏 — before and after native Photoshop plugin output](assets/effects/jpeg-damage.jpg)
+![JPEG Damage JPEG 损坏 — production parameter window and full effect preview](assets/effects/jpeg-damage.png)
 
 质量 10，错误率 0.08，错误密度 20，混合 90%，固定种子 327 / Quality 10, error rate 0.08, density 20, mix 90%, seed 327.
 
@@ -155,7 +156,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 14. Blobbylize 胶状化
 
-![Blobbylize 胶状化 — before and after native Photoshop plugin output](assets/effects/blobbylize.jpg)
+![Blobbylize 胶状化 — production parameter window and full effect preview](assets/effects/blobbylize.png)
 
 明度表面，柔和 4，切除 21，效果灯光 / Lightness surface, softness 4, cut away 21, effect light.
 
@@ -163,7 +164,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 15. Glass 玻璃
 
-![Glass 玻璃 — before and after native Photoshop plugin output](assets/effects/glass.jpg)
+![Glass 玻璃 — production parameter window and full effect preview](assets/effects/glass.png)
 
 明度凹凸，柔和 4，高度 35，置换 55，效果灯光 / Lightness bump, softness 4, height 35, displacement 55, effect light.
 
@@ -171,7 +172,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 16. Turbulent Displace 湍流置换
 
-![Turbulent Displace 湍流置换 — before and after native Photoshop plugin output](assets/effects/turbulent-displace.jpg)
+![Turbulent Displace 湍流置换 — production parameter window and full effect preview](assets/effects/turbulent-displace.png)
 
 数量 85，尺寸 70，复杂度 2 / Amount 85, size 70, complexity 2.
 
@@ -179,7 +180,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 17. Light Sweep 扫光
 
-![Light Sweep 扫光 — before and after native Photoshop plugin output](assets/effects/light-sweep.jpg)
+![Light Sweep 扫光 — production parameter window and full effect preview](assets/effects/light-sweep.png)
 
 中心 (384,330)，宽度 100，强度 85 / Center (384,330), width 100, intensity 85.
 
@@ -187,7 +188,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 18. Kaleida 万花筒
 
-![Kaleida 万花筒 — before and after native Photoshop plugin output](assets/effects/kaleida.jpg)
+![Kaleida 万花筒 — production parameter window and full effect preview](assets/effects/kaleida.png)
 
 中心 (384,330)，镜像模式 5 / Center (384,330), mirroring mode 5.
 
@@ -195,23 +196,23 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 19. Roughen Edges 毛边
 
-![Roughen Edges 毛边 — before and after native Photoshop plugin output](assets/effects/roughen-edges.jpg)
+![Roughen Edges 毛边 — production parameter window and full effect preview](assets/effects/roughen-edges.png)
 
-先给照片建立椭圆 Alpha 边缘，再应用毛边；边界 26、比例 64。左图显示相同的透明输入 / Elliptical Alpha input, border 26, scale 64; the left image uses the same prepared input.
+先给照片建立椭圆 Alpha 边缘，再应用毛边；边界 26、比例 64。窗口预览使用相同的透明输入 / Elliptical Alpha input, border 26, scale 64; the window preview uses this prepared input.
 
 <a id="starglow"></a>
 
 ## 20. Starglow 星芒
 
-![Starglow 星芒 — before and after native Photoshop plugin output](assets/effects/starglow.jpg)
+![Starglow 星芒 — production parameter window and full effect preview](assets/effects/starglow.png)
 
-为清楚展示高光响应，输入在眼睛和指尖增加四个 3×3 白色亮点；阈值 0.97、长度 180、增强 1.8。左图也包含这些亮点 / Four 3×3 white glints were added to the input; threshold 0.97, length 180, boost 1.8. The left image includes the same glints.
+为清楚展示高光响应，输入在眼睛和指尖增加四个 3×3 白色亮点；阈值 0.97、长度 180、增强 1.8。窗口预览也包含这些亮点 / Four 3×3 white glints were added to the input; threshold 0.97, length 180, boost 1.8. The preview includes the same glints.
 
 <a id="shine"></a>
 
 ## 21. Shine 放射光束
 
-![Shine 放射光束 — before and after native Photoshop plugin output](assets/effects/shine.jpg)
+![Shine 放射光束 — production parameter window and full effect preview](assets/effects/shine.png)
 
 中心 (280,150)，阈值 0.48，长度 1.6，增强 1.5，滤色、混合 80% / Center (280,150), threshold 0.48, length 1.6, boost 1.5, Screen blend, mix 80%.
 
@@ -219,7 +220,7 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 22. Saber 能量光束
 
-![Saber 能量光束 — before and after native Photoshop plugin output](assets/effects/saber.jpg)
+![Saber 能量光束 — production parameter window and full effect preview](assets/effects/saber.png)
 
 使用四段贝塞尔椭圆路径与电流公共参数预设，叠加在照片上；不是自动识别照片轮廓 / A four-segment Bezier ellipse and the Electric common-parameter preset, composited over the photo; no automatic silhouette detection.
 
@@ -227,6 +228,6 @@ All examples use non-default demonstration settings. They describe this project'
 
 ## 23. Venetian Blinds 百叶窗
 
-![Venetian Blinds 百叶窗 — before and after native Photoshop plugin output](assets/effects/venetian-blinds.jpg)
+![Venetian Blinds 百叶窗 — production parameter window and full effect preview](assets/effects/venetian-blinds.png)
 
 完成 45%，方向 28°，宽度 48，羽化 1.5；棋盘表示输出透明区域 / Completion 45%, direction 28°, width 48, feather 1.5; checkerboard shows output transparency.

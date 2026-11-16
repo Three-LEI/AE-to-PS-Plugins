@@ -10,4 +10,6 @@
 
 一次公开更新授权不延续到后续本地开发。本地调整完成后，应先交给维护者试用，等待下一次明确的同步指令。
 
+**仅更新介绍的例外**：维护者明确要求只同步简介、文档或截图时，更新仓库说明、图片及其配套展示工具即可；插件二进制、版本标签、安装包、源码包及校验附件保持，不创建新 Release。现有 Release 的说明文字可同步修正。
+
 Development stays local by default. Only an explicit maintainer request authorizes a GitHub update. Each authorized publication uses the current stable version and is marked Latest; no automatic prereleases. The validation CI never publishes. Compatibility claims remain limited to actual testing.

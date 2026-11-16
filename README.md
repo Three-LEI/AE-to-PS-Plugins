@@ -10,19 +10,21 @@
 
 发光、色散、能量光束、玻璃、程序纹理与画面变形，都能在 Photoshop 内完成。支持智能滤镜参数保存、中英文界面、蓝色单项重置，以及拖动时快速预览、停止后自动补全质量。
 
-**[下载 Windows 插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip)** · [本次更新](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.37) · **[23 款效果图集](docs/GALLERY.md)** · [完整清单](docs/EFFECTS.md)
+**[下载 Windows 插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip)** · [本次更新](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.37) · **[23 款参数窗口图集](docs/GALLERY.md)** · [完整清单](docs/EFFECTS.md)
 
-## 看看效果
+## 参数窗口示例
 
-以下是本项目插件在 Photoshop 中实际渲染的结果，左侧为输入、右侧为输出。维护者提供了演示照片，各例参数与输入条件见[完整图集](docs/GALLERY.md)，不作为与 AE 原版逐像素一致的声明。
+下图为插件实际生产参数窗口，展示效果预览和当前调整数值。全部 23 款窗口、输入条件与参数见[完整图集](docs/GALLERY.md)。首页分享封面保持不变。
 
-| Deep Glow 深度发光 | 色差色散 / Chromatic Dispersion |
-| --- | --- |
-| ![Deep Glow before and after](docs/assets/effects/deep-glow.jpg) | ![Chromatic dispersion before and after](docs/assets/effects/chromatic-dispersion.jpg) |
-| Saber 能量光束 | Glass 玻璃 |
-| ![Saber path energy before and after](docs/assets/effects/saber.jpg) | ![Glass before and after](docs/assets/effects/glass.jpg) |
+### Deep Glow 深度发光
 
-**[查看全部 23 款效果与示例参数 →](docs/GALLERY.md)**
+![Deep Glow parameter window and effect preview](docs/assets/effects/deep-glow.png)
+
+### Saber 能量光束
+
+![Saber parameter window and effect preview](docs/assets/effects/saber.png)
+
+**[查看全部 23 款参数窗口 →](docs/GALLERY.md)**
 
 ## 安装与使用
 
