@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <array>
 namespace libraryqa {
 inline bool fractal=false;
 inline int* theme=nullptr;
@@ -13,6 +14,20 @@ inline psui::PanelTestHook hook;
 inline std::uint64_t base_atlas=0;
 inline std::uint64_t atlas_hash(){unsigned char* pixels;int w,h;ImGui::GetIO().Fonts->GetTexDataAsAlpha8(&pixels,&w,&h);std::uint64_t hash=14695981039346656037ULL;for(int i=0;i<w*h;++i)hash=(hash^pixels[i])*1099511628211ULL;return hash;}
 inline void require(bool ok,const char* what){if(!ok)throw std::runtime_error(what);}
+inline void actions_fit(psui::LibraryPanel& ui){
+ const auto size=ImGui::GetIO().DisplaySize;std::array<ImVec4,3> rows;
+ int n=0;for(const char* key:{"ok","cancel","reset"}){const auto r=ui.items.at(key);rows[n++]=r;
+  require(r.x>=0&&r.y>=0&&r.z<=size.x+.5f&&r.w<=size.y+.5f,"action button fits viewport");
+  require(r.w-r.y>=26*ui.scale()-.5f,"action button has increased DPI-scaled height");
+ }
+ std::sort(rows.begin(),rows.end(),[](auto a,auto b){return a.y<b.y;});
+ require(rows[0].w<=rows[1].y+.5f&&rows[1].w<=rows[2].y+.5f,"footer buttons do not overlap");
+ if(ui.items.contains("preview.zoom")&&ui.items.contains("preview.fit")){
+  const auto a=ui.items.at("preview.zoom"),b=ui.items.at("preview.fit");
+  require(std::abs((a.y+a.w)-(b.y+b.w))<=1.f,"Fit and numeric zoom centers align");
+ }
+ if(auto it=ui.items.find("image");it!=ui.items.end())for(auto r:rows){auto image=it->second;require(r.z<=image.x||r.x>=image.z||r.w<=image.y||r.y>=image.w,"footer does not overlap preview");}
+}
 inline void point(psui::LibraryPanel& ui,const std::string& key,float fraction=.5f){auto it=ui.items.find(key);require(it!=ui.items.end(),key.c_str());const auto r=it->second;ImGui::GetIO().AddMousePosEvent(r.x+(r.z-r.x)*fraction,(r.y+r.w)/2);}
 inline void wheel_event(psui::LibraryPanel& ui,const char* key,float delta){
  if(!hook.native_wheel_input){point(ui,key);ImGui::GetIO().AddMouseWheelEvent(0,delta);return;}

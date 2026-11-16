@@ -31,6 +31,8 @@ public:
   void image(float width, float height);
   void image_view(PreviewView &, const ProxyImage &);
   bool preview_zoom(PreviewView &);
+  // Draw-only overlay: adds no layout row and never samples/copies the preview.
+  void preview_status(bool busy);
   bool numeric_value(const char *id, double &, double minimum, double maximum,
                      double units_per_pixel, bool integer = false,
                      const char *format = "%.8g");
@@ -68,6 +70,9 @@ public:
   bool check(const char *label, bool &);
   bool section(const char *label, bool open = false);
   bool button(const char *key, const char *label, float width = 0);
+  // Use the actual action height when reserving a footer; numeric rows retain
+  // their compact frame height.
+  float button_height() const;
   void mark(const char *key);
   std::map<std::string, ImVec4> items;
   bool capture(const wchar_t *path);

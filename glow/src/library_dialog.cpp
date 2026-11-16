@@ -1,8 +1,9 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include "glow_host.hpp"
+#include "glow_render_cache.hpp"
 #include "psui/library_panel.hpp"
-#include "psui/async_preview.hpp"
+#include "psui/adaptive_preview.hpp"
 #include "psui/preview_background.hpp"
 #include <algorithm>
 #include <cmath>
@@ -44,16 +45,20 @@ enum Label {main_section,input_section,style_section,tint_section,dirt_section,q
  gamma_amount_label,gamma_label,aspect_label,angle_label,shift_label,spread_label,tint_label,inner_label,outer_label,tint_amount_label,tone_label,
  texture_label,texture_opacity_label,texture_glow_label,texture_exposure_label,texture_gamma_label,quality_label,view_label,source_label,unmult_label,edge_label,
  color_section,none_label,rendering_label,failed_label,independent_label,bounds_label,input_error_label,swap_label};
+#include "preview_adapter.hpp"
 struct Context {
  Parameters p;FilterRecord* host;const Image& source;const std::vector<psui::HostLayer>& layers;
  Image mask,texture,last;psui::PreviewView view;psui::ProxyImage proxy;
  psui::PreviewBackground background;
  std::vector<std::uint8_t> display;
  bool preview=true,dirty=true,display_dirty=true;OSErr error=noErr;ULONGLONG update_at=0;
- psui::AsyncPreview<Image> worker; // destroyed first, before referenced images
+  psui::PreviewSpace adaptive_mapping;psui::DraftImageCache<Image> adaptive_cache;
+ RenderCache render_cache;
+ psui::ProxyImage adaptive_selection_geometry;std::vector<float> adaptive_selection;
+ psui::AdaptivePreview<psui::SpatialFrame<Image>> worker; // destroyed first, before referenced images
  Context(Parameters values,FilterRecord* f,const Image& src,const std::vector<psui::HostLayer>& ls):p(values),host(f),source(src),layers(ls){}
  bool input(std::uint64_t key,Image& image){
-  worker.stop();image={};if(!key)return true;
+  worker.stop();render_cache.clear();adaptive_cache.clear();image={};if(!key)return true;
   const psui::HostLayer* selected=nullptr;
   for(const auto& l:layers)if(l.name_key==key){if(selected)return false;selected=&l;}
   if(!selected)return false;
@@ -80,36 +85,19 @@ bool layer(psui::LibraryPanel& ui,Context& c,int label,std::uint64_t& key,Image&
  return changed;
 }
 void update(psui::LibraryPanel& ui,Context& c){
- Image completed;
- try{if(c.worker.take(completed)){if(completed.valid()){c.last=std::move(completed);c.display_dirty=true;}else c.error=filterBadParameters;}}
- catch(...){c.error=memFullErr;}
- if(c.dirty&&GetTickCount64()>=c.update_at&&c.error==noErr){
-  const auto p=c.p;c.worker.start([&c,p](std::stop_token token){Image out;render(c.source,p,out,c.mask.valid()?&c.mask:nullptr,c.texture.valid()?&c.texture:nullptr,[token]{return token.stop_requested();});return out;});c.dirty=false;
- }
- if(!c.display_dirty&&!c.view.dirty)return;
- const auto roi=c.view.region();const int w=roi.right-roi.left,h=roi.bottom-roi.top;
- const int step=std::max(1,int(std::ceil(double(std::max(w,h))/c.view.proxy_side())));
- const int pw=std::max(1,(w+step-1)/step),ph=std::max(1,(h+step-1)/step);
- c.proxy.width=pw;c.proxy.height=ph;c.proxy.origin_x=roi.left;c.proxy.origin_y=roi.top;c.proxy.step=step;
- c.background.prepare(c.host,c.proxy);
- c.display.resize(std::size_t(pw)*ph*3);
- const auto& pixels=c.preview&&c.last.valid()?c.last:c.source;
- const bool alpha=c.host->outTransparencyMask!=0;
- for(int y=0;y<ph;++y)for(int x=0;x<pw;++x){
-  const int xx=std::clamp(roi.left+x*step-pixels.left,0,pixels.width-1),yy=std::clamp(roi.top+y*step-pixels.top,0,pixels.height-1);
-  const auto i=(std::size_t(yy)*pixels.width+xx)*4;const float a=alpha?std::clamp(pixels.rgba[i+3],0.f,1.f):1;
-  const int bg=((x/8+y/8)&1)?156:200;
-  if(c.background.enabled){
-   std::array<float,4> original{},processed{};for(int k=0;k<4;++k){original[k]=c.source.rgba[i+k];processed[k]=pixels.rgba[i+k];}
-   if(!alpha)original[3]=processed[3]=1;
-   const auto color=c.background.pixel(x,y,original,processed);
-   for(int k=0;k<3;++k)c.display[(std::size_t(y)*pw+x)*3+k]=color[k];
-   continue;
+ try{
+  const auto p=c.p;psui::SpatialFrame<Image> frame;
+  if(!c.error&&c.worker.update(c.dirty,frame,[&c,p](psui::PreviewPass draft,const std::function<bool()>& cancel){
+   psui::SpatialFrame<Image> frame;const auto space=psui::preview_space(c.source,draft);frame.space=space;
+   const auto& source=c.adaptive_cache.get(c.source,space,cancel);const auto& mask=c.adaptive_cache.get(c.mask,space,cancel);const auto& texture=c.adaptive_cache.get(c.texture,space,cancel);
+   if(cancel())return frame;const auto q=space.step>1?draft_parameters(p,space):p;
+   c.render_cache.render(source,q,frame.image,mask.valid()?&mask:nullptr,texture.valid()?&texture:nullptr,cancel);
+   return frame;
+  })){
+   if(frame.image.valid()){c.last=std::move(frame.image);c.adaptive_mapping=frame.space; c.display_dirty=true;}else c.error=filterBadParameters;
   }
-  for(int k=0;k<3;++k)c.display[(std::size_t(y)*pw+x)*3+k]=std::uint8_t(std::lround(std::clamp(pixels.rgba[i+k],0.f,1.f)*255*a+bg*(1-a)));
- }
- if(!ui.preview(c.host,c.display.data(),pw,ph))c.error=memFullErr;
- c.display_dirty=c.view.dirty=false;
+ }catch(...){c.error=memFullErr;}
+ psui::compose_spatial_preview(ui,c.host,c.view,c.proxy,c.background,c.adaptive_selection,c.adaptive_selection_geometry,c.display,c.source,c.last,c.adaptive_mapping,c.preview,c.display_dirty,c.error);
 }
 void draw(psui::LibraryPanel& ui,Context& c){
  ui.parameter_defaults(c.p, defaults(c.p.kind));
@@ -117,19 +105,19 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.inherit_choice_default(labels[operation_label],c.p.blend);
  const float s=ui.scale();bool changed=false;auto& p=c.p;const bool deep=p.kind==Kind::deep;
  ImGui::BeginChild("preview-side",{200*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ImGui::GetFrameHeight()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),200*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-157*s,100*s,200*s));
+ const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
+ c.view.configure(psui::filter_bounds(c.host),200*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-157*s,100*s,200*s));
  update(ui,c);ui.image_view(c.view,c.proxy);
  ui.items["glow.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
- if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;
+ if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);
  if(psui::preview_background_control(ui,c.background))c.display_dirty=true;
  ui.preview_zoom(c.view);
- if(c.worker.pending()||c.dirty)ImGui::TextDisabled("%s",ui.text(labels[rendering_label]).c_str());
+
  if(c.error)ImGui::TextWrapped("%s",ui.text(labels[failed_label]).c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));
  ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();
  if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
- if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=defaults(p.kind);c.mask={};c.texture={};c.error=noErr;changed=true;}
+ if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.adaptive_cache.clear();p=defaults(p.kind);c.mask={};c.texture={};c.error=noErr;changed=true;}
  ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
  if(deep){
   if(ui.section(labels[main_section],true)){
@@ -183,7 +171,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::Spacing();ImGui::TextWrapped("%s",ui.text(labels[bounds_label]).c_str());
  if(c.error)ImGui::TextWrapped("%s",ui.text(labels[input_error_label]).c_str());
  ImGui::EndChild();
- if(changed){c.worker.stop();if((!p.mask_key||c.mask.valid())&&(!p.texture_key||c.texture.valid()))c.error=noErr;c.dirty=true;c.update_at=GetTickCount64()+50;}
+ if(changed){if((!p.mask_key||c.mask.valid())&&(!p.texture_key||c.texture.valid()))c.error=noErr;c.dirty=true;c.update_at=GetTickCount64()+50;}
 }
 }
 INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* host,const Image& source,
@@ -196,7 +184,7 @@ INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* host,const Image& 
  add(composites);add(colors);add(loops);add(dimensions);add(falloffs);add(thresholds);add(tints);add(tones);add(qualities);add(views);add(masks);
  for(const auto& l:layers)glyphs+=l.name;
  const auto result=psui::run_library_panel(module,owner,host,title,p.kind==Kind::deep?790:740,p.kind==Kind::deep?580:440,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);
- c.worker.stop();if(result==IDOK&&!c.error){p=c.p;mask=std::move(c.mask);texture=std::move(c.texture);}
+ c.worker.stop();c.render_cache.clear();c.adaptive_cache.clear();if(result==IDOK&&!c.error){p=c.p;mask=std::move(c.mask);texture=std::move(c.texture);}
  return result;
 }
 }

@@ -7,7 +7,7 @@
       "Version": 4,
       "SubVersion": 0,
       "ComponentVersionShortNum": 0,
-      "ComponentVersionMinorRevNum": 8,
+      "ComponentVersionMinorRevNum": 9,
       "ComponentVersionDotRevNum": 0,
       "ComponentName": "ZaYuChromaticDispersionReconstruction",
       "CodeEntryPointWin64": "PluginMain",
@@ -388,6 +388,120 @@
                     "ParamKeyword": "Zh18",
                     "ParamType": "doub",
                     "ParamDescription": "channel2_blur"
+                  },
+                  {
+                    "ParamName": "warp0_scale",
+                    "ParamKeyword": "Zh19",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp0_scale"
+                  },
+                  {
+                    "ParamName": "warp0_rotation",
+                    "ParamKeyword": "Zh1A",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp0_rotation"
+                  },
+                  {
+                    "ParamName": "warp0_x",
+                    "ParamKeyword": "Zh1B",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp0_x"
+                  },
+                  {
+                    "ParamName": "warp0_y",
+                    "ParamKeyword": "Zh1C",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp0_y"
+                  },
+                  {
+                    "ParamName": "warp1_scale",
+                    "ParamKeyword": "Zh1D",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp1_scale"
+                  },
+                  {
+                    "ParamName": "warp1_rotation",
+                    "ParamKeyword": "Zh1E",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp1_rotation"
+                  },
+                  {
+                    "ParamName": "warp1_x",
+                    "ParamKeyword": "Zh1F",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp1_x"
+                  },
+                  {
+                    "ParamName": "warp1_y",
+                    "ParamKeyword": "Zh1G",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp1_y"
+                  },
+                  {
+                    "ParamName": "warp_amount",
+                    "ParamKeyword": "Zh1H",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp_amount"
+                  },
+                  {
+                    "ParamName": "defocus_radius",
+                    "ParamKeyword": "Zh1I",
+                    "ParamType": "doub",
+                    "ParamDescription": "defocus_radius"
+                  },
+                  {
+                    "ParamName": "ring_width",
+                    "ParamKeyword": "Zh1J",
+                    "ParamType": "doub",
+                    "ParamDescription": "ring_width"
+                  },
+                  {
+                    "ParamName": "defocus_radius_0",
+                    "ParamKeyword": "Zh1K",
+                    "ParamType": "doub",
+                    "ParamDescription": "defocus_radius_0"
+                  },
+                  {
+                    "ParamName": "defocus_radius_1",
+                    "ParamKeyword": "Zh1L",
+                    "ParamType": "doub",
+                    "ParamDescription": "defocus_radius_1"
+                  },
+                  {
+                    "ParamName": "defocus_radius_2",
+                    "ParamKeyword": "Zh1M",
+                    "ParamType": "doub",
+                    "ParamDescription": "defocus_radius_2"
+                  },
+                  {
+                    "ParamName": "aperture_shape",
+                    "ParamKeyword": "Zh1N",
+                    "ParamType": "long",
+                    "ParamDescription": "aperture_shape"
+                  },
+                  {
+                    "ParamName": "defocus_quality",
+                    "ParamKeyword": "Zh1O",
+                    "ParamType": "long",
+                    "ParamDescription": "defocus_quality"
+                  },
+                  {
+                    "ParamName": "aperture_rotation",
+                    "ParamKeyword": "Zh1P",
+                    "ParamType": "doub",
+                    "ParamDescription": "aperture_rotation"
+                  },
+                  {
+                    "ParamName": "aperture_aspect",
+                    "ParamKeyword": "Zh1Q",
+                    "ParamType": "doub",
+                    "ParamDescription": "aperture_aspect"
+                  },
+                  {
+                    "ParamName": "aperture_roundness",
+                    "ParamKeyword": "Zh1R",
+                    "ParamType": "doub",
+                    "ParamDescription": "aperture_roundness"
                   }
                 ]
               }

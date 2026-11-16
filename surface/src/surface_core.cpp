@@ -35,6 +35,7 @@ std::array<double,4> sample(const Image& image,double x,double y){
 }
 }
 bool render(const Image& source,const Parameters& p,Image& out,const Image* map,const Cancel& cancel){
+ pscpu::ParallelScope parallel;
  if(!source.valid()||!valid(p)||(map&&!map->valid())||(cancel&&cancel()))return false;
  if(p.kind==Kind::glass&&(p.height==0||p.displacement==0)&&p.ambient==100&&(p.diffuse==0||p.intensity==0)&&(p.specular==0||p.intensity==0)){out=source;return true;}
  if(p.kind==Kind::blob&&p.cut==100){Image empty=source;std::fill(empty.rgba.begin(),empty.rgba.end(),0);out=std::move(empty);return true;}

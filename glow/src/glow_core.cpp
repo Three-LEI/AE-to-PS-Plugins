@@ -1,4 +1,6 @@
 #include "glow_core.hpp"
+#include "glow_render_cache.hpp"
+#include "../../native/common/scratch_buffer.hpp"
 #include "../../native/common/parallel_ranges.hpp"
 #include <algorithm>
 #include <cmath>
@@ -26,11 +28,12 @@ Pixel mapped(const Image& im,int x,int y,const Image& canvas){
 }
 // Fractional running box, normalized over its full support. O(pixels), including
 // very large radii; constant input remains constant with repeat-edge padding.
-bool box(Image& im,double radius,bool vertical,bool edge,const Cancel& cancel){
+struct BlurScratch {pscpu::ScratchBuffer<float> output;pscpu::ScratchBuffer<double> prefix;};
+bool box(Image& im,double radius,bool vertical,bool edge,const Cancel& cancel,BlurScratch& scratch){
  if(radius<1e-6)return true;
  const int length=vertical?im.height:im.width,lines=vertical?im.width:im.height;
  const int r=int(std::floor(radius));const double fraction=radius-r,divisor=2*radius+1;
- std::vector<float> output(im.rgba.size());std::vector<double> prefix(std::size_t(length+1)*4);
+ auto& output=scratch.output.resize_for_overwrite(im.rgba.size());auto& prefix=scratch.prefix.resize_for_overwrite(std::size_t(length+1)*4);
  for(int line=0;line<lines;++line){
   if(stopped(cancel))return false;
   auto index=[&](int p){return (vertical?std::size_t(p)*im.width+line:std::size_t(line)*im.width+p)*4;};
@@ -48,9 +51,9 @@ bool box(Image& im,double radius,bool vertical,bool edge,const Cancel& cancel){
  }
  im.rgba.swap(output);return true;
 }
-bool blur(Image& im,double sx,double sy,bool edge,const Cancel& c){
+bool blur(Image& im,double sx,double sy,bool edge,const Cancel& c,BlurScratch& scratch){
  const double rx=(std::sqrt(4*sx*sx+1)-1)*.5,ry=(std::sqrt(4*sy*sy+1)-1)*.5;
- for(int pass=0;pass<3;++pass)if(!box(im,rx,false,edge,c)||!box(im,ry,true,edge,c))return false;
+ for(int pass=0;pass<3;++pass)if(!box(im,rx,false,edge,c,scratch)||!box(im,ry,true,edge,c,scratch))return false;
  return true;
 }
 Image reduce(const Image& src,int factor,const Cancel& c){
@@ -70,8 +73,8 @@ Image reduce(const Image& src,int factor,const Cancel& c){
 }
 // Rotate a low-resolution working buffer, then blur on its principal axes.
 // Rotation is only required for an anisotropic glow and never rotates the source.
-Image oriented(const Image& src,double sx,double sy,double degrees,bool edge,const Cancel& c){
- if(std::abs(sx-sy)<1e-6||std::abs(std::remainder(degrees,180.))<1e-6){Image out=src;if(!blur(out,sx,sy,edge,c))return {};return out;}
+Image oriented(const Image& src,double sx,double sy,double degrees,bool edge,const Cancel& c,BlurScratch& scratch){
+ if(std::abs(sx-sy)<1e-6||std::abs(std::remainder(degrees,180.))<1e-6){Image out=src;if(!blur(out,sx,sy,edge,c,scratch))return {};return out;}
  const double a=degrees*3.14159265358979323846/180,cs=std::cos(a),sn=std::sin(a);
  const int w=int(std::ceil(std::abs(src.width*cs)+std::abs(src.height*sn)))+2;
  const int h=int(std::ceil(std::abs(src.width*sn)+std::abs(src.height*cs)))+2;
@@ -81,7 +84,7 @@ Image oriented(const Image& src,double sx,double sy,double degrees,bool edge,con
   const auto v=sample(src,cs*dx-sn*dy+(src.width-1)*.5,sn*dx+cs*dy+(src.height-1)*.5,edge);
   const auto i=(std::size_t(y)*w+x)*4;for(int k=0;k<4;++k)rot.rgba[i+k]=v[k];
  }}
- if(!blur(rot,sx,sy,edge,c))return {};
+ if(!blur(rot,sx,sy,edge,c,scratch))return {};
  Image out=src;
  for(int y=0;y<src.height;++y){if(stopped(c))return {};for(int x=0;x<src.width;++x){
   const double dx=x-(src.width-1)*.5,dy=y-(src.height-1)*.5;
@@ -105,8 +108,9 @@ bool valid(const Parameters& p){
  for(auto a:{p.color_a,p.color_b})for(double x:a)if(!std::isfinite(x)||x<0||x>1)return false;
  return p.threshold>=0&&p.threshold<=1000&&p.radius>=0&&p.radius<=4096&&p.intensity>=0&&p.intensity<=100&&p.loops>=0&&p.loops<=100&&std::abs(p.phase)<=360000&&p.midpoint>=0&&p.midpoint<=100&&p.smoothness>=0&&p.smoothness<=100&&p.saturation_bias>=0&&p.saturation_bias<=100&&p.gamma>=.1&&p.gamma<=5&&p.gamma_amount>=0&&p.gamma_amount<=100&&p.aspect>=.05&&p.aspect<=20&&std::abs(p.angle)<=360000&&std::abs(p.chromatic_shift)<=100&&p.chromatic_spread>=0&&p.chromatic_spread<=100&&p.tint_amount>=0&&p.tint_amount<=100&&p.source_opacity>=0&&p.source_opacity<=100&&p.texture_opacity>=0&&p.texture_opacity<=100&&p.texture_glow>=0&&p.texture_glow<=100&&std::abs(p.texture_exposure)<=10&&p.texture_gamma>=.1&&p.texture_gamma<=5&&int(p.blend)>=0&&int(p.blend)<=4&&p.based_on>=0&&p.based_on<=1&&p.composite>=0&&p.composite<=2&&p.colors>=0&&p.colors<=1&&p.looping>=0&&p.looping<=2&&p.dimensions>=0&&p.dimensions<=2&&p.falloff>=0&&p.falloff<=1&&p.threshold_mode>=0&&p.threshold_mode<=2&&p.tint>=0&&p.tint<=2&&p.tone>=0&&p.tone<=2&&p.quality>=0&&p.quality<=2&&p.view>=0&&p.view<=2&&p.mask_mode>=0&&p.mask_mode<=1;
 }
-bool render(const Image& src,const Parameters& p,Image& output,const Image* mask,const Image* texture,const Cancel& cancel){
- if(!src.valid()||!valid(p)||(mask&&!mask->valid())||(texture&&!texture->valid())||stopped(cancel))return false;
+namespace {
+bool prepare_glow(const Image& src,const Parameters& p,PreparedGlow& prepared,const Image* mask,const Cancel& cancel){
+ BlurScratch scratch;
  const bool deep=p.kind==Kind::deep;const double gamma=deep?1+(p.gamma-1)*p.gamma_amount*.01:1;
 #ifdef ZAYU_GLOW_FULL_WORK_REFERENCE
  const bool bounded_work=false; // Regression reference for sparse-canvas optimization.
@@ -114,7 +118,6 @@ bool render(const Image& src,const Parameters& p,Image& output,const Image* mask
  const bool bounded_work=deep;
 #endif
  auto linear=[&](double v){return std::pow(std::max(0.,v),gamma);};
- auto encode=[&](double v){return std::pow(std::max(0.,v),1/gamma);};
  Image seed{src.width,src.height,src.left,src.top,{}};seed.rgba.resize(src.rgba.size());
  int seed_left=src.width,seed_top=src.height,seed_right=0,seed_bottom=0;
  for(int y=0;y<src.height;++y){if(stopped(cancel))return false;for(int x=0;x<src.width;++x){
@@ -136,7 +139,8 @@ bool render(const Image& src,const Parameters& p,Image& output,const Image* mask
  // Deep bloom is additive across a logarithmic range of spatial scales. Keep
  // a subpixel near-field at large radius instead of stretching every scale:
  // a 1000px radius must retain the bright halo next to a thin stroke.
- // These are independent visual weights, not normalized averaging weights.
+ // Blend each light scale in linear light. Screen uses the union of the
+ // scales, while Add retains their full HDR sum.
  constexpr double exponential[]={.55,.60,.65,.70,.75,.70,.60,.48,.32,.16};
  constexpr double inverse[]={.40,.45,.50,.55,.60,.65,.70,.75,.70,.60};
  const int count=deep?(p.intensity==0||p.view==2||seed_right<=seed_left?0:10):1;
@@ -170,7 +174,7 @@ bool render(const Image& src,const Parameters& p,Image& output,const Image* mask
     std::copy_n(seed.rgba.data()+(std::size_t(y+top)*src.width+left)*4,std::size_t(span_width)*4,work.rgba.data()+std::size_t(y)*span_width*4);}
   }else work=factor==1?seed:reduce(seed,factor,cancel);
   if(!work.valid())return false;
-  work=oriented(work,sx*work.width/span_width,sy*work.height/span_height,deep?p.angle:0,p.repeat_edges,cancel);if(!work.valid())return false;
+  work=oriented(work,sx*work.width/span_width,sy*work.height/span_height,deep?p.angle:0,p.repeat_edges,cancel,scratch);if(!work.valid())return false;
   const double weight=deep?(p.falloff==0?exponential[level]:inverse[level]):1;
   total_weight+=weight;
   const auto accumulation_units=std::size_t(right-left)*(bottom-top)*4;
@@ -178,9 +182,20 @@ bool render(const Image& src,const Parameters& p,Image& output,const Image* mask
      [&](std::size_t first,std::size_t last,const auto& check){
   for(int y=top+int(first);y<top+int(last);++y){if(check())return false;for(int x=left;x<right;++x){
    const auto v=sample(work,(x+.5-origin_x)*work.width/span_width-.5,(y+.5-origin_y)*work.height/span_height-.5,p.repeat_edges);const auto i=(std::size_t(y)*src.width+x)*4;
-   for(int k=0;k<4;++k)glow.rgba[i+k]+=float(v[k]*weight);
+   for(int k=0;k<4;++k){
+    const float light=float(v[k]*weight);
+    if(deep&&p.blend==Blend::screen&&k<3){const float previous=glow.rgba[i+k];glow.rgba[i+k]=previous+light-std::min(1.f,previous)*std::min(1.f,light);}
+    else glow.rgba[i+k]+=light;
+   }
   }}return true;}))return false;
  }
+ prepared.seed=std::move(seed);prepared.light=std::move(glow);prepared.total_weight=total_weight;return true;
+}
+bool compose_glow(const Image& src,const Parameters& p,Image& output,const PreparedGlow& prepared,const Image* texture,const Cancel& cancel){
+ const bool deep=p.kind==Kind::deep;const double gamma=deep?1+(p.gamma-1)*p.gamma_amount*.01:1;
+ auto linear=[&](double v){return std::pow(std::max(0.,v),gamma);};
+ auto encode=[&](double v){return std::pow(std::max(0.,v),1/gamma);};
+ const auto& seed=prepared.seed;const auto& glow=prepared.light;const double total_weight=prepared.total_weight;
  Image out{src.width,src.height,src.left,src.top,{}};out.rgba.resize(src.rgba.size());
  // Small previews retain the original serial path: starting threads costs more
  // than this compositing pass below a quarter-million pixels on this host.
@@ -201,7 +216,7 @@ bool render(const Image& src,const Parameters& p,Image& output,const Image* mask
    const double strength=std::max({g[0],g[1],g[2]});
    const double mix=deep?(p.tint==1?0:1-coverage):cycle(coverage*p.loops+p.phase/360,p.looping,p.midpoint);
    for(int k=0;k<3;++k){const double target=linear(p.color_a[k]*(1-mix)+p.color_b[k]*mix)*strength;
-    g[k]=deep?g[k]+(target-g[k])*p.tint_amount*.01:target;}
+    g[k]=deep?std::lerp(g[k],target,p.tint_amount*.01):target;}
   }
   if(deep&&texture){const auto t=mapped(*texture,x,y,src);const double a=p.texture_opacity*.01*unit(t[3]);
    for(int k=0;k<3;++k){const double v=std::pow(std::max(0.f,sane(t[k])),1/p.texture_gamma)*std::exp2(p.texture_exposure);
@@ -260,5 +275,39 @@ bool render(const Image& src,const Parameters& p,Image& output,const Image* mask
  }}
  return true;}))return false;
  if(stopped(cancel))return false;output=std::move(out);return true;
+}
+GlowCacheKey preparation_key(const Image& src,const Parameters& p,const Image* mask){
+ auto q=p;const auto factory=defaults(p.kind);
+ q.intensity=p.kind==Kind::deep&&p.intensity==0?0:1;
+ q.view=p.kind==Kind::deep&&p.view==2?2:0;
+ q.blend=p.kind==Kind::deep&&p.blend==Blend::screen?Blend::screen:Blend::add;
+ q.composite=factory.composite;q.colors=factory.colors;q.looping=factory.looping;
+ q.loops=factory.loops;q.phase=factory.phase;q.midpoint=factory.midpoint;
+ q.color_a=factory.color_a;q.color_b=factory.color_b;q.tint=factory.tint;q.tone=factory.tone;
+ q.chromatic_shift=0;q.chromatic_spread=0;q.tint_amount=factory.tint_amount;q.source_opacity=factory.source_opacity;
+ q.texture_key=0;q.texture_opacity=factory.texture_opacity;q.texture_glow=factory.texture_glow;
+ q.texture_exposure=factory.texture_exposure;q.texture_gamma=factory.texture_gamma;q.unmult=factory.unmult;
+ GlowCacheKey key{q,src.rgba.data(),mask?mask->rgba.data():nullptr,
+  {src.width,src.height,src.left,src.top,mask?mask->width:0,mask?mask->height:0,mask?mask->left:0,mask?mask->top:0}};
+ key.rounding=std::fegetround();
+#if defined(__SSE__) || defined(_M_X64)
+ key.simd_control=_mm_getcsr()&0xffc0u;
+#endif
+ return key;
+}
+}
+bool render(const Image& src,const Parameters& p,Image& output,const Image* mask,const Image* texture,const Cancel& cancel){
+ pscpu::ParallelScope parallel;
+ if(!src.valid()||!valid(p)||(mask&&!mask->valid())||(texture&&!texture->valid())||stopped(cancel))return false;
+ PreparedGlow prepared;
+ return prepare_glow(src,p,prepared,mask,cancel)&&compose_glow(src,p,output,prepared,texture,cancel);
+}
+bool RenderCache::render(const Image& src,const Parameters& p,Image& output,const Image* mask,const Image* texture,const Cancel& cancel){
+ pscpu::ParallelScope parallel;
+ if(!src.valid()||!valid(p)||(mask&&!mask->valid())||(texture&&!texture->valid())||stopped(cancel))return false;
+ const auto bytes=src.rgba.size()*sizeof(float)*2;
+ if(!stages_.fits(bytes))return glow::render(src,p,output,mask,texture,cancel);
+ const auto* prepared=stages_.get(preparation_key(src,p,mask),bytes,[&](PreparedGlow& value){return prepare_glow(src,p,value,mask,cancel)&&!stopped(cancel);});
+ return prepared&&compose_glow(src,p,output,*prepared,texture,cancel);
 }
 }

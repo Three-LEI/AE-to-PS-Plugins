@@ -9,6 +9,7 @@ void check(bool ok,const char* text){if(!ok){std::cerr<<"FAIL: "<<text<<'\n';std
 Image canvas(int w,int h){Image im{w,h,0,0,{}};im.rgba.resize(std::size_t(w)*h*4);return im;}
 double value(const Image& im,int x,int y,int k){return im.rgba[(std::size_t(y)*im.width+x)*4+k];}
 void close(double a,double b,const char* text){check(std::abs(a-b)<2e-5,text);}
+void extended_tests();
 int main(){
  auto impulse=canvas(65,33);const auto center=(std::size_t(16)*65+32)*4;for(int k=0;k<4;++k)impulse.rgba[center+k]=1;
  auto p=preset(1);p.amount=4;p.edge=Edge::transparent;Image out;
@@ -44,5 +45,6 @@ int main(){
  p=preset(2);int polls=0;out=flat;const auto prior=out.rgba;check(!render(gradient,p,out,nullptr,[&]{return ++polls>3;})&&out.rgba==prior,"cancel cannot publish partial image");
  p.amount=std::numeric_limits<double>::quiet_NaN();check(!render(gradient,p,out),"NaN rejected");p=preset(1);p.samples=999;check(!render(gradient,p,out),"sample budget bounded");
  p=preset(1);p.amount=0;p.channels[0].x=2;p.edge=Edge::repeat;auto inplace=gradient;check(render(inplace,p,inplace),"in-place output supported");close(value(inplace,10,10,0),value(gradient,8,10,0),"in-place source lifetime");
+ extended_tests();
  std::cout<<"PASS: RGB positions; identity; HDR/white balance; gamma/alpha black equivalence; spectral order/continuity; radial center; transforms; four edges; masks; highlight base; alpha modes; hidden RGB; cancellation; bounds; in-place.\n";
 }

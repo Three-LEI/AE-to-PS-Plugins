@@ -1,0 +1,23 @@
+name: Source and gallery checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Validate public source and dependencies
+        run: python3 scripts/check-source.py
+      - name: Validate gallery and documentation links
+        run: python3 scripts/check-gallery.py
+      - name: Validate parameter field coverage
+        run: python3 qa/check-parameter-fields.py

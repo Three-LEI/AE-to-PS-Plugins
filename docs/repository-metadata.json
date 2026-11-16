@@ -1,0 +1,21 @@
+{
+  "description": "23 free, open-source native Photoshop filters inspired by After Effects: glow, chromatic dispersion, Saber-style energy, glass, noise and more. Smart Filters, fast previews, C++ / Windows x64.",
+  "homepage": "https://github.com/Three-LEI/AE-to-PS-Plugins/blob/main/docs/GALLERY.md",
+  "topics": [
+    "photoshop",
+    "photoshop-plugin",
+    "adobe-photoshop",
+    "after-effects",
+    "image-processing",
+    "image-effects",
+    "visual-effects",
+    "glow",
+    "chromatic-aberration",
+    "procedural-generation",
+    "cpp",
+    "windows",
+    "8bf",
+    "smart-filters",
+    "graphic-design"
+  ]
+}

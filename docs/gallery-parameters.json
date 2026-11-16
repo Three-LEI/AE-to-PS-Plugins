@@ -1,0 +1,3189 @@
+[
+  {
+    "slug": "tint",
+    "event": "ZpTi",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1414090289
+      },
+      {
+        "id": "Zt00",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zt01",
+        "kind": "number",
+        "value": 0.035
+      },
+      {
+        "id": "Zt02",
+        "kind": "number",
+        "value": 0.075
+      },
+      {
+        "id": "Zt03",
+        "kind": "number",
+        "value": 0.16
+      },
+      {
+        "id": "Zt04",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zt05",
+        "kind": "number",
+        "value": 0.85
+      },
+      {
+        "id": "Zt06",
+        "kind": "number",
+        "value": 0.65
+      }
+    ]
+  },
+  {
+    "slug": "fractal-noise",
+    "event": "ZpFn",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1179799090
+      },
+      {
+        "id": "Zf00",
+        "kind": "number",
+        "value": 165
+      },
+      {
+        "id": "Zf01",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zf02",
+        "kind": "number",
+        "value": 145
+      },
+      {
+        "id": "Zf03",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zf04",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zf05",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zf06",
+        "kind": "number",
+        "value": 5
+      },
+      {
+        "id": "Zf07",
+        "kind": "number",
+        "value": 70
+      },
+      {
+        "id": "Zf08",
+        "kind": "number",
+        "value": 56
+      },
+      {
+        "id": "Zf09",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zf0A",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zf0B",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zf0C",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zf0D",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zf0E",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zf0F",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zf0G",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zf0H",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zf0I",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zf0J",
+        "kind": "integer",
+        "value": 2
+      },
+      {
+        "id": "Zf0K",
+        "kind": "integer",
+        "value": 3
+      },
+      {
+        "id": "Zf0L",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zf0M",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zf0N",
+        "kind": "flag",
+        "value": true
+      },
+      {
+        "id": "Zf0O",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zf0P",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zf0Q",
+        "kind": "flag",
+        "value": false
+      }
+    ]
+  },
+  {
+    "slug": "displacement-map",
+    "event": "ZpDm",
+    "input": "map",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514426417
+      },
+      {
+        "id": "Zd00",
+        "kind": "number",
+        "value": 38
+      },
+      {
+        "id": "Zd01",
+        "kind": "number",
+        "value": 17
+      },
+      {
+        "id": "Zd02",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zd03",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zd04",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zd05",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zd06",
+        "kind": "layer",
+        "value": "DemoMap"
+      }
+    ]
+  },
+  {
+    "slug": "glow",
+    "event": "ZpGw",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514622001
+      },
+      {
+        "id": "Zg00",
+        "kind": "number",
+        "value": 56
+      },
+      {
+        "id": "Zg01",
+        "kind": "number",
+        "value": 32
+      },
+      {
+        "id": "Zg02",
+        "kind": "number",
+        "value": 0.9
+      },
+      {
+        "id": "Zg03",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg04",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg05",
+        "kind": "number",
+        "value": 50
+      },
+      {
+        "id": "Zg06",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg07",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg08",
+        "kind": "number",
+        "value": 2.2
+      },
+      {
+        "id": "Zg09",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zg0A",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg0B",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0C",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0D",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0E",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zg0F",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zg0G",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zg0H",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0I",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0J",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg0K",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0L",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0M",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0N",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0O",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0P",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0Q",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0R",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0S",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0T",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0U",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0V",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zg0W",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0X",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0Y",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zg0Z",
+        "kind": "flag",
+        "value": true
+      },
+      {
+        "id": "Zg10",
+        "kind": "flag",
+        "value": true
+      },
+      {
+        "id": "Zg11",
+        "kind": "layer",
+        "value": ""
+      },
+      {
+        "id": "Zg12",
+        "kind": "layer",
+        "value": ""
+      },
+      {
+        "id": "Zg13",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg14",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg15",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg16",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg17",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg18",
+        "kind": "number",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "slug": "deep-glow",
+    "event": "ZpDg",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514424113
+      },
+      {
+        "id": "Zg00",
+        "kind": "number",
+        "value": 25
+      },
+      {
+        "id": "Zg01",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zg02",
+        "kind": "number",
+        "value": 0.8
+      },
+      {
+        "id": "Zg03",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg04",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg05",
+        "kind": "number",
+        "value": 50
+      },
+      {
+        "id": "Zg06",
+        "kind": "number",
+        "value": 25
+      },
+      {
+        "id": "Zg07",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg08",
+        "kind": "number",
+        "value": 2.2
+      },
+      {
+        "id": "Zg09",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zg0A",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg0B",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0C",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0D",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0E",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zg0F",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zg0G",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zg0H",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0I",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zg0J",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg0K",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zg0L",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0M",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0N",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0O",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0P",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0Q",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zg0R",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0S",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0T",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0U",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0V",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zg0W",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0X",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zg0Y",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zg0Z",
+        "kind": "flag",
+        "value": true
+      },
+      {
+        "id": "Zg10",
+        "kind": "flag",
+        "value": true
+      },
+      {
+        "id": "Zg11",
+        "kind": "layer",
+        "value": ""
+      },
+      {
+        "id": "Zg12",
+        "kind": "layer",
+        "value": ""
+      },
+      {
+        "id": "Zg13",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg14",
+        "kind": "number",
+        "value": 0.2
+      },
+      {
+        "id": "Zg15",
+        "kind": "number",
+        "value": 0.28
+      },
+      {
+        "id": "Zg16",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zg17",
+        "kind": "number",
+        "value": 0.55
+      },
+      {
+        "id": "Zg18",
+        "kind": "number",
+        "value": 0.2
+      }
+    ]
+  },
+  {
+    "slug": "chromatic-dispersion",
+    "event": "ZpCd",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514357809
+      },
+      {
+        "id": "Zh00",
+        "kind": "number",
+        "value": 24
+      },
+      {
+        "id": "Zh01",
+        "kind": "number",
+        "value": 25
+      },
+      {
+        "id": "Zh02",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zh03",
+        "kind": "number",
+        "value": 0.5
+      },
+      {
+        "id": "Zh04",
+        "kind": "number",
+        "value": 0.5
+      },
+      {
+        "id": "Zh05",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh06",
+        "kind": "number",
+        "value": 1.5
+      },
+      {
+        "id": "Zh07",
+        "kind": "number",
+        "value": 0.6
+      },
+      {
+        "id": "Zh08",
+        "kind": "number",
+        "value": 2
+      },
+      {
+        "id": "Zh09",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh0A",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zh0B",
+        "kind": "number",
+        "value": 2.2
+      },
+      {
+        "id": "Zh0C",
+        "kind": "number",
+        "value": 50
+      },
+      {
+        "id": "Zh0D",
+        "kind": "number",
+        "value": 20
+      },
+      {
+        "id": "Zh0E",
+        "kind": "integer",
+        "value": 2
+      },
+      {
+        "id": "Zh0F",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zh0G",
+        "kind": "integer",
+        "value": 24
+      },
+      {
+        "id": "Zh0H",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zh0I",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zh0J",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zh0K",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zh0L",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zh0M",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zh0N",
+        "kind": "flag",
+        "value": true
+      },
+      {
+        "id": "Zh0O",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zh0P",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zh0Q",
+        "kind": "layer",
+        "value": ""
+      },
+      {
+        "id": "Zh0R",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zh0S",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh0T",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh0U",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zh0V",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh0W",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh0X",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh0Y",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh0Z",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh10",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zh11",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh12",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh13",
+        "kind": "number",
+        "value": -1
+      },
+      {
+        "id": "Zh14",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh15",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh16",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zh17",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh18",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh19",
+        "kind": "number",
+        "value": 103
+      },
+      {
+        "id": "Zh1A",
+        "kind": "number",
+        "value": 0.7
+      },
+      {
+        "id": "Zh1B",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh1C",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh1D",
+        "kind": "number",
+        "value": 97
+      },
+      {
+        "id": "Zh1E",
+        "kind": "number",
+        "value": -0.7
+      },
+      {
+        "id": "Zh1F",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh1G",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh1H",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zh1I",
+        "kind": "number",
+        "value": 24
+      },
+      {
+        "id": "Zh1J",
+        "kind": "number",
+        "value": 25
+      },
+      {
+        "id": "Zh1K",
+        "kind": "number",
+        "value": 125
+      },
+      {
+        "id": "Zh1L",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zh1M",
+        "kind": "number",
+        "value": 75
+      },
+      {
+        "id": "Zh1N",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zh1O",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zh1P",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zh1Q",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zh1R",
+        "kind": "number",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "slug": "vector-blur",
+    "event": "ZpVb",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1515602481
+      },
+      {
+        "id": "Zv00",
+        "kind": "number",
+        "value": 18
+      },
+      {
+        "id": "Zv01",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zv02",
+        "kind": "number",
+        "value": 0.6
+      },
+      {
+        "id": "Zv03",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zv04",
+        "kind": "number",
+        "value": 8
+      },
+      {
+        "id": "Zv05",
+        "kind": "number",
+        "value": 75
+      },
+      {
+        "id": "Zv06",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zv07",
+        "kind": "integer",
+        "value": 5
+      },
+      {
+        "id": "Zv08",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zv09",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zv0A",
+        "kind": "integer",
+        "value": 2
+      },
+      {
+        "id": "Zv0B",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zv0C",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zv0D",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zv0E",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zv0F",
+        "kind": "layer",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "slug": "grid",
+    "event": "ZpGr",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514623537
+      },
+      {
+        "id": "Zp00",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zp01",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zp02",
+        "kind": "number",
+        "value": 460.79999999999995
+      },
+      {
+        "id": "Zp03",
+        "kind": "number",
+        "value": 460.79999999999995
+      },
+      {
+        "id": "Zp04",
+        "kind": "number",
+        "value": 64
+      },
+      {
+        "id": "Zp05",
+        "kind": "number",
+        "value": 64
+      },
+      {
+        "id": "Zp06",
+        "kind": "number",
+        "value": 2
+      },
+      {
+        "id": "Zp07",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zp08",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zp09",
+        "kind": "number",
+        "value": 80
+      },
+      {
+        "id": "Zp0A",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zp0B",
+        "kind": "integer",
+        "value": 2
+      },
+      {
+        "id": "Zp0C",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zp0D",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zp0E",
+        "kind": "number",
+        "value": 0.2
+      },
+      {
+        "id": "Zp0F",
+        "kind": "number",
+        "value": 0.8
+      },
+      {
+        "id": "Zp0G",
+        "kind": "number",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "slug": "checkerboard",
+    "event": "ZpCh",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514359601
+      },
+      {
+        "id": "Zp00",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zp01",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zp02",
+        "kind": "number",
+        "value": 445.43999999999994
+      },
+      {
+        "id": "Zp03",
+        "kind": "number",
+        "value": 445.43999999999994
+      },
+      {
+        "id": "Zp04",
+        "kind": "number",
+        "value": 96
+      },
+      {
+        "id": "Zp05",
+        "kind": "number",
+        "value": 96
+      },
+      {
+        "id": "Zp06",
+        "kind": "number",
+        "value": 5
+      },
+      {
+        "id": "Zp07",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zp08",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zp09",
+        "kind": "number",
+        "value": 55
+      },
+      {
+        "id": "Zp0A",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zp0B",
+        "kind": "integer",
+        "value": 2
+      },
+      {
+        "id": "Zp0C",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zp0D",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zp0E",
+        "kind": "number",
+        "value": 0.2
+      },
+      {
+        "id": "Zp0F",
+        "kind": "number",
+        "value": 0.8
+      },
+      {
+        "id": "Zp0G",
+        "kind": "number",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "slug": "cell-pattern",
+    "event": "ZpCe",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514358065
+      },
+      {
+        "id": "Ze00",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Ze01",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Ze02",
+        "kind": "number",
+        "value": 35
+      },
+      {
+        "id": "Ze03",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Ze04",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Ze05",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze06",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Ze07",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Ze08",
+        "kind": "integer",
+        "value": 4
+      },
+      {
+        "id": "Ze09",
+        "kind": "integer",
+        "value": 4
+      },
+      {
+        "id": "Ze0A",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Ze0B",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Ze0C",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Ze0D",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Ze0E",
+        "kind": "flag",
+        "value": false
+      }
+    ]
+  },
+  {
+    "slug": "optics-compensation",
+    "event": "ZpOc",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514950449
+      },
+      {
+        "id": "Zl00",
+        "kind": "number",
+        "value": 78
+      },
+      {
+        "id": "Zl01",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zl02",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zl03",
+        "kind": "number",
+        "value": 50
+      },
+      {
+        "id": "Zl04",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zl05",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zl06",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zl07",
+        "kind": "flag",
+        "value": true
+      },
+      {
+        "id": "Zl08",
+        "kind": "flag",
+        "value": false
+      }
+    ]
+  },
+  {
+    "slug": "lens",
+    "event": "ZpLn",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514947377
+      },
+      {
+        "id": "Zl00",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zl01",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zl02",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zl03",
+        "kind": "number",
+        "value": 66
+      },
+      {
+        "id": "Zl04",
+        "kind": "number",
+        "value": 55
+      },
+      {
+        "id": "Zl05",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zl06",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zl07",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zl08",
+        "kind": "flag",
+        "value": false
+      }
+    ]
+  },
+  {
+    "slug": "jpeg-damage",
+    "event": "ZpJd",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514816561
+      },
+      {
+        "id": "Zj00",
+        "kind": "number",
+        "value": 10
+      },
+      {
+        "id": "Zj01",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj02",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj03",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zj04",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj05",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj06",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj07",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj08",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj09",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj0A",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj0B",
+        "kind": "number",
+        "value": 0.5
+      },
+      {
+        "id": "Zj0C",
+        "kind": "number",
+        "value": 0.08
+      },
+      {
+        "id": "Zj0D",
+        "kind": "number",
+        "value": 20
+      },
+      {
+        "id": "Zj0E",
+        "kind": "number",
+        "value": 0.45
+      },
+      {
+        "id": "Zj0F",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj0G",
+        "kind": "number",
+        "value": 16
+      },
+      {
+        "id": "Zj0H",
+        "kind": "number",
+        "value": 10
+      },
+      {
+        "id": "Zj0I",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj0J",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zj0K",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zj0L",
+        "kind": "number",
+        "value": 90
+      },
+      {
+        "id": "Zj0M",
+        "kind": "number",
+        "value": 12
+      },
+      {
+        "id": "Zj0N",
+        "kind": "integer",
+        "value": 2
+      },
+      {
+        "id": "Zj0O",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zj0P",
+        "kind": "integer",
+        "value": 327
+      },
+      {
+        "id": "Zj0Q",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zj0R",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zj0S",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zj0T",
+        "kind": "flag",
+        "value": true
+      },
+      {
+        "id": "Zj0U",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zj0V",
+        "kind": "layer",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "slug": "starglow",
+    "event": "ZpSg",
+    "input": "glints",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1515410481
+      },
+      {
+        "id": "Zs00",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs01",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zs02",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs03",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs04",
+        "kind": "integer",
+        "value": 64
+      },
+      {
+        "id": "Zs05",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zs06",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zs07",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zs08",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zs09",
+        "kind": "number",
+        "value": 0.97
+      },
+      {
+        "id": "Zs0A",
+        "kind": "number",
+        "value": 0.01
+      },
+      {
+        "id": "Zs0B",
+        "kind": "number",
+        "value": 1.8
+      },
+      {
+        "id": "Zs0C",
+        "kind": "number",
+        "value": 180
+      },
+      {
+        "id": "Zs0D",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs0E",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0F",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0G",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0H",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0I",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0J",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0K",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0L",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0M",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0N",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0O",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0P",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0Q",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0R",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0S",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0T",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0U",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0V",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0W",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0X",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0Y",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0Z",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs10",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs11",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs12",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs13",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs14",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs15",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs16",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs17",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs18",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs19",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1A",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1B",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1C",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1D",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1E",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1F",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1G",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1H",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1I",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1J",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1K",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1L",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1M",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1N",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1O",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1P",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1Q",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1R",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1S",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1T",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1U",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1V",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1W",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1X",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1Y",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1Z",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs20",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs21",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs22",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs23",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs24",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zs25",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zs26",
+        "kind": "number",
+        "value": 307.20000000000005
+      },
+      {
+        "id": "Zs27",
+        "kind": "number",
+        "value": 76.80000000000001
+      },
+      {
+        "id": "Zs28",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs29",
+        "kind": "number",
+        "value": 40
+      },
+      {
+        "id": "Zs2A",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs2B",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs2C",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs2D",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs2E",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs2F",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs2G",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs2H",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs2I",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zs2J",
+        "kind": "number",
+        "value": 384
+      }
+    ]
+  },
+  {
+    "slug": "shine",
+    "event": "ZpSh",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1515407409
+      },
+      {
+        "id": "Zs00",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zs01",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zs02",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zs03",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs04",
+        "kind": "integer",
+        "value": 64
+      },
+      {
+        "id": "Zs05",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zs06",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zs07",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zs08",
+        "kind": "flag",
+        "value": false
+      },
+      {
+        "id": "Zs09",
+        "kind": "number",
+        "value": 0.48
+      },
+      {
+        "id": "Zs0A",
+        "kind": "number",
+        "value": 0.15
+      },
+      {
+        "id": "Zs0B",
+        "kind": "number",
+        "value": 1.5
+      },
+      {
+        "id": "Zs0C",
+        "kind": "number",
+        "value": 1.6
+      },
+      {
+        "id": "Zs0D",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs0E",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0F",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0G",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0H",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0I",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0J",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0K",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0L",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0M",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs0N",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0O",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0P",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0Q",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0R",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0S",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0T",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0U",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs0V",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0W",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0X",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0Y",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs0Z",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs10",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs11",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs12",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs13",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs14",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs15",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs16",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs17",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs18",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs19",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1A",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1B",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1C",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1D",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1E",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1F",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1G",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1H",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1I",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1J",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1K",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1L",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1M",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1N",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1O",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1P",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1Q",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1R",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1S",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1T",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1U",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1V",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1W",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1X",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1Y",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs1Z",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs20",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs21",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs22",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs23",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs24",
+        "kind": "number",
+        "value": 280
+      },
+      {
+        "id": "Zs25",
+        "kind": "number",
+        "value": 150
+      },
+      {
+        "id": "Zs26",
+        "kind": "number",
+        "value": 307.20000000000005
+      },
+      {
+        "id": "Zs27",
+        "kind": "number",
+        "value": 76.80000000000001
+      },
+      {
+        "id": "Zs28",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs29",
+        "kind": "number",
+        "value": 40
+      },
+      {
+        "id": "Zs2A",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs2B",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Zs2C",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs2D",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Zs2E",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs2F",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Zs2G",
+        "kind": "number",
+        "value": 80
+      },
+      {
+        "id": "Zs2H",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zs2I",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zs2J",
+        "kind": "number",
+        "value": 384
+      }
+    ]
+  },
+  {
+    "slug": "saber",
+    "event": "ZpEb",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 6
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1514488369
+      },
+      {
+        "id": "Ze00",
+        "kind": "number",
+        "value": 153.60000000000002
+      },
+      {
+        "id": "Ze01",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Ze02",
+        "kind": "number",
+        "value": 614.4000000000001
+      },
+      {
+        "id": "Ze03",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Ze04",
+        "kind": "number",
+        "value": 2.4
+      },
+      {
+        "id": "Ze05",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Ze06",
+        "kind": "number",
+        "value": 95
+      },
+      {
+        "id": "Ze07",
+        "kind": "number",
+        "value": 40
+      },
+      {
+        "id": "Ze08",
+        "kind": "number",
+        "value": 0.65
+      },
+      {
+        "id": "Ze09",
+        "kind": "number",
+        "value": 0.03
+      },
+      {
+        "id": "Ze0A",
+        "kind": "number",
+        "value": 0.65
+      },
+      {
+        "id": "Ze0B",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Ze0C",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze0D",
+        "kind": "number",
+        "value": 100
+      },
+      {
+        "id": "Ze0E",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze0F",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze10",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze11",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze12",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Ze13",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Ze14",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Ze15",
+        "kind": "integer",
+        "value": 5
+      },
+      {
+        "id": "Ze16",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Ze17",
+        "kind": "integer",
+        "value": 0
+      },
+      {
+        "id": "Ze18",
+        "kind": "number",
+        "value": 50
+      },
+      {
+        "id": "Ze19",
+        "kind": "number",
+        "value": 6
+      },
+      {
+        "id": "Ze1A",
+        "kind": "number",
+        "value": 28
+      },
+      {
+        "id": "Ze1B",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze1C",
+        "kind": "number",
+        "value": 48
+      },
+      {
+        "id": "Ze1D",
+        "kind": "number",
+        "value": 96
+      },
+      {
+        "id": "Ze1E",
+        "kind": "number",
+        "value": 24
+      },
+      {
+        "id": "Ze1F",
+        "kind": "number",
+        "value": -90
+      },
+      {
+        "id": "Ze20",
+        "kind": "number",
+        "value": 0.03
+      },
+      {
+        "id": "Ze21",
+        "kind": "number",
+        "value": 0.3
+      },
+      {
+        "id": "Ze22",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Ze23",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Ze24",
+        "kind": "number",
+        "value": 1.2
+      },
+      {
+        "id": "Ze25",
+        "kind": "number",
+        "value": 2.5
+      },
+      {
+        "id": "Ze26",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Ze27",
+        "kind": "number",
+        "value": 0.5
+      },
+      {
+        "id": "Ze28",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Ze29",
+        "kind": "number",
+        "value": 0.5
+      },
+      {
+        "id": "Ze2A",
+        "kind": "number",
+        "value": 0.2
+      },
+      {
+        "id": "Ze2B",
+        "kind": "number",
+        "value": 0.06
+      },
+      {
+        "id": "Ze2C",
+        "kind": "number",
+        "value": 0.03
+      },
+      {
+        "id": "Ze2D",
+        "kind": "number",
+        "value": 0.14
+      },
+      {
+        "id": "Ze2E",
+        "kind": "number",
+        "value": 0.1
+      },
+      {
+        "id": "Ze2F",
+        "kind": "number",
+        "value": 0.01
+      },
+      {
+        "id": "Ze30",
+        "kind": "integer",
+        "value": 4
+      },
+      {
+        "id": "Ze31",
+        "kind": "integer",
+        "value": 3
+      },
+      {
+        "id": "Ze32",
+        "kind": "integer",
+        "value": 5000
+      },
+      {
+        "id": "Ze33",
+        "kind": "number",
+        "value": 24
+      },
+      {
+        "id": "Ze34",
+        "kind": "number",
+        "value": 40
+      },
+      {
+        "id": "Ze35",
+        "kind": "number",
+        "value": 8
+      },
+      {
+        "id": "Ze36",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Ze37",
+        "kind": "number",
+        "value": 0.8
+      },
+      {
+        "id": "Ze38",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze39",
+        "kind": "integer",
+        "value": 5
+      },
+      {
+        "id": "Ze3A",
+        "kind": "integer",
+        "value": 5000
+      },
+      {
+        "id": "Ze3B",
+        "kind": "number",
+        "value": 10
+      },
+      {
+        "id": "Ze3C",
+        "kind": "number",
+        "value": 24
+      },
+      {
+        "id": "Ze3D",
+        "kind": "number",
+        "value": 56
+      },
+      {
+        "id": "Ze3E",
+        "kind": "number",
+        "value": 1
+      },
+      {
+        "id": "Ze3F",
+        "kind": "number",
+        "value": 0.7
+      },
+      {
+        "id": "Ze40",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze41",
+        "kind": "number",
+        "value": 0
+      },
+      {
+        "id": "Ze42",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Ze43",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Ze44",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "Ze45",
+        "kind": "number",
+        "value": 0
+      }
+    ],
+    "geometry": "45425031000000010000000100000004406c5329bfb64677404a0000000000004078000000000000404a0000000000004080eb3590126e62404a0000000000004084e8000000000040691486dd87fbdb4084e8000000000040780000000000004084e800000000004081bade489e01094080eb3590126e62408660000000000040780000000000004086600000000000406c5329bfb6467740866000000000004058c000000000004081bade489e01094058c0000000000040780000000000004058c0000000000040691486dd87fbdb"
+  },
+  {
+    "slug": "venetian-blinds",
+    "event": "ZpVl",
+    "input": "photo",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "kind": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "kind": "integer",
+        "value": 1515668017
+      },
+      {
+        "id": "Zw00",
+        "kind": "number",
+        "value": 45
+      },
+      {
+        "id": "Zw01",
+        "kind": "number",
+        "value": 28
+      },
+      {
+        "id": "Zw02",
+        "kind": "number",
+        "value": 48
+      },
+      {
+        "id": "Zw03",
+        "kind": "number",
+        "value": 1.5
+      },
+      {
+        "id": "Zw04",
+        "kind": "number",
+        "value": 384
+      },
+      {
+        "id": "Zw05",
+        "kind": "number",
+        "value": 384
+      }
+    ]
+  },
+  {
+    "slug": "blobbylize",
+    "event": "ZyBl",
+    "input": "photo",
+    "legacy": "surface",
+    "kind": 0,
+    "fields": []
+  },
+  {
+    "slug": "glass",
+    "event": "ZyGl",
+    "input": "photo",
+    "legacy": "surface",
+    "kind": 1,
+    "fields": []
+  },
+  {
+    "slug": "turbulent-displace",
+    "event": "ZyTD",
+    "input": "photo",
+    "legacy": "creative",
+    "kind": 0,
+    "fields": []
+  },
+  {
+    "slug": "light-sweep",
+    "event": "ZyLS",
+    "input": "photo",
+    "legacy": "creative",
+    "kind": 1,
+    "fields": []
+  },
+  {
+    "slug": "kaleida",
+    "event": "ZyKa",
+    "input": "photo",
+    "legacy": "creative",
+    "kind": 2,
+    "fields": []
+  },
+  {
+    "slug": "roughen-edges",
+    "event": "ZyRE",
+    "input": "alpha",
+    "legacy": "roughen",
+    "fields": []
+  }
+]

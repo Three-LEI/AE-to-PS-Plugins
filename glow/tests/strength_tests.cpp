@@ -34,7 +34,25 @@ void strength_tests(){
  auto orange=stroke(false);for(std::size_t i=0;i<orange.rgba.size();i+=4){orange.rgba[i+1]*=.35f;orange.rgba[i+2]*=.02f;}
  p.view=0;p.blend=glow::Blend::add;require(glow::render(orange,p,b),"colored highlight render");
  const auto c=(std::size_t(128)*513+256)*4;
- require(b.rgba[c+1]>.60f,"exposure one brightens colored highlights, not only distant haze");
+ require(b.rgba[c+1]>.35f&&b.rgba[c+1]<1.f,"exposure one brightens colored highlights while preserving their chroma");
  p.intensity=0;require(glow::render(orange,p,b)&&b.rgba==orange.rgba,"zero exposure preserves source after gamma fix");
- std::cout<<"PASS: Deep gamma/alpha black-background equivalence; Unmult association; thin-stroke near halo at radius 1000; wide falloff; colored highlight; zero exposure. near100="<<small<<" near1000="<<large<<" far1000="<<far<<'\n';
+ // Public AE Deep Glow 2 samples, radius 100/exposure 1/default Screen.
+ // The independent multi-scale kernel is approximate; keep a small display
+ // tolerance while catching the previous clipped midtone (.5 became >1).
+ const double grays[]={.1,.25,.5,.75,.9};
+ const double ae[]={.29423832893372,.640380859375,.9404296875,.9986572265625,1.};
+ for(int falloff:{0,1})for(double radius:{0.,25.,100.,1000.}){
+  double previous=-1;
+  for(int sample=0;sample<5;sample++){
+   const double gray=grays[sample];auto q=glow::defaults(glow::Kind::deep);q.radius=radius;q.falloff=falloff;
+   glow::Image flat{31,23,0,0,std::vector<float>(31*23*4)};
+   for(std::size_t i=0;i<flat.rgba.size();i+=4){for(int k=0;k<3;k++)flat.rgba[i+k]=float(gray);flat.rgba[i+3]=1;}
+   require(glow::render(flat,q,b),"uniform diffuse surface render");
+   require(b.rgba[0]>previous&&b.rgba[0]<=1.000001,"screen pyramid preserves ordered diffuse tones without HDR clipping");previous=b.rgba[0];
+   if(falloff==0)require(std::abs(b.rgba[0]-ae[sample])<.025,"default diffuse tones remain close to measured AE Deep Glow 2");
+  }
+ }
+ auto hdr=stroke(true);for(std::size_t i=0;i<hdr.rgba.size();i+=4)for(int k=0;k<3;k++)hdr.rgba[i+k]=2;
+ p=glow::defaults(glow::Kind::deep);require(glow::render(hdr,p,b)&&b.rgba[0]>2.9f,"HDR emission remains above one; no clipping-based correction");
+ std::cout<<"PASS: Deep gamma/alpha black-background equivalence; Unmult association; thin-stroke near halo at radius 1000; wide falloff; colored highlight; zero exposure; AE2 diffuse contrast at 4 radii and 2 falloffs; HDR. near100="<<small<<" near1000="<<large<<" far1000="<<far<<'\n';
 }

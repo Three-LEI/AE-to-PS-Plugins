@@ -1,0 +1,209 @@
+[
+  {
+    "slug": "tint",
+    "name": "Tint 色调",
+    "file": "ZaYuTint.8bf",
+    "input": "photo",
+    "image": "assets/effects/tint.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "fractal-noise",
+    "name": "Fractal Noise 分形杂色",
+    "file": "ZaYuFractalNoise.8bf",
+    "input": "photo",
+    "image": "assets/effects/fractal-noise.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "displacement-map",
+    "name": "Displacement Map 置换图",
+    "file": "ZaYuDisplacementMap.8bf",
+    "input": "map",
+    "image": "assets/effects/displacement-map.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "glow",
+    "name": "Glow 发光",
+    "file": "ZaYuGlow.8bf",
+    "input": "photo",
+    "image": "assets/effects/glow.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "deep-glow",
+    "name": "Deep Glow 深度发光",
+    "file": "ZaYuDeepGlow.8bf",
+    "input": "photo",
+    "image": "assets/effects/deep-glow.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "chromatic-dispersion",
+    "name": "Chromatic Dispersion 色差色散",
+    "file": "ZaYuChromaticDispersion.8bf",
+    "input": "photo",
+    "image": "assets/effects/chromatic-dispersion.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "vector-blur",
+    "name": "Vector Blur 矢量模糊",
+    "file": "ZaYuVectorBlur.8bf",
+    "input": "photo",
+    "image": "assets/effects/vector-blur.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "grid",
+    "name": "Grid 网格",
+    "file": "ZaYuGrid.8bf",
+    "input": "photo",
+    "image": "assets/effects/grid.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "checkerboard",
+    "name": "Checkerboard 棋盘",
+    "file": "ZaYuCheckerboard.8bf",
+    "input": "photo",
+    "image": "assets/effects/checkerboard.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "cell-pattern",
+    "name": "Cell Pattern 单元格图案",
+    "file": "ZaYuCellPattern.8bf",
+    "input": "photo",
+    "image": "assets/effects/cell-pattern.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "optics-compensation",
+    "name": "Optics Compensation 光学补偿",
+    "file": "ZaYuOpticsCompensation.8bf",
+    "input": "photo",
+    "image": "assets/effects/optics-compensation.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "lens",
+    "name": "Lens 镜头",
+    "file": "ZaYuCCLens.8bf",
+    "input": "photo",
+    "image": "assets/effects/lens.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "jpeg-damage",
+    "name": "JPEG Damage JPEG 损坏",
+    "file": "ZaYuJPEGDamage.8bf",
+    "input": "photo",
+    "image": "assets/effects/jpeg-damage.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "starglow",
+    "name": "Starglow 星芒",
+    "file": "ZaYuStarglow.8bf",
+    "input": "glints",
+    "image": "assets/effects/starglow.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "shine",
+    "name": "Shine 放射光束",
+    "file": "ZaYuShine.8bf",
+    "input": "photo",
+    "image": "assets/effects/shine.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "saber",
+    "name": "Saber 能量光束",
+    "file": "ZaYuSaber.8bf",
+    "input": "photo",
+    "image": "assets/effects/saber.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "venetian-blinds",
+    "name": "Venetian Blinds 百叶窗",
+    "file": "ZaYuVenetianBlinds.8bf",
+    "input": "photo",
+    "image": "assets/effects/venetian-blinds.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "blobbylize",
+    "name": "Blobbylize 胶状化",
+    "file": "ZaYuBlobbylize.8bf",
+    "input": "photo",
+    "image": "assets/effects/blobbylize.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "glass",
+    "name": "Glass 玻璃",
+    "file": "ZaYuGlass.8bf",
+    "input": "photo",
+    "image": "assets/effects/glass.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "turbulent-displace",
+    "name": "Turbulent Displace 湍流置换",
+    "file": "ZaYuTurbulentDisplace.8bf",
+    "input": "photo",
+    "image": "assets/effects/turbulent-displace.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "light-sweep",
+    "name": "Light Sweep 扫光",
+    "file": "ZaYuLightSweep.8bf",
+    "input": "photo",
+    "image": "assets/effects/light-sweep.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "kaleida",
+    "name": "Kaleida 万花筒",
+    "file": "ZaYuKaleida.8bf",
+    "input": "photo",
+    "image": "assets/effects/kaleida.jpg",
+    "width": 1024,
+    "height": 616
+  },
+  {
+    "slug": "roughen-edges",
+    "name": "Roughen Edges 毛边",
+    "file": "ZaYuRoughenEdges.8bf",
+    "input": "alpha",
+    "image": "assets/effects/roughen-edges.jpg",
+    "width": 1024,
+    "height": 616
+  }
+]

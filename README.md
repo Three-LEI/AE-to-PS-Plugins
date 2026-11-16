@@ -1,45 +1,88 @@
+<p align="center"><img src="docs/assets/social-preview.jpg" alt="AE to PS — 23 native Photoshop filters" width="1280"></p>
+
 # AE-to-PS-Plugins
 
-将 After Effects 常用效果独立复刻为 Photoshop 原生滤镜。当前提供 **十九款 Windows x64 插件**，共用参数界面、蓝色单项重置、预览和中英文支持。
+**把 After Effects 常见效果带到 Photoshop：23 款免费、开源的 Windows 原生滤镜。**
 
-[下载0.36-rc1候选包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.36-rc1) · [历史版本](https://github.com/Three-LEI/AE-to-PS-Plugins/releases) · [效果列表](docs/EFFECTS.md) · [构建说明](docs/BUILDING.md) · [验证与限制](docs/VALIDATION.md)
+[English](README.en.md) · 简体中文
 
-## 使用
+![Release](https://img.shields.io/badge/release-0.37--rc1-blue) ![Platform](https://img.shields.io/badge/Windows-x64-0078D4) ![Code license](https://img.shields.io/badge/code-MIT-green)
 
-1. 从 Releases 下载插件整包并解压。
-2. 退出 Photoshop，备份已有同名插件，将所需 `.8bf` 放入 Photoshop 的 `Plug-ins` 目录。
-3. 启动 Photoshop，在 **滤镜 → ZaYu-AE 效果复刻** 中选择效果。
+发光、色散、能量光束、玻璃、程序纹理与画面变形，都能在 Photoshop 内完成。支持智能滤镜参数保存、中英文界面、蓝色单项重置，以及拖动时快速预览、停止后自动补全质量。
 
-普通使用无需 AE、原版效果插件、SDK 或 Python。当前候选版为 **0.36-rc1**，保留0.35-rc2的传统PiPL注册、旧系统DPI回退及预编译界面着色器。用户已确认0.35-rc2在Win7＋PS2018（19.1.6）和Win10＋PS2020（21.2.3）可加载使用；本次新候选版仍需在这两台机器复测。
+**[下载 Windows 插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37-rc1/AE-to-PS-Plugins-0.37-rc1-Windows-x64.zip)** · [本次更新](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.37-rc1) · **[23 款效果图集](docs/GALLERY.md)** · [完整清单](docs/EFFECTS.md)
 
-多数效果支持 RGB8／16／32，Tint 当前仅 RGB8。十九款包含色调、分形杂色、置换图、发光／深度发光、色差色散、矢量模糊、网格／棋盘、单元格图案、光学补偿、镜头、JPEG损坏、胶状化、玻璃、湍流置换、扫光、万花筒和毛边。参数与限制见[完整清单](docs/EFFECTS.md)及各模块 README。
+## 看看效果
 
-参数前的蓝色箭头重置对应参数，底部“全部重置”恢复默认值。右上角语言可选择跟随PS、中文或English；PS2020的自动模式通过界面首选项读取语言，手动选择优先。“关于”中的蓝色**开源地址**可在默认浏览器打开本仓库。
+以下是本项目插件在 Photoshop 中实际渲染的结果，左侧为输入、右侧为输出。维护者提供了演示照片，各例参数与输入条件见[完整图集](docs/GALLERY.md)，不作为与 AE 原版逐像素一致的声明。
 
-0.36-rc1为十九款统一补齐智能滤镜完整参数保存：先把目标层转为智能对象，应用效果后保存PSD，退出PS再重开可继续编辑各实例参数。参考图层按Unicode唯一名称关联；旧文件中此前没有保存的参数无法追溯恢复。普通像素层直接应用滤镜后只有栅格结果，建议需要反复调整时使用智能对象。详见[参数保存说明](docs/PARAMETER_PERSISTENCE.md)。
+| Deep Glow 深度发光 | 色差色散 / Chromatic Dispersion |
+| --- | --- |
+| ![Deep Glow before and after](docs/assets/effects/deep-glow.jpg) | ![Chromatic dispersion before and after](docs/assets/effects/chromatic-dispersion.jpg) |
+| Saber 能量光束 | Glass 玻璃 |
+| ![Saber path energy before and after](docs/assets/effects/saber.jpg) | ![Glass before and after](docs/assets/effects/glass.jpg) |
 
-## 开发
+**[查看全部 23 款效果与示例参数 →](docs/GALLERY.md)**
 
-项目以 C++20、LLVM-MinGW、Win32 和 D3D11 构建。Dear ImGui 1.91.9b 已附源码及许可；Photoshop C++ SDK 需要开发者另行获取。
+## 安装与使用
+
+1. 下载上方 **Windows-x64.zip 插件包**。“Code → Download ZIP” 是源码，需要自行编译。
+2. 退出 Photoshop，备份旧版同名插件，将包内 `Plug-ins` 中所需的 `.8bf` 放入 Photoshop 的 `Plug-ins` 文件夹。避免在多个目录保留重复副本。
+3. 启动 Photoshop，在 **滤镜 → ZaYu-AE 效果复刻** 中使用。
+4. 需要反复修改时，先把目标层转换为**智能对象**，再添加效果并保存 PSD；重新打开后可继续编辑各实例参数。
+
+普通使用无需 AE、原版效果插件、SDK 或 Python。Windows 与 Photoshop 均需为 64 位。
+
+## 包含哪些效果
+
+| 类别 | 效果 |
+| --- | --- |
+| 发光与光线 | Glow 发光、Deep Glow 深度发光、Starglow 星芒、Shine 放射光束、Saber 能量光束、Light Sweep 扫光 |
+| 色彩与镜头 | Tint 色调、Chromatic Dispersion 色差色散、Optics Compensation 光学补偿、Lens 镜头 |
+| 纹理与图案 | Fractal Noise 分形杂色、Cell Pattern 单元格图案、Grid 网格、Checkerboard 棋盘、JPEG Damage JPEG 损坏 |
+| 变形与表面 | Displacement Map 置换图、Vector Blur 矢量模糊、Turbulent Displace 湍流置换、Blobbylize 胶状化、Glass 玻璃、Kaleida 万花筒 |
+| 边缘与遮罩 | Roughen Edges 毛边、Venetian Blinds 百叶窗 |
+
+色差色散包含光谱扭曲与棱镜散焦模式；Saber 支持两点、路径、Alpha 输入及 16 款自有预设。多数效果支持 RGB8／16／32，Tint 当前仅 RGB8。[参数与模块列表](docs/EFFECTS.md)
+
+## 本次更新：0.37-rc1
+
+- 相对 0.36-rc1 增加 Starglow、Shine、Saber 和百叶窗，整包达到 23 款。
+- 平衡预览画质：按实际耗时调整草图分辨率，停止约 180ms 后恢复精细预览；改进透明采样与百叶窗遮罩预览。
+- 公共线程复用、发光临时缓冲复用；Glow／Deep Glow 调整合成参数时可复用前置模糊结果。
+- Deep Glow 高光校准、色差色散模式扩展、Saber 公共参数与预设，以及加高按钮和预览内浮动计算提示。
+
+本机合成测试中，Deep Glow 768×512 的曝光调整约从 351ms 降至缓存命中后的 19.5ms。首次计算及改变半径仍需重新生成，收益随素材和机器变化。[测量与范围](docs/PERFORMANCE.md)
+
+## 兼容与限制
+
+| 环境 | 已知情况 |
+| --- | --- |
+| PS2020 21.2.9，本机 Windows 11 | 本次 23 款／67 个效果位深组合、撤销与旧 PSD 回放通过 |
+| PS2026 27.7.0 | 已安装本次包；本轮未增加完整实机回归声明 |
+| Win7＋CC2018 | 用户已确认此前 0.7 本地整包可运行；本候选保留兼容路径，仍需外机复测 |
+| 其他 Windows／PS 版本 | 未覆盖所有组合，请反馈具体系统、PS 版本与位深 |
+
+这是依据公开行为独立实现的效果集合，与原版不保证逐像素一致；随机纹理也不保证同一种子形态相同。效果生成使用 **CPU**，GPU 用于界面与预览显示。部分效果不能自动扩展 Photoshop 画布。
+
+Glass／Blobbylize 的外部参考层修改后，需要重新进入效果确认更新。旧 PSD 中此前没有保存的参数无法追溯恢复。[完整验证范围](docs/VALIDATION.md) · [智能滤镜参数保存](docs/PARAMETER_PERSISTENCE.md)
+
+## 开发与贡献
+
+实现采用 C++20、LLVM-MinGW、Win32、Dear ImGui 与 D3D11，共 16 个模块。纯 CPU 核心测试无需 Photoshop 或 SDK：
 
 ```powershell
-./build.ps1 -Toolchain 'C:/Dev/llvm-mingw/bin' -PhotoshopSdk 'C:/Dev/photoshop-cpp-sdk/pluginsdk'
+./build.ps1 -CoreOnly -Toolchain 'C:/Dev/llvm-mingw/bin'
 ```
 
-只运行纯 CPU 核心测试时可加 `-CoreOnly`，无需 SDK 或 Photoshop。完整构建依次建立共享库及十三个模块，运行各自必要检查，不会安装插件或修改宿主。详见 [BUILDING.md](docs/BUILDING.md) 和 [ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+完整构建需要开发者单独获取 Photoshop C++ SDK。[构建说明](docs/BUILDING.md) · [项目结构](docs/ARCHITECTURE.md) · [参与贡献](CONTRIBUTING.md)
 
-## 兼容与近似
+欢迎[反馈问题和建议](https://github.com/Three-LEI/AE-to-PS-Plugins/issues/new/choose)，并提供有权公开的最小案例。如果这些插件对你的创作有帮助，欢迎 Star，方便以后找到更新。
 
-这是独立实现，与原版效果不保证逐像素一致，随机纹理的同一种子也不保证形态相同。部分效果使用固定源图范围，不能像 AE 自动扩展图层或画布。完整源图尺寸上限和智能滤镜保存能力以各模块说明为准。
+## 许可
 
-Glass／Blobbylize 的外部参考层修改后需要重新打开效果确认更新，未附带自动刷新脚本。建议在透明文字或图形的智能对象上进行小图验证，再处理正式作品。
+自有代码采用 [MIT](LICENSE)，第三方依赖见 [THIRD_PARTY.md](THIRD_PARTY.md)。[演示照片与含照片的展示图](docs/assets/README.md)不属于代码 MIT 授权范围。仓库不提供 Adobe SDK、原版效果二进制或 Windows 字体。
 
-0.36-rc1按文档实际图层名补充字体字形，修复“鎏金”等少见汉字显示问号；单项重置改为蓝色无边框圆弧箭头。组件身份、参数结构和生成内核保持不变。请在关闭Photoshop后替换同名插件，避免多个目录留有重复副本；Windows和Photoshop都需要64位。验证记录见[VALIDATION.md](docs/VALIDATION.md)。
+本项目与 Adobe、原版效果及相关厂商无隶属或背书关系。
 
-## 许可与贡献
-
-项目自有代码采用 [MIT](LICENSE)。第三方许可和外部依赖见 [THIRD_PARTY.md](THIRD_PARTY.md)。仓库不包含 Adobe SDK、原版效果二进制、Windows字体、个人PSD或本地研究历史截图。
-
-欢迎提交最小复现和改进，见 [CONTRIBUTING.md](CONTRIBUTING.md)。本项目与 Adobe 或相关原版效果厂商无隶属或背书关系。
-
-by：淚泪泪
+by：淚泪泪 / Three-LEI

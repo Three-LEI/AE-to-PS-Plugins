@@ -18,7 +18,7 @@ $cases=@()
 foreach($entry in $catalog.profiles.PSObject.Properties){
  $module=$entry.Name.Split('/')[0];$profile=$entry.Value;$type=$catalog.modules.$module.type;$namespace=$type.Split(':')[0]
  $valid=if($module -eq 'native'){'tint_valid'}else{$namespace+'::valid'}
- $kind=if($entry.Name -match 'DeepGlow|CCLens'){1}else{0}
+ $kind=if($entry.Name -match 'DeepGlow|CCLens|PiPL-Shine'){1}else{0}
  $magic='0x'+('{0:X8}' -f [uint32]$profile.magic)+'u'
  $cases+='run<'+$type+','+$valid+','+$magic+'>("'+$profile.event+'",'+$kind+',out,comma);'
 }

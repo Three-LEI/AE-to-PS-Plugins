@@ -26,6 +26,7 @@ std::array<float,4> sample(const Image& im,double x,double y){
 }
 }
 bool render(const Image& src,const Parameters& p,Image& output,const Cancel& cancel){
+ pscpu::ParallelScope parallel;
  if(!src.valid()||!valid(p)||(cancel&&cancel()))return false;
  if(p.kind==Kind::optics&&p.fov==0){output=src;return true;}
  Image out{src.width,src.height,src.left,src.top,std::vector<float>(src.rgba.size())};

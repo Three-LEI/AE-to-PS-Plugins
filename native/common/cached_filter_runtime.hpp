@@ -4,11 +4,20 @@
 #include <cmath>
 #include <memory>
 namespace psfilter {
+// A generator can reuse channel/error helpers without defining external inputs.
+// Keep the optional nested type behind substitution, even when recording is off.
+template<class Effect,class=void> struct OptionalFilterInputs {struct type {};};
+template<class Effect> struct OptionalFilterInputs<Effect,std::void_t<typename Effect::Inputs>> {using type=typename Effect::Inputs;};
 // Reusable host lifecycle for spatial effects that snapshot native RGBA once,
 // then process a complete image and deliver non-overlapping output tiles.
 template<class Effect> struct CachedRuntime {
  using Store=Runtime<Effect>;
- struct Session {typename Store::Saved saved;typename Effect::Image output;};
+ // Optional finish-time recording is needed for inputs computed by the filter
+ // itself (such as a newly imported path), rather than supplied by an action.
+ static constexpr bool records_at_finish=requires(FilterRecord* f,const typename Effect::Parameters& p,const typename Effect::Inputs& inputs){Effect::finish_descriptor(f,p,inputs);};
+ struct EmptyInputs {};
+ using FinalInputs=std::conditional_t<records_at_finish,typename OptionalFilterInputs<Effect>::type,EmptyInputs>;
+ struct Session {typename Store::Saved saved;typename Effect::Image output;FinalInputs inputs;};
  static int16 report(FilterRecord* f,const char* text){
   if(f->errorString){const auto n=std::min<std::size_t>(255,std::strlen(text));(*f->errorString)[0]=std::uint8_t(n);std::memcpy(*f->errorString+1,text,n);}return errReportString;
  }
@@ -57,6 +66,7 @@ template<class Effect> struct CachedRuntime {
   if constexpr(!requires{Effect::write_descriptor(f,session->saved.values,inputs);})
    if((error=Store::write_descriptor(f,layers,session->saved.values)))return error;
   if(!Store::save_parameters(f,session->saved))return memFullErr;
+  if constexpr(records_at_finish)session->inputs=std::move(inputs);
   f->autoMask=true;f->wantLayout=0;f->inputRate=f->maskRate=65536;
   const auto all=Store::full_rect(f);request(f,all.right>all.left&&all.bottom>all.top?Store::tile(all.left,all.top,all):VRect{});
   if(f->progressProc)f->progressProc(90,100);
@@ -94,7 +104,11 @@ template<class Effect> struct CachedRuntime {
     if(*data<=1)*result=filterBadParameters;
     else if(f->abortProc&&f->abortProc())*result=userCanceledErr;
     else *result=write_tile(f,*reinterpret_cast<Session*>(*data));break;
-   case filterSelectorFinish:if(*data>1)delete reinterpret_cast<Session*>(*data);*data=0;request(f,{});break;
+   case filterSelectorFinish:
+    if(*data>1){auto* session=reinterpret_cast<Session*>(*data);
+     if constexpr(records_at_finish)*result=Effect::finish_descriptor(f,session->saved.values,session->inputs);
+     delete session;
+    }*data=0;request(f,{});break;
    default:*result=filterBadParameters;break;
   }}catch(const std::bad_alloc&){*result=memFullErr;}catch(...){*result=filterBadParameters;}
   if(*result&&selector!=filterSelectorParameters&&selector!=filterSelectorPrepare){if(*data>1)delete reinterpret_cast<Session*>(*data);*data=0;request(f,{});}

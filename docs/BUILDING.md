@@ -18,7 +18,7 @@
 ./build.ps1 -Toolchain 'C:/Dev/llvm-mingw/bin' -PhotoshopSdk 'C:/Dev/photoshop-cpp-sdk/pluginsdk'
 ```
 
-依次构建十三个模块，输出十九款 `.8bf` 到各模块的 `build` 目录。`native` 首先建立两份共享静态库，其余模块随后链接。构建失败会停止；具体模块日志和测试结果保存在相应 `build` 目录。
+依次构建十六个模块，输出二十三款 `.8bf` 到各模块的 `build` 目录。`native` 首先建立两份共享静态库，其余模块随后链接。构建失败会停止；具体模块日志和测试结果保存在相应 `build` 目录。
 
 也可设置环境变量 `AEPS_TOOLCHAIN`、`AEPS_PHOTOSHOP_SDK` 和可选的 `AEPS_IMGUI_ROOT`。本机路径还可写入未跟踪的 `build.local.json`：
 
@@ -62,7 +62,7 @@ python scripts/set-repository.py https://github.com/your-account/your-repository
 
 关闭 Photoshop，备份同名插件，再把所需 `.8bf` 放入 Photoshop 的 `Plug-ins` 目录。不要把 SDK、工具链、`.lib` 或测试程序放入插件目录。
 
-`scripts/export-source.py` 使用明确文件范围生成干净源码目录和 ZIP；`scripts/check-source.py` 检查链接一致性、固定依赖、十九款清单及不应上传的文件。发布程序包放在 GitHub Releases，生成物不提交到源码分支。
+`scripts/export-source.py` 使用明确文件范围生成干净源码目录和 ZIP；`scripts/check-source.py` 检查链接一致性、固定依赖、二十三款清单及不应上传的文件。发布程序包放在 GitHub Releases，生成物不提交到源码分支。
 
 `qa/verify-release.py`保留0.34升级验证；`qa/install-release.ps1`及`qa/package-release.py --evidence <目录>`用于安装与打包。它们需要本地升级前的baseline、预安装检查和PS导出记录；这些历史输入不随源码提供。普通构建不调用这些迁移脚本。0.35兼容升级使用 `qa/verify-compatibility.py --evidence <本地证据目录>`，核对实际二进制PiPL／aete、导入依赖、参数及像素不变。`qa/run-about-link.ps1`可在建立共享库后独立验证关于链接（加 `-LegacyDpi` 验证旧系统回退），`qa/run-photoshop.ps1`需要已安装插件及可用的Photoshop，可用 `-ExpectedVersion 27.7.0` 防止多版本COM连接错误；`-UseEmptySession`允许复用空宿主并在完成后保持打开，仍拒绝有用户文档的会话。若系统COM指向其它PS，可在指定宿主的“文件→脚本→浏览”运行 `qa/host-regression.jsx` 的临时包装脚本，先设置 `AEPS_QA_OUTPUT` 为输出目录；包装层应核对 `app.version` 和空测试会话，不使用修改系统COM注册的方式。
 

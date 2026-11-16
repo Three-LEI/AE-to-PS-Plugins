@@ -13,6 +13,10 @@ $flags+=@('-I',"$PSScriptRoot\build")
 if($LASTEXITCODE -ne 0){throw 'C++ core compilation failed'}
 & "$root\build\core_tests.exe" | Tee-Object -FilePath "$root\build\core-test-results.txt"
 if($LASTEXITCODE -ne 0){throw 'C++ core tests failed'}
+& $cxx @flags "$root\tests\parallel_tests.cpp" '-o' "$root\build\parallel_tests.exe"
+if($LASTEXITCODE -ne 0){throw 'Parallel runtime test compilation failed'}
+& "$root\build\parallel_tests.exe" | Tee-Object -FilePath "$root\build\parallel-test-results.txt"
+if($LASTEXITCODE -ne 0){throw 'Parallel runtime tests failed'}
 if($CoreOnly){return}
 & (Join-Path $root 'ui\verify-contract.ps1')
 & (Join-Path $root 'build-library-ui.ps1')

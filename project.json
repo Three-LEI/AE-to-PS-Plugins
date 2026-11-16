@@ -1,8 +1,26 @@
 {
   "name": "AE-to-PS-Plugins",
-  "release": "0.36-rc1",
+  "release": "0.37-rc1",
   "repository": "https://github.com/Three-LEI/AE-to-PS-Plugins",
   "license": "MIT",
   "author": "淚泪泪",
-  "modules": ["native", "fractal", "displacement", "glow", "chromatic", "vector", "patterns", "cell", "lens", "jpeg", "surface", "creative", "roughen"]
+  "modules": [
+    "native",
+    "fractal",
+    "displacement",
+    "glow",
+    "chromatic",
+    "vector",
+    "patterns",
+    "cell",
+    "lens",
+    "jpeg",
+    "surface",
+    "creative",
+    "roughen",
+    "lightfx",
+    "energy",
+    "blinds"
+  ],
+  "development_status": "release-candidate"
 }

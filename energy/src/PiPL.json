@@ -1,0 +1,562 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Saber",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 2,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuSaberReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/Saber=Saber 能量光束",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpEb"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Saber",
+                "EventDescription": "Editable Saber",
+                "ClassID": "ZpEf",
+                "EventType": "ZpEb",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "start_x",
+                    "ParamKeyword": "Ze00",
+                    "ParamType": "doub",
+                    "ParamDescription": "start_x"
+                  },
+                  {
+                    "ParamName": "start_y",
+                    "ParamKeyword": "Ze01",
+                    "ParamType": "doub",
+                    "ParamDescription": "start_y"
+                  },
+                  {
+                    "ParamName": "end_x",
+                    "ParamKeyword": "Ze02",
+                    "ParamType": "doub",
+                    "ParamDescription": "end_x"
+                  },
+                  {
+                    "ParamName": "end_y",
+                    "ParamKeyword": "Ze03",
+                    "ParamType": "doub",
+                    "ParamDescription": "end_y"
+                  },
+                  {
+                    "ParamName": "width",
+                    "ParamKeyword": "Ze04",
+                    "ParamType": "doub",
+                    "ParamDescription": "width"
+                  },
+                  {
+                    "ParamName": "brightness",
+                    "ParamKeyword": "Ze05",
+                    "ParamType": "doub",
+                    "ParamDescription": "brightness"
+                  },
+                  {
+                    "ParamName": "core_white",
+                    "ParamKeyword": "Ze06",
+                    "ParamType": "doub",
+                    "ParamDescription": "core_white"
+                  },
+                  {
+                    "ParamName": "glow_radius",
+                    "ParamKeyword": "Ze07",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_radius"
+                  },
+                  {
+                    "ParamName": "glow_intensity",
+                    "ParamKeyword": "Ze08",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_intensity"
+                  },
+                  {
+                    "ParamName": "color0",
+                    "ParamKeyword": "Ze09",
+                    "ParamType": "doub",
+                    "ParamDescription": "color0"
+                  },
+                  {
+                    "ParamName": "color1",
+                    "ParamKeyword": "Ze0A",
+                    "ParamType": "doub",
+                    "ParamDescription": "color1"
+                  },
+                  {
+                    "ParamName": "color2",
+                    "ParamKeyword": "Ze0B",
+                    "ParamType": "doub",
+                    "ParamDescription": "color2"
+                  },
+                  {
+                    "ParamName": "trim_start",
+                    "ParamKeyword": "Ze0C",
+                    "ParamType": "doub",
+                    "ParamDescription": "trim_start"
+                  },
+                  {
+                    "ParamName": "trim_end",
+                    "ParamKeyword": "Ze0D",
+                    "ParamType": "doub",
+                    "ParamDescription": "trim_end"
+                  },
+                  {
+                    "ParamName": "taper_start",
+                    "ParamKeyword": "Ze0E",
+                    "ParamType": "doub",
+                    "ParamDescription": "taper_start"
+                  },
+                  {
+                    "ParamName": "taper_end",
+                    "ParamKeyword": "Ze0F",
+                    "ParamType": "doub",
+                    "ParamDescription": "taper_end"
+                  },
+                  {
+                    "ParamName": "offset_x",
+                    "ParamKeyword": "Ze10",
+                    "ParamType": "doub",
+                    "ParamDescription": "offset_x"
+                  },
+                  {
+                    "ParamName": "offset_y",
+                    "ParamKeyword": "Ze11",
+                    "ParamType": "doub",
+                    "ParamDescription": "offset_y"
+                  },
+                  {
+                    "ParamName": "input",
+                    "ParamKeyword": "Ze12",
+                    "ParamType": "long",
+                    "ParamDescription": "input"
+                  },
+                  {
+                    "ParamName": "composite",
+                    "ParamKeyword": "Ze13",
+                    "ParamType": "long",
+                    "ParamDescription": "composite"
+                  },
+                  {
+                    "ParamName": "style",
+                    "ParamKeyword": "Ze14",
+                    "ParamType": "long",
+                    "ParamDescription": "style"
+                  },
+                  {
+                    "ParamName": "detail",
+                    "ParamKeyword": "Ze15",
+                    "ParamType": "long",
+                    "ParamDescription": "detail"
+                  },
+                  {
+                    "ParamName": "branches",
+                    "ParamKeyword": "Ze16",
+                    "ParamType": "long",
+                    "ParamDescription": "branches"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Ze17",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "alpha_threshold",
+                    "ParamKeyword": "Ze18",
+                    "ParamType": "doub",
+                    "ParamDescription": "alpha_threshold"
+                  },
+                  {
+                    "ParamName": "distortion",
+                    "ParamKeyword": "Ze19",
+                    "ParamType": "doub",
+                    "ParamDescription": "distortion"
+                  },
+                  {
+                    "ParamName": "wavelength",
+                    "ParamKeyword": "Ze1A",
+                    "ParamType": "doub",
+                    "ParamDescription": "wavelength"
+                  },
+                  {
+                    "ParamName": "evolution",
+                    "ParamKeyword": "Ze1B",
+                    "ParamType": "doub",
+                    "ParamDescription": "evolution"
+                  },
+                  {
+                    "ParamName": "branch_length",
+                    "ParamKeyword": "Ze1C",
+                    "ParamType": "doub",
+                    "ParamDescription": "branch_length"
+                  },
+                  {
+                    "ParamName": "fire_height",
+                    "ParamKeyword": "Ze1D",
+                    "ParamType": "doub",
+                    "ParamDescription": "fire_height"
+                  },
+                  {
+                    "ParamName": "fire_spread",
+                    "ParamKeyword": "Ze1E",
+                    "ParamType": "doub",
+                    "ParamDescription": "fire_spread"
+                  },
+                  {
+                    "ParamName": "fire_direction",
+                    "ParamKeyword": "Ze1F",
+                    "ParamType": "doub",
+                    "ParamDescription": "fire_direction"
+                  },
+                  {
+                    "ParamName": "tip_color0",
+                    "ParamKeyword": "Ze20",
+                    "ParamType": "doub",
+                    "ParamDescription": "tip_color0"
+                  },
+                  {
+                    "ParamName": "tip_color1",
+                    "ParamKeyword": "Ze21",
+                    "ParamType": "doub",
+                    "ParamDescription": "tip_color1"
+                  },
+                  {
+                    "ParamName": "tip_color2",
+                    "ParamKeyword": "Ze22",
+                    "ParamType": "doub",
+                    "ParamDescription": "tip_color2"
+                  },
+                  {
+                    "ParamName": "glow_model",
+                    "ParamKeyword": "Ze23",
+                    "ParamType": "long",
+                    "ParamDescription": "glow_model"
+                  },
+                  {
+                    "ParamName": "halo_intensity",
+                    "ParamKeyword": "Ze24",
+                    "ParamType": "doub",
+                    "ParamDescription": "halo_intensity"
+                  },
+                  {
+                    "ParamName": "halo_radius",
+                    "ParamKeyword": "Ze25",
+                    "ParamType": "doub",
+                    "ParamDescription": "halo_radius"
+                  },
+                  {
+                    "ParamName": "glow_gamma",
+                    "ParamKeyword": "Ze26",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_gamma"
+                  },
+                  {
+                    "ParamName": "glow_bias",
+                    "ParamKeyword": "Ze27",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_bias"
+                  },
+                  {
+                    "ParamName": "glow_sizes0",
+                    "ParamKeyword": "Ze28",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_sizes0"
+                  },
+                  {
+                    "ParamName": "glow_sizes1",
+                    "ParamKeyword": "Ze29",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_sizes1"
+                  },
+                  {
+                    "ParamName": "glow_sizes2",
+                    "ParamKeyword": "Ze2A",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_sizes2"
+                  },
+                  {
+                    "ParamName": "glow_sizes3",
+                    "ParamKeyword": "Ze2B",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_sizes3"
+                  },
+                  {
+                    "ParamName": "glow_gains0",
+                    "ParamKeyword": "Ze2C",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_gains0"
+                  },
+                  {
+                    "ParamName": "glow_gains1",
+                    "ParamKeyword": "Ze2D",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_gains1"
+                  },
+                  {
+                    "ParamName": "glow_gains2",
+                    "ParamKeyword": "Ze2E",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_gains2"
+                  },
+                  {
+                    "ParamName": "glow_gains3",
+                    "ParamKeyword": "Ze2F",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_gains3"
+                  },
+                  {
+                    "ParamName": "glow_detail",
+                    "ParamKeyword": "Ze30",
+                    "ParamType": "long",
+                    "ParamDescription": "glow_detail"
+                  },
+                  {
+                    "ParamName": "filament_count",
+                    "ParamKeyword": "Ze31",
+                    "ParamType": "long",
+                    "ParamDescription": "filament_count"
+                  },
+                  {
+                    "ParamName": "glow_seed",
+                    "ParamKeyword": "Ze32",
+                    "ParamType": "long",
+                    "ParamDescription": "glow_seed"
+                  },
+                  {
+                    "ParamName": "glow_distortion",
+                    "ParamKeyword": "Ze33",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_distortion"
+                  },
+                  {
+                    "ParamName": "glow_noise_scale",
+                    "ParamKeyword": "Ze34",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_noise_scale"
+                  },
+                  {
+                    "ParamName": "glow_width",
+                    "ParamKeyword": "Ze35",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_width"
+                  },
+                  {
+                    "ParamName": "glow_texture",
+                    "ParamKeyword": "Ze36",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_texture"
+                  },
+                  {
+                    "ParamName": "filament_strength",
+                    "ParamKeyword": "Ze37",
+                    "ParamType": "doub",
+                    "ParamDescription": "filament_strength"
+                  },
+                  {
+                    "ParamName": "glow_evolution",
+                    "ParamKeyword": "Ze38",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow_evolution"
+                  },
+                  {
+                    "ParamName": "burn_detail",
+                    "ParamKeyword": "Ze39",
+                    "ParamType": "long",
+                    "ParamDescription": "burn_detail"
+                  },
+                  {
+                    "ParamName": "burn_seed",
+                    "ParamKeyword": "Ze3A",
+                    "ParamType": "long",
+                    "ParamDescription": "burn_seed"
+                  },
+                  {
+                    "ParamName": "burn_width",
+                    "ParamKeyword": "Ze3B",
+                    "ParamType": "doub",
+                    "ParamDescription": "burn_width"
+                  },
+                  {
+                    "ParamName": "burn_turbulence",
+                    "ParamKeyword": "Ze3C",
+                    "ParamType": "doub",
+                    "ParamDescription": "burn_turbulence"
+                  },
+                  {
+                    "ParamName": "burn_scale",
+                    "ParamKeyword": "Ze3D",
+                    "ParamType": "doub",
+                    "ParamDescription": "burn_scale"
+                  },
+                  {
+                    "ParamName": "burn_density",
+                    "ParamKeyword": "Ze3E",
+                    "ParamType": "doub",
+                    "ParamDescription": "burn_density"
+                  },
+                  {
+                    "ParamName": "burn_filaments",
+                    "ParamKeyword": "Ze3F",
+                    "ParamType": "doub",
+                    "ParamDescription": "burn_filaments"
+                  },
+                  {
+                    "ParamName": "burn_wind",
+                    "ParamKeyword": "Ze40",
+                    "ParamType": "doub",
+                    "ParamDescription": "burn_wind"
+                  },
+                  {
+                    "ParamName": "burn_evolution",
+                    "ParamKeyword": "Ze41",
+                    "ParamType": "doub",
+                    "ParamDescription": "burn_evolution"
+                  },
+                  {
+                    "ParamName": "engine",
+                    "ParamKeyword": "Ze42",
+                    "ParamType": "long",
+                    "ParamDescription": "engine"
+                  },
+                  {
+                    "ParamName": "core_noise",
+                    "ParamKeyword": "Ze43",
+                    "ParamType": "long",
+                    "ParamDescription": "core_noise"
+                  },
+                  {
+                    "ParamName": "glow_noise",
+                    "ParamKeyword": "Ze44",
+                    "ParamType": "long",
+                    "ParamDescription": "glow_noise"
+                  },
+                  {
+                    "ParamName": "color_mix",
+                    "ParamKeyword": "Ze45",
+                    "ParamType": "doub",
+                    "ParamDescription": "color_mix"
+                  },
+                  {
+                    "ParamName": "pathSnapshot",
+                    "ParamKeyword": "ZePG",
+                    "ParamType": "tdta",
+                    "ParamDescription": "Versioned native-coordinate Bezier geometry snapshot"
+                  },
+                  {
+                    "ParamName": "pathName",
+                    "ParamKeyword": "ZePN",
+                    "ParamType": "TEXT",
+                    "ParamDescription": "Unicode source path name"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

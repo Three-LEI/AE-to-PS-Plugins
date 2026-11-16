@@ -1,0 +1,682 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Starglow",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 1,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuStarglowReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/Starglow=Starglow 星芒",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpSg"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Starglow",
+                "EventDescription": "Editable Starglow",
+                "ClassID": "ZpEf",
+                "EventType": "ZpSg",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "kind",
+                    "ParamKeyword": "Zs00",
+                    "ParamType": "long",
+                    "ParamDescription": "kind"
+                  },
+                  {
+                    "ParamName": "input",
+                    "ParamKeyword": "Zs01",
+                    "ParamType": "long",
+                    "ParamDescription": "input"
+                  },
+                  {
+                    "ParamName": "blend",
+                    "ParamKeyword": "Zs02",
+                    "ParamType": "long",
+                    "ParamDescription": "blend"
+                  },
+                  {
+                    "ParamName": "map_mode",
+                    "ParamKeyword": "Zs03",
+                    "ParamType": "long",
+                    "ParamDescription": "map_mode"
+                  },
+                  {
+                    "ParamName": "samples",
+                    "ParamKeyword": "Zs04",
+                    "ParamType": "long",
+                    "ParamDescription": "samples"
+                  },
+                  {
+                    "ParamName": "source_color",
+                    "ParamKeyword": "Zs05",
+                    "ParamType": "bool",
+                    "ParamDescription": "source_color"
+                  },
+                  {
+                    "ParamName": "preserve_alpha",
+                    "ParamKeyword": "Zs06",
+                    "ParamType": "bool",
+                    "ParamDescription": "preserve_alpha"
+                  },
+                  {
+                    "ParamName": "use_mask",
+                    "ParamKeyword": "Zs07",
+                    "ParamType": "bool",
+                    "ParamDescription": "use_mask"
+                  },
+                  {
+                    "ParamName": "cycle",
+                    "ParamKeyword": "Zs08",
+                    "ParamType": "bool",
+                    "ParamDescription": "cycle"
+                  },
+                  {
+                    "ParamName": "threshold",
+                    "ParamKeyword": "Zs09",
+                    "ParamType": "doub",
+                    "ParamDescription": "threshold"
+                  },
+                  {
+                    "ParamName": "softness",
+                    "ParamKeyword": "Zs0A",
+                    "ParamType": "doub",
+                    "ParamDescription": "softness"
+                  },
+                  {
+                    "ParamName": "boost",
+                    "ParamKeyword": "Zs0B",
+                    "ParamType": "doub",
+                    "ParamDescription": "boost"
+                  },
+                  {
+                    "ParamName": "length",
+                    "ParamKeyword": "Zs0C",
+                    "ParamType": "doub",
+                    "ParamDescription": "length"
+                  },
+                  {
+                    "ParamName": "rotation",
+                    "ParamKeyword": "Zs0D",
+                    "ParamType": "doub",
+                    "ParamDescription": "rotation"
+                  },
+                  {
+                    "ParamName": "falloff",
+                    "ParamKeyword": "Zs0E",
+                    "ParamType": "doub",
+                    "ParamDescription": "falloff"
+                  },
+                  {
+                    "ParamName": "lengths_0",
+                    "ParamKeyword": "Zs0F",
+                    "ParamType": "doub",
+                    "ParamDescription": "lengths_0"
+                  },
+                  {
+                    "ParamName": "lengths_1",
+                    "ParamKeyword": "Zs0G",
+                    "ParamType": "doub",
+                    "ParamDescription": "lengths_1"
+                  },
+                  {
+                    "ParamName": "lengths_2",
+                    "ParamKeyword": "Zs0H",
+                    "ParamType": "doub",
+                    "ParamDescription": "lengths_2"
+                  },
+                  {
+                    "ParamName": "lengths_3",
+                    "ParamKeyword": "Zs0I",
+                    "ParamType": "doub",
+                    "ParamDescription": "lengths_3"
+                  },
+                  {
+                    "ParamName": "lengths_4",
+                    "ParamKeyword": "Zs0J",
+                    "ParamType": "doub",
+                    "ParamDescription": "lengths_4"
+                  },
+                  {
+                    "ParamName": "lengths_5",
+                    "ParamKeyword": "Zs0K",
+                    "ParamType": "doub",
+                    "ParamDescription": "lengths_5"
+                  },
+                  {
+                    "ParamName": "lengths_6",
+                    "ParamKeyword": "Zs0L",
+                    "ParamType": "doub",
+                    "ParamDescription": "lengths_6"
+                  },
+                  {
+                    "ParamName": "lengths_7",
+                    "ParamKeyword": "Zs0M",
+                    "ParamType": "doub",
+                    "ParamDescription": "lengths_7"
+                  },
+                  {
+                    "ParamName": "maps_0",
+                    "ParamKeyword": "Zs0N",
+                    "ParamType": "long",
+                    "ParamDescription": "maps_0"
+                  },
+                  {
+                    "ParamName": "maps_1",
+                    "ParamKeyword": "Zs0O",
+                    "ParamType": "long",
+                    "ParamDescription": "maps_1"
+                  },
+                  {
+                    "ParamName": "maps_2",
+                    "ParamKeyword": "Zs0P",
+                    "ParamType": "long",
+                    "ParamDescription": "maps_2"
+                  },
+                  {
+                    "ParamName": "maps_3",
+                    "ParamKeyword": "Zs0Q",
+                    "ParamType": "long",
+                    "ParamDescription": "maps_3"
+                  },
+                  {
+                    "ParamName": "maps_4",
+                    "ParamKeyword": "Zs0R",
+                    "ParamType": "long",
+                    "ParamDescription": "maps_4"
+                  },
+                  {
+                    "ParamName": "maps_5",
+                    "ParamKeyword": "Zs0S",
+                    "ParamType": "long",
+                    "ParamDescription": "maps_5"
+                  },
+                  {
+                    "ParamName": "maps_6",
+                    "ParamKeyword": "Zs0T",
+                    "ParamType": "long",
+                    "ParamDescription": "maps_6"
+                  },
+                  {
+                    "ParamName": "maps_7",
+                    "ParamKeyword": "Zs0U",
+                    "ParamType": "long",
+                    "ParamDescription": "maps_7"
+                  },
+                  {
+                    "ParamName": "colors_0_0_0",
+                    "ParamKeyword": "Zs0V",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_0_0"
+                  },
+                  {
+                    "ParamName": "colors_0_0_1",
+                    "ParamKeyword": "Zs0W",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_0_1"
+                  },
+                  {
+                    "ParamName": "colors_0_0_2",
+                    "ParamKeyword": "Zs0X",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_0_2"
+                  },
+                  {
+                    "ParamName": "colors_0_1_0",
+                    "ParamKeyword": "Zs0Y",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_1_0"
+                  },
+                  {
+                    "ParamName": "colors_0_1_1",
+                    "ParamKeyword": "Zs0Z",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_1_1"
+                  },
+                  {
+                    "ParamName": "colors_0_1_2",
+                    "ParamKeyword": "Zs10",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_1_2"
+                  },
+                  {
+                    "ParamName": "colors_0_2_0",
+                    "ParamKeyword": "Zs11",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_2_0"
+                  },
+                  {
+                    "ParamName": "colors_0_2_1",
+                    "ParamKeyword": "Zs12",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_2_1"
+                  },
+                  {
+                    "ParamName": "colors_0_2_2",
+                    "ParamKeyword": "Zs13",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_2_2"
+                  },
+                  {
+                    "ParamName": "colors_0_3_0",
+                    "ParamKeyword": "Zs14",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_3_0"
+                  },
+                  {
+                    "ParamName": "colors_0_3_1",
+                    "ParamKeyword": "Zs15",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_3_1"
+                  },
+                  {
+                    "ParamName": "colors_0_3_2",
+                    "ParamKeyword": "Zs16",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_3_2"
+                  },
+                  {
+                    "ParamName": "colors_0_4_0",
+                    "ParamKeyword": "Zs17",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_4_0"
+                  },
+                  {
+                    "ParamName": "colors_0_4_1",
+                    "ParamKeyword": "Zs18",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_4_1"
+                  },
+                  {
+                    "ParamName": "colors_0_4_2",
+                    "ParamKeyword": "Zs19",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_0_4_2"
+                  },
+                  {
+                    "ParamName": "colors_1_0_0",
+                    "ParamKeyword": "Zs1A",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_0_0"
+                  },
+                  {
+                    "ParamName": "colors_1_0_1",
+                    "ParamKeyword": "Zs1B",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_0_1"
+                  },
+                  {
+                    "ParamName": "colors_1_0_2",
+                    "ParamKeyword": "Zs1C",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_0_2"
+                  },
+                  {
+                    "ParamName": "colors_1_1_0",
+                    "ParamKeyword": "Zs1D",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_1_0"
+                  },
+                  {
+                    "ParamName": "colors_1_1_1",
+                    "ParamKeyword": "Zs1E",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_1_1"
+                  },
+                  {
+                    "ParamName": "colors_1_1_2",
+                    "ParamKeyword": "Zs1F",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_1_2"
+                  },
+                  {
+                    "ParamName": "colors_1_2_0",
+                    "ParamKeyword": "Zs1G",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_2_0"
+                  },
+                  {
+                    "ParamName": "colors_1_2_1",
+                    "ParamKeyword": "Zs1H",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_2_1"
+                  },
+                  {
+                    "ParamName": "colors_1_2_2",
+                    "ParamKeyword": "Zs1I",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_2_2"
+                  },
+                  {
+                    "ParamName": "colors_1_3_0",
+                    "ParamKeyword": "Zs1J",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_3_0"
+                  },
+                  {
+                    "ParamName": "colors_1_3_1",
+                    "ParamKeyword": "Zs1K",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_3_1"
+                  },
+                  {
+                    "ParamName": "colors_1_3_2",
+                    "ParamKeyword": "Zs1L",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_3_2"
+                  },
+                  {
+                    "ParamName": "colors_1_4_0",
+                    "ParamKeyword": "Zs1M",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_4_0"
+                  },
+                  {
+                    "ParamName": "colors_1_4_1",
+                    "ParamKeyword": "Zs1N",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_4_1"
+                  },
+                  {
+                    "ParamName": "colors_1_4_2",
+                    "ParamKeyword": "Zs1O",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_1_4_2"
+                  },
+                  {
+                    "ParamName": "colors_2_0_0",
+                    "ParamKeyword": "Zs1P",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_0_0"
+                  },
+                  {
+                    "ParamName": "colors_2_0_1",
+                    "ParamKeyword": "Zs1Q",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_0_1"
+                  },
+                  {
+                    "ParamName": "colors_2_0_2",
+                    "ParamKeyword": "Zs1R",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_0_2"
+                  },
+                  {
+                    "ParamName": "colors_2_1_0",
+                    "ParamKeyword": "Zs1S",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_1_0"
+                  },
+                  {
+                    "ParamName": "colors_2_1_1",
+                    "ParamKeyword": "Zs1T",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_1_1"
+                  },
+                  {
+                    "ParamName": "colors_2_1_2",
+                    "ParamKeyword": "Zs1U",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_1_2"
+                  },
+                  {
+                    "ParamName": "colors_2_2_0",
+                    "ParamKeyword": "Zs1V",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_2_0"
+                  },
+                  {
+                    "ParamName": "colors_2_2_1",
+                    "ParamKeyword": "Zs1W",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_2_1"
+                  },
+                  {
+                    "ParamName": "colors_2_2_2",
+                    "ParamKeyword": "Zs1X",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_2_2"
+                  },
+                  {
+                    "ParamName": "colors_2_3_0",
+                    "ParamKeyword": "Zs1Y",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_3_0"
+                  },
+                  {
+                    "ParamName": "colors_2_3_1",
+                    "ParamKeyword": "Zs1Z",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_3_1"
+                  },
+                  {
+                    "ParamName": "colors_2_3_2",
+                    "ParamKeyword": "Zs20",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_3_2"
+                  },
+                  {
+                    "ParamName": "colors_2_4_0",
+                    "ParamKeyword": "Zs21",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_4_0"
+                  },
+                  {
+                    "ParamName": "colors_2_4_1",
+                    "ParamKeyword": "Zs22",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_4_1"
+                  },
+                  {
+                    "ParamName": "colors_2_4_2",
+                    "ParamKeyword": "Zs23",
+                    "ParamType": "doub",
+                    "ParamDescription": "colors_2_4_2"
+                  },
+                  {
+                    "ParamName": "cx",
+                    "ParamKeyword": "Zs24",
+                    "ParamType": "doub",
+                    "ParamDescription": "cx"
+                  },
+                  {
+                    "ParamName": "cy",
+                    "ParamKeyword": "Zs25",
+                    "ParamType": "doub",
+                    "ParamDescription": "cy"
+                  },
+                  {
+                    "ParamName": "mask_radius",
+                    "ParamKeyword": "Zs26",
+                    "ParamType": "doub",
+                    "ParamDescription": "mask_radius"
+                  },
+                  {
+                    "ParamName": "mask_feather",
+                    "ParamKeyword": "Zs27",
+                    "ParamType": "doub",
+                    "ParamDescription": "mask_feather"
+                  },
+                  {
+                    "ParamName": "shimmer",
+                    "ParamKeyword": "Zs28",
+                    "ParamType": "doub",
+                    "ParamDescription": "shimmer"
+                  },
+                  {
+                    "ParamName": "detail",
+                    "ParamKeyword": "Zs29",
+                    "ParamType": "doub",
+                    "ParamDescription": "detail"
+                  },
+                  {
+                    "ParamName": "phase",
+                    "ParamKeyword": "Zs2A",
+                    "ParamType": "doub",
+                    "ParamDescription": "phase"
+                  },
+                  {
+                    "ParamName": "loops",
+                    "ParamKeyword": "Zs2B",
+                    "ParamType": "doub",
+                    "ParamDescription": "loops"
+                  },
+                  {
+                    "ParamName": "noise_x",
+                    "ParamKeyword": "Zs2C",
+                    "ParamType": "doub",
+                    "ParamDescription": "noise_x"
+                  },
+                  {
+                    "ParamName": "noise_y",
+                    "ParamKeyword": "Zs2D",
+                    "ParamType": "doub",
+                    "ParamDescription": "noise_y"
+                  },
+                  {
+                    "ParamName": "source_opacity",
+                    "ParamKeyword": "Zs2E",
+                    "ParamType": "doub",
+                    "ParamDescription": "source_opacity"
+                  },
+                  {
+                    "ParamName": "effect_opacity",
+                    "ParamKeyword": "Zs2F",
+                    "ParamType": "doub",
+                    "ParamDescription": "effect_opacity"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Zs2G",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Zs2H",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "mask_cx",
+                    "ParamKeyword": "Zs2I",
+                    "ParamType": "doub",
+                    "ParamDescription": "mask_cx"
+                  },
+                  {
+                    "ParamName": "mask_cy",
+                    "ParamKeyword": "Zs2J",
+                    "ParamType": "doub",
+                    "ParamDescription": "mask_cy"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

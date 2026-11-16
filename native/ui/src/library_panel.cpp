@@ -5,6 +5,7 @@
 #include "psui/scrub_control.hpp"
 #include "psui/color_sampling.hpp"
 #include "psui/icons.hpp"
+#include "psui/preview_status_shader.hpp"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 #include "psui/ui_metrics.hpp"
@@ -191,6 +192,9 @@ struct LibraryPanel::Impl {
   ID3D11RenderTargetView *target = nullptr;
   ID3D11Texture2D *texture = nullptr;
   ID3D11ShaderResourceView *view = nullptr;
+  ID3D11BlendState *status_blend = nullptr;
+  ID3D11PixelShader *status_shader = nullptr;
+  bool status_resources_tried = false;
   int image_w = 0, image_h = 0;
   PreviewView displayed_preview;
   PreviewColorSampler color_sampler;
@@ -242,6 +246,8 @@ struct LibraryPanel::Impl {
     return SUCCEEDED(hr) && render_target();
   }
   ~Impl() {
+    release(status_shader);
+    release(status_blend);
     release(view);
     release(texture);
     release(target);
@@ -471,11 +477,14 @@ void LibraryPanel::mark(const char *key) {
   auto a = ImGui::GetItemRectMin(), b = ImGui::GetItemRectMax();
   items[key] = {a.x, a.y, b.x, b.y};
 }
+float LibraryPanel::button_height() const {
+  return std::max(ImGui::GetFrameHeight(), 26.f * scale());
+}
 bool LibraryPanel::button(const char *key, const char *label, float width) {
   ImGui::PushID(key);
   ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10 * scale());
   const bool result =
-      ImGui::Button((text(label) + "###button").c_str(), {width, 0});
+      ImGui::Button((text(label) + "###button").c_str(), {width, button_height()});
   mark(key);
   ImGui::PopStyleVar();
   ImGui::PopID();
@@ -792,6 +801,8 @@ void LibraryPanel::image_view(PreviewView &v, const ProxyImage &source) {
 }
 bool LibraryPanel::preview_zoom(PreviewView &v) {
   ImGui::PushID("preview-zoom");
+  const float row_y=ImGui::GetCursorPosY();
+  ImGui::SetCursorPosY(row_y+std::max(0.f,(button_height()-ImGui::GetFrameHeight())*.5f));
   ImGui::AlignTextToFramePadding();
   ImGui::TextUnformatted(text("缩放 / Zoom").c_str());
   ImGui::SameLine();
@@ -804,6 +815,7 @@ bool LibraryPanel::preview_zoom(PreviewView &v) {
   if (changed)
     v.zoom(percent);
   ImGui::SameLine();
+  ImGui::SetCursorPosY(row_y);
   if (button("preview.fit", "适合 / Fit", -1)) {
     v.fit();
     changed = true;
@@ -823,6 +835,50 @@ bool LibraryPanel::preview_zoom(PreviewView &v) {
                   .c_str());
   ImGui::PopID();
   return changed;
+}
+void LibraryPanel::preview_status(bool busy) {
+  const auto image=items.find("image");
+  if(!busy||image==items.end())return;
+  if(!impl->status_resources_tried){
+    impl->status_resources_tried=true;
+    D3D11_BLEND_DESC desc{};auto& target=desc.RenderTarget[0];target.BlendEnable=TRUE;
+    // With premultiplied white glyph coverage a: a*(1-d)+d*(1-a).
+    // Thus full coverage is exactly the Difference result 1-d.
+    target.SrcBlend=D3D11_BLEND_INV_DEST_COLOR;target.DestBlend=D3D11_BLEND_INV_SRC_COLOR;target.BlendOp=D3D11_BLEND_OP_ADD;
+    target.SrcBlendAlpha=D3D11_BLEND_ONE;target.DestBlendAlpha=D3D11_BLEND_INV_SRC_ALPHA;target.BlendOpAlpha=D3D11_BLEND_OP_ADD;
+    target.RenderTargetWriteMask=D3D11_COLOR_WRITE_ENABLE_ALL;
+    if(FAILED(impl->device->CreateBlendState(&desc,&impl->status_blend))||
+       FAILED(impl->device->CreatePixelShader(preview_status_shader,sizeof(preview_status_shader),nullptr,&impl->status_shader))){
+      release(impl->status_blend);release(impl->status_shader);
+    }
+  }
+  const auto r=image->second;const float pad=7*scale();
+  const auto label=text("正在计算… / Rendering preview…");const auto extent=ImGui::CalcTextSize(label.c_str());
+  const ImVec2 origin{std::floor(r.x+pad),std::floor(r.y+pad)};
+  auto* list=ImGui::GetWindowDrawList();list->PushClipRect({r.x,r.y},{r.z,r.w},true);
+  const bool difference=impl->status_blend&&impl->status_shader;
+  // The outline shader emits only outside glyph coverage, leaving the actual
+  // background under solid letters intact for Difference blending.
+  if(difference){
+    list->AddCallback([](const ImDrawList*,const ImDrawCmd* command){
+      auto* state=static_cast<Impl*>(command->UserCallbackData);state->context->PSSetShader(state->status_shader,nullptr,0);
+    },impl);
+    list->AddText(origin,IM_COL32(0,0,0,210),label.c_str());
+  }else{
+    const float edge=std::max(1.f,scale());
+    for(auto offset:std::array<ImVec2,4>{{{-edge,0},{edge,0},{0,-edge},{0,edge}}})
+      list->AddText({origin.x+offset.x,origin.y+offset.y},IM_COL32(0,0,0,210),label.c_str());
+  }
+  if(difference)list->AddCallback([](const ImDrawList*,const ImDrawCmd* command){
+    auto* state=static_cast<Impl*>(command->UserCallbackData);
+    const float factors[4]={0,0,0,0};state->context->OMSetBlendState(state->status_blend,factors,0xffffffff);
+    state->context->PSSetShader(state->status_shader,nullptr,0);
+  },impl);
+  list->AddText(origin,IM_COL32_WHITE,label.c_str());
+  if(difference)list->AddCallback(ImDrawCallback_ResetRenderState,nullptr);
+  list->PopClipRect();
+  items["preview.status"]={origin.x,origin.y,std::min(r.z,origin.x+extent.x),std::min(r.w,origin.y+extent.y)};
+  items["preview.status.mode"]={difference?1.f:0.f,0,0,0};
 }
 bool LibraryPanel::capture(const wchar_t *path) {
   ID3D11Texture2D *back = nullptr;
@@ -988,6 +1044,7 @@ INT_PTR run_library_panel(HINSTANCE module, HWND owner, FilterRecord *host,
   glyph_builder.AddText("取色 打开 PS 拾色器。点击缩览图或 PS 画布取色；Esc 或右键取消。此处无法取色，请点击缩览图或 PS 画布。");
   glyph_builder.AddText("吸管：点击后取色，或按住拖到目标后松开。支持缩览图、PS 画布和全屏幕；Esc 或右键取消。点击屏幕取色，或拖到目标后松开；Esc 或右键取消。此处无法读取颜色，请重试或按 Esc 取消。");
   glyph_builder.AddText("显示背景 当前图层和下方可见图层，不显示上方图层。背景暂不可用 背景为近似预览 调整图层、图层组及部分高级混合设置无法完整复现。");
+  glyph_builder.AddText("交互快速预览 快速 精细 正在计算…");
   if (info)
     glyph_builder.AddText(info->name);
   if (localized_text)

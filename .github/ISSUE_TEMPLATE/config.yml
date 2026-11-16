@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 安装与兼容 / Installation and compatibility
+    url: https://github.com/Three-LEI/AE-to-PS-Plugins#安装与使用
+    about: 下载入口、安装步骤、兼容范围与已知限制。
+  - name: 全部效果图集 / Effect gallery
+    url: https://github.com/Three-LEI/AE-to-PS-Plugins/blob/main/docs/GALLERY.md
+    about: 查看 23 款实际插件的前后对照与演示参数。

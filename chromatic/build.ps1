@@ -10,7 +10,7 @@ New-Item -ItemType Directory -Path $out -Force | Out-Null
 $flags=@('-std=c++20','-O3','-ffp-contract=off','-Wall','-Wextra','-Wpedantic','-static','-I',"$PSScriptRoot\include",'-I',"$project\native\ui\include",'-I',"$project\displacement\include",'-I',$aepsPaths.ImGui)
 $flags+=$aepsPaths.CompilerFlags
 $flags+=@('-I',"$PSScriptRoot\build")
-& $cxx @flags "$PSScriptRoot\src\chromatic_core.cpp" "$PSScriptRoot\tests\core_tests.cpp" -o "$out\core_tests.exe"
+& $cxx @flags "$PSScriptRoot\src\chromatic_core.cpp" "$PSScriptRoot\tests\core_tests.cpp" "$PSScriptRoot\tests\extended_tests.cpp" -o "$out\core_tests.exe"
 if($LASTEXITCODE -ne 0){throw 'Chromatic core build failed'}
 & "$out\core_tests.exe" | Tee-Object "$out\core-test-results.txt"
 if($LASTEXITCODE -ne 0){throw 'Chromatic core tests failed'}
@@ -31,4 +31,6 @@ if($LASTEXITCODE -ne 0){throw 'Chromatic adapter build failed'}
 if($LASTEXITCODE -ne 0){throw 'Chromatic adapter tests failed'}
 & $cxx @flags @hostFlags "$PSScriptRoot\src\chromatic_core.cpp" "$PSScriptRoot\src\library_dialog.cpp" "$PSScriptRoot\tests\library_preview.cpp" @libs -o "$out\dialog_preview.exe"
 if($LASTEXITCODE -ne 0){throw 'Chromatic production dialog harness failed'}
+& $cxx @flags @hostFlags "$PSScriptRoot/src/chromatic_core.cpp" "$PSScriptRoot/src/library_dialog.cpp" "$PSScriptRoot/tests/extended_panel.cpp" @libs -o "$out/extended_panel.exe"
+if($LASTEXITCODE -ne 0){throw 'Chromatic extended panel harness failed'}
 Get-FileHash -LiteralPath "$out\ZaYuChromaticDispersion.8bf"

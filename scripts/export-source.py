@@ -5,10 +5,15 @@ from source_checks import check,digest
 parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--archive',type=Path);parser.add_argument('--report',type=Path);args=parser.parse_args()
 root=Path(__file__).resolve().parents[1];output=args.output.resolve();assert output!=root and root not in output.parents or output.is_relative_to(root/'publish')or output.is_relative_to(root/'dist'),'use a separate export folder'
 project=json.loads((root/'project.json').read_text(encoding='utf-8'));selected=set()
-for name in ('README.md','LICENSE','THIRD_PARTY.md','CONTRIBUTING.md','.gitignore','.gitattributes','project.json','plugins.json','dependencies.lock.json','build.ps1'):selected.add(root/name)
-for folder in ('scripts','qa','docs','.github','third_party/imgui'):
+for name in ('README.md','README.en.md','LICENSE','THIRD_PARTY.md','CONTRIBUTING.md','.gitignore','.gitattributes','project.json','plugins.json','dependencies.lock.json','build.ps1'):selected.add(root/name)
+for folder in ('scripts','docs','.github','third_party/imgui'):
  for path in (root/folder).rglob('*'):
-  if path.is_file()and 'build'not in path.relative_to(root/folder).parts and '__pycache__'not in path.parts and path.suffix in {'.py','.ps1','.cpp','.hpp','.h','.jsx','.md','.yml','.yaml','.json','.txt'}:selected.add(path)
+  if path.is_file()and 'build'not in path.relative_to(root/folder).parts and '__pycache__'not in path.parts and (path.suffix in {'.py','.ps1','.cpp','.hpp','.h','.jsx','.md','.yml','.yaml','.json','.txt'}or (folder=='docs' and path.is_relative_to(root/'docs/assets') and path.suffix in {'.png','.jpg','.webp','.svg'})):selected.add(path)
+# Historical deployment/AE research wrappers depend on private snapshots and
+# machine paths. Export portable shared checks and fixtures needed by tests.
+portable_qa={'README.md','inspect_binaries.py','legacy_metadata.py','tiff_pixels.py','parameter-store.cpp','check-parameter-fields.py','run-parameter-store.ps1','cached-finish-smoke.cpp','about-link.cpp','run-about-link.ps1','adaptive-tests.cpp','adaptive-panel.cpp','run-adaptive-panels.ps1','preview-status.cpp','check-preview-status.py','run-preview-status.ps1','preview-quality-tests.cpp','run-preview-quality-tests.ps1','run-preview-quality-shared.ps1','performance-cache-tests.cpp','run-cache-tests.ps1'}
+for path in (root/'qa').iterdir():
+ if path.is_file()and(path.name in portable_qa or path.suffix=='.hpp'):selected.add(path)
 for module in project['modules']:
  for name in ('build.ps1','README.md','LICENSE'):
   if(root/module/name).exists():selected.add(root/module/name)

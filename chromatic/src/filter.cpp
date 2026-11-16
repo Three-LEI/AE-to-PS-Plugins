@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "../../native/common/cached_filter_runtime.hpp"
 #include "chromatic_host.hpp"
+#include "chromatic_legacy.hpp"
 #include "parameter_schema.hpp"
 namespace {
 HINSTANCE instance=nullptr;
@@ -12,6 +13,7 @@ struct Effect {
  static constexpr auto info=chromatic::plugin_info;
  static constexpr auto title=chromatic::title;
  static bool valid(const Parameters& p){return chromatic::valid(p);}
+ static bool upgrade(const void* data,int size,Parameters& p){return chromatic::upgrade_parameters(data,size,p);}
  static Parameters defaults(FilterRecord*){return chromatic::preset(2);}
  static Image from_host(psui::LayerPixels&& pixels){return chromatic::from_host(std::move(pixels));}
  static OSErr read_inputs(FilterRecord* f,const std::vector<psui::HostLayer>& layers,const Parameters& p,Inputs& inputs){return psfilter::CachedRuntime<Effect>::read_named(f,layers,p.mask_key,inputs.mask);}

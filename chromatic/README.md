@@ -1,3 +1,7 @@
+<!-- chromatic-expansion-local -->
+2026-11-12 / 色差色散0.9-local：在原插件中新增光谱变换、棱镜散焦两模式及4预设；保留旧RGB／光谱算法和45字段ID，新增19字段，自动迁移0.8参数块。共用快速预览、蓝色单项／全部重置和PSD完整保存继续工作。本机PS2020／2026已安装，未提交GitHub或发布Releases。使用与验证见[本地扩展说明](../docs/CHROMATIC_EXPANSION_LOCAL.md)和`evidence/chromatic-v02/qa.json`。下方为历史记录。
+<!-- /chromatic-expansion-local -->
+
 <!-- parallel-0.24 -->
 
 整包0.36-rc1：本效果已接入完整智能滤镜参数保存，可随PSD保留并重编辑；使用方法与旧文件限制见[共用说明](../docs/PARAMETER_PERSISTENCE.md)。

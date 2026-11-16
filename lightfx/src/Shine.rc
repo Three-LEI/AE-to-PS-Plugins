@@ -1,0 +1,5 @@
+#pragma code_page(65001)
+#include <windows.h>
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#include "../build/PiPL-Shine-legacy.rc"
+IMGUI_LICENSE RCDATA "../../third_party/imgui/LICENSE.txt"

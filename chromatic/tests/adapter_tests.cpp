@@ -1,5 +1,6 @@
 #include "../../displacement/tests/mock_host.hpp"
 #include "chromatic_host.hpp"
+#include "chromatic_legacy.hpp"
 #include "psui/preview_background.hpp"
 #include <iostream>
 #include <cstdlib>
@@ -51,11 +52,31 @@ void verify(Entry entry,int depth,bool modern,bool flat){
  mock::fail_read=true;check(call(filterSelectorStart)==-123&&state==0,"read error preserved");mock::fail_read=false;
  host.doc.targetCompositeChannels=nullptr;check(call(filterSelectorStart)==errReportString&&state==0,"absent channel ports rejected");
 }
+
+void verify_extended(Entry entry,int depth,bool flat,int preset){
+ mock::Host host(128,96,depth);if(flat){host.doc.targetTransparency=nullptr;host.f.outTransparencyMask=0;host.f.filterCase=filterCaseFlatImageNoSelection;}
+ for(int y=0;y<96;y++)for(int x=0;x<128;x++){auto i=(std::size_t(y)*128+x)*4;host.pixels[0][i]=x/127.f;host.pixels[0][i+1]=y/95.f;host.pixels[0][i+2]=depth==32?1.6f:.6f;host.pixels[0][i+3]=flat?1.f:(x>20&&x<108?.7f:0.f);}
+ Saved saved;saved.p=chromatic::preset(preset);parameters(host,saved);
+ psui::HostLayer target;for(int k=0;k<3;k++)target.rgb[k]=&host.channels[0][k];target.alpha=flat?nullptr:host.doc.targetTransparency;psui::LayerPixels pixels;check(!psui::host_read_layer(&host.f,target,host.doc.bounds,0,pixels),"extended native source");auto source=chromatic::from_host(std::move(pixels));chromatic::Image expected;check(chromatic::render(source,saved.p,expected),"extended core reference");
+ intptr_t state=0;auto call=[&](int n){int16 result=999;entry(int16(n),&host.f,&state,&result);return result;};check(!call(filterSelectorStart)&&state>1,"extended DLL start");const int channels=flat?3:4,bytes=depth/8,row=128*channels*bytes+16;std::vector<std::uint8_t> output(std::size_t(row)*96,0xCD);
+ while(true){auto r=host.big.outRect32;if(r.bottom<=r.top)break;host.f.outData=output.data()+std::size_t(r.top)*row+r.left*channels*bytes;host.f.outRowBytes=row;host.f.outColumnBytes=channels*bytes;host.f.outPlaneBytes=bytes;check(!call(filterSelectorContinue),"extended DLL tile");}
+ for(int y=0;y<96;y++){
+  for(int x=0;x<128;x++)for(int k=0;k<channels;k++){const auto pixel=(std::size_t(y)*128+x)*4;float value=expected.rgba[pixel+k]*(flat&&k<3?expected.rgba[pixel+3]:1);std::uint8_t native[4]{};if(bytes==1)native[0]=std::uint8_t(std::lround(std::clamp(value,0.f,1.f)*255));else if(bytes==2){auto q=std::uint16_t(std::lround(std::clamp(value,0.f,1.f)*32768));std::memcpy(native,&q,2);}else std::memcpy(native,&value,4);if(std::memcmp(native,output.data()+std::size_t(y)*row+(x*channels+k)*bytes,bytes)){std::cerr<<"MISMATCH preset="<<preset<<" depth="<<depth<<" flat="<<flat<<" x="<<x<<" y="<<y<<" k="<<k<<" expected="<<value;for(int b=0;b<bytes;b++)std::cerr<<" bytes="<<int(native[b])<<"/"<<int(output[std::size_t(y)*row+(x*channels+k)*bytes+b]);std::cerr<<'\n';check(false,"extended DLL matches core samples");}}
+  for(int x=128*channels*bytes;x<row;x++)check(output[std::size_t(y)*row+x]==0xCD,"extended row guard");
+ }
+ check(!call(filterSelectorFinish)&&state==0,"extended DLL cleanup");
+}
+void verify_legacy(Entry entry){
+ mock::Host host(96,64);chromatic::SavedV1 old;old.values.mode=chromatic::Mode::rgb;old.values.amount=4;old.values.angle=0;old.values.softness=0;
+ host.f.parameters=mock::allocate(sizeof(old));std::memcpy(mock::lock(host.f.parameters,true),&old,sizeof(old));auto previous=host.f.parameters;intptr_t state=0;int16 result=999;entry(filterSelectorStart,&host.f,&state,&result);check(!result&&state>1,"actual DLL upgrades legacy memory handle");check(previous!=host.f.parameters&&host.f.handleProcs->getSizeProc(host.f.parameters)==sizeof(Saved),"legacy handle replaced at new size");Saved restored;std::memcpy(&restored,mock::lock(host.f.parameters,true),sizeof(restored));check(restored.p.mode==chromatic::Mode::rgb&&restored.p.amount==4&&restored.p.warp==chromatic::Parameters{}.warp,"legacy values and new defaults retained");entry(filterSelectorFinish,&host.f,&state,&result);check(!result&&state==0,"legacy session cleanup");
+}
 int main(){
  wchar_t path[32768];GetModuleFileNameW(nullptr,path,32768);std::wstring file(path);file.resize(file.find_last_of(L"\\/")+1);
 file+=L"ZaYuChromaticDispersion.8bf";
  const auto dll=LoadLibraryW(file.c_str());check(dll!=nullptr,"standalone plugin loads");const auto entry=reinterpret_cast<Entry>(GetProcAddress(dll,"PluginMain"));check(entry!=nullptr,"PluginMain");
  for(int depth:{8,16,32})for(bool modern:{false,true})for(bool flat:{false,true})verify(entry,depth,modern,flat);
  for(int depth:{8,16,32})split_and_selection(entry,depth);
+ for(int depth:{8,16,32})for(bool flat:{false,true})for(int preset:{4,6})verify_extended(entry,depth,flat,preset);verify_legacy(entry);
+ std::cout<<"PASS: new modes native nonzero RGB8/PS16/HDR32 flat/alpha output; legacy memory-handle migration.\n";
  FreeLibrary(dll);std::cout<<"PASS: real DLL; RGB8/PS16/HDR32; alpha and flat documents; 9 irregular tiles; selection guards; 16/32-bit coordinates; cancellation/read errors; no AE dependency.\n";
 }

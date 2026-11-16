@@ -1,3 +1,5 @@
+本地 0.9：`range_pool.hpp` 提供 `ParallelScope`／`RangePool`，由单次最终渲染或 `CoalescedPreview` 工作线程持有，嵌套调用继承且工作线程内的嵌套分区回到串行。不得在 DLL 静态对象中持有活动线程。`parallel_ranges` 保留原分区、调用线程专属取消和每任务浮点环境，完成通知替代固定休眠。`scratch_buffer.hpp` 提供限定生命周期的覆盖写入缓冲；`stage_cache.hpp` 提供单工作线程拥有的有界 LRU 阶段缓存。缓存键必须包含所有前置参数、不可变输入快照及相关浮点控制状态；参考输入重读前须停止工作线程并清空缓存。首个接入为 Glow／Deep Glow。详见 ../../docs/PERFORMANCE_LOCAL.md。
+
 0.34：共用关于窗口显示蓝色无边框“开源地址”，跳转 https://github.com/Three-LEI/AE-to-PS-Plugins 。重编译静态库调用方时需链接Windows shell32。项目可用根目录build.ps1和独立SDK路径完整构建；生成公式与参数ABI不变。
 
 <!-- parameter-reset-0.27 -->

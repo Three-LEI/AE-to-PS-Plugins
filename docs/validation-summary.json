@@ -1,59 +1,167 @@
 {
   "status": "PASS",
-  "release": "0.36-rc1",
+  "release": "0.37-rc1",
   "repository": "https://github.com/Three-LEI/AE-to-PS-Plugins",
-  "core_and_parameter_abi_unchanged": true,
   "build": {
-    "modules": 13,
+    "modules": 16,
     "status": "PASS",
-    "clean_export_native": "PASS"
+    "clean_export": "PASS: all 16 modules and required checks"
   },
-  "host": {
-    "status": "PASS",
-    "effects": 19,
-    "effect_depth_combinations": 55,
-    "pixel_equal_exports": 113,
-    "version": "21.2.9"
+  "optimization_baseline": "local performance candidate before 0.9; not 0.36-rc1 or AE originals",
+  "native_host": {
+    "version": "21.2.9",
+    "effect_depth_cases": 67,
+    "undo_cases": 67,
+    "pixel_comparisons": 137,
+    "documents_remaining": 0
   },
-  "smart_filters": {
-    "status": "PASS",
-    "effect_depth_combinations": 55,
-    "independent_instances": 110,
-    "psd_depths": [
-      8,
-      16,
-      32
-    ],
-    "pixel_equal_comparisons": 110,
-    "photoshop_restarted": true,
-    "legacy_psds": 12,
-    "legacy_instances": 54,
-    "reference_name": "鎏金_参考图层"
-  },
-  "parameter_store": {
-    "status": "PASS",
-    "checks": 8642,
-    "new_schema_effects": 13,
-    "legacy_schema_effects": 6
-  },
-  "font_reset": {
-    "status": "PASS",
-    "glyph": "鎏",
-    "dpi_scales": [
-      1,
-      2
-    ]
-  },
-  "about": {
-    "status": "PASS",
-    "profiles": 32,
-    "legacy_dpi_fallback_profiles": 16
-  },
-  "external_compatibility": "rc2 user-confirmed PS2018/2020; this candidate still needs external retest",
-  "registration": {
-    "plugins": 19,
-    "aete_parameters": 476,
-    "win7_import_audit": "PASS",
-    "previous_six_contracts": "unchanged"
-  }
+  "old_psd_instances": 194,
+  "old_psd_pixel_comparisons": 194,
+  "exact_float_image_cases": 36,
+  "cache_vs_direct_cases": 396,
+  "ui_profiles": 46,
+  "native_gallery_examples": 23,
+  "required_imports_added": false,
+  "ps2026": "installed only",
+  "win7_ps2018": "earlier 0.7 user-confirmed; this candidate needs external retest",
+  "plugins": [
+    {
+      "file": "ZaYuTint.8bf",
+      "module": "native",
+      "sha256": "181c9fb57d357fd1d8e35e87aaae149c04a7fcd6639f576793aa3c740d6d6cc9",
+      "bytes": 2645504
+    },
+    {
+      "file": "ZaYuFractalNoise.8bf",
+      "module": "fractal",
+      "sha256": "aa4cc6497da1df07f15d1695c03348fb87c6a34c2d01ab5654789081f426b94d",
+      "bytes": 2697728
+    },
+    {
+      "file": "ZaYuDisplacementMap.8bf",
+      "module": "displacement",
+      "sha256": "0397cec19e2f81c1383e3e90e97d1d098d06e81ca08a5694366be80624abbead",
+      "bytes": 2662400
+    },
+    {
+      "file": "ZaYuGlow.8bf",
+      "module": "glow",
+      "sha256": "f825caaf67a7c27af047a6796b6fc63a35c03f1eda7f0b091cd07171e0aa1031",
+      "bytes": 2756096
+    },
+    {
+      "file": "ZaYuDeepGlow.8bf",
+      "module": "glow",
+      "sha256": "6387aef251edc12e665dc87a3c6f20064fb4ca9b83c23bc058f6d2adff4bc9b1",
+      "bytes": 2756096
+    },
+    {
+      "file": "ZaYuChromaticDispersion.8bf",
+      "module": "chromatic",
+      "sha256": "b47fed04ffec2572452f274fe0c068f615a565fc9a27dc2010188418336dbbbc",
+      "bytes": 2802688
+    },
+    {
+      "file": "ZaYuVectorBlur.8bf",
+      "module": "vector",
+      "sha256": "86bea21d84b8b13d23ed44519fa027869c490d3ee0d4f46ded260cdaa7bf90f3",
+      "bytes": 2697728
+    },
+    {
+      "file": "ZaYuGrid.8bf",
+      "module": "patterns",
+      "sha256": "5c3e1b6fba5314db6c61a1255afcf2ea5e04de058843940e0ec5beaf0c6c78ef",
+      "bytes": 2683904
+    },
+    {
+      "file": "ZaYuCheckerboard.8bf",
+      "module": "patterns",
+      "sha256": "d94018ede8372bba2e9f621d2821ac8b0ab4a070e78658d84df3bd4e6035da84",
+      "bytes": 2683904
+    },
+    {
+      "file": "ZaYuCellPattern.8bf",
+      "module": "cell",
+      "sha256": "67d424275d150b58b27d3871525135a951f0ec66ba42c26eeea7ab50f2d57ece",
+      "bytes": 2685440
+    },
+    {
+      "file": "ZaYuOpticsCompensation.8bf",
+      "module": "lens",
+      "sha256": "43247c6dacbb40dad4255c09848fc7513436f3032f69b00d624d86539b4595ab",
+      "bytes": 2690560
+    },
+    {
+      "file": "ZaYuCCLens.8bf",
+      "module": "lens",
+      "sha256": "968915f681752000bbf4dd16cbcd877c348a0d1141ca680309b06e7e3415b2eb",
+      "bytes": 2690048
+    },
+    {
+      "file": "ZaYuJPEGDamage.8bf",
+      "module": "jpeg",
+      "sha256": "de6fc96170976fedf698203f62f3b3d1292f20a9f4a51dccd2158d59210b94a5",
+      "bytes": 2755072
+    },
+    {
+      "file": "ZaYuBlobbylize.8bf",
+      "module": "surface",
+      "sha256": "4d90346fa9c43e18bb8edfee6fd8511a5ba786385eee5eca483a6e8f3e221280",
+      "bytes": 2725376
+    },
+    {
+      "file": "ZaYuGlass.8bf",
+      "module": "surface",
+      "sha256": "b2ff8ad2ce710bd6525247fe50cd4261d259f3f76ef2854595ec08f431558794",
+      "bytes": 2725376
+    },
+    {
+      "file": "ZaYuTurbulentDisplace.8bf",
+      "module": "creative",
+      "sha256": "378c74a8d55cb01feefd7a96e00a05652cbfcfdac4dd276d3b5d0ccc3fa2968f",
+      "bytes": 2701312
+    },
+    {
+      "file": "ZaYuLightSweep.8bf",
+      "module": "creative",
+      "sha256": "c639071503d7c7d521a7781a22e9457afbf036faaedf939f29120e6d85359993",
+      "bytes": 2700288
+    },
+    {
+      "file": "ZaYuKaleida.8bf",
+      "module": "creative",
+      "sha256": "955aff883bb37640873951b00dd2c4d31ab36e5ec7ad1ca195e10372ce2b069f",
+      "bytes": 2699776
+    },
+    {
+      "file": "ZaYuRoughenEdges.8bf",
+      "module": "roughen",
+      "sha256": "5a42e3d5f25a9916527f9dd097fa6e645514d5890dc60b6e5dacf91c24dc595d",
+      "bytes": 2710528
+    },
+    {
+      "file": "ZaYuStarglow.8bf",
+      "module": "lightfx",
+      "sha256": "d51b6279a8077324ef2fe016d031f3712402a2c972be0063a579aa143cbdbd26",
+      "bytes": 2757632
+    },
+    {
+      "file": "ZaYuShine.8bf",
+      "module": "lightfx",
+      "sha256": "84165f30bea7f49d489e20b6f9c2b705323cc21c9d86368912cc9ec5f7c6b16c",
+      "bytes": 2756608
+    },
+    {
+      "file": "ZaYuSaber.8bf",
+      "module": "energy",
+      "sha256": "8daa454e24b6d9dae2d1a18a9558dec0350b081d60f695b8fd9392bd728e9fa8",
+      "bytes": 2983936
+    },
+    {
+      "file": "ZaYuVenetianBlinds.8bf",
+      "module": "blinds",
+      "sha256": "e12a0ed0f784fb3ad2db9b53748789028d92ca41acb38bde3c4c733fbae3031e",
+      "bytes": 2699264
+    }
+  ]
 }

@@ -810,6 +810,120 @@
           "kind": "number",
           "member": "channels[2].blur",
           "id": "Zh18"
+        },
+        {
+          "name": "warp0_scale",
+          "kind": "number",
+          "member": "warp[0].scale",
+          "id": "Zh19"
+        },
+        {
+          "name": "warp0_rotation",
+          "kind": "number",
+          "member": "warp[0].rotation",
+          "id": "Zh1A"
+        },
+        {
+          "name": "warp0_x",
+          "kind": "number",
+          "member": "warp[0].x",
+          "id": "Zh1B"
+        },
+        {
+          "name": "warp0_y",
+          "kind": "number",
+          "member": "warp[0].y",
+          "id": "Zh1C"
+        },
+        {
+          "name": "warp1_scale",
+          "kind": "number",
+          "member": "warp[1].scale",
+          "id": "Zh1D"
+        },
+        {
+          "name": "warp1_rotation",
+          "kind": "number",
+          "member": "warp[1].rotation",
+          "id": "Zh1E"
+        },
+        {
+          "name": "warp1_x",
+          "kind": "number",
+          "member": "warp[1].x",
+          "id": "Zh1F"
+        },
+        {
+          "name": "warp1_y",
+          "kind": "number",
+          "member": "warp[1].y",
+          "id": "Zh1G"
+        },
+        {
+          "name": "warp_amount",
+          "kind": "number",
+          "member": "warp_amount",
+          "id": "Zh1H"
+        },
+        {
+          "name": "defocus_radius",
+          "kind": "number",
+          "member": "defocus_radius",
+          "id": "Zh1I"
+        },
+        {
+          "name": "ring_width",
+          "kind": "number",
+          "member": "ring_width",
+          "id": "Zh1J"
+        },
+        {
+          "name": "defocus_radius_0",
+          "kind": "number",
+          "member": "defocus_radii[0]",
+          "id": "Zh1K"
+        },
+        {
+          "name": "defocus_radius_1",
+          "kind": "number",
+          "member": "defocus_radii[1]",
+          "id": "Zh1L"
+        },
+        {
+          "name": "defocus_radius_2",
+          "kind": "number",
+          "member": "defocus_radii[2]",
+          "id": "Zh1M"
+        },
+        {
+          "name": "aperture_shape",
+          "kind": "integer",
+          "member": "aperture_shape",
+          "id": "Zh1N"
+        },
+        {
+          "name": "defocus_quality",
+          "kind": "integer",
+          "member": "defocus_quality",
+          "id": "Zh1O"
+        },
+        {
+          "name": "aperture_rotation",
+          "kind": "number",
+          "member": "aperture_rotation",
+          "id": "Zh1P"
+        },
+        {
+          "name": "aperture_aspect",
+          "kind": "number",
+          "member": "aperture_aspect",
+          "id": "Zh1Q"
+        },
+        {
+          "name": "aperture_roundness",
+          "kind": "number",
+          "member": "aperture_roundness",
+          "id": "Zh1R"
         }
       ]
     },
@@ -1371,6 +1485,1043 @@
           "id": "Zj0V"
         }
       ]
+    },
+    "lightfx": {
+      "type": "lightfx::Parameters",
+      "fields": [
+        {
+          "name": "kind",
+          "kind": "integer",
+          "member": "kind",
+          "id": "Zs00"
+        },
+        {
+          "name": "input",
+          "kind": "integer",
+          "member": "input",
+          "id": "Zs01"
+        },
+        {
+          "name": "blend",
+          "kind": "integer",
+          "member": "blend",
+          "id": "Zs02"
+        },
+        {
+          "name": "map_mode",
+          "kind": "integer",
+          "member": "map_mode",
+          "id": "Zs03"
+        },
+        {
+          "name": "samples",
+          "kind": "integer",
+          "member": "samples",
+          "id": "Zs04"
+        },
+        {
+          "name": "source_color",
+          "kind": "flag",
+          "member": "source_color",
+          "id": "Zs05"
+        },
+        {
+          "name": "preserve_alpha",
+          "kind": "flag",
+          "member": "preserve_alpha",
+          "id": "Zs06"
+        },
+        {
+          "name": "use_mask",
+          "kind": "flag",
+          "member": "use_mask",
+          "id": "Zs07"
+        },
+        {
+          "name": "cycle",
+          "kind": "flag",
+          "member": "cycle",
+          "id": "Zs08"
+        },
+        {
+          "name": "threshold",
+          "kind": "number",
+          "member": "threshold",
+          "id": "Zs09"
+        },
+        {
+          "name": "softness",
+          "kind": "number",
+          "member": "softness",
+          "id": "Zs0A"
+        },
+        {
+          "name": "boost",
+          "kind": "number",
+          "member": "boost",
+          "id": "Zs0B"
+        },
+        {
+          "name": "length",
+          "kind": "number",
+          "member": "length",
+          "id": "Zs0C"
+        },
+        {
+          "name": "rotation",
+          "kind": "number",
+          "member": "rotation",
+          "id": "Zs0D"
+        },
+        {
+          "name": "falloff",
+          "kind": "number",
+          "member": "falloff",
+          "id": "Zs0E"
+        },
+        {
+          "name": "lengths_0",
+          "kind": "number",
+          "member": "lengths[0]",
+          "id": "Zs0F"
+        },
+        {
+          "name": "lengths_1",
+          "kind": "number",
+          "member": "lengths[1]",
+          "id": "Zs0G"
+        },
+        {
+          "name": "lengths_2",
+          "kind": "number",
+          "member": "lengths[2]",
+          "id": "Zs0H"
+        },
+        {
+          "name": "lengths_3",
+          "kind": "number",
+          "member": "lengths[3]",
+          "id": "Zs0I"
+        },
+        {
+          "name": "lengths_4",
+          "kind": "number",
+          "member": "lengths[4]",
+          "id": "Zs0J"
+        },
+        {
+          "name": "lengths_5",
+          "kind": "number",
+          "member": "lengths[5]",
+          "id": "Zs0K"
+        },
+        {
+          "name": "lengths_6",
+          "kind": "number",
+          "member": "lengths[6]",
+          "id": "Zs0L"
+        },
+        {
+          "name": "lengths_7",
+          "kind": "number",
+          "member": "lengths[7]",
+          "id": "Zs0M"
+        },
+        {
+          "name": "maps_0",
+          "kind": "integer",
+          "member": "maps[0]",
+          "id": "Zs0N"
+        },
+        {
+          "name": "maps_1",
+          "kind": "integer",
+          "member": "maps[1]",
+          "id": "Zs0O"
+        },
+        {
+          "name": "maps_2",
+          "kind": "integer",
+          "member": "maps[2]",
+          "id": "Zs0P"
+        },
+        {
+          "name": "maps_3",
+          "kind": "integer",
+          "member": "maps[3]",
+          "id": "Zs0Q"
+        },
+        {
+          "name": "maps_4",
+          "kind": "integer",
+          "member": "maps[4]",
+          "id": "Zs0R"
+        },
+        {
+          "name": "maps_5",
+          "kind": "integer",
+          "member": "maps[5]",
+          "id": "Zs0S"
+        },
+        {
+          "name": "maps_6",
+          "kind": "integer",
+          "member": "maps[6]",
+          "id": "Zs0T"
+        },
+        {
+          "name": "maps_7",
+          "kind": "integer",
+          "member": "maps[7]",
+          "id": "Zs0U"
+        },
+        {
+          "name": "colors_0_0_0",
+          "kind": "number",
+          "member": "colors[0][0][0]",
+          "id": "Zs0V"
+        },
+        {
+          "name": "colors_0_0_1",
+          "kind": "number",
+          "member": "colors[0][0][1]",
+          "id": "Zs0W"
+        },
+        {
+          "name": "colors_0_0_2",
+          "kind": "number",
+          "member": "colors[0][0][2]",
+          "id": "Zs0X"
+        },
+        {
+          "name": "colors_0_1_0",
+          "kind": "number",
+          "member": "colors[0][1][0]",
+          "id": "Zs0Y"
+        },
+        {
+          "name": "colors_0_1_1",
+          "kind": "number",
+          "member": "colors[0][1][1]",
+          "id": "Zs0Z"
+        },
+        {
+          "name": "colors_0_1_2",
+          "kind": "number",
+          "member": "colors[0][1][2]",
+          "id": "Zs10"
+        },
+        {
+          "name": "colors_0_2_0",
+          "kind": "number",
+          "member": "colors[0][2][0]",
+          "id": "Zs11"
+        },
+        {
+          "name": "colors_0_2_1",
+          "kind": "number",
+          "member": "colors[0][2][1]",
+          "id": "Zs12"
+        },
+        {
+          "name": "colors_0_2_2",
+          "kind": "number",
+          "member": "colors[0][2][2]",
+          "id": "Zs13"
+        },
+        {
+          "name": "colors_0_3_0",
+          "kind": "number",
+          "member": "colors[0][3][0]",
+          "id": "Zs14"
+        },
+        {
+          "name": "colors_0_3_1",
+          "kind": "number",
+          "member": "colors[0][3][1]",
+          "id": "Zs15"
+        },
+        {
+          "name": "colors_0_3_2",
+          "kind": "number",
+          "member": "colors[0][3][2]",
+          "id": "Zs16"
+        },
+        {
+          "name": "colors_0_4_0",
+          "kind": "number",
+          "member": "colors[0][4][0]",
+          "id": "Zs17"
+        },
+        {
+          "name": "colors_0_4_1",
+          "kind": "number",
+          "member": "colors[0][4][1]",
+          "id": "Zs18"
+        },
+        {
+          "name": "colors_0_4_2",
+          "kind": "number",
+          "member": "colors[0][4][2]",
+          "id": "Zs19"
+        },
+        {
+          "name": "colors_1_0_0",
+          "kind": "number",
+          "member": "colors[1][0][0]",
+          "id": "Zs1A"
+        },
+        {
+          "name": "colors_1_0_1",
+          "kind": "number",
+          "member": "colors[1][0][1]",
+          "id": "Zs1B"
+        },
+        {
+          "name": "colors_1_0_2",
+          "kind": "number",
+          "member": "colors[1][0][2]",
+          "id": "Zs1C"
+        },
+        {
+          "name": "colors_1_1_0",
+          "kind": "number",
+          "member": "colors[1][1][0]",
+          "id": "Zs1D"
+        },
+        {
+          "name": "colors_1_1_1",
+          "kind": "number",
+          "member": "colors[1][1][1]",
+          "id": "Zs1E"
+        },
+        {
+          "name": "colors_1_1_2",
+          "kind": "number",
+          "member": "colors[1][1][2]",
+          "id": "Zs1F"
+        },
+        {
+          "name": "colors_1_2_0",
+          "kind": "number",
+          "member": "colors[1][2][0]",
+          "id": "Zs1G"
+        },
+        {
+          "name": "colors_1_2_1",
+          "kind": "number",
+          "member": "colors[1][2][1]",
+          "id": "Zs1H"
+        },
+        {
+          "name": "colors_1_2_2",
+          "kind": "number",
+          "member": "colors[1][2][2]",
+          "id": "Zs1I"
+        },
+        {
+          "name": "colors_1_3_0",
+          "kind": "number",
+          "member": "colors[1][3][0]",
+          "id": "Zs1J"
+        },
+        {
+          "name": "colors_1_3_1",
+          "kind": "number",
+          "member": "colors[1][3][1]",
+          "id": "Zs1K"
+        },
+        {
+          "name": "colors_1_3_2",
+          "kind": "number",
+          "member": "colors[1][3][2]",
+          "id": "Zs1L"
+        },
+        {
+          "name": "colors_1_4_0",
+          "kind": "number",
+          "member": "colors[1][4][0]",
+          "id": "Zs1M"
+        },
+        {
+          "name": "colors_1_4_1",
+          "kind": "number",
+          "member": "colors[1][4][1]",
+          "id": "Zs1N"
+        },
+        {
+          "name": "colors_1_4_2",
+          "kind": "number",
+          "member": "colors[1][4][2]",
+          "id": "Zs1O"
+        },
+        {
+          "name": "colors_2_0_0",
+          "kind": "number",
+          "member": "colors[2][0][0]",
+          "id": "Zs1P"
+        },
+        {
+          "name": "colors_2_0_1",
+          "kind": "number",
+          "member": "colors[2][0][1]",
+          "id": "Zs1Q"
+        },
+        {
+          "name": "colors_2_0_2",
+          "kind": "number",
+          "member": "colors[2][0][2]",
+          "id": "Zs1R"
+        },
+        {
+          "name": "colors_2_1_0",
+          "kind": "number",
+          "member": "colors[2][1][0]",
+          "id": "Zs1S"
+        },
+        {
+          "name": "colors_2_1_1",
+          "kind": "number",
+          "member": "colors[2][1][1]",
+          "id": "Zs1T"
+        },
+        {
+          "name": "colors_2_1_2",
+          "kind": "number",
+          "member": "colors[2][1][2]",
+          "id": "Zs1U"
+        },
+        {
+          "name": "colors_2_2_0",
+          "kind": "number",
+          "member": "colors[2][2][0]",
+          "id": "Zs1V"
+        },
+        {
+          "name": "colors_2_2_1",
+          "kind": "number",
+          "member": "colors[2][2][1]",
+          "id": "Zs1W"
+        },
+        {
+          "name": "colors_2_2_2",
+          "kind": "number",
+          "member": "colors[2][2][2]",
+          "id": "Zs1X"
+        },
+        {
+          "name": "colors_2_3_0",
+          "kind": "number",
+          "member": "colors[2][3][0]",
+          "id": "Zs1Y"
+        },
+        {
+          "name": "colors_2_3_1",
+          "kind": "number",
+          "member": "colors[2][3][1]",
+          "id": "Zs1Z"
+        },
+        {
+          "name": "colors_2_3_2",
+          "kind": "number",
+          "member": "colors[2][3][2]",
+          "id": "Zs20"
+        },
+        {
+          "name": "colors_2_4_0",
+          "kind": "number",
+          "member": "colors[2][4][0]",
+          "id": "Zs21"
+        },
+        {
+          "name": "colors_2_4_1",
+          "kind": "number",
+          "member": "colors[2][4][1]",
+          "id": "Zs22"
+        },
+        {
+          "name": "colors_2_4_2",
+          "kind": "number",
+          "member": "colors[2][4][2]",
+          "id": "Zs23"
+        },
+        {
+          "name": "cx",
+          "kind": "number",
+          "member": "cx",
+          "id": "Zs24"
+        },
+        {
+          "name": "cy",
+          "kind": "number",
+          "member": "cy",
+          "id": "Zs25"
+        },
+        {
+          "name": "mask_radius",
+          "kind": "number",
+          "member": "mask_radius",
+          "id": "Zs26"
+        },
+        {
+          "name": "mask_feather",
+          "kind": "number",
+          "member": "mask_feather",
+          "id": "Zs27"
+        },
+        {
+          "name": "shimmer",
+          "kind": "number",
+          "member": "shimmer",
+          "id": "Zs28"
+        },
+        {
+          "name": "detail",
+          "kind": "number",
+          "member": "detail",
+          "id": "Zs29"
+        },
+        {
+          "name": "phase",
+          "kind": "number",
+          "member": "phase",
+          "id": "Zs2A"
+        },
+        {
+          "name": "loops",
+          "kind": "number",
+          "member": "loops",
+          "id": "Zs2B"
+        },
+        {
+          "name": "noise_x",
+          "kind": "number",
+          "member": "noise_x",
+          "id": "Zs2C"
+        },
+        {
+          "name": "noise_y",
+          "kind": "number",
+          "member": "noise_y",
+          "id": "Zs2D"
+        },
+        {
+          "name": "source_opacity",
+          "kind": "number",
+          "member": "source_opacity",
+          "id": "Zs2E"
+        },
+        {
+          "name": "effect_opacity",
+          "kind": "number",
+          "member": "effect_opacity",
+          "id": "Zs2F"
+        },
+        {
+          "name": "mix",
+          "kind": "number",
+          "member": "mix",
+          "id": "Zs2G"
+        },
+        {
+          "name": "seed",
+          "kind": "integer",
+          "member": "seed",
+          "id": "Zs2H"
+        },
+        {
+          "name": "mask_cx",
+          "kind": "number",
+          "member": "mask_cx",
+          "id": "Zs2I"
+        },
+        {
+          "name": "mask_cy",
+          "kind": "number",
+          "member": "mask_cy",
+          "id": "Zs2J"
+        }
+      ]
+    },
+    "energy": {
+      "type": "energy::Parameters",
+      "fields": [
+        {
+          "name": "start_x",
+          "kind": "number",
+          "member": "start_x",
+          "id": "Ze00"
+        },
+        {
+          "name": "start_y",
+          "kind": "number",
+          "member": "start_y",
+          "id": "Ze01"
+        },
+        {
+          "name": "end_x",
+          "kind": "number",
+          "member": "end_x",
+          "id": "Ze02"
+        },
+        {
+          "name": "end_y",
+          "kind": "number",
+          "member": "end_y",
+          "id": "Ze03"
+        },
+        {
+          "name": "width",
+          "kind": "number",
+          "member": "width",
+          "id": "Ze04"
+        },
+        {
+          "name": "brightness",
+          "kind": "number",
+          "member": "brightness",
+          "id": "Ze05"
+        },
+        {
+          "name": "core_white",
+          "kind": "number",
+          "member": "core_white",
+          "id": "Ze06"
+        },
+        {
+          "name": "glow_radius",
+          "kind": "number",
+          "member": "glow_radius",
+          "id": "Ze07"
+        },
+        {
+          "name": "glow_intensity",
+          "kind": "number",
+          "member": "glow_intensity",
+          "id": "Ze08"
+        },
+        {
+          "name": "color0",
+          "kind": "number",
+          "member": "color[0]",
+          "id": "Ze09"
+        },
+        {
+          "name": "color1",
+          "kind": "number",
+          "member": "color[1]",
+          "id": "Ze0A"
+        },
+        {
+          "name": "color2",
+          "kind": "number",
+          "member": "color[2]",
+          "id": "Ze0B"
+        },
+        {
+          "name": "trim_start",
+          "kind": "number",
+          "member": "trim_start",
+          "id": "Ze0C"
+        },
+        {
+          "name": "trim_end",
+          "kind": "number",
+          "member": "trim_end",
+          "id": "Ze0D"
+        },
+        {
+          "name": "taper_start",
+          "kind": "number",
+          "member": "taper_start",
+          "id": "Ze0E"
+        },
+        {
+          "name": "taper_end",
+          "kind": "number",
+          "member": "taper_end",
+          "id": "Ze0F"
+        },
+        {
+          "name": "offset_x",
+          "kind": "number",
+          "member": "offset_x",
+          "id": "Ze10"
+        },
+        {
+          "name": "offset_y",
+          "kind": "number",
+          "member": "offset_y",
+          "id": "Ze11"
+        },
+        {
+          "name": "input",
+          "kind": "integer",
+          "member": "input",
+          "id": "Ze12"
+        },
+        {
+          "name": "composite",
+          "kind": "integer",
+          "member": "composite",
+          "id": "Ze13"
+        },
+        {
+          "name": "style",
+          "kind": "integer",
+          "member": "style",
+          "id": "Ze14"
+        },
+        {
+          "name": "detail",
+          "kind": "integer",
+          "member": "detail",
+          "id": "Ze15"
+        },
+        {
+          "name": "branches",
+          "kind": "integer",
+          "member": "branches",
+          "id": "Ze16"
+        },
+        {
+          "name": "seed",
+          "kind": "integer",
+          "member": "seed",
+          "id": "Ze17"
+        },
+        {
+          "name": "alpha_threshold",
+          "kind": "number",
+          "member": "alpha_threshold",
+          "id": "Ze18"
+        },
+        {
+          "name": "distortion",
+          "kind": "number",
+          "member": "distortion",
+          "id": "Ze19"
+        },
+        {
+          "name": "wavelength",
+          "kind": "number",
+          "member": "wavelength",
+          "id": "Ze1A"
+        },
+        {
+          "name": "evolution",
+          "kind": "number",
+          "member": "evolution",
+          "id": "Ze1B"
+        },
+        {
+          "name": "branch_length",
+          "kind": "number",
+          "member": "branch_length",
+          "id": "Ze1C"
+        },
+        {
+          "name": "fire_height",
+          "kind": "number",
+          "member": "fire_height",
+          "id": "Ze1D"
+        },
+        {
+          "name": "fire_spread",
+          "kind": "number",
+          "member": "fire_spread",
+          "id": "Ze1E"
+        },
+        {
+          "name": "fire_direction",
+          "kind": "number",
+          "member": "fire_direction",
+          "id": "Ze1F"
+        },
+        {
+          "name": "tip_color0",
+          "kind": "number",
+          "member": "tip_color[0]",
+          "id": "Ze20"
+        },
+        {
+          "name": "tip_color1",
+          "kind": "number",
+          "member": "tip_color[1]",
+          "id": "Ze21"
+        },
+        {
+          "name": "tip_color2",
+          "kind": "number",
+          "member": "tip_color[2]",
+          "id": "Ze22"
+        },
+        {
+          "name": "glow_model",
+          "kind": "integer",
+          "member": "glow_model",
+          "id": "Ze23"
+        },
+        {
+          "name": "halo_intensity",
+          "kind": "number",
+          "member": "halo_intensity",
+          "id": "Ze24"
+        },
+        {
+          "name": "halo_radius",
+          "kind": "number",
+          "member": "halo_radius",
+          "id": "Ze25"
+        },
+        {
+          "name": "glow_gamma",
+          "kind": "number",
+          "member": "glow_gamma",
+          "id": "Ze26"
+        },
+        {
+          "name": "glow_bias",
+          "kind": "number",
+          "member": "glow_bias",
+          "id": "Ze27"
+        },
+        {
+          "name": "glow_sizes0",
+          "kind": "number",
+          "member": "glow_sizes[0]",
+          "id": "Ze28"
+        },
+        {
+          "name": "glow_sizes1",
+          "kind": "number",
+          "member": "glow_sizes[1]",
+          "id": "Ze29"
+        },
+        {
+          "name": "glow_sizes2",
+          "kind": "number",
+          "member": "glow_sizes[2]",
+          "id": "Ze2A"
+        },
+        {
+          "name": "glow_sizes3",
+          "kind": "number",
+          "member": "glow_sizes[3]",
+          "id": "Ze2B"
+        },
+        {
+          "name": "glow_gains0",
+          "kind": "number",
+          "member": "glow_gains[0]",
+          "id": "Ze2C"
+        },
+        {
+          "name": "glow_gains1",
+          "kind": "number",
+          "member": "glow_gains[1]",
+          "id": "Ze2D"
+        },
+        {
+          "name": "glow_gains2",
+          "kind": "number",
+          "member": "glow_gains[2]",
+          "id": "Ze2E"
+        },
+        {
+          "name": "glow_gains3",
+          "kind": "number",
+          "member": "glow_gains[3]",
+          "id": "Ze2F"
+        },
+        {
+          "name": "glow_detail",
+          "kind": "integer",
+          "member": "glow_detail",
+          "id": "Ze30"
+        },
+        {
+          "name": "filament_count",
+          "kind": "integer",
+          "member": "filament_count",
+          "id": "Ze31"
+        },
+        {
+          "name": "glow_seed",
+          "kind": "integer",
+          "member": "glow_seed",
+          "id": "Ze32"
+        },
+        {
+          "name": "glow_distortion",
+          "kind": "number",
+          "member": "glow_distortion",
+          "id": "Ze33"
+        },
+        {
+          "name": "glow_noise_scale",
+          "kind": "number",
+          "member": "glow_noise_scale",
+          "id": "Ze34"
+        },
+        {
+          "name": "glow_width",
+          "kind": "number",
+          "member": "glow_width",
+          "id": "Ze35"
+        },
+        {
+          "name": "glow_texture",
+          "kind": "number",
+          "member": "glow_texture",
+          "id": "Ze36"
+        },
+        {
+          "name": "filament_strength",
+          "kind": "number",
+          "member": "filament_strength",
+          "id": "Ze37"
+        },
+        {
+          "name": "glow_evolution",
+          "kind": "number",
+          "member": "glow_evolution",
+          "id": "Ze38"
+        },
+        {
+          "name": "burn_detail",
+          "kind": "integer",
+          "member": "burn_detail",
+          "id": "Ze39"
+        },
+        {
+          "name": "burn_seed",
+          "kind": "integer",
+          "member": "burn_seed",
+          "id": "Ze3A"
+        },
+        {
+          "name": "burn_width",
+          "kind": "number",
+          "member": "burn_width",
+          "id": "Ze3B"
+        },
+        {
+          "name": "burn_turbulence",
+          "kind": "number",
+          "member": "burn_turbulence",
+          "id": "Ze3C"
+        },
+        {
+          "name": "burn_scale",
+          "kind": "number",
+          "member": "burn_scale",
+          "id": "Ze3D"
+        },
+        {
+          "name": "burn_density",
+          "kind": "number",
+          "member": "burn_density",
+          "id": "Ze3E"
+        },
+        {
+          "name": "burn_filaments",
+          "kind": "number",
+          "member": "burn_filaments",
+          "id": "Ze3F"
+        },
+        {
+          "name": "burn_wind",
+          "kind": "number",
+          "member": "burn_wind",
+          "id": "Ze40"
+        },
+        {
+          "name": "burn_evolution",
+          "kind": "number",
+          "member": "burn_evolution",
+          "id": "Ze41"
+        },
+        {
+          "name": "engine",
+          "kind": "integer",
+          "member": "engine",
+          "id": "Ze42"
+        },
+        {
+          "name": "core_noise",
+          "kind": "integer",
+          "member": "core_noise",
+          "id": "Ze43"
+        },
+        {
+          "name": "glow_noise",
+          "kind": "integer",
+          "member": "glow_noise",
+          "id": "Ze44"
+        },
+        {
+          "name": "color_mix",
+          "kind": "number",
+          "member": "color_mix",
+          "id": "Ze45"
+        }
+      ],
+      "descriptor_extras": [
+        {
+          "name": "pathSnapshot",
+          "id": "ZePG",
+          "type": "tdta",
+          "description": "Versioned native-coordinate Bezier geometry snapshot"
+        },
+        {
+          "name": "pathName",
+          "id": "ZePN",
+          "type": "TEXT",
+          "description": "Unicode source path name"
+        }
+      ]
+    },
+    "blinds": {
+      "type": "blinds::Parameters",
+      "fields": [
+        {
+          "name": "completion",
+          "kind": "number",
+          "member": "completion",
+          "id": "Zw00"
+        },
+        {
+          "name": "direction",
+          "kind": "number",
+          "member": "direction",
+          "id": "Zw01"
+        },
+        {
+          "name": "width",
+          "kind": "number",
+          "member": "width",
+          "id": "Zw02"
+        },
+        {
+          "name": "feather",
+          "kind": "number",
+          "member": "feather",
+          "id": "Zw03"
+        },
+        {
+          "name": "cx",
+          "kind": "number",
+          "member": "cx",
+          "id": "Zw04"
+        },
+        {
+          "name": "cy",
+          "kind": "number",
+          "member": "cy",
+          "id": "Zw05"
+        }
+      ]
     }
   },
   "profiles": {
@@ -1425,6 +2576,21 @@
     "jpeg/src/PiPL.json": {
       "event": "ZpJd",
       "magic": 1514816561
+    },
+    "lightfx/src/PiPL-Starglow.json": {
+      "event": "ZpSg",
+      "magic": 1515410481
+    },
+    "lightfx/src/PiPL-Shine.json": {
+      "event": "ZpSh",
+      "magic": 1515407409
+    },
+    "energy/src/PiPL.json": {
+      "event": "ZpEb",
+      "magic": "0x5A454231"
+    },
+    "blinds/src/PiPL.json": {
+      "event": "ZpVl"
     }
   }
 }

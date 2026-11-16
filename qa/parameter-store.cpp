@@ -76,5 +76,5 @@ template<class P,auto Valid,std::uint32_t Magic>void run(const char* event,int k
 }
 int main(int argc,char** argv){try{if(argc!=2)return 2;fake::init();std::ofstream out(argv[1],std::ios::binary);out<<'[';bool comma=false;
 #include "parameter-test-cases.inc"
- out<<"]\n";fake::require(out.good(),"fixture file written");std::cout<<"PASS: "<<fake::checks<<" checks; thirteen typed schemas; two full non-default fixtures per effect; Unicode refs; descriptor failures/ownership; identity/version guards.\n";return 0;
+ out<<"]\n";fake::require(out.good(),"fixture file written");std::cout<<"PASS: "<<fake::checks<<" checks; typed effect schemas; two full non-default fixtures per effect; Unicode refs; descriptor failures/ownership; identity/version guards.\n";return 0;
 }catch(const std::exception& error){std::cerr<<"FAIL: "<<error.what()<<" step="<<fake::step<<" injected="<<fake::fail_at<<'\n';return 1;}}

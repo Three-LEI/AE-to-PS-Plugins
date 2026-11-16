@@ -36,7 +36,7 @@
   },
   {
     "name": "Chromatic Dispersion 色差色散",
-    "version": "0.8",
+    "version": "0.9-local",
     "modes": "RGB8/16/32",
     "file": "ZaYuChromaticDispersion.8bf",
     "module": "chromatic"
@@ -131,5 +131,36 @@
     "modes": "RGB8/16/32",
     "file": "ZaYuRoughenEdges.8bf",
     "module": "roughen"
+  },
+  {
+    "name": "Starglow 星芒",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuStarglow.8bf",
+    "module": "lightfx"
+  },
+  {
+    "name": "Shine 放射光束",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuShine.8bf",
+    "module": "lightfx"
+  },
+  {
+    "name": "Saber 能量光束",
+    "version": "0.7-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuSaber.8bf",
+    "module": "energy",
+    "development_status": "release-candidate",
+    "stage": "unified-presets"
+  },
+  {
+    "name": "Venetian Blinds 百叶窗",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuVenetianBlinds.8bf",
+    "module": "blinds",
+    "development_status": "release-candidate"
   }
 ]

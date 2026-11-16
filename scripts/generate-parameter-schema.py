@@ -15,6 +15,9 @@ for f in fields:assert len(f['id'])==4 and f['id'].isascii()
 document=json.loads(metadata.read_text(encoding='utf-8-sig'));item=document['PiPLs'][0]
 params=[{'ParamName':'schemaVersion','ParamKeyword':'ZpSv','ParamType':'long','ParamDescription':'Parameter schema version'}, {'ParamName':'effectIdentity','ParamKeyword':'ZpId','ParamType':'long','ParamDescription':'Stable effect identity'}]
 for f in fields:params.append({'ParamName':f['name'],'ParamKeyword':f['id'],'ParamType':{'number':'doub','integer':'long','flag':'bool','layer':'TEXT'}[f['kind']],'ParamDescription':f['name']})
+for f in schema.get('descriptor_extras',[]):
+ assert len(f['id'])==4 and f['id'].isascii() and f['id'] not in {p['ParamKeyword']for p in params}
+ params.append({'ParamName':f['name'],'ParamKeyword':f['id'],'ParamType':f['type'],'ParamDescription':f['description']})
 has={'ClassID':'ZpEf','EventID':profile['event']}
 term={'MajorVersion':1,'MinorVersion':0,'Language':0,'ScriptCode':0,'Suites':[{'SuitName':'AEPS Saved Parameters','SuitID':'ZpEf','SuitLevel':1,'SuitVersion':1,'SuitDescription':'Persistent native effect settings','Events':[{'EventName':item['Name'],'EventDescription':'Editable '+item['Name'],'ClassID':'ZpEf','EventType':profile['event'],'ReplyType':'null','DirectParamType':'#ImR','DirectParamFlagBits':{'DirectParamOptional':True,'Enumerated':True,'ChangesState':True},'Parameters':params}]}]}
 if args.update_metadata:

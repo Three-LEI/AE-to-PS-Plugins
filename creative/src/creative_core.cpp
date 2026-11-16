@@ -77,6 +77,7 @@ std::array<double,2> warp(double x,double y,const Parameters& p,const Image& im)
  }return {x,y};
 }
 bool render(const Image& src,const Parameters& p,Image& output,const Cancel& cancel){
+ pscpu::ParallelScope parallel;
  if(!src.valid()||!valid(p)||(cancel&&cancel()))return false;
  if(p.mix==0||(p.kind==Kind::turbulent&&(p.amount==0||(p.horizontal==0&&p.vertical==0)))||(p.kind==Kind::sweep&&p.intensity==0&&p.edge_intensity==0&&p.reception!=2)){output=src;return true;}
  for(float v:src.rgba)if(!std::isfinite(v))return false;

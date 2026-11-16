@@ -5,6 +5,7 @@
 #include "psui/library_panel.hpp"
 #include "psui/preview_composite.hpp"
 #include "psui/preview_background.hpp"
+#include "psui/adaptive_preview.hpp"
 #include <algorithm>
 #include <cmath>
 #include <iterator>
@@ -107,6 +108,7 @@ constexpr const char *combo_labels[] = {"分形类型 / Fractal",
                                         "杂色类型 / Noise", "溢出 / Overflow",
                                         "混合模式 / Blend"};
 
+struct PreviewFrame {std::shared_ptr<psui::ProxyImage> input;std::vector<std::uint8_t> output;};
 struct Context {
   Parameters p, defaults;
   FilterRecord *host;
@@ -118,6 +120,9 @@ struct Context {
   bool dirty = true, preview = true, fill_opacity = false;
   ULONGLONG update_at = 0;
   OSErr error = noErr;
+  bool display_dirty=true;
+  std::shared_ptr<psui::ProxyImage> full_input,draft_input;int draft_side=0;
+  psui::AdaptivePreview<PreviewFrame> worker;
   Context(Parameters v, FilterRecord *f) : p(v), host(f) {
     defaults.offset_x = f->bigDocumentData
                             ? f->bigDocumentData->imageSize32.h / 2.0
@@ -142,34 +147,25 @@ bool initialize(Context &c) {
   return true;
 }
 void update(psui::LibraryPanel &ui, Context &c) {
-  if ((!c.dirty && !c.view.dirty) || GetTickCount64() < c.update_at)
-    return;
-  if (c.view.dirty) {
-    c.error = psui::host_read_proxy_area(c.host, c.view.proxy_side(),
-                                         c.view.region(), c.source);
-    if (c.error != noErr) {
-      ui.close(false);
-      return;
-    }
-    c.region.x = c.source.origin_x;
-    c.region.y = c.source.origin_y;
-    c.region.step = c.source.step;
-    c.output.resize(c.source.pixels.size());
-    c.display.resize(static_cast<std::size_t>(c.source.width) *
-                     c.source.height * 3);
-    c.view.dirty = false;
+  if(c.view.dirty||c.draft_side!=c.worker.draft_side()){c.draft_side=c.worker.draft_side();
+    auto full=std::make_shared<psui::ProxyImage>(),small=std::make_shared<psui::ProxyImage>();
+    c.error=psui::host_read_proxy_area(c.host,c.view.proxy_side(),c.view.region(),*full);
+    if(!c.error)c.error=psui::host_read_proxy_area(c.host,std::min(c.draft_side,c.view.proxy_side()),c.view.region(),*small);
+    if(c.error){ui.close(false);return;}
+    c.full_input=std::move(full);c.draft_input=std::move(small);c.view.dirty=false;c.dirty=true;
   }
-  auto &s = c.source;
-  if (s.pixels.empty()) {
-    c.dirty = false;
-    return;
-  }
+  const auto p=c.p;const auto full=c.full_input,small=c.draft_input;const auto region=c.region;
+  try{PreviewFrame frame;if(c.worker.update(c.dirty,frame,[p,full,small,region](bool draft,const auto& cancel){
+    PreviewFrame frame;frame.input=draft?small:full;const auto input=frame.input;
+    if(!input||cancel())return frame;frame.output.resize(input->pixels.size());
+    auto r=region;r.x=input->origin_x;r.y=input->origin_y;r.step=input->step;
+      process(input->pixels.data(),input->pixels.size(),input->width*input->channels,frame.output.data(),frame.output.size(),input->width*input->channels,input->width,input->height,input->channels,p,r);
+    return frame;
+  })){if(frame.input){c.source=*frame.input;c.output=std::move(frame.output);c.display.resize(std::size_t(c.source.width)*c.source.height*3);c.display_dirty=true;}}}
+  catch(...){c.error=memFullErr;ui.close(false);return;}
+  if(c.source.pixels.empty()||!c.display_dirty)return;
+  auto &s=c.source;
   c.background.prepare(c.host,s);
-  if (c.preview &&
-      !process(s.pixels.data(), s.pixels.size(), s.width * s.channels,
-               c.output.data(), c.output.size(), s.width * s.channels, s.width,
-               s.height, s.channels, c.p, c.region))
-    return;
   for (int y = 0; y < s.height; ++y)
     for (int x = 0; x < s.width; ++x) {
       const auto i = static_cast<std::size_t>(y * s.width + x),
@@ -194,8 +190,7 @@ void update(psui::LibraryPanel &ui, Context &c) {
     c.error = memFullErr;
     ui.close(false);
   }
-  c.dirty = false;
-  c.update_at = GetTickCount64() + 35;
+  c.display_dirty=false;
 }
 void draw(psui::LibraryPanel &ui, Context &c) {
  ui.parameter_defaults(c.p, c.defaults);
@@ -204,12 +199,13 @@ void draw(psui::LibraryPanel &ui, Context &c) {
   ImGui::BeginChild("preview-side", {190 * scale, 0}, 0,
                     ImGuiWindowFlags_NoScrollbar);
   const float view_height = std::clamp(
-      ImGui::GetContentRegionAvail().y - 217 * scale, 100 * scale, 190 * scale);
+      ImGui::GetContentRegionAvail().y - 245 * scale, 100 * scale, 190 * scale);
   c.view.configure(psui::filter_bounds(c.host), 190 * scale, view_height);
   update(ui, c);
   ui.image_view(c.view, c.source);
   ImGui::Spacing();
   changed |= ui.check("预览 / Preview", c.preview);
+  c.worker.controls(ui,c.dirty);
   if(psui::preview_background_control(ui,c.background))c.dirty=true;
   ui.preview_zoom(c.view);
   ImGui::SetCursorPosY(

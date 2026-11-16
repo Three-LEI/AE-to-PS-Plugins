@@ -76,6 +76,7 @@ bool blur_mask(Plane& p,int radius,const Cancel& cancel){
 }
 }
 bool render(const Image& src,const Parameters& p,Image& out,const Image* mask,const Cancel& cancel){
+ pscpu::ParallelScope parallel;
  if(!src.valid()||!valid(p)||(mask&&!mask->valid())||(cancel&&cancel()))return false;
  const bool neutral=p.quality==100&&p.resolution==1&&p.aspect==1&&p.chroma==0&&p.all_freq==1&&p.x_freq==1&&p.y_freq==1&&p.low_freq==1&&p.mid_freq==1&&p.high_freq==1&&(p.error_rate==0||p.error_amp==0||p.density==0)&&p.lights==1&&p.darks==0&&p.saturation==1&&p.preserve_hdr;
  if(p.mix==0||neutral){out=src;return true;}

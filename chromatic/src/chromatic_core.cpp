@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <map>
 namespace chromatic {
 namespace {
 using Pixel=std::array<float,4>;
@@ -69,7 +70,7 @@ bool blur(Image& image,double sigma,Edge edge,const Cancel& cancel){
  for(int pass=0;pass<3;++pass)if(!box(image,r,false,edge,cancel)||!box(image,r,true,edge,cancel))return false;
  return true;
 }
-struct Node {double shift;std::array<double,3> weight;};
+struct Node {double shift;std::array<double,3> weight;double position=0;};
 std::array<double,3> hue_rotate(std::array<double,3> rgb,double degrees,double saturation){
  const double hi=std::max({rgb[0],rgb[1],rgb[2]}),lo=std::min({rgb[0],rgb[1],rgb[2]}),delta=hi-lo;
  double hue=delta==0?0:hi==rgb[0]?(rgb[1]-rgb[2])/delta:hi==rgb[1]?(rgb[2]-rgb[0])/delta+2:(rgb[0]-rgb[1])/delta+4;
@@ -86,6 +87,7 @@ std::vector<Node> spectrum(const Parameters& p){
   auto gaussian=[&](double center,double sigma){const double x=(wavelength-center)/sigma;return std::exp(-.5*x*x);};
   auto weight=hue_rotate({gaussian(615,43),gaussian(540,34),gaussian(455,36)},p.hue,p.saturation);
   nodes.push_back({-(std::pow(wavelength,-p.dispersion_power)-reference)/denominator,weight});
+  nodes.back().position=(700-wavelength)/320;
   for(int k=0;k<3;++k)totals[k]+=weight[k];
  }
  for(auto& node:nodes)for(int k=0;k<3;++k)node.weight[k]/=totals[k];
@@ -98,13 +100,18 @@ bool identity(const Parameters& p){
  for(const auto& c:p.channels)if(c.x!=0||c.y!=0||c.scale!=100||c.rotation!=0||c.blur!=0)return false;
  return true;
 }
+#include "extended_modes.inc"
 }
 bool Image::valid() const {return width>0&&height>0&&width<=2000000&&height<=2000000&&std::abs(std::int64_t(left))<=2000000&&std::abs(std::int64_t(top))<=2000000&&std::size_t(width)*height<=std::size_t(16)*1024*1024&&rgba.size()==std::size_t(width)*height*4;}
 bool valid(const Parameters& p){
  const double numbers[]={p.amount,p.angle,p.mix,p.center_x,p.center_y,p.protect,p.falloff_power,p.softness,p.dispersion_power,p.hue,p.saturation,p.gamma,p.threshold,p.knee};
  for(double v:numbers)if(!std::isfinite(v))return false;
- if(int(p.mode)<0||int(p.mode)>1||int(p.geometry)<0||int(p.geometry)>2||int(p.edge)<0||int(p.edge)>3||int(p.alpha)<0||int(p.alpha)>2||p.mask_mode<0||p.mask_mode>1||std::abs(p.amount)>4096||std::abs(p.angle)>360000||p.mix<0||p.mix>100||p.center_x<0||p.center_x>1||p.center_y<0||p.center_y>1||p.protect<0||p.protect>=100||p.falloff_power<.1||p.falloff_power>8||p.softness<0||p.softness>50||p.dispersion_power<.5||p.dispersion_power>4||std::abs(p.hue)>360000||p.saturation<0||p.saturation>200||p.samples<8||p.samples>64||p.gamma<1||p.gamma>3||p.threshold<0||p.threshold>1000||p.knee<0||p.knee>100)return false;
+ if(int(p.mode)<0||int(p.mode)>3||int(p.geometry)<0||int(p.geometry)>2||int(p.edge)<0||int(p.edge)>3||int(p.alpha)<0||int(p.alpha)>2||p.mask_mode<0||p.mask_mode>1||std::abs(p.amount)>4096||std::abs(p.angle)>360000||p.mix<0||p.mix>100||p.center_x<0||p.center_x>1||p.center_y<0||p.center_y>1||p.protect<0||p.protect>=100||p.falloff_power<.1||p.falloff_power>8||p.softness<0||p.softness>50||p.dispersion_power<.5||p.dispersion_power>4||std::abs(p.hue)>360000||p.saturation<0||p.saturation>200||p.samples<8||p.samples>64||p.gamma<1||p.gamma>3||p.threshold<0||p.threshold>1000||p.knee<0||p.knee>100)return false;
  for(const auto& c:p.channels)if(!std::isfinite(c.amount)||!std::isfinite(c.x)||!std::isfinite(c.y)||!std::isfinite(c.scale)||!std::isfinite(c.rotation)||!std::isfinite(c.blur)||std::abs(c.amount)>4||std::abs(c.x)>4096||std::abs(c.y)>4096||c.scale<1||c.scale>1000||std::abs(c.rotation)>360000||c.blur<0||c.blur>50)return false;
+ const auto range=[](double v,double lo,double hi){return std::isfinite(v)&&v>=lo&&v<=hi;};
+ for(const auto& t:p.warp)if(!range(t.scale,1,1000)||!range(t.rotation,-360000,360000)||!range(t.x,-4096,4096)||!range(t.y,-4096,4096))return false;
+ if(!range(p.warp_amount,0,200)||!range(p.defocus_radius,0,1024)||!range(p.ring_width,1,100)||p.aperture_shape<0||p.aperture_shape>6||p.defocus_quality<0||p.defocus_quality>2||!range(p.aperture_rotation,-360000,360000)||!range(p.aperture_aspect,.1,10)||!range(p.aperture_roundness,0,100))return false;
+ for(double v:p.defocus_radii)if(!range(v,0,400))return false;
  return true;
 }
 Parameters preset(int index){
@@ -113,10 +120,16 @@ Parameters preset(int index){
  else if(index==1){p.mode=Mode::rgb;p.amount=8;p.angle=0;p.softness=0;}
  else if(index==2){p.amount=42;p.angle=28;p.softness=.8;}
  else if(index==3){p.amount=90;p.angle=-35;p.softness=1.6;p.saturation=130;p.samples=32;p.highlights_only=true;p.threshold=35;p.knee=20;}
+ else if(index==4){p.mode=Mode::warp;p.softness=0;}
+ else if(index==5){p.mode=Mode::warp;p.softness=0;p.warp[0]={100,-12,0,0};p.warp[1]={100,12,0,0};}
+ else if(index==6){p.mode=Mode::defocus;p.softness=0;}
+ else if(index==7){p.mode=Mode::defocus;p.softness=0;p.aperture_shape=4;p.ring_width=100;p.defocus_radii={115,100,85};}
  return p;
 }
 bool render(const Image& src,const Parameters& p,Image& output,const Image* mask,const Cancel& cancel){
+ pscpu::ParallelScope parallel;
  if(!src.valid()||!valid(p)||(mask&&!mask->valid())||stop(cancel))return false;
+ if(p.mode==Mode::warp||p.mode==Mode::defocus)return render_extended(src,p,output,mask,cancel);
  if(identity(p)&&p.alpha==Alpha::expand){output=src;return true;}
  const double gamma=p.linear_light?p.gamma:1;
  Image seed{src.width,src.height,src.left,src.top,{}};seed.rgba.resize(src.rgba.size());

@@ -1,3 +1,7 @@
+<!-- deepglow-local-0.3 -->
+2026-11-12 本地补丁 0.3：按用户 AE Deep Glow 2／半径100、曝光1对比，修正默认滤色下的多尺度光能累积，减少大片高光糊白；保留相加 HDR、原参数协议和公共快速预览。只重建 Deep Glow，其他20款二进制不变。本机 PS2020／2026 已安装，未提交 GitHub 或发布 Releases。对照与验证见[补丁说明](../docs/DEEPGLOW_LOCAL.md)及 `evidence/deepglow-v02/qa.json`。下方为历史版本记录。
+<!-- /deepglow-local-0.3 -->
+
 <!-- parallel-0.24 -->
 
 整包0.36-rc1：本效果已接入完整智能滤镜参数保存，可随PSD保留并重编辑；使用方法与旧文件限制见[共用说明](../docs/PARAMETER_PERSISTENCE.md)。
