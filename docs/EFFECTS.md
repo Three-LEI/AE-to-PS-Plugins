@@ -1,6 +1,6 @@
 # 效果列表
 
-0.37 包含 **23 款 Windows x64 原生滤镜**，分布在 16 个模块。整包版本以 Release 标签为准，内部组件保留各自版本编号。
+0.38包含 **28款Windows x64原生滤镜**，分布在21个模块。整包版本以Release标签为准，内部组件保留各自编号；0.37历史版本保留。
 
 [全部参数窗口](GALLERY.md) · [安装](../README.md#安装与使用) · [验证范围](VALIDATION.md)
 
@@ -29,6 +29,11 @@
 | Shine 放射光束 | RGB8/16/32 | [`lightfx`](../lightfx/) | [参数窗口](GALLERY.md#shine) |
 | Saber 能量光束 | RGB8/16/32 | [`energy`](../energy/) | [参数窗口](GALLERY.md#saber) |
 | Venetian Blinds 百叶窗 | RGB8/16/32 | [`blinds`](../blinds/) | [参数窗口](GALLERY.md#venetian-blinds) |
+| Halftone 网点印刷 | RGB8/16/32 | [`halftone`](../halftone/) | [参数窗口](GALLERY.md#halftone) |
+| ASCII Dither 字符抖动 | RGB8/16/32 | [`ascii`](../ascii/) | [参数窗口](GALLERY.md#ascii-dither) |
+| Dither 像素抖动 | RGB8/16/32 | [`dither`](../dither/) | [参数窗口](GALLERY.md#pixel-dither) |
+| Lens Flare 镜头耀斑 | RGB8/16/32 | [`flare`](../flare/) | [参数窗口](GALLERY.md#lens-flare) |
+| Etching 蚀刻 | RGB8/16/32 | [`etching`](../etching/) | [参数窗口](GALLERY.md#etching) |
 
 Lens 的界面名称为“Lens 镜头”；为兼容旧安装，文件名保留 `ZaYuCCLens.8bf`。Saber 支持两点、路径、Alpha 输入和 16 款自有参数预设；色差色散包含光谱扭曲与棱镜散焦模式。
 

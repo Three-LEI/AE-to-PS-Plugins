@@ -192,6 +192,8 @@ struct LibraryPanel::Impl {
   ID3D11RenderTargetView *target = nullptr;
   ID3D11Texture2D *texture = nullptr;
   ID3D11ShaderResourceView *view = nullptr;
+  struct CachedImage {ID3D11ShaderResourceView* view=nullptr;int width=0,height=0;};
+  std::map<std::string,CachedImage> cached_images;
   ID3D11BlendState *status_blend = nullptr;
   ID3D11PixelShader *status_shader = nullptr;
   bool status_resources_tried = false;
@@ -246,6 +248,7 @@ struct LibraryPanel::Impl {
     return SUCCEEDED(hr) && render_target();
   }
   ~Impl() {
+    for(auto& [key,image]:cached_images)release(image.view);
     release(status_shader);
     release(status_blend);
     release(view);
@@ -727,6 +730,21 @@ bool LibraryPanel::preview(FilterRecord *host, const std::uint8_t *rgb, int w,
   impl->context->Unmap(impl->texture, 0);
   impl->color_sampler.pixels(rgb,w,h);
   return true;
+}
+bool LibraryPanel::cached_image(const char* key,const std::uint8_t* rgba,int width,int height,ImVec2 minimum,ImVec2 maximum){
+ if(!key||!rgba||width<=0||height<=0||width>2048||height>2048)return false;
+ auto found=impl->cached_images.find(key);
+ if(found==impl->cached_images.end()){
+  if(impl->cached_images.size()>=64)return false;
+  D3D11_TEXTURE2D_DESC desc{};desc.Width=UINT(width);desc.Height=UINT(height);desc.MipLevels=1;desc.ArraySize=1;desc.Format=DXGI_FORMAT_R8G8B8A8_UNORM;desc.SampleDesc.Count=1;desc.Usage=D3D11_USAGE_IMMUTABLE;desc.BindFlags=D3D11_BIND_SHADER_RESOURCE;
+  D3D11_SUBRESOURCE_DATA data{};data.pSysMem=rgba;data.SysMemPitch=UINT(width*4);ID3D11Texture2D* texture=nullptr;ID3D11ShaderResourceView* view=nullptr;
+  if(FAILED(impl->device->CreateTexture2D(&desc,&data,&texture)))return false;
+  const auto result=impl->device->CreateShaderResourceView(texture,nullptr,&view);release(texture);if(FAILED(result))return false;
+  found=impl->cached_images.emplace(key,Impl::CachedImage{view,width,height}).first;
+ }
+ if(found->second.width!=width||found->second.height!=height)return false;
+ items[std::string("cached-image/")+key]={float(width),float(height),1,1};
+ ImGui::GetWindowDrawList()->AddImage(reinterpret_cast<ImTextureID>(found->second.view),minimum,maximum);return true;
 }
 void LibraryPanel::image(float width, float height) {
   impl->color_sampler.visible=false;

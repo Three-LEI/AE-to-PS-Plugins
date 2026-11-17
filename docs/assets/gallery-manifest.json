@@ -274,5 +274,65 @@
     "presentation": "parameter-window",
     "capture": "production-dialog-standalone",
     "preview": "full"
+  },
+  {
+    "slug": "halftone",
+    "name": "Halftone 网点印刷",
+    "file": "ZaYuHalftone.8bf",
+    "input": "photo",
+    "image": "assets/effects/halftone.png",
+    "width": 1193,
+    "height": 1047,
+    "presentation": "parameter-window",
+    "capture": "production-dialog-standalone",
+    "preview": "full"
+  },
+  {
+    "slug": "ascii-dither",
+    "name": "ASCII Dither 字符抖动",
+    "file": "ZaYuASCIIDither.8bf",
+    "input": "photo",
+    "image": "assets/effects/ascii-dither.png",
+    "width": 1193,
+    "height": 1047,
+    "presentation": "parameter-window",
+    "capture": "production-dialog-standalone",
+    "preview": "full"
+  },
+  {
+    "slug": "pixel-dither",
+    "name": "Dither 像素抖动",
+    "file": "ZaYuDither.8bf",
+    "input": "photo",
+    "image": "assets/effects/pixel-dither.png",
+    "width": 1193,
+    "height": 1122,
+    "presentation": "parameter-window",
+    "capture": "production-dialog-standalone",
+    "preview": "full"
+  },
+  {
+    "slug": "lens-flare",
+    "name": "Lens Flare 镜头耀斑",
+    "file": "ZaYuLensFlare.8bf",
+    "input": "photo",
+    "image": "assets/effects/lens-flare.png",
+    "width": 1493,
+    "height": 1147,
+    "presentation": "parameter-window",
+    "capture": "production-dialog-standalone",
+    "preview": "full"
+  },
+  {
+    "slug": "etching",
+    "name": "Etching 蚀刻",
+    "file": "ZaYuEtching.8bf",
+    "input": "photo",
+    "image": "assets/effects/etching.png",
+    "width": 1368,
+    "height": 1172,
+    "presentation": "parameter-window",
+    "capture": "production-dialog-standalone",
+    "preview": "full"
   }
 ]

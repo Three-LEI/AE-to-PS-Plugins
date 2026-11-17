@@ -1,3 +1,28 @@
+# 0.38 验证范围
+
+发行包共28款／21模块，保留各组件已验证的程序，不因整包编号变化而重建全部分发文件。21款原有程序与0.37逐字节一致，星芒／Shine使用已验证性能更新，新增五款使用各自验证后的最终构建。
+
+| 新增效果 | 普通预设／位深测试 | 智能滤镜实例 | 图像核对 |
+| --- | ---: | ---: | ---: |
+| Halftone | 18 | 36 | 48 |
+| ASCII Dither | 18 | 36 | 48 |
+| Dither | 18 | 36 | 48 |
+| Lens Flare | 18 | 36 | 49 |
+| Etching | 18 | 36 | 48 |
+
+以上为本机Windows11／PS2020 21.2.9的当前格式测试，包含撤销、PSD保存、完全退出后新进程重开、强制重算及源内容变化／恢复。18组指六套参数夹具×三个位深，不能解释成18种独立位深。Lens Flare／Etching另通过共36项独立内核输出对照。Lens Flare最终行对齐仅修改布局，单独检查中英文／DPI及交互，内核和参数保存源码保持不变。
+
+- 星芒／Shine性能更新：266组缓存／直接／冻结内核对照、20组完整浮点、48项PS像素对照及12个旧智能滤镜实例参数恢复。
+- 公共参数保存层18807项通过，新增效果接入固定字段登记。旧发布字段／身份保持；Lens Flare首次正式发行使用版本2元素快照，不承诺更早未发布试验格式。
+- 全部28个分发PE验证x64、OS/Subsystem6.0、PluginMain和实际传统PiPL/aete；未引入强制Win10 DPI或D3DCompiler入口。
+- 28张图集为实际生产窗口与精细预览，包含参数值。每个新增模块已完成干净源码构建；本轮另执行全部21模块的干净导出核心检查。该检查不等同于重新执行所有Photoshop宿主组合。
+
+PS2026本轮仅安装；Win7／CC2018保留旧系统路径，0.38仍需外机复测。ASCII字形受系统字体影响。效果是独立近似实现，不保证与AE或商业原版逐像素相同。
+
+机器可读摘要见[validation-summary.json](validation-summary.json)，功能范围见[0.38发行说明](RELEASE_0.38.md)。下文保留历史版本记录，不能解释成0.38在所有历史环境均已完成新一轮实测。
+
+---
+
 # 0.37 验证范围
 
 本版本包含 23 款原生滤镜、16 个模块，基于已验证的本地性能候选 0.9。相对上一公开版还包含新效果和既有算法改进；本节的“像素一致”仅指本轮性能优化前后，不表示与 0.36-rc1 或 AE 原版一致。
@@ -10,7 +35,7 @@
 - 23 份 PE 保留 x64、OS／Subsystem 6.0 和 PluginMain；相对性能优化前候选没有新增强制导入 API。
 - 23 组照片效果此前通过 PS2020 实际插件验证。当前图集展示相同生产界面和预览代码的参数窗口截图，由独立工具加载对应输入及参数；不是原版 AE 截图，特殊输入条件在[图集](GALLERY.md)注明。
 
-**兼容边界**：用户已确认此前本地 0.7 整包可在 Win7＋CC2018 运行；本版本保留兼容路径，但仍需外机复测。PS2026 27.7.0 本轮仅安装，没有新增完整实机回归声明。数据摘要见 [validation-summary.json](validation-summary.json)，测量细节见[性能说明](PERFORMANCE.md)。
+**兼容边界**：用户已确认此前本地 0.7 整包可在 Win7＋CC2018 运行；本版本保留兼容路径，但仍需外机复测。PS2026 27.7.0 本轮仅安装，没有新增完整实机回归声明。数据摘要见 [validation-summary.json](validation-summary-0.37.json)，测量细节见[性能说明](PERFORMANCE.md)。
 
 正式版 0.37 与此前 0.37-rc1 使用同一组 23 款已验证程序，本次更改发行编号、渠道、下载入口和发布约定。旧 Releases 已清理，本地备份与 Git 提交历史保留。
 
@@ -20,7 +45,7 @@
 
 # 验证与限制
 
-**0.36-rc1：完整智能滤镜参数保存、少见汉字与重置图标修复。** 当前摘要见[validation-summary.json](validation-summary.json)。
+**0.36-rc1：完整智能滤镜参数保存、少见汉字与重置图标修复。** 当前摘要见[validation-summary.json](validation-summary-0.37.json)。
 
 - 在Windows 11 x64（26200）＋Photoshop 2020（21.2.9）完成55个效果／位深组合的双实例非默认参数测试，保存三种位深PSD，完全退出PS后在新进程重开。110个实例的完整字段均保留；重开和强制重算共110次像素比较一致。
 - 前十三款的保存字段均对照非默认夹具逐项检查，包括完整颜色分量、色差色散三通道设置、布尔值、uint32种子和“鎏金_参考图层”Unicode引用。共用保存层通过8642项检查，覆盖错误分支资源释放及写入失败时保留原描述符。
@@ -33,7 +58,7 @@
 
 参数保存适用于智能对象上的智能滤镜；早期PSD中此前未写入的参数无法恢复。外部参考层仍需手动重开滤镜确认更新。使用与开发说明见[PARAMETER_PERSISTENCE.md](PARAMETER_PERSISTENCE.md)。以下为各历史版本发布时的验证记录，旧环境待测状态以本节最新反馈为准。
 
-**0.35-rc2：PS2020自动语言识别修复。** 当前摘要见 [validation-summary.json](validation-summary.json)。
+**0.35-rc2：PS2020自动语言识别修复。** 当前摘要见 [validation-summary.json](validation-summary-0.37.json)。
 
 本机Windows 11 x64（26200）＋Photoshop 2020（21.2.9）上，原生propLocale返回-30901（属性未定义），而界面首选项uiLanguageKey为zh_CN。旧逻辑在原属性不可用时默认英文；现在通过只读Basic Action Control读取interfacePrefs.uiLanguageKey。有效原属性仍优先，手动中文／English选择继续有效。
 
@@ -46,7 +71,7 @@
 
 本次实机环境是Windows 11＋PS2020，不能替代Windows 10＋PS2020和Windows 7＋PS2018的外部验证。继续发布为Pre-release。此前PS2026实机结果保留如下。
 
-**0.35-rc1：兼容修复候选版。** 机器可读摘要见 [validation-summary.json](validation-summary.json)。
+**0.35-rc1：兼容修复候选版。** 机器可读摘要见 [validation-summary.json](validation-summary-0.37.json)。
 
 十九款改用传统二进制PiPL／aete注册，较新DPI接口改为动态检测与旧Win32回退，并采用固定ImGui HLSL的预编译SM4字节码。发行DLL不再强制导入三个Win10专属DPI接口或D3DCompiler DLL；没有改动像素内核、参数元数据和组件身份。Microsoft的[线程DPI接口要求](https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setthreaddpiawarenesscontext)说明该接口最低为Windows 10 1607；这是0.34的Win7加载阻碍之一。
 
@@ -60,7 +85,7 @@
 
 以下保留0.34已完成的验证范围。
 
-**0.34：以下检查已通过。** 机器可读摘要见 [validation-summary.json](validation-summary.json)。
+**0.34：以下检查已通过。** 机器可读摘要见 [validation-summary.json](validation-summary-0.37.json)。
 
 0.34 的改变为开源目录与构建配置、共用蓝色“开源地址”及默认浏览器跳转。生成内核、参数结构、组件身份和滤镜版本保持0.33。
 

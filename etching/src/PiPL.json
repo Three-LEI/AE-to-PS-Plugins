@@ -1,0 +1,352 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Etching",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 1,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuEtchingReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/Etching=Etching 蚀刻",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpEt"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Etching",
+                "EventDescription": "Editable Etching",
+                "ClassID": "ZpEf",
+                "EventType": "ZpEt",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "mode",
+                    "ParamKeyword": "Ze00",
+                    "ParamType": "long",
+                    "ParamDescription": "mode"
+                  },
+                  {
+                    "ParamName": "background",
+                    "ParamKeyword": "Ze01",
+                    "ParamType": "long",
+                    "ParamDescription": "background"
+                  },
+                  {
+                    "ParamName": "frequency",
+                    "ParamKeyword": "Ze02",
+                    "ParamType": "doub",
+                    "ParamDescription": "frequency"
+                  },
+                  {
+                    "ParamName": "frequency1",
+                    "ParamKeyword": "Ze03",
+                    "ParamType": "doub",
+                    "ParamDescription": "frequency1"
+                  },
+                  {
+                    "ParamName": "frequency2",
+                    "ParamKeyword": "Ze04",
+                    "ParamType": "doub",
+                    "ParamDescription": "frequency2"
+                  },
+                  {
+                    "ParamName": "angle",
+                    "ParamKeyword": "Ze05",
+                    "ParamType": "doub",
+                    "ParamDescription": "angle"
+                  },
+                  {
+                    "ParamName": "angle1",
+                    "ParamKeyword": "Ze06",
+                    "ParamType": "doub",
+                    "ParamDescription": "angle1"
+                  },
+                  {
+                    "ParamName": "angle2",
+                    "ParamKeyword": "Ze07",
+                    "ParamType": "doub",
+                    "ParamDescription": "angle2"
+                  },
+                  {
+                    "ParamName": "shift_x",
+                    "ParamKeyword": "Ze08",
+                    "ParamType": "doub",
+                    "ParamDescription": "shift_x"
+                  },
+                  {
+                    "ParamName": "shift_y",
+                    "ParamKeyword": "Ze09",
+                    "ParamType": "doub",
+                    "ParamDescription": "shift_y"
+                  },
+                  {
+                    "ParamName": "sharpness",
+                    "ParamKeyword": "Ze10",
+                    "ParamType": "doub",
+                    "ParamDescription": "sharpness"
+                  },
+                  {
+                    "ParamName": "add_width",
+                    "ParamKeyword": "Ze11",
+                    "ParamType": "doub",
+                    "ParamDescription": "add_width"
+                  },
+                  {
+                    "ParamName": "smooth_source",
+                    "ParamKeyword": "Ze12",
+                    "ParamType": "doub",
+                    "ParamDescription": "smooth_source"
+                  },
+                  {
+                    "ParamName": "wave_amp",
+                    "ParamKeyword": "Ze13",
+                    "ParamType": "doub",
+                    "ParamDescription": "wave_amp"
+                  },
+                  {
+                    "ParamName": "wave_frequency",
+                    "ParamKeyword": "Ze14",
+                    "ParamType": "doub",
+                    "ParamDescription": "wave_frequency"
+                  },
+                  {
+                    "ParamName": "warp_amp",
+                    "ParamKeyword": "Ze15",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp_amp"
+                  },
+                  {
+                    "ParamName": "warp_smooth",
+                    "ParamKeyword": "Ze16",
+                    "ParamType": "doub",
+                    "ParamDescription": "warp_smooth"
+                  },
+                  {
+                    "ParamName": "edge_strength",
+                    "ParamKeyword": "Ze17",
+                    "ParamType": "doub",
+                    "ParamDescription": "edge_strength"
+                  },
+                  {
+                    "ParamName": "edge_threshold",
+                    "ParamKeyword": "Ze18",
+                    "ParamType": "doub",
+                    "ParamDescription": "edge_threshold"
+                  },
+                  {
+                    "ParamName": "edge_width",
+                    "ParamKeyword": "Ze19",
+                    "ParamType": "doub",
+                    "ParamDescription": "edge_width"
+                  },
+                  {
+                    "ParamName": "edge_sharpness",
+                    "ParamKeyword": "Ze20",
+                    "ParamType": "doub",
+                    "ParamDescription": "edge_sharpness"
+                  },
+                  {
+                    "ParamName": "brightness",
+                    "ParamKeyword": "Ze21",
+                    "ParamType": "doub",
+                    "ParamDescription": "brightness"
+                  },
+                  {
+                    "ParamName": "contrast",
+                    "ParamKeyword": "Ze22",
+                    "ParamType": "doub",
+                    "ParamDescription": "contrast"
+                  },
+                  {
+                    "ParamName": "gamma",
+                    "ParamKeyword": "Ze23",
+                    "ParamType": "doub",
+                    "ParamDescription": "gamma"
+                  },
+                  {
+                    "ParamName": "cross_amount",
+                    "ParamKeyword": "Ze24",
+                    "ParamType": "doub",
+                    "ParamDescription": "cross_amount"
+                  },
+                  {
+                    "ParamName": "cross_start",
+                    "ParamKeyword": "Ze25",
+                    "ParamType": "doub",
+                    "ParamDescription": "cross_start"
+                  },
+                  {
+                    "ParamName": "source_color",
+                    "ParamKeyword": "Ze26",
+                    "ParamType": "doub",
+                    "ParamDescription": "source_color"
+                  },
+                  {
+                    "ParamName": "paper_grain",
+                    "ParamKeyword": "Ze27",
+                    "ParamType": "doub",
+                    "ParamDescription": "paper_grain"
+                  },
+                  {
+                    "ParamName": "paper_scale",
+                    "ParamKeyword": "Ze28",
+                    "ParamType": "doub",
+                    "ParamDescription": "paper_scale"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Ze29",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  },
+                  {
+                    "ParamName": "dark0",
+                    "ParamKeyword": "Ze30",
+                    "ParamType": "doub",
+                    "ParamDescription": "dark0"
+                  },
+                  {
+                    "ParamName": "dark1",
+                    "ParamKeyword": "Ze31",
+                    "ParamType": "doub",
+                    "ParamDescription": "dark1"
+                  },
+                  {
+                    "ParamName": "dark2",
+                    "ParamKeyword": "Ze32",
+                    "ParamType": "doub",
+                    "ParamDescription": "dark2"
+                  },
+                  {
+                    "ParamName": "light0",
+                    "ParamKeyword": "Ze33",
+                    "ParamType": "doub",
+                    "ParamDescription": "light0"
+                  },
+                  {
+                    "ParamName": "light1",
+                    "ParamKeyword": "Ze34",
+                    "ParamType": "doub",
+                    "ParamDescription": "light1"
+                  },
+                  {
+                    "ParamName": "light2",
+                    "ParamKeyword": "Ze35",
+                    "ParamType": "doub",
+                    "ParamDescription": "light2"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Ze36",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

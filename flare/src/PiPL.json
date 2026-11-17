@@ -1,0 +1,460 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Lens Flare",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 3,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuLensFlareReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/LensFlare=Lens Flare 镜头耀斑",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpLf"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Lens Flare",
+                "EventDescription": "Editable Lens Flare",
+                "ClassID": "ZpEf",
+                "EventType": "ZpLf",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "hx",
+                    "ParamKeyword": "Zf00",
+                    "ParamType": "doub",
+                    "ParamDescription": "hx"
+                  },
+                  {
+                    "ParamName": "hy",
+                    "ParamKeyword": "Zf01",
+                    "ParamType": "doub",
+                    "ParamDescription": "hy"
+                  },
+                  {
+                    "ParamName": "px",
+                    "ParamKeyword": "Zf02",
+                    "ParamType": "doub",
+                    "ParamDescription": "px"
+                  },
+                  {
+                    "ParamName": "py",
+                    "ParamKeyword": "Zf03",
+                    "ParamType": "doub",
+                    "ParamDescription": "py"
+                  },
+                  {
+                    "ParamName": "brightness",
+                    "ParamKeyword": "Zf04",
+                    "ParamType": "doub",
+                    "ParamDescription": "brightness"
+                  },
+                  {
+                    "ParamName": "scale",
+                    "ParamKeyword": "Zf05",
+                    "ParamType": "doub",
+                    "ParamDescription": "scale"
+                  },
+                  {
+                    "ParamName": "aspect",
+                    "ParamKeyword": "Zf06",
+                    "ParamType": "doub",
+                    "ParamDescription": "aspect"
+                  },
+                  {
+                    "ParamName": "gamma",
+                    "ParamKeyword": "Zf07",
+                    "ParamType": "doub",
+                    "ParamDescription": "gamma"
+                  },
+                  {
+                    "ParamName": "saturation",
+                    "ParamKeyword": "Zf08",
+                    "ParamType": "doub",
+                    "ParamDescription": "saturation"
+                  },
+                  {
+                    "ParamName": "hue",
+                    "ParamKeyword": "Zf09",
+                    "ParamType": "doub",
+                    "ParamDescription": "hue"
+                  },
+                  {
+                    "ParamName": "hot_bright",
+                    "ParamKeyword": "Zf10",
+                    "ParamType": "doub",
+                    "ParamDescription": "hot_bright"
+                  },
+                  {
+                    "ParamName": "hot_size",
+                    "ParamKeyword": "Zf11",
+                    "ParamType": "doub",
+                    "ParamDescription": "hot_size"
+                  },
+                  {
+                    "ParamName": "glow",
+                    "ParamKeyword": "Zf12",
+                    "ParamType": "doub",
+                    "ParamDescription": "glow"
+                  },
+                  {
+                    "ParamName": "ray_bright",
+                    "ParamKeyword": "Zf13",
+                    "ParamType": "doub",
+                    "ParamDescription": "ray_bright"
+                  },
+                  {
+                    "ParamName": "ray_length",
+                    "ParamKeyword": "Zf14",
+                    "ParamType": "doub",
+                    "ParamDescription": "ray_length"
+                  },
+                  {
+                    "ParamName": "ray_thickness",
+                    "ParamKeyword": "Zf15",
+                    "ParamType": "doub",
+                    "ParamDescription": "ray_thickness"
+                  },
+                  {
+                    "ParamName": "rotation",
+                    "ParamKeyword": "Zf16",
+                    "ParamType": "doub",
+                    "ParamDescription": "rotation"
+                  },
+                  {
+                    "ParamName": "ghost_bright",
+                    "ParamKeyword": "Zf17",
+                    "ParamType": "doub",
+                    "ParamDescription": "ghost_bright"
+                  },
+                  {
+                    "ParamName": "ghost_size",
+                    "ParamKeyword": "Zf18",
+                    "ParamType": "doub",
+                    "ParamDescription": "ghost_size"
+                  },
+                  {
+                    "ParamName": "ghost_spacing",
+                    "ParamKeyword": "Zf19",
+                    "ParamType": "doub",
+                    "ParamDescription": "ghost_spacing"
+                  },
+                  {
+                    "ParamName": "ghost_softness",
+                    "ParamKeyword": "Zf20",
+                    "ParamType": "doub",
+                    "ParamDescription": "ghost_softness"
+                  },
+                  {
+                    "ParamName": "ring_bright",
+                    "ParamKeyword": "Zf21",
+                    "ParamType": "doub",
+                    "ParamDescription": "ring_bright"
+                  },
+                  {
+                    "ParamName": "ring_size",
+                    "ParamKeyword": "Zf22",
+                    "ParamType": "doub",
+                    "ParamDescription": "ring_size"
+                  },
+                  {
+                    "ParamName": "chromatic",
+                    "ParamKeyword": "Zf23",
+                    "ParamType": "doub",
+                    "ParamDescription": "chromatic"
+                  },
+                  {
+                    "ParamName": "streak_bright",
+                    "ParamKeyword": "Zf24",
+                    "ParamType": "doub",
+                    "ParamDescription": "streak_bright"
+                  },
+                  {
+                    "ParamName": "streak_length",
+                    "ParamKeyword": "Zf25",
+                    "ParamType": "doub",
+                    "ParamDescription": "streak_length"
+                  },
+                  {
+                    "ParamName": "streak_width",
+                    "ParamKeyword": "Zf26",
+                    "ParamType": "doub",
+                    "ParamDescription": "streak_width"
+                  },
+                  {
+                    "ParamName": "atmosphere",
+                    "ParamKeyword": "Zf27",
+                    "ParamType": "doub",
+                    "ParamDescription": "atmosphere"
+                  },
+                  {
+                    "ParamName": "noise_scale",
+                    "ParamKeyword": "Zf28",
+                    "ParamType": "doub",
+                    "ParamDescription": "noise_scale"
+                  },
+                  {
+                    "ParamName": "edge_width",
+                    "ParamKeyword": "Zf29",
+                    "ParamType": "doub",
+                    "ParamDescription": "edge_width"
+                  },
+                  {
+                    "ParamName": "edge_bright",
+                    "ParamKeyword": "Zf30",
+                    "ParamType": "doub",
+                    "ParamDescription": "edge_bright"
+                  },
+                  {
+                    "ParamName": "center_radius",
+                    "ParamKeyword": "Zf31",
+                    "ParamType": "doub",
+                    "ParamDescription": "center_radius"
+                  },
+                  {
+                    "ParamName": "center_bright",
+                    "ParamKeyword": "Zf32",
+                    "ParamType": "doub",
+                    "ParamDescription": "center_bright"
+                  },
+                  {
+                    "ParamName": "occlusion_softness",
+                    "ParamKeyword": "Zf33",
+                    "ParamType": "doub",
+                    "ParamDescription": "occlusion_softness"
+                  },
+                  {
+                    "ParamName": "background",
+                    "ParamKeyword": "Zf34",
+                    "ParamType": "doub",
+                    "ParamDescription": "background"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Zf35",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  },
+                  {
+                    "ParamName": "rays",
+                    "ParamKeyword": "Zf36",
+                    "ParamType": "long",
+                    "ParamDescription": "rays"
+                  },
+                  {
+                    "ParamName": "ghosts",
+                    "ParamKeyword": "Zf37",
+                    "ParamType": "long",
+                    "ParamDescription": "ghosts"
+                  },
+                  {
+                    "ParamName": "blades",
+                    "ParamKeyword": "Zf38",
+                    "ParamType": "long",
+                    "ParamDescription": "blades"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Zf39",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "occlusion",
+                    "ParamKeyword": "Zf40",
+                    "ParamType": "long",
+                    "ParamDescription": "occlusion"
+                  },
+                  {
+                    "ParamName": "blend",
+                    "ParamKeyword": "Zf41",
+                    "ParamType": "long",
+                    "ParamDescription": "blend"
+                  },
+                  {
+                    "ParamName": "invert_occlusion",
+                    "ParamKeyword": "Zf42",
+                    "ParamType": "bool",
+                    "ParamDescription": "invert_occlusion"
+                  },
+                  {
+                    "ParamName": "preserve_alpha",
+                    "ParamKeyword": "Zf43",
+                    "ParamType": "bool",
+                    "ParamDescription": "preserve_alpha"
+                  },
+                  {
+                    "ParamName": "map_key",
+                    "ParamKeyword": "Zf44",
+                    "ParamType": "TEXT",
+                    "ParamDescription": "map_key"
+                  },
+                  {
+                    "ParamName": "color0",
+                    "ParamKeyword": "Zf45",
+                    "ParamType": "doub",
+                    "ParamDescription": "color0"
+                  },
+                  {
+                    "ParamName": "color1",
+                    "ParamKeyword": "Zf46",
+                    "ParamType": "doub",
+                    "ParamDescription": "color1"
+                  },
+                  {
+                    "ParamName": "color2",
+                    "ParamKeyword": "Zf47",
+                    "ParamType": "doub",
+                    "ParamDescription": "color2"
+                  },
+                  {
+                    "ParamName": "hot_color0",
+                    "ParamKeyword": "Zf48",
+                    "ParamType": "doub",
+                    "ParamDescription": "hot_color0"
+                  },
+                  {
+                    "ParamName": "hot_color1",
+                    "ParamKeyword": "Zf49",
+                    "ParamType": "doub",
+                    "ParamDescription": "hot_color1"
+                  },
+                  {
+                    "ParamName": "hot_color2",
+                    "ParamKeyword": "Zf50",
+                    "ParamType": "doub",
+                    "ParamDescription": "hot_color2"
+                  },
+                  {
+                    "ParamName": "ghost_color0",
+                    "ParamKeyword": "Zf51",
+                    "ParamType": "doub",
+                    "ParamDescription": "ghost_color0"
+                  },
+                  {
+                    "ParamName": "ghost_color1",
+                    "ParamKeyword": "Zf52",
+                    "ParamType": "doub",
+                    "ParamDescription": "ghost_color1"
+                  },
+                  {
+                    "ParamName": "ghost_color2",
+                    "ParamKeyword": "Zf53",
+                    "ParamType": "doub",
+                    "ParamDescription": "ghost_color2"
+                  },
+                  {
+                    "ParamName": "flareDesign",
+                    "ParamKeyword": "ZfEd",
+                    "ParamType": "tdta",
+                    "ParamDescription": "Versioned independent lens element stack"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

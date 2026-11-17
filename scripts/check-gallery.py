@@ -3,7 +3,8 @@ from pathlib import Path
 import argparse,json,re,struct,urllib.parse
 p=argparse.ArgumentParser();p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1]);args=p.parse_args();root=args.root.resolve()
 manifest=json.loads((root/'docs/assets/gallery-manifest.json').read_text('utf-8-sig'));parameters=json.loads((root/'docs/gallery-parameters.json').read_text('utf8'));plugins=json.loads((root/'plugins.json').read_text('utf8'))
-assert len(manifest)==len(parameters)==len(plugins)==23
+count=len(plugins)
+assert count>=23 and len(manifest)==len(parameters)==count
 assert {r['file'] for r in manifest}=={r['file'] for r in plugins};assert {r['slug'] for r in manifest}=={r['slug'] for r in parameters}
 def jpeg_size(data):
  assert data[:2]==b'\xff\xd8';at=2
@@ -29,7 +30,7 @@ assert 'MIT' in (root/'docs/assets/README.md').read_text('utf8')
 events=set()
 for module in json.loads((root/'project.json').read_text('utf8'))['modules']:
  for file in (root/module/'src').glob('*PiPL*.json'):events.add(json.loads(file.read_text('utf8'))['PiPLs'][0]['HasTerminology']['EventID'])
-assert len(events)==23 and {r['event'] for r in parameters}==events
+assert len(events)==count and {r['event'] for r in parameters}==events
 for name in ['README.md','README.en.md','docs/GALLERY.md','docs/EFFECTS.md','docs/PERFORMANCE.md','docs/RELEASE_NOTES.md','docs/RELEASE_0.37.md','docs/VALIDATION.md','docs/assets/README.md']:
  file=root/name;text=file.read_text('utf8');links=re.findall(r'\[[^\]]*\]\(([^)]+)\)|\bsrc="([^"]+)"',text)
  for pair in links:
@@ -37,5 +38,5 @@ for name in ['README.md','README.en.md','docs/GALLERY.md','docs/EFFECTS.md','doc
   if parsed.scheme or not parsed.path:continue
   assert (file.parent/urllib.parse.unquote(parsed.path)).resolve().exists(),(name,link)
 alt='production parameter window and full effect preview]' if presentations=={'parameter-window'} else 'before and after native Photoshop plugin output]'
-assert (root/'docs/GALLERY.md').read_text('utf8').count(alt)==23
-print('PASS: 23 gallery images/settings/events, image sizes, privacy metadata, asset notice and primary documentation links')
+assert (root/'docs/GALLERY.md').read_text('utf8').count(alt)==count
+print(f'PASS: {count} gallery images/settings/events, image sizes, privacy metadata, asset notice and primary documentation links')

@@ -13,8 +13,9 @@ def source_files(root):
 
 def check(root):
  root=Path(root).resolve();project=json.loads((root/'project.json').read_text(encoding='utf-8'));plugins=json.loads((root/'plugins.json').read_text(encoding='utf-8'))
- assert len(plugins)==23 and len({p['file']for p in plugins})==23,'23 distinct effects required'
- assert len(project['modules'])==16 and {p['module']for p in plugins}==set(project['modules'])
+ count=project.get('effect_count',23)
+ assert count>=23 and len(plugins)==count and len({p['file']for p in plugins})==count,'distinct effects must match project effect_count'
+ assert len(project['modules'])==len(set(project['modules'])) and {p['module']for p in plugins}==set(project['modules'])
  url=project['repository'];assert re.fullmatch(r'https://github\.com/[A-Za-z0-9-]+/[A-Za-z0-9_.-]+',url)
  assert url in (root/'native/ui/include/psui/source_repository.hpp').read_text(encoding='utf-8'),'About URL differs from project metadata'
  assert 'MIT License' in (root/'LICENSE').read_text(encoding='utf-8')
@@ -38,4 +39,4 @@ def check(root):
     generated=target.name=='parameter_schema.hpp' and target.parent.name=='build' and target.parent.parent.name in project['modules']
     if not target.exists() and not generated:issues.append((rel,'missing relative include'))
  assert not issues,issues
- return {'status':'PASS','project':project['name'],'repository':url,'effects':23,'modules':16,'source_files':len(files),'source_bytes':sum(p.stat().st_size for p in files),'checks':['MIT code license and separate demo asset notice','23-effect catalog','shared About URL','pinned ImGui hashes','no bundled SDK/fonts/binaries','no original workstation paths or credential patterns','relative C++ include closure (typed schemas generated during build)']}
+ return {'status':'PASS','project':project['name'],'repository':url,'effects':count,'modules':len(project['modules']),'source_files':len(files),'source_bytes':sum(p.stat().st_size for p in files),'checks':['MIT code license and separate demo asset notice',str(count)+'-effect catalog','shared About URL','pinned ImGui hashes','no bundled SDK/fonts/binaries','no original workstation paths or credential patterns','relative C++ include closure (typed schemas generated during build)']}

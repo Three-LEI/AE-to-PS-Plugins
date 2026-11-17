@@ -55,6 +55,21 @@ namespace effect=energy;
 #elif GALLERY_MODULE==15
 #include "blinds_host.hpp"
 namespace effect=blinds;
+#elif GALLERY_MODULE==16
+#include "halftone_host.hpp"
+namespace effect=halftone;
+#elif GALLERY_MODULE==17
+#include "ascii_host.hpp"
+namespace effect=asciifx;
+#elif GALLERY_MODULE==18
+#include "dither_host.hpp"
+namespace effect=dither;
+#elif GALLERY_MODULE==19
+#include "flare_host.hpp"
+namespace effect=flare;
+#elif GALLERY_MODULE==20
+#include "etching_host.hpp"
+namespace effect=etching;
 #endif
 #include GALLERY_SETTINGS
 namespace {
@@ -120,7 +135,7 @@ int wmain(int argc,wchar_t** argv){try{
  p=effect::defaults();
 #elif GALLERY_MODULE==14
  p=effect::unified_defaults(width,height);
-#elif GALLERY_MODULE==15
+#elif GALLERY_MODULE==15 || GALLERY_MODULE==19
  p=effect::defaults(width,height);
 #endif
  configure_gallery(p,layers);const auto saved=p;
@@ -133,9 +148,9 @@ int wmain(int argc,wchar_t** argv){try{
  effect::Image map;auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,layers,source,p,map);};
 #elif GALLERY_MODULE==3
  effect::Image mask,texture;auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,source,layers,p,mask,texture);};
-#elif GALLERY_MODULE==4 || GALLERY_MODULE==5 || GALLERY_MODULE==9 || GALLERY_MODULE==10
+#elif GALLERY_MODULE==4 || GALLERY_MODULE==5 || GALLERY_MODULE==9 || GALLERY_MODULE==10 || GALLERY_MODULE==19
  effect::Image map;auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,source,layers,p,map);};
-#elif GALLERY_MODULE==8 || GALLERY_MODULE==11 || GALLERY_MODULE==13 || GALLERY_MODULE==15
+#elif GALLERY_MODULE==8 || GALLERY_MODULE==11 || GALLERY_MODULE==13 || GALLERY_MODULE==15 || GALLERY_MODULE==16 || GALLERY_MODULE==17 || GALLERY_MODULE==18 || GALLERY_MODULE==20
  auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,source,p);};
 #elif GALLERY_MODULE==12
  effect::Prepared prepared;auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,source,p,prepared);};
@@ -150,6 +165,9 @@ int wmain(int argc,wchar_t** argv){try{
   if(n==5||n==6)section="核心 / Core";if(n==7||n==8)section="发光 / Glow";
   if(!section.empty())libraryqa::point(ui,section);
   if(n==3||n==5||n==7)io.AddMouseButtonEvent(0,true);if(n==4||n==6||n==8)io.AddMouseButtonEvent(0,false);
+#elif GALLERY_MODULE==19
+  const int n=ui.frame();if(n==3||n==4){libraryqa::point(ui,"designer.open");io.AddMouseButtonEvent(0,n==3);}
+  if(n==7||n==8){libraryqa::point(ui,"designer.element/8");io.AddMouseButtonEvent(0,n==7);}
 #endif
  };
  hook.tick=[&](psui::LibraryPanel& ui){

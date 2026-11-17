@@ -1,6 +1,7 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include "lightfx_host.hpp"
+#include "lightfx_render_cache.hpp"
 #include "psui/library_panel.hpp"
 #include "psui/generator_controls.hpp"
 #include "psui/coalesced_preview.hpp"
@@ -21,17 +22,18 @@ constexpr const char* shines[]={"白色光束 / White Rays","暖色光束 / Warm
 struct Frame{Image image;double milliseconds=0;int side=512;};
 struct Cache {
  const Image& source;Image small;std::shared_ptr<const Image> emission,small_emission;Parameters extraction;bool extracted=false;int small_side=0,seed_side=0;
+ RenderCache rays;
  explicit Cache(const Image& src):source(src){}
  Frame draw(const Parameters& p,bool draft,int side,const Cancel& cancel){
   const auto start=std::chrono::steady_clock::now();
   if(!extracted||!same_extraction(p,extraction)){
    auto next=prepare(source,p,cancel);if(!next)return {};
-   emission=std::move(next);small_emission.reset();extraction=p;extracted=true;
+   rays.clear();emission=std::move(next);small_emission.reset();extraction=p;extracted=true;
   }
-  if(draft&&(!small.valid()||small_side!=side)){small=downsample(source,side,cancel);if(!small.valid())return {};small_side=side;}
-  if(draft&&(!small_emission||seed_side!=side)){auto reduced=downsample(*emission,side,cancel,true);if(!reduced.valid())return {};small_emission=std::make_shared<Image>(std::move(reduced));seed_side=side;}
+  if(draft&&(!small.valid()||small_side!=side)){rays.clear();small=downsample(source,side,cancel);if(!small.valid())return {};small_side=side;}
+  if(draft&&(!small_emission||seed_side!=side)){auto reduced=downsample(*emission,side,cancel,true);if(!reduced.valid())return {};rays.clear();small_emission=std::make_shared<Image>(std::move(reduced));seed_side=side;}
   Frame result;result.side=side;const auto& src=draft?small:source;const auto& seed=draft?*small_emission:*emission;
-  if(!render_prepared(src,seed,p,result.image,cancel))return {};
+  if(!rays.render(src,seed,p,result.image,cancel))return {};
   result.milliseconds=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-start).count();return result;
  }
 };

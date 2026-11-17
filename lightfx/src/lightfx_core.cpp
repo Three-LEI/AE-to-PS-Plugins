@@ -1,4 +1,5 @@
 #include "lightfx_core.hpp"
+#include "lightfx_render_cache.hpp"
 #include "../../native/common/parallel_ranges.hpp"
 #include <algorithm>
 #include <cmath>
@@ -55,7 +56,7 @@ bool star(const Image& src,const Image& seed,const Parameters& p,Image& rays,con
    const double slope=xmajor?vy/vx:vx/vy;
    const int first=int(std::floor(std::min(0.,-slope*(steps-1))))-1;
    const int end=int(std::ceil(count+std::max(0.,-slope*(steps-1))))+1;
-   const int slab=std::clamp(1048576/(steps*3)-1,1,32);std::vector<float> lines(std::size_t(slab+1)*steps*3);
+   const int slab=std::clamp(1048576/(steps*3)-1,1,32);
    auto interval=[&](double low,double high){
     const double a=low/slope,b=high/slope;return std::pair{std::max(0,int(std::ceil(std::min(a,b)))),std::min(steps-1,int(std::floor(std::max(a,b))))};
    };
@@ -66,8 +67,13 @@ bool star(const Image& src,const Image& seed,const Parameters& p,Image& rays,con
      for(int k=0;k<3;k++)result[k]+=c[k]*(j?t:1-t);
     }return result;
    };
-   for(int base=first;base<end;base+=slab){
-    if(stop(cancel))return false;
+   // Each slab owns disjoint output pixels. Directions retain their original
+   // accumulation order; each worker reuses its own interpolation scratch.
+   const auto units=std::size_t(slab+1)*steps*3<=1048576?std::size_t(w)*h:0; // At most 4 MiB scratch per worker; very elongated images retain serial slabs.
+   if(!pscpu::parallel_ranges((end-first+slab-1)/slab,units,cancel,[&](std::size_t begin,std::size_t finish,const auto& cancelled){
+    std::vector<float> lines(std::size_t(slab+1)*steps*3);
+    for(auto block=begin;block<finish;block++){
+    const int base=first+int(block)*slab;if(cancelled())return false;
     for(int line=0;line<=slab;line++){
      const auto [lo,hi]=interval(-1.-base-line,double(count)-base-line);
      Color state{};for(int j=lo;j<=hi;j++){
@@ -84,7 +90,7 @@ bool star(const Image& src,const Image& seed,const Parameters& p,Image& rays,con
       for(int k=0;k<3;k++)rays.rgba[to+k]=narrow(rays.rgba[to+k]+std::lerp(double(lines[from+k]),double(lines[from+std::size_t(steps)*3+k]),t));
      }
     }
-   }
+   }return true;}))return false;
   }
  }
  if(p.boost>0)for(std::size_t i=0;i<rays.rgba.size();i+=4){
@@ -154,11 +160,13 @@ std::shared_ptr<const Image> prepare(const Image& src,const Parameters& p,const 
  }))return {};
  return out;
 }
-bool render_prepared(const Image& src,const Image& e,const Parameters& p,Image& out,const Cancel& cancel){
- pscpu::ParallelScope parallel;
- if(!src.valid()||!e.valid()||!valid(p)||src.width!=e.width||src.height!=e.height||src.left!=e.left||src.top!=e.top||src.step!=e.step||stop(cancel))return false;
- if(p.mix==0||((p.boost==0||p.effect_opacity==0||p.length==0)&&p.source_opacity==100)){out=src;return true;}
- Image rays{src.width,src.height,src.left,src.top,src.step,std::vector<float>(src.rgba.size())};if(!(p.kind==Kind::starglow?star(src,e,p,rays,cancel):shine(src,e,p,rays,cancel)))return false;
+namespace {
+bool compatible(const Image& src,const Image& e,const Parameters& p){return src.valid()&&e.valid()&&valid(p)&&src.width==e.width&&src.height==e.height&&src.left==e.left&&src.top==e.top&&src.step==e.step;}
+bool bypass(const Parameters& p){return p.mix==0||((p.boost==0||p.effect_opacity==0||p.length==0)&&p.source_opacity==100);}
+bool build_rays(const Image& src,const Image& e,const Parameters& p,Image& rays,const Cancel& cancel){
+ rays={src.width,src.height,src.left,src.top,src.step,std::vector<float>(src.rgba.size())};return p.kind==Kind::starglow?star(src,e,p,rays,cancel):shine(src,e,p,rays,cancel);
+}
+bool composite_rays(const Image& src,const Parameters& p,Image rays,Image& out,const Cancel& cancel){
  const double source=p.source_opacity*.01,effect=p.effect_opacity*.01,mix=p.mix*.01;
  if(!pscpu::parallel_ranges(src.height,std::size_t(src.width)*src.height,cancel,[&](std::size_t lo,std::size_t hi,const auto& cancelled){
   for(auto y=lo;y<hi;y++){if((y&15)==0&&cancelled())return false;for(int x=0;x<src.width;x++){
@@ -172,6 +180,31 @@ bool render_prepared(const Image& src,const Image& e,const Parameters& p,Image& 
   }}return true;
  }))return false;
  out=std::move(rays);return true;
+}
+}
+bool render_prepared(const Image& src,const Image& e,const Parameters& p,Image& out,const Cancel& cancel){
+ pscpu::ParallelScope parallel;
+ if(!compatible(src,e,p)||stop(cancel))return false;
+ if(bypass(p)){out=src;return true;}
+ Image rays;if(!build_rays(src,e,p,rays,cancel))return false;
+ return composite_rays(src,p,std::move(rays),out,cancel);
+}
+bool RenderCache::render(const Image& src,const Image& e,const Parameters& p,Image& out,const Cancel& cancel){
+ pscpu::ParallelScope parallel;
+ if(!compatible(src,e,p)||stop(cancel))return false;
+ if(bypass(p)){out=src;return true;}
+ const auto cost=src.rgba.size()*sizeof(float);
+ if(!stages_.fits(cost))return render_prepared(src,e,p,out,cancel);
+ RaysCacheKey key;key.parameters=p;
+ key.parameters.blend=0;key.parameters.preserve_alpha=false;
+ key.parameters.source_opacity=100;key.parameters.effect_opacity=100;key.parameters.mix=100;
+ key.source=src.rgba.data();key.emission=e.rgba.data();key.geometry={src.width,src.height,src.left,src.top};key.step=src.step;key.rounding=std::fegetround();
+#if defined(__SSE__) || defined(_M_X64)
+ key.simd_control=_mm_getcsr()&0xffc0u;
+#endif
+ const auto* rays=stages_.get(key,cost,[&](Image& value){return build_rays(src,e,p,value,cancel)&&!stop(cancel);});
+ if(!rays||stop(cancel))return false;
+ return composite_rays(src,p,*rays,out,cancel);
 }
 bool render(const Image& src,const Parameters& p,Image& out,const Cancel& cancel){
  pscpu::ParallelScope parallel;

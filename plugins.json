@@ -4,147 +4,168 @@
     "version": "0.23",
     "modes": "RGB8",
     "file": "ZaYuTint.8bf",
-    "module": "native"
+    "module": "native",
+    "development_status": "stable"
   },
   {
     "name": "Fractal Noise 分形杂色",
     "version": "0.18",
     "modes": "RGB8/16/32",
     "file": "ZaYuFractalNoise.8bf",
-    "module": "fractal"
+    "module": "fractal",
+    "development_status": "stable"
   },
   {
     "name": "Displacement Map 置换图",
     "version": "0.10",
     "modes": "RGB8/16/32",
     "file": "ZaYuDisplacementMap.8bf",
-    "module": "displacement"
+    "module": "displacement",
+    "development_status": "stable"
   },
   {
     "name": "Glow 发光",
     "version": "0.9",
     "modes": "RGB8/16/32",
     "file": "ZaYuGlow.8bf",
-    "module": "glow"
+    "module": "glow",
+    "development_status": "stable"
   },
   {
     "name": "Deep Glow 深度发光",
     "version": "0.10",
     "modes": "RGB8/16/32",
     "file": "ZaYuDeepGlow.8bf",
-    "module": "glow"
+    "module": "glow",
+    "development_status": "stable"
   },
   {
     "name": "Chromatic Dispersion 色差色散",
     "version": "0.9-local",
     "modes": "RGB8/16/32",
     "file": "ZaYuChromaticDispersion.8bf",
-    "module": "chromatic"
+    "module": "chromatic",
+    "development_status": "stable"
   },
   {
     "name": "Vector Blur 矢量模糊",
     "version": "0.7",
     "modes": "RGB8/16/32",
     "file": "ZaYuVectorBlur.8bf",
-    "module": "vector"
+    "module": "vector",
+    "development_status": "stable"
   },
   {
     "name": "Grid 网格",
     "version": "0.6",
     "modes": "RGB8/16/32",
     "file": "ZaYuGrid.8bf",
-    "module": "patterns"
+    "module": "patterns",
+    "development_status": "stable"
   },
   {
     "name": "Checkerboard 棋盘",
     "version": "0.6",
     "modes": "RGB8/16/32",
     "file": "ZaYuCheckerboard.8bf",
-    "module": "patterns"
+    "module": "patterns",
+    "development_status": "stable"
   },
   {
     "name": "Cell Pattern 单元格图案",
     "version": "0.3",
     "modes": "RGB8/16/32",
     "file": "ZaYuCellPattern.8bf",
-    "module": "cell"
+    "module": "cell",
+    "development_status": "stable"
   },
   {
     "name": "Optics Compensation 光学补偿",
     "version": "0.2",
     "modes": "RGB8/16/32",
     "file": "ZaYuOpticsCompensation.8bf",
-    "module": "lens"
+    "module": "lens",
+    "development_status": "stable"
   },
   {
     "name": "Lens 镜头",
     "version": "0.3",
     "modes": "RGB8/16/32",
     "file": "ZaYuCCLens.8bf",
-    "module": "lens"
+    "module": "lens",
+    "development_status": "stable"
   },
   {
     "name": "JPEG Damage JPEG 损坏",
     "version": "0.1",
     "modes": "RGB8/16/32",
     "file": "ZaYuJPEGDamage.8bf",
-    "module": "jpeg"
+    "module": "jpeg",
+    "development_status": "stable"
   },
   {
     "name": "Blobbylize 胶状化",
     "version": "0.2",
     "modes": "RGB8/16/32",
     "file": "ZaYuBlobbylize.8bf",
-    "module": "surface"
+    "module": "surface",
+    "development_status": "stable"
   },
   {
     "name": "Glass 玻璃",
     "version": "0.2",
     "modes": "RGB8/16/32",
     "file": "ZaYuGlass.8bf",
-    "module": "surface"
+    "module": "surface",
+    "development_status": "stable"
   },
   {
     "name": "Turbulent Displace 湍流置换",
     "version": "0.1",
     "modes": "RGB8/16/32",
     "file": "ZaYuTurbulentDisplace.8bf",
-    "module": "creative"
+    "module": "creative",
+    "development_status": "stable"
   },
   {
     "name": "Light Sweep 扫光",
     "version": "0.1",
     "modes": "RGB8/16/32",
     "file": "ZaYuLightSweep.8bf",
-    "module": "creative"
+    "module": "creative",
+    "development_status": "stable"
   },
   {
     "name": "Kaleida 万花筒",
     "version": "0.1",
     "modes": "RGB8/16/32",
     "file": "ZaYuKaleida.8bf",
-    "module": "creative"
+    "module": "creative",
+    "development_status": "stable"
   },
   {
     "name": "Roughen Edges 毛边",
     "version": "0.1",
     "modes": "RGB8/16/32",
     "file": "ZaYuRoughenEdges.8bf",
-    "module": "roughen"
+    "module": "roughen",
+    "development_status": "stable"
   },
   {
     "name": "Starglow 星芒",
     "version": "0.1-local",
     "modes": "RGB8/16/32",
     "file": "ZaYuStarglow.8bf",
-    "module": "lightfx"
+    "module": "lightfx",
+    "development_status": "stable"
   },
   {
     "name": "Shine 放射光束",
     "version": "0.1-local",
     "modes": "RGB8/16/32",
     "file": "ZaYuShine.8bf",
-    "module": "lightfx"
+    "module": "lightfx",
+    "development_status": "stable"
   },
   {
     "name": "Saber 能量光束",
@@ -161,6 +182,46 @@
     "modes": "RGB8/16/32",
     "file": "ZaYuVenetianBlinds.8bf",
     "module": "blinds",
+    "development_status": "stable"
+  },
+  {
+    "name": "Halftone 网点印刷",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuHalftone.8bf",
+    "module": "halftone",
+    "development_status": "stable"
+  },
+  {
+    "name": "ASCII Dither 字符抖动",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuASCIIDither.8bf",
+    "module": "ascii",
+    "development_status": "stable"
+  },
+  {
+    "name": "Dither 像素抖动",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuDither.8bf",
+    "module": "dither",
+    "development_status": "stable"
+  },
+  {
+    "name": "Lens Flare 镜头耀斑",
+    "version": "0.3-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuLensFlare.8bf",
+    "module": "flare",
+    "development_status": "stable"
+  },
+  {
+    "name": "Etching 蚀刻",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuEtching.8bf",
+    "module": "etching",
     "development_status": "stable"
   }
 ]

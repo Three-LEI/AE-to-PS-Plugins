@@ -36,7 +36,7 @@ def request(url,method='GET',data=None,content_type='application/json',missing=F
 account=request('https://api.github.com/user');assert account['login'].lower()==owner.lower(),'Git account differs from repository owner'
 release=request(base+'/releases/tags/'+tag,missing=True)
 if release is None:
- release=request(base+'/releases','POST',{'tag_name':tag,'target_commitish':args.commit,'name':args.title or project['release']+' · 23 款原生滤镜','body':args.notes.read_text(encoding='utf-8'),'draft':True,'prerelease':False,'make_latest':'true'})
+ release=request(base+'/releases','POST',{'tag_name':tag,'target_commitish':args.commit,'name':args.title or project['release']+' · '+str(project['effect_count'])+' 款原生滤镜','body':args.notes.read_text(encoding='utf-8'),'draft':True,'prerelease':False,'make_latest':'true'})
 assert release['target_commitish']==args.commit,'existing release targets a different commit'
 assert release['prerelease'] is False,'existing release has a different release channel'
 release_id=release['id'];assert isinstance(release_id,int)and release_id>0

@@ -30,6 +30,10 @@ public:
   bool preview(FilterRecord *, const std::uint8_t *rgb, int width, int height);
   void image(float width, float height);
   void image_view(PreviewView &, const ProxyImage &);
+  // Immutable RGBA cards, uploaded once per key for this panel. Does not
+  // replace the main preview or its color-sampling state. UI thread only.
+  bool cached_image(const char *key,const std::uint8_t *rgba,int width,int height,
+                    ImVec2 minimum,ImVec2 maximum);
   bool preview_zoom(PreviewView &);
   // Draw-only overlay: adds no layout row and never samples/copies the preview.
   void preview_status(bool busy);

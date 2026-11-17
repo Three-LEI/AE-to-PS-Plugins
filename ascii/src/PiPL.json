@@ -1,0 +1,274 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "ASCII Dither",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 1,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuASCIIDitherReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/ASCIIDither=ASCII Dither 字符抖动",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpAd"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "ASCII Dither",
+                "EventDescription": "Editable ASCII Dither",
+                "ClassID": "ZpEf",
+                "EventType": "ZpAd",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "charset",
+                    "ParamKeyword": "Za00",
+                    "ParamType": "long",
+                    "ParamDescription": "charset"
+                  },
+                  {
+                    "ParamName": "font",
+                    "ParamKeyword": "Za01",
+                    "ParamType": "long",
+                    "ParamDescription": "font"
+                  },
+                  {
+                    "ParamName": "dither",
+                    "ParamKeyword": "Za02",
+                    "ParamType": "long",
+                    "ParamDescription": "dither"
+                  },
+                  {
+                    "ParamName": "color_mode",
+                    "ParamKeyword": "Za03",
+                    "ParamType": "long",
+                    "ParamDescription": "color_mode"
+                  },
+                  {
+                    "ParamName": "background",
+                    "ParamKeyword": "Za04",
+                    "ParamType": "long",
+                    "ParamDescription": "background"
+                  },
+                  {
+                    "ParamName": "invert",
+                    "ParamKeyword": "Za05",
+                    "ParamType": "bool",
+                    "ParamDescription": "invert"
+                  },
+                  {
+                    "ParamName": "bold",
+                    "ParamKeyword": "Za06",
+                    "ParamType": "bool",
+                    "ParamDescription": "bold"
+                  },
+                  {
+                    "ParamName": "cell_width",
+                    "ParamKeyword": "Za07",
+                    "ParamType": "doub",
+                    "ParamDescription": "cell_width"
+                  },
+                  {
+                    "ParamName": "cell_aspect",
+                    "ParamKeyword": "Za08",
+                    "ParamType": "doub",
+                    "ParamDescription": "cell_aspect"
+                  },
+                  {
+                    "ParamName": "fill",
+                    "ParamKeyword": "Za09",
+                    "ParamType": "doub",
+                    "ParamDescription": "fill"
+                  },
+                  {
+                    "ParamName": "dither_amount",
+                    "ParamKeyword": "Za10",
+                    "ParamType": "doub",
+                    "ParamDescription": "dither_amount"
+                  },
+                  {
+                    "ParamName": "brightness",
+                    "ParamKeyword": "Za11",
+                    "ParamType": "doub",
+                    "ParamDescription": "brightness"
+                  },
+                  {
+                    "ParamName": "contrast",
+                    "ParamKeyword": "Za12",
+                    "ParamType": "doub",
+                    "ParamDescription": "contrast"
+                  },
+                  {
+                    "ParamName": "gamma",
+                    "ParamKeyword": "Za13",
+                    "ParamType": "doub",
+                    "ParamDescription": "gamma"
+                  },
+                  {
+                    "ParamName": "shift_x",
+                    "ParamKeyword": "Za14",
+                    "ParamType": "doub",
+                    "ParamDescription": "shift_x"
+                  },
+                  {
+                    "ParamName": "shift_y",
+                    "ParamKeyword": "Za15",
+                    "ParamType": "doub",
+                    "ParamDescription": "shift_y"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Za16",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  },
+                  {
+                    "ParamName": "color_gain",
+                    "ParamKeyword": "Za17",
+                    "ParamType": "doub",
+                    "ParamDescription": "color_gain"
+                  },
+                  {
+                    "ParamName": "ink0",
+                    "ParamKeyword": "Za18",
+                    "ParamType": "doub",
+                    "ParamDescription": "ink0"
+                  },
+                  {
+                    "ParamName": "ink1",
+                    "ParamKeyword": "Za19",
+                    "ParamType": "doub",
+                    "ParamDescription": "ink1"
+                  },
+                  {
+                    "ParamName": "ink2",
+                    "ParamKeyword": "Za20",
+                    "ParamType": "doub",
+                    "ParamDescription": "ink2"
+                  },
+                  {
+                    "ParamName": "paper0",
+                    "ParamKeyword": "Za21",
+                    "ParamType": "doub",
+                    "ParamDescription": "paper0"
+                  },
+                  {
+                    "ParamName": "paper1",
+                    "ParamKeyword": "Za22",
+                    "ParamType": "doub",
+                    "ParamDescription": "paper1"
+                  },
+                  {
+                    "ParamName": "paper2",
+                    "ParamKeyword": "Za23",
+                    "ParamType": "doub",
+                    "ParamDescription": "paper2"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -18,7 +18,7 @@
 ./build.ps1 -Toolchain 'C:/Dev/llvm-mingw/bin' -PhotoshopSdk 'C:/Dev/photoshop-cpp-sdk/pluginsdk'
 ```
 
-依次构建十六个模块，输出二十三款 `.8bf` 到各模块的 `build` 目录。`native` 首先建立两份共享静态库，其余模块随后链接。构建失败会停止；具体模块日志和测试结果保存在相应 `build` 目录。
+0.38依次构建21个模块，输出28款`.8bf`到各模块的`build`目录，包含网点、字符／像素抖动、耀斑设计器和蚀刻。`native` 首先建立两份共享静态库，其余模块随后链接。构建失败会停止；具体模块日志和测试结果保存在相应 `build` 目录。
 
 也可设置环境变量 `AEPS_TOOLCHAIN`、`AEPS_PHOTOSHOP_SDK` 和可选的 `AEPS_IMGUI_ROOT`。本机路径还可写入未跟踪的 `build.local.json`：
 

@@ -1,5 +1,5 @@
 {
-  "description": "23 free, open-source native Photoshop filters inspired by After Effects: glow, chromatic dispersion, Saber-style energy, glass, noise and more. Smart Filters, fast previews, C++ / Windows x64.",
+  "description": "28 free, open-source native Photoshop filters inspired by After Effects: glow, lens flare designer, engraving, halftone, ASCII art, dithering and more. Smart Filters, fast previews, C++ / Windows x64.",
   "homepage": "https://github.com/Three-LEI/AE-to-PS-Plugins/blob/main/docs/GALLERY.md",
   "topics": [
     "photoshop",
@@ -16,6 +16,11 @@
     "windows",
     "8bf",
     "smart-filters",
-    "graphic-design"
+    "graphic-design",
+    "halftone",
+    "dithering",
+    "ascii-art",
+    "lens-flare",
+    "engraving"
   ]
 }

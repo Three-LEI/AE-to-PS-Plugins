@@ -1,10 +1,10 @@
 # 参数窗口图集 / Parameter-window gallery
 
-下图展示 23 款插件的**实际生产参数窗口**，同时包含精细效果预览、主要参数及当前数值。除首页 `social-preview.jpg` 保持原样，其余展示图均使用清晰的 PNG 参数界面截图，不再采用左右对照排版。
+下图展示0.38正式版全部28款效果的**实际生产参数窗口**，包含精细效果预览、主要参数及当前数值。首页分享封面保持，单项展示图使用PNG参数界面截图。
 
 These are actual production parameter-window captures, including the full-quality effect preview and the configured controls. The homepage cover is unchanged. Individual examples use lossless PNG window captures rather than before/after cards.
 
-[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
+[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
 
 ## 输入与复现
 
@@ -231,3 +231,43 @@ These are actual production parameter-window captures, including the full-qualit
 ![Venetian Blinds 百叶窗 — production parameter window and full effect preview](assets/effects/venetian-blinds.png)
 
 完成 45%，方向 28°，宽度 48，羽化 1.5；棋盘表示输出透明区域 / Completion 45%, direction 28°, width 48, feather 1.5; checkerboard shows output transparency.
+
+<a id="halftone"></a>
+
+## 24. Halftone 网点印刷
+
+![Halftone 网点印刷 — production parameter window and full effect preview](assets/effects/halftone.png)
+
+圆点，间距 18px，角度 25°，平滑 4px，明亮度 4，对比度 125%，伽马 0.95，深紫／浅黄双色。示例参数 / Round dots, 18px spacing, 25°, source smoothing 4px, brightness 4, contrast 125%, gamma 0.95, purple/yellow duotone. Included in 0.38.
+
+<a id="ascii-dither"></a>
+
+## 25. ASCII Dither 字符抖动
+
+![ASCII Dither 字符抖动 — production parameter window and full effect preview](assets/effects/ascii-dither.png)
+
+经典 ASCII，Consolas 粗体，宽 14px，高宽比 1.6，填充 95%，有序抖动 85%，明亮度 6，对比度 125%，伽马 1.35，绿色终端配色。示例参数 / Classic ASCII, Consolas Bold, 14px width, height ratio 1.6, fill 95%, ordered dither 85%, brightness 6, contrast 125%, gamma 1.35, green terminal palette. Included in 0.38.
+
+<a id="pixel-dither"></a>
+
+## 26. Dither 像素抖动
+
+![Dither 像素抖动 — production parameter window and full effect preview](assets/effects/pixel-dither.png)
+
+Bayer 8×8，黑白双色，像素尺寸 4，强度 100%，明亮度 3，对比度 115%，伽马 1.1。示例参数 / Bayer 8×8, black/white duotone, pixel size 4, amount 100%, brightness 3, contrast 115%, gamma 1.1. Included in 0.38.
+
+<a id="lens-flare"></a>
+
+## 27. Lens Flare 镜头耀斑／耀斑设计器
+
+![Lens Flare 镜头耀斑 — production parameter window and full effect preview](assets/effects/lens-flare.png)
+
+0.3设计器将电影蓝光公共参数转换为独立元素，选中“鬼影 4”，默认名称跟随界面语言；支持十二种元素；光源 (610,145)、光学中心 (384,384)、亮度1.15。全局及转换前参数见示例记录，元素编辑和预设格式见[本地说明](FLARE_DESIGNER_LOCAL.md)。示例参数 / Designer component 0.3 with twelve element types: Cinematic Blue converted into independent objects, Ghost 4 selected; hotspot (610,145), pivot (384,384), brightness 1.15. Included in 0.38.
+
+<a id="etching"></a>
+
+## 28. Etching 蚀刻
+
+![Etching 蚀刻 — production parameter window and full effect preview](assets/effects/etching.png)
+
+绿钞雕版预设，频率85，暗部交叉排线，两组角度30°／−20°，波形幅度0.045，亮度扭曲0.035，墨绿／浅米纸色，颗粒12%，源平滑0.8像素，伽马0.97。完整值见参数数据；[本地说明](ETCHING_LOCAL.md)。示例参数 / Green Engraving, frequency85, tonal crosshatch, angles30/-20, wave0.045, warp0.035, green ink and cream paper, grain12%, source smooth0.8px, gamma0.97. Included in 0.38.

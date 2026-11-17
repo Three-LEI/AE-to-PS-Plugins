@@ -26,4 +26,4 @@ for row in rows:
  if module=='energy':
   data=bytes.fromhex(row['geometry']);lines+=['inline void configure_geometry(energy::Inputs& inputs){',' if(!energy::decode_path(std::vector<std::uint8_t>{'+','.join(map(str,data))+'},inputs.path))throw std::runtime_error("invalid gallery path");',' inputs.name="演示椭圆路径";','}']
  (args.output/(row['slug']+'.hpp')).write_text('\n'.join(lines)+'\n','utf8')
-print('PASS: generated typed settings for 23 production parameter windows')
+print(f'PASS: generated typed settings for {len(rows)} production parameter windows')

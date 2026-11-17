@@ -1,6 +1,6 @@
 {
   "name": "AE-to-PS-Plugins",
-  "release": "0.37",
+  "release": "0.38",
   "repository": "https://github.com/Three-LEI/AE-to-PS-Plugins",
   "license": "MIT",
   "author": "淚泪泪",
@@ -20,7 +20,12 @@
     "roughen",
     "lightfx",
     "energy",
-    "blinds"
+    "blinds",
+    "halftone",
+    "ascii",
+    "dither",
+    "flare",
+    "etching"
   ],
   "development_status": "stable",
   "release_policy": {
@@ -28,5 +33,7 @@
     "trigger": "explicit-user-request",
     "channel": "stable",
     "automatic_publish": false
-  }
+  },
+  "effect_count": 28,
+  "unreleased_effects": []
 }
