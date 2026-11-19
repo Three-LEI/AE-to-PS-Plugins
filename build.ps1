@@ -1,5 +1,5 @@
 param(
- [ValidateSet('All','native','fractal','displacement','glow','chromatic','vector','patterns','cell','lens','jpeg','surface','creative','roughen','lightfx','energy','blinds','halftone','ascii','dither','flare','etching')][string]$Module='All',
+ [ValidateSet('All','native','fractal','displacement','glow','chromatic','vector','patterns','cell','lens','jpeg','surface','creative','roughen','lightfx','energy','blinds','halftone','ascii','dither','flare','etching','caustics','filmdamage','longshadow')][string]$Module='All',
  [string]$Toolchain,[string]$PhotoshopSdk,[string]$ImGui,[switch]$CoreOnly
 )
 $ErrorActionPreference='Stop'
@@ -8,7 +8,7 @@ $previous=@{};foreach($name in $names){$previous[$name]=[Environment]::GetEnviro
 try{
  if($Toolchain){$env:AEPS_TOOLCHAIN=$Toolchain};if($PhotoshopSdk){$env:AEPS_PHOTOSHOP_SDK=$PhotoshopSdk};if($ImGui){$env:AEPS_IMGUI_ROOT=$ImGui}
  $paths=& "$PSScriptRoot\scripts\resolve-build-paths.ps1" -CoreOnly:$CoreOnly
- $modules=if($Module -eq 'All'){@('native','fractal','displacement','glow','chromatic','vector','patterns','cell','lens','jpeg','surface','creative','roughen','lightfx','energy','blinds','halftone','ascii','dither','flare','etching')}else{@($Module)}
+ $modules=if($Module -eq 'All'){@('native','fractal','displacement','glow','chromatic','vector','patterns','cell','lens','jpeg','surface','creative','roughen','lightfx','energy','blinds','halftone','ascii','dither','flare','etching','caustics','filmdamage','longshadow')}else{@($Module)}
  if(!$CoreOnly -and $Module -ne 'All' -and $Module -ne 'native' -and (!(Test-Path -LiteralPath "$PSScriptRoot\native\build\library_ui.lib") -or !(Test-Path -LiteralPath "$PSScriptRoot\native\build\psui.lib"))){throw 'Run the root build.ps1 once with -Module native to build shared UI libraries first.'}
  Push-Location $PSScriptRoot
  try{foreach($entry in $modules){Write-Output "Building $entry (CoreOnly=$CoreOnly)";& "$PSScriptRoot\$entry\build.ps1" -CoreOnly:$CoreOnly}}finally{Pop-Location}

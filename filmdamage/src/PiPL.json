@@ -1,0 +1,496 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Film Damage",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 5,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuFilmDamageReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/FilmDamage=Film Damage 胶片损伤",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpFD"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Film Damage",
+                "EventDescription": "Editable Film Damage",
+                "ClassID": "ZpEf",
+                "EventType": "ZpFD",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "grain",
+                    "ParamKeyword": "Zk00",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain"
+                  },
+                  {
+                    "ParamName": "grain_size",
+                    "ParamKeyword": "Zk01",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_size"
+                  },
+                  {
+                    "ParamName": "grain_color",
+                    "ParamKeyword": "Zk02",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_color"
+                  },
+                  {
+                    "ParamName": "grain_darks",
+                    "ParamKeyword": "Zk03",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_darks"
+                  },
+                  {
+                    "ParamName": "grain_lights",
+                    "ParamKeyword": "Zk04",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_lights"
+                  },
+                  {
+                    "ParamName": "saturation",
+                    "ParamKeyword": "Zk05",
+                    "ParamType": "doub",
+                    "ParamDescription": "saturation"
+                  },
+                  {
+                    "ParamName": "contrast",
+                    "ParamKeyword": "Zk06",
+                    "ParamType": "doub",
+                    "ParamDescription": "contrast"
+                  },
+                  {
+                    "ParamName": "exposure",
+                    "ParamKeyword": "Zk07",
+                    "ParamType": "doub",
+                    "ParamDescription": "exposure"
+                  },
+                  {
+                    "ParamName": "fade",
+                    "ParamKeyword": "Zk08",
+                    "ParamType": "doub",
+                    "ParamDescription": "fade"
+                  },
+                  {
+                    "ParamName": "dust_size",
+                    "ParamKeyword": "Zk09",
+                    "ParamType": "doub",
+                    "ParamDescription": "dust_size"
+                  },
+                  {
+                    "ParamName": "dust_opacity",
+                    "ParamKeyword": "Zk0A",
+                    "ParamType": "doub",
+                    "ParamDescription": "dust_opacity"
+                  },
+                  {
+                    "ParamName": "dust_white",
+                    "ParamKeyword": "Zk0B",
+                    "ParamType": "doub",
+                    "ParamDescription": "dust_white"
+                  },
+                  {
+                    "ParamName": "hair_width",
+                    "ParamKeyword": "Zk0C",
+                    "ParamType": "doub",
+                    "ParamDescription": "hair_width"
+                  },
+                  {
+                    "ParamName": "hair_length",
+                    "ParamKeyword": "Zk0D",
+                    "ParamType": "doub",
+                    "ParamDescription": "hair_length"
+                  },
+                  {
+                    "ParamName": "hair_curl",
+                    "ParamKeyword": "Zk0E",
+                    "ParamType": "doub",
+                    "ParamDescription": "hair_curl"
+                  },
+                  {
+                    "ParamName": "hair_opacity",
+                    "ParamKeyword": "Zk0F",
+                    "ParamType": "doub",
+                    "ParamDescription": "hair_opacity"
+                  },
+                  {
+                    "ParamName": "scratch_width",
+                    "ParamKeyword": "Zk10",
+                    "ParamType": "doub",
+                    "ParamDescription": "scratch_width"
+                  },
+                  {
+                    "ParamName": "scratch_length",
+                    "ParamKeyword": "Zk11",
+                    "ParamType": "doub",
+                    "ParamDescription": "scratch_length"
+                  },
+                  {
+                    "ParamName": "scratch_opacity",
+                    "ParamKeyword": "Zk12",
+                    "ParamType": "doub",
+                    "ParamDescription": "scratch_opacity"
+                  },
+                  {
+                    "ParamName": "scratch_white",
+                    "ParamKeyword": "Zk13",
+                    "ParamType": "doub",
+                    "ParamDescription": "scratch_white"
+                  },
+                  {
+                    "ParamName": "scratch_roughness",
+                    "ParamKeyword": "Zk14",
+                    "ParamType": "doub",
+                    "ParamDescription": "scratch_roughness"
+                  },
+                  {
+                    "ParamName": "scratch_gaps",
+                    "ParamKeyword": "Zk15",
+                    "ParamType": "doub",
+                    "ParamDescription": "scratch_gaps"
+                  },
+                  {
+                    "ParamName": "scratch_angle",
+                    "ParamKeyword": "Zk16",
+                    "ParamType": "doub",
+                    "ParamDescription": "scratch_angle"
+                  },
+                  {
+                    "ParamName": "scratch_center",
+                    "ParamKeyword": "Zk17",
+                    "ParamType": "doub",
+                    "ParamDescription": "scratch_center"
+                  },
+                  {
+                    "ParamName": "scratch_spread",
+                    "ParamKeyword": "Zk18",
+                    "ParamType": "doub",
+                    "ParamDescription": "scratch_spread"
+                  },
+                  {
+                    "ParamName": "stain_size",
+                    "ParamKeyword": "Zk19",
+                    "ParamType": "doub",
+                    "ParamDescription": "stain_size"
+                  },
+                  {
+                    "ParamName": "stain_opacity",
+                    "ParamKeyword": "Zk1A",
+                    "ParamType": "doub",
+                    "ParamDescription": "stain_opacity"
+                  },
+                  {
+                    "ParamName": "shake",
+                    "ParamKeyword": "Zk1B",
+                    "ParamType": "doub",
+                    "ParamDescription": "shake"
+                  },
+                  {
+                    "ParamName": "tilt",
+                    "ParamKeyword": "Zk1C",
+                    "ParamType": "doub",
+                    "ParamDescription": "tilt"
+                  },
+                  {
+                    "ParamName": "defocus",
+                    "ParamKeyword": "Zk1D",
+                    "ParamType": "doub",
+                    "ParamDescription": "defocus"
+                  },
+                  {
+                    "ParamName": "flicker",
+                    "ParamKeyword": "Zk1E",
+                    "ParamType": "doub",
+                    "ParamDescription": "flicker"
+                  },
+                  {
+                    "ParamName": "vignette",
+                    "ParamKeyword": "Zk1F",
+                    "ParamType": "doub",
+                    "ParamDescription": "vignette"
+                  },
+                  {
+                    "ParamName": "vignette_radius",
+                    "ParamKeyword": "Zk20",
+                    "ParamType": "doub",
+                    "ParamDescription": "vignette_radius"
+                  },
+                  {
+                    "ParamName": "vignette_softness",
+                    "ParamKeyword": "Zk21",
+                    "ParamType": "doub",
+                    "ParamDescription": "vignette_softness"
+                  },
+                  {
+                    "ParamName": "leak",
+                    "ParamKeyword": "Zk22",
+                    "ParamType": "doub",
+                    "ParamDescription": "leak"
+                  },
+                  {
+                    "ParamName": "leak_angle",
+                    "ParamKeyword": "Zk23",
+                    "ParamType": "doub",
+                    "ParamDescription": "leak_angle"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Zk24",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  },
+                  {
+                    "ParamName": "tint_0",
+                    "ParamKeyword": "Zk25",
+                    "ParamType": "doub",
+                    "ParamDescription": "tint_0"
+                  },
+                  {
+                    "ParamName": "tint_1",
+                    "ParamKeyword": "Zk26",
+                    "ParamType": "doub",
+                    "ParamDescription": "tint_1"
+                  },
+                  {
+                    "ParamName": "tint_2",
+                    "ParamKeyword": "Zk27",
+                    "ParamType": "doub",
+                    "ParamDescription": "tint_2"
+                  },
+                  {
+                    "ParamName": "stain_color_0",
+                    "ParamKeyword": "Zk28",
+                    "ParamType": "doub",
+                    "ParamDescription": "stain_color_0"
+                  },
+                  {
+                    "ParamName": "stain_color_1",
+                    "ParamKeyword": "Zk29",
+                    "ParamType": "doub",
+                    "ParamDescription": "stain_color_1"
+                  },
+                  {
+                    "ParamName": "stain_color_2",
+                    "ParamKeyword": "Zk2A",
+                    "ParamType": "doub",
+                    "ParamDescription": "stain_color_2"
+                  },
+                  {
+                    "ParamName": "dust",
+                    "ParamKeyword": "Zk2B",
+                    "ParamType": "long",
+                    "ParamDescription": "dust"
+                  },
+                  {
+                    "ParamName": "hairs",
+                    "ParamKeyword": "Zk2C",
+                    "ParamType": "long",
+                    "ParamDescription": "hairs"
+                  },
+                  {
+                    "ParamName": "scratches",
+                    "ParamKeyword": "Zk2D",
+                    "ParamType": "long",
+                    "ParamDescription": "scratches"
+                  },
+                  {
+                    "ParamName": "stains",
+                    "ParamKeyword": "Zk2E",
+                    "ParamType": "long",
+                    "ParamDescription": "stains"
+                  },
+                  {
+                    "ParamName": "variation",
+                    "ParamKeyword": "Zk2F",
+                    "ParamType": "long",
+                    "ParamDescription": "variation"
+                  },
+                  {
+                    "ParamName": "edge",
+                    "ParamKeyword": "Zk30",
+                    "ParamType": "long",
+                    "ParamDescription": "edge"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Zk31",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "grain_mono",
+                    "ParamKeyword": "Zk32",
+                    "ParamType": "bool",
+                    "ParamDescription": "grain_mono"
+                  },
+                  {
+                    "ParamName": "flip",
+                    "ParamKeyword": "Zk33",
+                    "ParamType": "bool",
+                    "ParamDescription": "flip"
+                  },
+                  {
+                    "ParamName": "preserve_alpha",
+                    "ParamKeyword": "Zk34",
+                    "ParamType": "bool",
+                    "ParamDescription": "preserve_alpha"
+                  },
+                  {
+                    "ParamName": "grain_softness",
+                    "ParamKeyword": "Zk35",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_softness"
+                  },
+                  {
+                    "ParamName": "halation",
+                    "ParamKeyword": "Zk36",
+                    "ParamType": "doub",
+                    "ParamDescription": "halation"
+                  },
+                  {
+                    "ParamName": "halation_radius",
+                    "ParamKeyword": "Zk37",
+                    "ParamType": "doub",
+                    "ParamDescription": "halation_radius"
+                  },
+                  {
+                    "ParamName": "halation_threshold",
+                    "ParamKeyword": "Zk38",
+                    "ParamType": "doub",
+                    "ParamDescription": "halation_threshold"
+                  },
+                  {
+                    "ParamName": "damage_variation",
+                    "ParamKeyword": "Zk39",
+                    "ParamType": "long",
+                    "ParamDescription": "damage_variation"
+                  },
+                  {
+                    "ParamName": "stain_texture",
+                    "ParamKeyword": "Zk3A",
+                    "ParamType": "doub",
+                    "ParamDescription": "stain_texture"
+                  },
+                  {
+                    "ParamName": "stain_edge_roughness",
+                    "ParamKeyword": "Zk3B",
+                    "ParamType": "doub",
+                    "ParamDescription": "stain_edge_roughness"
+                  },
+                  {
+                    "ParamName": "stain_edge_size",
+                    "ParamKeyword": "Zk3C",
+                    "ParamType": "doub",
+                    "ParamDescription": "stain_edge_size"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

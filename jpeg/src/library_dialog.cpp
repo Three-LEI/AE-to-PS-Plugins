@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "jpeg_host.hpp"
 #include "psui/library_panel.hpp"
+#include "psui/image_bounds.hpp"
 #include "psui/adaptive_preview.hpp"
 #include "psui/preview_background.hpp"
 #include <cmath>
@@ -21,7 +22,7 @@ struct Context {
  psui::ProxyImage adaptive_selection_geometry;std::vector<float> adaptive_selection;
  psui::AdaptivePreview<psui::SpatialFrame<Image>> worker;
  Context(Parameters values,FilterRecord* f,const Image& src,const std::vector<psui::HostLayer>& ls):p(values),host(f),source(src),layers(ls){for(int i=0;i<6;++i)if(p==jpegfx::preset(i))preset=i+1;}
- bool read_mask(){worker.stop();adaptive_cache.clear();mask={};if(!p.mask_key)return true;const psui::HostLayer* selected=nullptr;for(const auto& l:layers)if(l.name_key==p.mask_key){if(selected)return false;selected=&l;}if(!selected)return false;psui::LayerPixels pixels;if(psui::host_read_layer(host,*selected,host->documentInfo->bounds,0,pixels))return false;mask=from_host(std::move(pixels));return true;}
+ bool read_mask(){worker.stop();adaptive_cache.clear();mask={};if(!p.mask_key)return true;const psui::HostLayer* selected=nullptr;for(const auto& l:layers)if(l.name_key==p.mask_key){if(selected)return false;selected=&l;}if(!selected)return false;psui::LayerPixels pixels;if(psui::host_read_reference(host,*selected,pixels))return false;mask=from_host(std::move(pixels));return true;}
 };
 #include "preview_update.inc"
 bool mask_control(psui::LibraryPanel& ui,Context& c){
@@ -35,7 +36,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.parameter_defaults(c.p,Parameters{});auto& p=c.p;const float s=ui.scale();bool changed=false,preset_changed=false;
  ImGui::BeginChild("preview-side",{220*s,0},0,ImGuiWindowFlags_NoScrollbar);
  const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-130*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ c.view.configure(psui::filter_document_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-130*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
  ui.items["jpeg.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
 

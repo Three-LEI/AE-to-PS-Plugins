@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "../../native/common/filter_runtime.hpp"
 #include "displacement_host.hpp"
+#include "psui/image_bounds.hpp"
 #include "displacement_info.hpp"
 #include <algorithm>
 #include <cmath>
@@ -78,7 +79,7 @@ int16 start(FilterRecord* f,intptr_t* data){
   if(map==layers.end())map=layers.begin();p.layer_id=map->id;
  }
  p.layer_id=map->id;p.layer_name_key=map->name_key;
- psui::LayerPixels source;auto error=psui::host_read_layer(f,target,f->documentInfo->bounds,0,source);
+ psui::LayerPixels source;auto error=psui::host_read_layer(f,target,psui::target_read_bounds(f),0,source);
  if(error)return error;
  session->source=displacement::from_host(std::move(source));
  if(interactive){
@@ -86,7 +87,7 @@ int16 start(FilterRecord* f,intptr_t* data){
   const auto answer=displacement::show_dialog(instance,parent,f,layers,session->source,p,session->map);
   if(answer!=IDOK)return answer==-1?filterBadParameters:userCanceledErr;
  }else{
-  psui::LayerPixels pixels;error=psui::host_read_layer(f,*map,displacement::layer_bounds(*map),0,pixels);
+  psui::LayerPixels pixels;error=psui::host_read_reference(f,*map,pixels);
   if(error)return error;session->map=displacement::from_host(std::move(pixels));
  }
  if(const auto error=Store::write_descriptor(f,layers,p))return error;
@@ -102,7 +103,8 @@ int16 render(FilterRecord* f,Session& s){
  if(w<=0||h<=0||!f->outData||f->outRowBytes<w*channels*bytes||
    (f->outColumnBytes&&f->outColumnBytes!=channels*bytes)||(f->outPlaneBytes&&f->outPlaneBytes!=bytes))return filterBadParameters;
  s.tile.resize(std::size_t(w)*h*4);
- if(!displacement::render(s.source,s.map,s.saved.values,{double(r.left),double(r.top),1,w,h},s.tile.data()))return filterBadParameters;
+ const auto doc=psui::filter_to_document(f,r);
+ if(!displacement::render(s.source,s.map,s.saved.values,{double(doc.left),double(doc.top),1,w,h},s.tile.data()))return filterBadParameters;
  for(int y=0;y<h;++y)for(int x=0;x<w;++x)for(int k=0;k<channels;++k){
   const float value=s.tile[(std::size_t(y)*w+x)*4+k];
   auto* out=static_cast<std::uint8_t*>(f->outData)+std::size_t(y)*f->outRowBytes+(x*channels+k)*bytes;

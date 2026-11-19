@@ -33,7 +33,7 @@ template<class Effect> struct GeneratorRuntime {
  static int16 next(FilterRecord* f,Session& session){
   const auto r=f->bigDocumentData?f->bigDocumentData->outRect32:VRect{f->outRect.top,f->outRect.left,f->outRect.bottom,f->outRect.right};
   if(r.right<=r.left||r.bottom<=r.top)return filterBadParameters;
-  auto error=Effect::generate(f,r,session.saved.values,session.output);if(error)return error;
+  auto error=Effect::generate(f,psui::filter_to_document(f,r),session.saved.values,session.output);if(error)return error;
   error=Base::write_tile(f,session);
   if(!error&&f->progressProc){const auto all=Store::full_rect(f);f->progressProc(r.bottom-all.top,std::max(1,all.bottom-all.top));}
   return error;

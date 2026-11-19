@@ -223,5 +223,29 @@
     "file": "ZaYuEtching.8bf",
     "module": "etching",
     "development_status": "stable"
+  },
+  {
+    "name": "Caustics 焦散",
+    "version": "0.2-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuCaustics.8bf",
+    "module": "caustics",
+    "development_status": "stable"
+  },
+  {
+    "name": "Film Damage 胶片损伤",
+    "version": "0.5-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuFilmDamage.8bf",
+    "module": "filmdamage",
+    "development_status": "stable"
+  },
+  {
+    "name": "Long Shadow 长投影",
+    "version": "0.3-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuLongShadow.8bf",
+    "module": "longshadow",
+    "development_status": "stable"
   }
 ]

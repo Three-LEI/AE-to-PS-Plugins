@@ -1,6 +1,6 @@
 # Lens Flare 耀斑设计器（0.38收录）
 
-**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
+**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
 
 在现有 Lens Flare 镜头耀斑中，继续完善参考 Optical Flares 的独立元素组合工作流。现随0.38正式版分发，整包共28款／21模块。
 
@@ -28,7 +28,7 @@
 
 参数及元素名称、类型、顺序、可见性随智能滤镜保存到PSD，重开无需依赖本机预设文件。0.38起采用版本2元素快照作为发布接口；更早的未发布试验PSD和预设不承诺回读。旧试验文件不会被主动修改。
 
-[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)中包含 `ZaYuLensFlare.8bf`，关闭PS后替换同名文件再启动。本机PS2020／2026已安装（2026仅安装）。PS2020 21.2.9验证当前格式的RGB8／16／32普通输出、PSD保存、新进程重开与重算；Win7／CC2018保留旧系统路径，仍需外机复测。记录见本地 `evidence/flare-v03/qa.json`。
+[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)中包含 `ZaYuLensFlare.8bf`，关闭PS后替换同名文件再启动。本机PS2020／2026已安装（2026仅安装）。PS2020 21.2.9验证当前格式的RGB8／16／32普通输出、PSD保存、新进程重开与重算；Win7／CC2018保留旧系统路径，仍需外机复测。记录见本地 `evidence/flare-v03/qa.json`。
 
 外部遮挡层修改后仍需手动重新进入刷新；完整输出仍使用CPU和公共自适应预览。当前实现包含独立二维元素和预设管理；纹理对象、渐变曲线、AE三维灯光与跟踪可另行扩展。
 

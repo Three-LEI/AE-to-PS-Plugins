@@ -18,7 +18,7 @@
 ./build.ps1 -Toolchain 'C:/Dev/llvm-mingw/bin' -PhotoshopSdk 'C:/Dev/photoshop-cpp-sdk/pluginsdk'
 ```
 
-0.38依次构建21个模块，输出28款`.8bf`到各模块的`build`目录，包含网点、字符／像素抖动、耀斑设计器和蚀刻。`native` 首先建立两份共享静态库，其余模块随后链接。构建失败会停止；具体模块日志和测试结果保存在相应 `build` 目录。
+0.39依次构建24个模块，输出31款`.8bf`到各模块的`build`目录，包含焦散、胶片损伤、长投影、网点、字符／像素抖动、耀斑设计器和蚀刻。`native` 首先建立两份共享静态库，其余模块随后链接。构建失败会停止；具体模块日志和测试结果保存在相应 `build` 目录。
 
 也可设置环境变量 `AEPS_TOOLCHAIN`、`AEPS_PHOTOSHOP_SDK` 和可选的 `AEPS_IMGUI_ROOT`。本机路径还可写入未跟踪的 `build.local.json`：
 
@@ -58,6 +58,8 @@ python scripts/set-repository.py https://github.com/your-account/your-repository
 
 这会同步 `project.json` 与编译期头文件 `source_repository.hpp`。重新构建所有插件后，“开源地址”才会指向新位置。不会改效果参数或生成公式。
 
+本机开发新增 `caustics`、`filmdamage` 与 `longshadow` 模块；可以单独运行 `./build.ps1 -Module caustics` 或追加 `-CoreOnly`。0.39发行包已包含这三款。
+
 ## 安装与发布
 
 关闭 Photoshop，备份同名插件，再把所需 `.8bf` 放入 Photoshop 的 `Plug-ins` 目录。不要把 SDK、工具链、`.lib` 或测试程序放入插件目录。
@@ -71,3 +73,5 @@ python scripts/set-repository.py https://github.com/your-account/your-repository
 `qa/build-locale-probe.ps1 -Report <本地报告>`构建维护者专用语言诊断滤镜，记录原生属性和兼容路径返回值。该测试滤镜不进入发行整包，临时安装验证后应移除。
 
 0.36参数保存升级使用`qa/verify-persistence.py`审查；`qa/check-parameter-fields.py`独立核对逻辑参数覆盖，`qa/run-parameter-store.ps1`生成非默认夹具并验证类型化读写和失败路径，`qa/run-font-reset.ps1`检查实际图层名字形及重置操作。真实宿主的创建／重开测试见[PARAMETER_PERSISTENCE.md](PARAMETER_PERSISTENCE.md)。这些工具不属于插件运行依赖。
+
+0.39已收录[画布外内容](OFFCANVAS_FIX_LOCAL.md)与[完整参考图层](REFERENCE_LAYERS_LOCAL.md)两项公共修复，与效果算法和参数格式独立。

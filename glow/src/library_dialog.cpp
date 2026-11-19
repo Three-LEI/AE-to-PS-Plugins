@@ -3,6 +3,7 @@
 #include "glow_host.hpp"
 #include "glow_render_cache.hpp"
 #include "psui/library_panel.hpp"
+#include "psui/image_bounds.hpp"
 #include "psui/adaptive_preview.hpp"
 #include "psui/preview_background.hpp"
 #include <algorithm>
@@ -62,7 +63,7 @@ struct Context {
   const psui::HostLayer* selected=nullptr;
   for(const auto& l:layers)if(l.name_key==key){if(selected)return false;selected=&l;}
   if(!selected)return false;
-  psui::LayerPixels pixels;if(psui::host_read_layer(host,*selected,host->documentInfo->bounds,0,pixels))return false;
+  psui::LayerPixels pixels;if(psui::host_read_reference(host,*selected,pixels))return false;
   image=from_host(std::move(pixels));return true;
  }
 };
@@ -106,7 +107,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  const float s=ui.scale();bool changed=false;auto& p=c.p;const bool deep=p.kind==Kind::deep;
  ImGui::BeginChild("preview-side",{200*s,0},0,ImGuiWindowFlags_NoScrollbar);
  const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),200*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-157*s,100*s,200*s));
+ c.view.configure(psui::filter_document_bounds(c.host),200*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-157*s,100*s,200*s));
  update(ui,c);ui.image_view(c.view,c.proxy);
  ui.items["glow.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);

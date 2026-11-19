@@ -1,4 +1,4 @@
-$ErrorActionPreference='Stop'
+﻿$ErrorActionPreference='Stop'
 $uiProject=Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 foreach($uiEntry in @('native/src/tint_library_dialog.cpp','fractal/src/library_dialog.cpp','displacement/src/library_dialog.cpp','glow/src/library_dialog.cpp','chromatic/src/library_dialog.cpp','vector/src/library_dialog.cpp','patterns/src/library_dialog.cpp','cell/src/library_dialog.cpp','lens/src/library_dialog.cpp')){
  $uiCode=[IO.File]::ReadAllText((Join-Path $uiProject $uiEntry),[Text.Encoding]::UTF8)

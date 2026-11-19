@@ -1,10 +1,10 @@
 # 参数窗口图集 / Parameter-window gallery
 
-下图展示0.38正式版全部28款效果的**实际生产参数窗口**，包含精细效果预览、主要参数及当前数值。首页分享封面保持，单项展示图使用PNG参数界面截图。
+本工作区展示 31 款效果，均已随 0.39 发布。下图均为**实际生产参数窗口**，包含精细效果预览、主要参数及当前数值。首页分享封面保持，单项展示图使用PNG参数界面截图。
 
 These are actual production parameter-window captures, including the full-quality effect preview and the configured controls. The homepage cover is unchanged. Individual examples use lossless PNG window captures rather than before/after cards.
 
-[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
+[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
 
 ## 输入与复现
 
@@ -47,6 +47,14 @@ These are actual production parameter-window captures, including the full-qualit
 - [Shine 放射光束](#shine)
 - [Saber 能量光束](#saber)
 - [Venetian Blinds 百叶窗](#venetian-blinds)
+- [Halftone 网点印刷](#halftone)
+- [ASCII Dither 字符抖动](#ascii-dither)
+- [Dither 像素抖动](#pixel-dither)
+- [Lens Flare 镜头耀斑／耀斑设计器](#lens-flare)
+- [Etching 蚀刻](#etching)
+- [Caustics 焦散](#caustics)
+- [Film Damage 胶片损伤](#film-damage)
+- [Long Shadow 长投影](#long-shadow)
 
 <a id="tint"></a>
 
@@ -271,3 +279,27 @@ Bayer 8×8，黑白双色，像素尺寸 4，强度 100%，明亮度 3，对比�
 ![Etching 蚀刻 — production parameter window and full effect preview](assets/effects/etching.png)
 
 绿钞雕版预设，频率85，暗部交叉排线，两组角度30°／−20°，波形幅度0.045，亮度扭曲0.035，墨绿／浅米纸色，颗粒12%，源平滑0.8像素，伽马0.97。完整值见参数数据；[本地说明](ETCHING_LOCAL.md)。示例参数 / Green Engraving, frequency85, tonal crosshatch, angles30/-20, wave0.045, warp0.035, green ink and cream paper, grain12%, source smooth0.8px, gamma0.97. Included in 0.38.
+
+<a id="caustics"></a>
+
+## 29. Caustics 焦散
+
+![Caustics production parameter window and full effect preview](assets/effects/caustics.png)
+
+使用维护者授权照片。0.2新实例默认值：内置自然水波，尺寸160、波高18、水深120、聚焦1.5、柔化1.5、光纹强度100%、折射扭曲100%；全部保存字段见参数数据。0.39 正式收录。[使用说明](CAUSTICS_LOCAL.md)
+
+<a id="film-damage"></a>
+
+## 30. Film Damage 胶片损伤
+
+![Film Damage 胶片损伤 — production parameter window and full effect preview](assets/effects/film-damage.png)
+
+使用维护者授权照片，放映机损伤风格：颗粒18%、灰尘220处、划痕16条、毛发5条、污渍6处，随机种子413、样式变化12。0.39 正式收录。[使用说明](FILMDAMAGE_LOCAL.md)
+
+<a id="long-shadow"></a>
+
+## 31. Long Shadow 长投影
+
+![Long Shadow 长投影 — production parameter window and full effect preview](assets/effects/long-shadow.png)
+
+透明文字与圆形演示：方向45°，长度320像素，不透明度82%，扩张2像素，尾部渐隐35%，远端模糊14像素，纯色深蓝阴影。示例参数 / Transparent text and circle, angle 45°, length 320 px, opacity 82%, expansion 2 px, tail fade 35%, far blur 14 px, deep blue solid shadow. Included in 0.39.

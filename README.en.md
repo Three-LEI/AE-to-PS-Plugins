@@ -1,38 +1,38 @@
-<p align="center"><img src="docs/assets/social-preview.jpg" alt="28 open-source native Photoshop filters inspired by After Effects" width="1280"></p>
+<p align="center"><img src="docs/assets/social-preview.jpg" alt="AE to PS — 31 native Photoshop filters" width="1280"></p>
 
 # AE-to-PS-Plugins
 
-**28 free, open-source native Photoshop filters for glow, chromatic dispersion, energy, glass, procedural textures and distortion.**
+**Bring familiar After Effects effects to Photoshop: 31 free, open-source native Windows filters.**
 
 English · [简体中文](README.md)
 
-![Release](https://img.shields.io/badge/release-0.38-blue) ![Platform](https://img.shields.io/badge/Windows-x64-0078D4) ![Code license](https://img.shields.io/badge/code-MIT-green)
+**Stable 0.39** adds **Caustics**, **Film Damage** and **Long Shadow** to the 28 filters in 0.38, and fixes filters on pixel layers that extend beyond the canvas as well as full-bounds reading of external reference layers.
 
-Independent implementations inspired by familiar After Effects effects. Work inside Photoshop with editable Smart Filters, Chinese/English controls, individual parameter resets and fast previews that refine after dragging stops.
+![Release](https://img.shields.io/badge/release-0.39-blue) ![Platform](https://img.shields.io/badge/Windows-x64-0078D4) ![Code license](https://img.shields.io/badge/code-MIT-green)
 
-**Stable 0.38** adds Halftone, ASCII Dither, Pixel Dither, Lens Flare Designer and Etching, plus appearance-preserving Starglow/Shine performance improvements. Previous stable releases remain available.
+Glow, dispersion, energy beams, glass, procedural textures and distortion inside Photoshop. Editable Smart Filters, Chinese/English controls, blue per-parameter resets, and previews that refine after dragging stops.
 
-**[Download Windows plugins](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)** · [Release notes](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.38) · **[All 28 parameter-window examples](docs/GALLERY.md)** · [Effect catalog](docs/EFFECTS.md)
+**[Download Windows plugins](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)** · [Release notes](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/tag/v0.39) · **[All 31 parameter-window examples](docs/GALLERY.md)** · [Effect catalog](docs/EFFECTS.md)
 
 ## Parameter-window examples
 
+### Caustics
+
+![Caustics caustic light and underwater refraction parameter window](docs/assets/effects/caustics.png)
+
+### Long Shadow
+
+![Long Shadow directional shadow parameter window](docs/assets/effects/long-shadow.png)
+
 ### Etching · Green Engraving
 
-![Etching effect and parameter window](docs/assets/effects/etching.png)
+![Etching engraving effect and parameter window](docs/assets/effects/etching.png)
 
 ### Lens Flare Designer
 
 ![Lens Flare designer and parameter window](docs/assets/effects/lens-flare.png)
 
-Actual production parameter windows show the effect preview together with its configured controls. The cover is unchanged; see [all 23 windows](docs/GALLERY.md) for inputs and settings. The standalone capture tool uses the same production dialog and preview code without changing personal Photoshop documents.
-
-### Deep Glow
-
-![Deep Glow parameter window and effect preview](docs/assets/effects/deep-glow.png)
-
-### Saber energy
-
-![Saber parameter window and effect preview](docs/assets/effects/saber.png)
+Actual production parameter windows show the effect preview together with its configured controls. See [all 31 windows](docs/GALLERY.md) for inputs and settings. The cover is unchanged.
 
 ## Install
 
@@ -52,29 +52,30 @@ Both Windows and Photoshop must be 64-bit. End users do not need After Effects, 
 | Print and stylization | Halftone, ASCII Dither, Pixel Dither, Etching |
 | Textures | Fractal Noise, Cell Pattern, Grid, Checkerboard, JPEG Damage |
 | Distortion and surfaces | Displacement Map, Vector Blur, Turbulent Displace, Blobbylize, Glass, Kaleida |
+| Water and light | Caustics |
+| Film and mood | Film Damage |
+| Shapes and shadows | Long Shadow |
 | Edges and masks | Roughen Edges, Venetian Blinds |
 
 Chromatic Dispersion includes spectral warp and prism defocus modes. Saber supports endpoints, paths, Alpha inputs and 16 original presets. Most filters support RGB8/16/32; Tint currently supports RGB8 only.
 
-## What changed in 0.38
+## What changed in 0.39
 
-- **[Halftone](docs/HALFTONE_LOCAL.md)**: round, square, diamond and line screens, with duotone or transparent output.
-- **[ASCII Dither](docs/ASCII_LOCAL.md)**: four character sets, system fonts, color options and dithering.
-- **[Pixel Dither](docs/DITHER_LOCAL.md)**: ordered patterns, Floyd–Steinberg, Atkinson and retro palettes.
-- **[Lens Flare Designer](docs/FLARE_DESIGNER_LOCAL.md)**: twelve element types, visual insertion, drag ordering, guarded shortcuts, undo/redo, twelve original presets and portable preset files. Cached 640×400 previews support hover enlargement.
-- **[Etching](docs/ETCHING_LOCAL.md)**: variable-width line sets, wave/luminance distortion, contours, ink/paper colors and six engraving looks.
-- **Starglow/Shine performance**: parallel rotated-star rendering and cached ray stages for opacity/blending edits, retaining appearance. [Measurements](docs/LIGHTFX_PERFORMANCE_LOCAL.md)
+- **[Caustics 0.2](docs/CAUSTICS_LOCAL.md)**: caustic light and background refraction with independent controls, three built-in wave sets, current/external height maps, six presets and four outputs. New instances enable background refraction by default, with a “light-only” preset.
+- **[Film Damage 0.5](docs/FILMDAMAGE_LOCAL.md)**: grain, dust, hair, stains, scratches, tone, vignette, light leak, defocus and static jitter; eight presets and 53 saved fields. Adds stain edge size.
+- **[Long Shadow 0.3](docs/LONGSHADOW_LOCAL.md)**: alpha-driven directional shadows with source-color stretching, start gap, near/far blur, tail fade, source crop and rectangle/ellipse masks; five presets.
+- **Off-canvas fix**: pixel layers extending beyond the canvas no longer error, clip or shift. Reads, writes, generator blending and previews use document coordinates; the selection `floatCoord` reset is fixed.
+- **Full reference layers**: ten filters read external reference content by channel bounds, preserving document coordinates and Displacement Map placement. In-canvas output is unchanged.
+- **Screenshots**: all 31 filters now have production parameter-window captures; the release also includes a 31-image lossless PNG archive.
 
-[Full 0.38 release notes](docs/RELEASE_0.38.md). Install from Windows-x64.zip; source archives require compilation.
+[Full 0.39 release notes](docs/RELEASE_0.39.md). Install from Windows-x64.zip; source archives require compilation.
 
 ## Compatibility and limits
 
-- **PS2020 21.2.9 on the development Windows 11 PC:** output, undo, persistence, new-process reopening and recalculation for the five additions; pixel comparisons for Starglow/Shine. The other 21 binaries are unchanged from 0.37.
+- **PS2020 21.2.9 on the development Windows 11 PC:** RGB8/16/32, Smart Filter instances, reopening, recalculation, undo and bilingual/DPI checks for the three additions; the shared coordinate fix passed 680 ordinary cases and 536 move/apply/move-back comparisons.
 - **PS2026 27.7.0:** this package is installed; no new full native regression claim for this round.
-- **Windows 7 + CC2018:** the user confirmed the earlier local 0.7 bundle works. Compatibility paths are retained; version0.38 still needs external retesting.
+- **Windows 7 + CC2018:** earlier bundles have user feedback; 0.39 keeps the legacy loading and DPI paths but still needs external retesting.
 - Other combinations are not comprehensively tested.
-
-Lens Flare uses element snapshot format 2 starting with this release; earlier unpublished experimental PSDs/presets are not a compatibility target.
 
 Effects use the **CPU**; the GPU draws the UI and displays previews. These are independent approximations, with no guarantee of pixel or random-seed equivalence to the original effects. Some effects cannot expand the canvas. Changes to external Glass/Blobbylize reference layers require reopening the filter. Previously unsaved parameters cannot be recovered retroactively.
 
@@ -84,8 +85,7 @@ Effects use the **CPU**; the GPU draws the UI and displays previews. These are i
 
 Development stays local until the maintainer explicitly requests a GitHub update. Publications are stable releases. [Release policy](docs/RELEASE_POLICY.md)
 
-
-C++20, LLVM-MinGW, Win32, Dear ImGui and D3D11; 21 modules. CPU tests do not require Photoshop or its SDK:
+C++20, LLVM-MinGW, Win32, Dear ImGui and D3D11; 24 modules. CPU tests do not require Photoshop or its SDK:
 
 ```powershell
 ./build.ps1 -CoreOnly -Toolchain 'C:/Dev/llvm-mingw/bin'

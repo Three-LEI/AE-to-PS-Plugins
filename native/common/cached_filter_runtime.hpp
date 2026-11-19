@@ -1,6 +1,7 @@
 #pragma once
 #include "filter_runtime.hpp"
 #include "psui/host_layers.hpp"
+#include "psui/image_bounds.hpp"
 #include <cmath>
 #include <memory>
 namespace psfilter {
@@ -31,7 +32,7 @@ template<class Effect> struct CachedRuntime {
   image={};if(!key)return noErr;const psui::HostLayer* found=nullptr;
   for(const auto& layer:layers)if(layer.name_key==key){if(found)return report(f,"Multiple layers have the saved input name. Reopen the filter and choose its input again.");found=&layer;}
   if(!found)return report(f,"The saved input layer is missing. Reopen the filter and choose its input again.");
-  psui::LayerPixels pixels;const auto error=psui::host_read_layer(f,*found,f->documentInfo->bounds,0,pixels);
+  psui::LayerPixels pixels;const auto error=psui::host_read_reference(f,*found,pixels);
   if(!error)image=Effect::from_host(std::move(pixels));return error;
  }
  static int16 start(HINSTANCE module,FilterRecord* f,intptr_t* data){
@@ -45,8 +46,8 @@ template<class Effect> struct CachedRuntime {
   target.alpha=f->documentInfo->targetTransparency;if(!target.rgb[2])return report(f,"Select a readable RGB pixel layer before opening this filter.");
   auto session=std::make_unique<Session>();session->saved.values=Effect::defaults(f);
   if(!Store::read_parameters(f,session->saved))return filterBadParameters;
-  auto input_bounds=f->documentInfo->bounds;
-  if constexpr(requires{Effect::input_bounds(f);})input_bounds=Effect::input_bounds(f);
+  auto input_bounds=psui::target_read_bounds(f);
+  if constexpr(requires{Effect::input_bounds(f);})input_bounds=psui::union_bounds(input_bounds,Effect::input_bounds(f));
   psui::LayerPixels pixels;auto error=psui::host_read_layer(f,target,input_bounds,0,pixels);if(error)return error;
   auto source=Effect::from_host(std::move(pixels));auto layers=psui::host_layers(f);typename Effect::Inputs inputs;
   if constexpr(requires{Effect::read_descriptor(f,layers,session->saved.values,inputs,interactive);})
@@ -78,9 +79,10 @@ template<class Effect> struct CachedRuntime {
   if(w<=0||h<=0||!f->outData||f->outRowBytes<w*n*bytes||
    (f->outColumnBytes&&f->outColumnBytes!=n*bytes)||(f->outPlaneBytes&&f->outPlaneBytes!=bytes))return filterBadParameters;
   const auto& out=session.output;
-  if(r.left<out.left||r.top<out.top||r.right>out.left+out.width||r.bottom>out.top+out.height)return filterBadParameters;
+  const auto doc=psui::filter_to_document(f,r);
+  if(doc.left<out.left||doc.top<out.top||doc.right>out.left+out.width||doc.bottom>out.top+out.height)return filterBadParameters;
   const bool flat=f->filterCase==filterCaseFlatImageNoSelection||f->filterCase==filterCaseFlatImageWithSelection;
-  for(int y=0;y<h;++y)for(int x=0;x<w;++x){const auto i=(std::size_t(r.top+y-out.top)*out.width+r.left+x-out.left)*4;
+  for(int y=0;y<h;++y)for(int x=0;x<w;++x){const auto i=(std::size_t(doc.top+y-out.top)*out.width+doc.left+x-out.left)*4;
    for(int k=0;k<n;++k){const float value=out.rgba[i+k]*(flat&&k<3?out.rgba[i+3]:1);
     auto* dest=static_cast<std::uint8_t*>(f->outData)+std::size_t(y)*f->outRowBytes+(x*n+k)*bytes;
     if(bytes==1)*dest=std::uint8_t(std::lround(std::clamp(value,0.f,1.f)*255));

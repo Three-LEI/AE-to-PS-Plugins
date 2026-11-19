@@ -24,7 +24,7 @@ Pixel sample(const Image& im,double x,double y,bool edge){
  return out;
 }
 Pixel mapped(const Image& im,int x,int y,const Image& canvas){
- return sample(im,(x+.5)*im.width/canvas.width-.5,(y+.5)*im.height/canvas.height-.5,true);
+ return sample(im,x+canvas.left-im.left,y+canvas.top-im.top,false);
 }
 // Fractional running box, normalized over its full support. O(pixels), including
 // very large radii; constant input remains constant with repeat-edge padding.

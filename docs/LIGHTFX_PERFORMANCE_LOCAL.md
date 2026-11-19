@@ -1,6 +1,6 @@
 # 星芒与放射光束性能优化（0.38收录）
 
-**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
+**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
 
 该优化基于0.37开发，更新Starglow与Shine；0.38收录这两个程序及五款新增效果，其余21款原有程序保持。
 
@@ -33,7 +33,7 @@
 
 可优先试用星芒旋转方向、光效不透明度和混合模式，观察停止拖动后补全精细预览；Shine 可试光效不透明度与效果混合。新的光线缓存不覆盖移动 Shine 中心点，因为中心变化会改变光线几何。
 
-从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)安装两款效果。退出Photoshop后备份同名文件再覆盖。
+从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)安装两款效果。退出Photoshop后备份同名文件再覆盖。
 
 266 组缓存／直接／冻结内核对照、20 组完整浮点输出对照和四组生产窗口交互检查通过。PS2020 的 48 次 TIFF 像素比较与冻结的 0.37 程序一致，12 个旧智能滤镜实例的参数恢复通过；两款 DLL 的导入表及全部嵌入资源保持。详细记录见本地 evidence/performance-v02/qa.json。
 

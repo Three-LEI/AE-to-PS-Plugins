@@ -1,6 +1,8 @@
 # 效果列表
 
-0.38包含 **28款Windows x64原生滤镜**，分布在21个模块。整包版本以Release标签为准，内部组件保留各自编号；0.37历史版本保留。
+0.39包含 **31款Windows x64原生滤镜**，分布在24个模块。整包版本以Release标签为准，内部组件保留各自编号；0.38及更早版本保留。
+
+本版本新增 **[Caustics 焦散](CAUSTICS_LOCAL.md)**、**[Film Damage 胶片损伤](FILMDAMAGE_LOCAL.md)** 和 **[Long Shadow 长投影](LONGSHADOW_LOCAL.md)** 三款效果。
 
 [全部参数窗口](GALLERY.md) · [安装](../README.md#安装与使用) · [验证范围](VALIDATION.md)
 
@@ -34,7 +36,12 @@
 | Dither 像素抖动 | RGB8/16/32 | [`dither`](../dither/) | [参数窗口](GALLERY.md#pixel-dither) |
 | Lens Flare 镜头耀斑 | RGB8/16/32 | [`flare`](../flare/) | [参数窗口](GALLERY.md#lens-flare) |
 | Etching 蚀刻 | RGB8/16/32 | [`etching`](../etching/) | [参数窗口](GALLERY.md#etching) |
+| Caustics 焦散 | RGB8/16/32 | [`caustics`](../caustics/) | [参数窗口](GALLERY.md#caustics) |
+| Film Damage 胶片损伤 | RGB8/16/32 | [`filmdamage`](../filmdamage/) | [参数窗口](GALLERY.md#film-damage) |
+| Long Shadow 长投影 | RGB8/16/32 | [`longshadow`](../longshadow/) | [参数窗口](GALLERY.md#long-shadow) |
 
 Lens 的界面名称为“Lens 镜头”；为兼容旧安装，文件名保留 `ZaYuCCLens.8bf`。Saber 支持两点、路径、Alpha 输入和 16 款自有参数预设；色差色散包含光谱扭曲与棱镜散焦模式。
 
 模块 README 保留参数与开发近似范围；历史 evidence/dist 路径指本地研究记录。SDK、原版参考、个人 PSD 和安装备份不随源码上传。
+
+0.39已收录全部31款，包括焦散、胶片损伤与长投影；三款均支持 RGB8／16／32、智能滤镜保存和公共快速预览。

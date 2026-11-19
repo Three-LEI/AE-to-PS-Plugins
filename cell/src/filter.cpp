@@ -33,9 +33,10 @@ struct Runtime {
  }
  static int16 next(FilterRecord* f,Session& s){
   const auto r=f->bigDocumentData?f->bigDocumentData->outRect32:VRect{f->outRect.top,f->outRect.left,f->outRect.bottom,f->outRect.right};
-  cell::Source source;if(s.source.valid())source=cell::source_view(s.source,cell::document_bounds(f));
+  cell::Source source;if(s.source.valid())source=cell::source_view(s.source,cell::source_bounds(f));
   const auto cancel=[&]{return f->abortProc&&f->abortProc();};
-  if(!cell::render(s.saved.values,{double(r.left),double(r.top),1},r.right-r.left,r.bottom-r.top,s.output,source,cancel,cell::locked_alpha(f)))return cancel()?userCanceledErr:filterBadParameters;
+  const auto doc=psui::filter_to_document(f,r);
+  if(!cell::render(s.saved.values,{double(doc.left),double(doc.top),1},r.right-r.left,r.bottom-r.top,s.output,source,cancel,cell::locked_alpha(f)))return cancel()?userCanceledErr:filterBadParameters;
   const auto error=Base::write_tile(f,s);if(!error&&f->progressProc){const auto all=Store::full_rect(f);f->progressProc(r.bottom-all.top,std::max(1,all.bottom-all.top));}return error;
  }
  static void entry(int16 selector,FilterRecord* f,intptr_t* data,int16* result){

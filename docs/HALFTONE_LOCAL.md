@@ -1,6 +1,6 @@
 # Halftone 网点印刷（0.38收录）
 
-**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
+**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
 
 最初作为第 24 款原生滤镜，沿用原有滤镜分组。现已随0.38正式版分发。模块参数、算法边界和构建见 [halftone/README.md](../halftone/README.md)。
 
@@ -12,7 +12,7 @@
 
 本机 PS2020／PS2026 安装后，在“滤镜 → ZaYu-AE 效果复刻 → Halftone 网点印刷”中打开。先试“复古双色”“漫画细网”或“斜线印刷”；制作透明网点叠层时选“透明油墨”。需要编辑参数时使用智能对象。
 
-从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)安装`ZaYuHalftone.8bf`。
+从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)安装`ZaYuHalftone.8bf`。
 
 ## 验证范围
 

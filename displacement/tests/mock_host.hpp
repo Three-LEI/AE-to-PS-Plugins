@@ -16,13 +16,13 @@ inline void dispose(Handle h){delete reinterpret_cast<HandleData*>(h);}
 inline int32 size(Handle h){return int32(reinterpret_cast<HandleData*>(h)->bytes.size());}
 inline Ptr lock(Handle h,Boolean){return reinterpret_cast<HandleData*>(h)->bytes.data();}
 inline void unlock(Handle){}
-struct Port{int component=0,depth=8,width=0,height=0;const std::vector<float>* pixels=nullptr;};
+struct Port{int component=0,depth=8,width=0,height=0;const std::vector<float>* pixels=nullptr;int left=0,top=0;};
 inline OSErr read(ChannelReadPort p,const PSScaling* scaling,const VRect* area,const PixelMemoryDesc* memory,VRect* wrote){
  if(fail_read)return -123;const auto& port=*reinterpret_cast<Port*>(p);
  const auto s=scaling->sourceRect,d=scaling->destinationRect;
  for(int y=area->top;y<area->bottom;++y)for(int x=area->left;x<area->right;++x){
-  const int xx=s.left+int((x-d.left+.5)*(s.right-s.left)/(d.right-d.left));
-  const int yy=s.top+int((y-d.top+.5)*(s.bottom-s.top)/(d.bottom-d.top));
+  const int xx=s.left+int((x-d.left+.5)*(s.right-s.left)/(d.right-d.left))-port.left;
+  const int yy=s.top+int((y-d.top+.5)*(s.bottom-s.top)/(d.bottom-d.top))-port.top;
   if(xx<0||xx>=port.width||yy<0||yy>=port.height)continue;
   const float v=(*port.pixels)[(std::size_t(yy)*port.width+xx)*4+port.component];
   auto* dest=static_cast<std::uint8_t*>(memory->data)+(std::size_t(y)*memory->rowBits+x*memory->colBits+memory->bitOffset)/8;

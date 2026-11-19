@@ -29,7 +29,18 @@ int main(){
   p.intensity=1;p.threshold=200;check(render(im,p,out),"HDR threshold");check(out.rgba==im.rgba,"below threshold identity");
   p.threshold=0;Image mask=canvas(3,2);check(render(im,p,out,&mask),"black alpha mask");check(out.rgba==im.rgba,"mask excludes all glow input");
   p.invert_mask=true;check(render(im,p,out,&mask)&&out.rgba[center+7]>0,"inverted mask allows halo");
-  p.invert_mask=false;p.based_on=1;im.rgba[center]=im.rgba[center+1]=im.rgba[center+2]=0;
+  p.invert_mask=false;
+ auto aligned_mask=canvas(im.width,im.height);
+ auto wide_mask=canvas(im.width+31,im.height+22);wide_mask.left=-17;wide_mask.top=-13;
+ const int cx=im.width/2,cy=im.height/2;
+ for(int k=0;k<4;k++){
+  aligned_mask.rgba[(std::size_t(cy)*im.width+cx)*4+k]=1;
+  wide_mask.rgba[(std::size_t(cy+13)*wide_mask.width+cx+17)*4+k]=1;
+  wide_mask.rgba[(std::size_t(cy+13)*wide_mask.width+8)*4+k]=1;
+ }
+ Image aligned_output;
+ check(render(im,p,aligned_output,&aligned_mask)&&render(im,p,out,&wide_mask)&&out.rgba==aligned_output.rgba&&out.rgba!=im.rgba,"off-canvas glow mask retains document alignment");
+ p.invert_mask=false;p.based_on=1;im.rgba[center]=im.rgba[center+1]=im.rgba[center+2]=0;
   check(render(im,p,out)&&out.rgba[center+4]>0,"opaque black artwork can glow from alpha");
   p.based_on=0;for(int k=0;k<3;++k)im.rgba[center+k]=4;
   p.blend=Blend::screen;check(render(im,p,out)&&out.rgba[center]>=4,"HDR screen never dims highlights");

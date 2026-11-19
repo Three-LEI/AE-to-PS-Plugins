@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "displacement_host.hpp"
 #include "displacement_info.hpp"
+#include "psui/image_bounds.hpp"
 #include "psui/library_panel.hpp"
 #include "psui/preview_background.hpp"
 #include "psui/adaptive_preview.hpp"
@@ -28,7 +29,7 @@ struct Context {
  }
  void read_map(){
   worker.stop();
-  psui::LayerPixels pixels;error=psui::host_read_layer(host,layers[selected],layer_bounds(layers[selected]),0,pixels);
+  psui::LayerPixels pixels;error=psui::host_read_reference(host,layers[selected],pixels);
   if(!error){map=from_host(std::move(pixels));p.layer_id=layers[selected].id;p.layer_name_key=layers[selected].name_key;dirty=true;}
  }
 };
@@ -68,7 +69,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  const float s=ui.scale();bool changed=false;
  ImGui::BeginChild("preview-side",{190*s,0},0,ImGuiWindowFlags_NoScrollbar);
  const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),190*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-140*s,100*s,190*s));
+ c.view.configure(psui::filter_document_bounds(c.host),190*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-140*s,100*s,190*s));
  update(ui,c);ui.image_view(c.view,c.proxy);changed|=ui.check("预览 / Preview",c.preview);c.worker.controls(ui,c.dirty);
  if(psui::preview_background_control(ui,c.background))c.dirty=true;
  ui.preview_zoom(c.view);

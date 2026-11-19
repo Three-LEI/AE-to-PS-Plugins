@@ -11,7 +11,7 @@ struct Effect {
  static constexpr unsigned long magic=surface::effect_kind==surface::Kind::blob?0x5A424C31:0x5A474C31;
  static constexpr auto info=surface::plugin_info;static constexpr auto title=surface::title;
  static bool valid(const Parameters& p){return surface::valid(p)&&p.kind==surface::effect_kind;}
- static VRect input_bounds(FilterRecord* f){auto bounds=f->documentInfo->bounds;const auto area=psfilter::Runtime<Effect>::full_rect(f);if(area.right>area.left&&area.bottom>area.top){bounds.left=std::min(bounds.left,area.left);bounds.top=std::min(bounds.top,area.top);bounds.right=std::max(bounds.right,area.right);bounds.bottom=std::max(bounds.bottom,area.bottom);}return bounds;}
+ static VRect input_bounds(FilterRecord* f){return psui::target_read_bounds(f);}
  static Parameters defaults(FilterRecord* f){const auto b=f->documentInfo->bounds;auto p=surface::defaults(surface::effect_kind,b.right-b.left,b.bottom-b.top,b.left,b.top);
 #ifdef SURFACE_SMART_TRACE
   surface::smart_trace_seed(p);
@@ -23,7 +23,7 @@ struct Effect {
  static OSErr read_inputs(FilterRecord* f,const std::vector<psui::HostLayer>& layers,Parameters& p,Inputs& in){
   if(!p.map_key){in.map={};return noErr;}
   const auto* layer=surface::script::resolve(f,layers,p,in.binding);if(!layer)return psfilter::CachedRuntime<Effect>::report(f,"The saved reference layer is missing or cannot be resolved. Reopen the effect and select its map.");
-  psui::LayerPixels pixels;const auto error=psui::host_read_layer(f,*layer,input_bounds(f),0,pixels);if(!error)in.map=from_host(std::move(pixels));return error;
+  psui::LayerPixels pixels;const auto error=psui::host_read_reference(f,*layer,pixels);if(!error)in.map=from_host(std::move(pixels));return error;
  }
  static INT_PTR dialog(HINSTANCE m,HWND owner,FilterRecord* f,const Image& src,const std::vector<psui::HostLayer>& layers,Parameters& p,Inputs& in){return surface::show_dialog(m,owner,f,src,layers,p,in.map,&in.binding);}
  static bool process(const Image& src,const Parameters& p,Image& out,const Inputs& in,const surface::Cancel& cancel){return surface::render(src,p,out,in.map.valid()?&in.map:nullptr,cancel);}

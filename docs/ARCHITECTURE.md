@@ -1,6 +1,6 @@
 # 结构与边界
 
-二十八款效果分布在二十一个模块中，清单见 [EFFECTS.md](EFFECTS.md)。
+工作区有三十一款效果、二十四个模块；0.39公开发布三十一款／二十四个模块，新增Caustics焦散、Film Damage胶片损伤与Long Shadow长投影。清单见 [EFFECTS.md](EFFECTS.md)。
 
 - 每个模块的 `include`／`src` 保存参数、独立 CPU 核心、Photoshop 入口、PiPL 资源和生产面板。
 - `native/common` 提供分块输出、完整输入缓存、像素混合、并行范围工具及共用描述符参数保存层。
@@ -22,3 +22,5 @@
 0.37-rc1 的 `ParallelScope`／`RangePool` 由一次生成或一个预览工作线程拥有，避免 DLL 静态对象持有活动线程。`StageCache` 为单工作线程使用的有界阶段缓存，首先用于 Glow／Deep Glow；每次参考输入重读前先停止工作线程并清空缓存。参数依赖、浮点控制状态和不可变输入快照都属于缓存键。最终输出仍使用原始参数直接计算。
 
 0.38增加halftone、ascii、dither、flare与etching模块。Lens Flare使用公共面板的独立缓存图像接口显示预设卡片，主预览与取色状态保持独立。正式版元素快照为版本2，保存协议改动应维护已发布格式的兼容性。
+
+0.39增加caustics、filmdamage与longshadow模块。公共坐标层将滤镜读取范围、最终采样写回、生成器源混合与预览统一到文档坐标，修复普通像素层超出画布时的报错、裁切与位移；完整参考图层按宿主提供的RGB／Alpha通道边界读取，保留原文档坐标。两项修复不改变效果算法、参数字段和组件身份。

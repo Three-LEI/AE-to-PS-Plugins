@@ -1,0 +1,322 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Caustics",
+      "Category": "ZaYu-AE Recreated Effects",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 2,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuCausticsReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/Caustics=Caustics 焦散",
+      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpCu"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Caustics",
+                "EventDescription": "Editable Caustics",
+                "ClassID": "ZpEf",
+                "EventType": "ZpCu",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "surface",
+                    "ParamKeyword": "Zu00",
+                    "ParamType": "long",
+                    "ParamDescription": "surface"
+                  },
+                  {
+                    "ParamName": "wave",
+                    "ParamKeyword": "Zu01",
+                    "ParamType": "long",
+                    "ParamDescription": "wave"
+                  },
+                  {
+                    "ParamName": "channel",
+                    "ParamKeyword": "Zu02",
+                    "ParamType": "long",
+                    "ParamDescription": "channel"
+                  },
+                  {
+                    "ParamName": "output",
+                    "ParamKeyword": "Zu03",
+                    "ParamType": "long",
+                    "ParamDescription": "output"
+                  },
+                  {
+                    "ParamName": "blend",
+                    "ParamKeyword": "Zu04",
+                    "ParamType": "long",
+                    "ParamDescription": "blend"
+                  },
+                  {
+                    "ParamName": "border",
+                    "ParamKeyword": "Zu05",
+                    "ParamType": "long",
+                    "ParamDescription": "border"
+                  },
+                  {
+                    "ParamName": "quality",
+                    "ParamKeyword": "Zu06",
+                    "ParamType": "long",
+                    "ParamDescription": "quality"
+                  },
+                  {
+                    "ParamName": "scale",
+                    "ParamKeyword": "Zu07",
+                    "ParamType": "doub",
+                    "ParamDescription": "scale"
+                  },
+                  {
+                    "ParamName": "complexity",
+                    "ParamKeyword": "Zu08",
+                    "ParamType": "doub",
+                    "ParamDescription": "complexity"
+                  },
+                  {
+                    "ParamName": "height",
+                    "ParamKeyword": "Zu09",
+                    "ParamType": "doub",
+                    "ParamDescription": "height"
+                  },
+                  {
+                    "ParamName": "evolution",
+                    "ParamKeyword": "Zu10",
+                    "ParamType": "doub",
+                    "ParamDescription": "evolution"
+                  },
+                  {
+                    "ParamName": "shift_x",
+                    "ParamKeyword": "Zu11",
+                    "ParamType": "doub",
+                    "ParamDescription": "shift_x"
+                  },
+                  {
+                    "ParamName": "shift_y",
+                    "ParamKeyword": "Zu12",
+                    "ParamType": "doub",
+                    "ParamDescription": "shift_y"
+                  },
+                  {
+                    "ParamName": "map_softness",
+                    "ParamKeyword": "Zu13",
+                    "ParamType": "doub",
+                    "ParamDescription": "map_softness"
+                  },
+                  {
+                    "ParamName": "depth",
+                    "ParamKeyword": "Zu14",
+                    "ParamType": "doub",
+                    "ParamDescription": "depth"
+                  },
+                  {
+                    "ParamName": "refractive_index",
+                    "ParamKeyword": "Zu15",
+                    "ParamType": "doub",
+                    "ParamDescription": "refractive_index"
+                  },
+                  {
+                    "ParamName": "focus",
+                    "ParamKeyword": "Zu16",
+                    "ParamType": "doub",
+                    "ParamDescription": "focus"
+                  },
+                  {
+                    "ParamName": "softness",
+                    "ParamKeyword": "Zu17",
+                    "ParamType": "doub",
+                    "ParamDescription": "softness"
+                  },
+                  {
+                    "ParamName": "intensity",
+                    "ParamKeyword": "Zu18",
+                    "ParamType": "doub",
+                    "ParamDescription": "intensity"
+                  },
+                  {
+                    "ParamName": "threshold",
+                    "ParamKeyword": "Zu19",
+                    "ParamType": "doub",
+                    "ParamDescription": "threshold"
+                  },
+                  {
+                    "ParamName": "refraction",
+                    "ParamKeyword": "Zu20",
+                    "ParamType": "doub",
+                    "ParamDescription": "refraction"
+                  },
+                  {
+                    "ParamName": "background",
+                    "ParamKeyword": "Zu21",
+                    "ParamType": "doub",
+                    "ParamDescription": "background"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Zu22",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  },
+                  {
+                    "ParamName": "light0",
+                    "ParamKeyword": "Zu23",
+                    "ParamType": "doub",
+                    "ParamDescription": "light0"
+                  },
+                  {
+                    "ParamName": "light1",
+                    "ParamKeyword": "Zu24",
+                    "ParamType": "doub",
+                    "ParamDescription": "light1"
+                  },
+                  {
+                    "ParamName": "light2",
+                    "ParamKeyword": "Zu25",
+                    "ParamType": "doub",
+                    "ParamDescription": "light2"
+                  },
+                  {
+                    "ParamName": "dark0",
+                    "ParamKeyword": "Zu26",
+                    "ParamType": "doub",
+                    "ParamDescription": "dark0"
+                  },
+                  {
+                    "ParamName": "dark1",
+                    "ParamKeyword": "Zu27",
+                    "ParamType": "doub",
+                    "ParamDescription": "dark1"
+                  },
+                  {
+                    "ParamName": "dark2",
+                    "ParamKeyword": "Zu28",
+                    "ParamType": "doub",
+                    "ParamDescription": "dark2"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Zu29",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "map_key",
+                    "ParamKeyword": "Zu30",
+                    "ParamType": "TEXT",
+                    "ParamDescription": "map_key"
+                  },
+                  {
+                    "ParamName": "preserve_alpha",
+                    "ParamKeyword": "Zu31",
+                    "ParamType": "bool",
+                    "ParamDescription": "preserve_alpha"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

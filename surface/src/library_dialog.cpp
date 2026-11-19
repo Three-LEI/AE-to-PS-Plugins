@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "surface_host.hpp"
 #include "script_parameters.hpp"
+#include "psui/image_bounds.hpp"
 #include "psui/library_panel.hpp"
 #include "psui/generator_controls.hpp"
 #include "psui/adaptive_preview.hpp"
@@ -22,7 +23,7 @@ struct Context {
  psui::ProxyImage adaptive_selection_geometry;std::vector<float> adaptive_selection;
  psui::AdaptivePreview<psui::SpatialFrame<Image>> worker;
  Context(Parameters values,FilterRecord* f,const Image& src,const std::vector<psui::HostLayer>& ls,const MapBinding* saved):p(values),host(f),source(src),layers(ls){if(saved)binding=*saved;}
- bool read_map(){worker.stop();adaptive_cache.clear();map={};selected=-1;if(!p.map_key){binding.layer_id=0;binding.name.clear();return true;}const auto* layer=script::resolve(host,layers,p,binding);if(!layer)return false;selected=int(layer-layers.data());psui::LayerPixels pixels;const VRect area{source.top,source.left,source.top+source.height,source.left+source.width};if(psui::host_read_layer(host,*layer,area,0,pixels))return false;map=from_host(std::move(pixels));return true;}
+ bool read_map(){worker.stop();adaptive_cache.clear();map={};selected=-1;if(!p.map_key){binding.layer_id=0;binding.name.clear();return true;}const auto* layer=script::resolve(host,layers,p,binding);if(!layer)return false;selected=int(layer-layers.data());psui::LayerPixels pixels;if(psui::host_read_reference(host,*layer,pixels))return false;map=from_host(std::move(pixels));return true;}
 };
 #include "preview_update.inc"
 bool map_control(psui::LibraryPanel& ui,Context& c){
@@ -35,7 +36,7 @@ bool map_control(psui::LibraryPanel& ui,Context& c){
 void draw(psui::LibraryPanel& ui,Context& c){
  const auto document=c.host->documentInfo->bounds;const auto factory=defaults(effect_kind,document.right-document.left,document.bottom-document.top,document.left,document.top);ui.parameter_defaults(c.p,factory);auto& p=c.p;const float s=ui.scale();bool changed=false;
  ImGui::BeginChild("preview-side",{220*s,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-150*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ c.view.configure(psui::filter_document_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-150*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
  ui.items["surface.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
  const auto rect=ui.items.at("image");if(p.light_type==1&&ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({rect.x,rect.y},{rect.z,rect.w})&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){const auto mouse=ImGui::GetMousePos();p.light_x=c.view.center_x()+(mouse.x-(rect.x+rect.z)*.5)/(c.view.percent*.01);p.light_y=c.view.center_y()+(mouse.y-(rect.y+rect.w)*.5)/(c.view.percent*.01);changed=true;}
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);

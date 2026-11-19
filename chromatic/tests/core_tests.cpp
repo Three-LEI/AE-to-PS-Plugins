@@ -38,6 +38,16 @@ int main(){
  auto ramp=canvas(10,3);for(int y=0;y<3;++y)for(int x=0;x<10;++x){const auto i=(std::size_t(y)*10+x)*4;ramp.rgba[i]=(x+1)/10.f;ramp.rgba[i+3]=1;}
  const double expected[]={0,.1,.3,.9};for(int edge=0;edge<4;++edge){p.edge=Edge(edge);check(render(ramp,p,out),"edge behavior");close(value(out,0,1,0),expected[edge],"transparent/repeat/reflect/wrap positions");}
  p=preset(1);p.amount=4;Image mask=canvas(3,2);check(render(impulse,p,out,&mask)&&out.rgba==impulse.rgba,"transparent mask excludes effect");p.invert_mask=true;check(render(impulse,p,out,&mask)&&out.rgba!=impulse.rgba,"inverted mask enables effect");
+ p=preset(1);p.amount=4;
+ auto wide_mask=canvas(88,49);wide_mask.left=-16;wide_mask.top=-8;
+ auto aligned_mask=canvas(65,33);
+ for(int x=27;x<43;x++)for(int k=0;k<4;k++){
+  aligned_mask.rgba[(std::size_t(16)*65+x)*4+k]=1;
+  wide_mask.rgba[(std::size_t(24)*88+x+16)*4+k]=1;
+ }
+ for(int k=0;k<4;k++)wide_mask.rgba[(std::size_t(24)*88+6)*4+k]=1;
+ Image aligned_output;
+ check(render(impulse,p,aligned_output,&aligned_mask)&&render(impulse,p,out,&wide_mask)&&out.rgba==aligned_output.rgba&&out.rgba!=impulse.rgba,"off-canvas mask retains document alignment");
  p=preset(3);auto dark=flat;for(std::size_t i=0;i<dark.rgba.size();i+=4){dark.rgba[i]=dark.rgba[i+1]=dark.rgba[i+2]=.1f;dark.rgba[i+3]=1;}check(render(dark,p,out),"highlights-only dark input");for(std::size_t i=0;i<dark.rgba.size();++i)close(out.rgba[i],dark.rgba[i],"dark base retained");
  p=preset(1);p.alpha=Alpha::preserve;check(render(impulse,p,out),"preserve alpha");for(std::size_t i=3;i<out.rgba.size();i+=4)close(out.rgba[i],impulse.rgba[i],"source alpha remains exact");
  p.alpha=Alpha::black;check(render(impulse,p,out),"black output");for(std::size_t i=3;i<out.rgba.size();i+=4)close(out.rgba[i],1,"opaque on black");

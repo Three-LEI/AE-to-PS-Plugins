@@ -1,6 +1,6 @@
 # Dither 像素抖动（0.38收录）
 
-**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
+**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
 
 根据维护者提供的黑白渐变、像素画限色和规则网纹示例新增独立滤镜。Halftone 网点印刷与 ASCII Dither 字符抖动继续保留原名称和功能；新增滤镜内部整合不同抖动与调色板模式。已收录0.38正式版。
 
@@ -12,7 +12,7 @@
 
 本机 PS2020／PS2026 新增 `ZaYuDither.8bf`。在“滤镜 → ZaYu-AE 效果复刻 → Dither 像素抖动”打开。可先试黑白像素、蓝色月光和图形竖线；模拟较粗像素画时增大像素尺寸。
 
-从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)安装`ZaYuDither.8bf`。使用智能对象可保存每个实例的全部 27 个字段。
+从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)安装`ZaYuDither.8bf`。使用智能对象可保存每个实例的全部 27 个字段。
 
 ## 验证范围
 

@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "../../native/common/filter_runtime.hpp"
 #include "glow_host.hpp"
+#include "psui/image_bounds.hpp"
 #include <cmath>
 #include <memory>
 #include "parameter_schema.hpp"
@@ -27,7 +28,7 @@ OSErr read_optional(FilterRecord* f,const std::vector<psui::HostLayer>& layers,s
  if(!key)return noErr;const psui::HostLayer* found=nullptr;
  for(const auto& l:layers)if(l.name_key==key){if(found)return message(f,"Multiple layers have the saved input name. Reopen Glow and select the mask/texture again.");found=&l;}
  if(!found)return message(f,"A saved glow mask/texture layer is missing. Reopen the filter and choose its input.");
- psui::LayerPixels pixels;const auto error=psui::host_read_layer(f,*found,f->documentInfo->bounds,0,pixels);
+ psui::LayerPixels pixels;const auto error=psui::host_read_reference(f,*found,pixels);
  if(!error)image=glow::from_host(std::move(pixels));return error;
 }
 int16 start(FilterRecord* f,intptr_t* data){
@@ -42,7 +43,7 @@ int16 start(FilterRecord* f,intptr_t* data){
  if(!target.rgb[2])return message(f,"Select an RGB pixel layer before opening Glow.");
  auto s=std::make_unique<Session>();s->saved.values=glow::defaults(glow::effect_kind);
  if(!Store::read_parameters(f,s->saved))return filterBadParameters;
- psui::LayerPixels pixels;auto error=psui::host_read_layer(f,target,f->documentInfo->bounds,0,pixels);if(error)return error;
+ psui::LayerPixels pixels;auto error=psui::host_read_layer(f,target,psui::target_read_bounds(f),0,pixels);if(error)return error;
  auto source=glow::from_host(std::move(pixels));glow::Image mask,texture;
  const auto layers=psui::host_layers(f);
  if((error=Store::read_descriptor(f,layers,s->saved.values,interactive)))return error;
@@ -71,9 +72,10 @@ int16 write_tile(FilterRecord* f,Session& s){
  if(w<=0||h<=0||!f->outData||f->outRowBytes<w*n*bytes||
   (f->outColumnBytes&&f->outColumnBytes!=n*bytes)||(f->outPlaneBytes&&f->outPlaneBytes!=bytes))return filterBadParameters;
  const auto& out=s.output;
- if(r.left<out.left||r.top<out.top||r.right>out.left+out.width||r.bottom>out.top+out.height)return filterBadParameters;
+ const auto doc=psui::filter_to_document(f,r);
+ if(doc.left<out.left||doc.top<out.top||doc.right>out.left+out.width||doc.bottom>out.top+out.height)return filterBadParameters;
  for(int y=0;y<h;++y)for(int x=0;x<w;++x)for(int k=0;k<n;++k){
-  const auto i=(std::size_t(r.top+y-out.top)*out.width+(r.left+x-out.left))*4+k;const float value=out.rgba[i];
+  const auto i=(std::size_t(doc.top+y-out.top)*out.width+(doc.left+x-out.left))*4+k;const float value=out.rgba[i];
   auto* dest=static_cast<std::uint8_t*>(f->outData)+std::size_t(y)*f->outRowBytes+(x*n+k)*bytes;
   if(bytes==1)*dest=std::uint8_t(std::lround(std::clamp(value,0.f,1.f)*255));
   else if(bytes==2){const auto v=std::uint16_t(std::lround(std::clamp(value,0.f,1.f)*32768));std::memcpy(dest,&v,2);}

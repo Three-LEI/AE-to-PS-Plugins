@@ -1,6 +1,6 @@
 # ASCII Dither 字符抖动（0.38收录）
 
-**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
+**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
 
 最初作为第 25 款原生滤镜，沿用现有滤镜分组。已随0.38正式版分发。参数与算法范围见 [ascii/README.md](../ascii/README.md)。
 
@@ -12,7 +12,7 @@
 
 本机 PS2020／PS2026 已新增 `ZaYuASCIIDither.8bf`。从“滤镜 → ZaYu-AE 效果复刻 → ASCII Dither 字符抖动”打开，可先试绿色终端、彩色字符和二进制屏幕。检查字体轮廓时放大到 100%；需要保存可编辑参数时使用智能对象。
 
-从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)安装`ZaYuASCIIDither.8bf`。
+从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)安装`ZaYuASCIIDither.8bf`。
 
 ## 验证范围
 

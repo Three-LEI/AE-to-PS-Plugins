@@ -4072,5 +4072,589 @@
       }
     ],
     "event": "ZpEt"
+  },
+  {
+    "slug": "caustics",
+    "event": "ZpCu",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "type": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "type": "integer",
+        "value": 1514362161
+      },
+      {
+        "id": "Zu00",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zu01",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zu02",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zu03",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zu04",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zu05",
+        "type": "integer",
+        "value": 1
+      },
+      {
+        "id": "Zu06",
+        "type": "integer",
+        "value": 2
+      },
+      {
+        "id": "Zu07",
+        "type": "number",
+        "value": 160
+      },
+      {
+        "id": "Zu08",
+        "type": "number",
+        "value": 2.5
+      },
+      {
+        "id": "Zu09",
+        "type": "number",
+        "value": 18
+      },
+      {
+        "id": "Zu10",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zu11",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zu12",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zu13",
+        "type": "number",
+        "value": 4
+      },
+      {
+        "id": "Zu14",
+        "type": "number",
+        "value": 120
+      },
+      {
+        "id": "Zu15",
+        "type": "number",
+        "value": 1.333
+      },
+      {
+        "id": "Zu16",
+        "type": "number",
+        "value": 1.5
+      },
+      {
+        "id": "Zu17",
+        "type": "number",
+        "value": 1.5
+      },
+      {
+        "id": "Zu18",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zu19",
+        "type": "number",
+        "value": 1
+      },
+      {
+        "id": "Zu20",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zu21",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zu22",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zu23",
+        "type": "number",
+        "value": 0.65
+      },
+      {
+        "id": "Zu24",
+        "type": "number",
+        "value": 0.9
+      },
+      {
+        "id": "Zu25",
+        "type": "number",
+        "value": 1
+      },
+      {
+        "id": "Zu26",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zu27",
+        "type": "number",
+        "value": 0.04
+      },
+      {
+        "id": "Zu28",
+        "type": "number",
+        "value": 0.12
+      },
+      {
+        "id": "Zu29",
+        "type": "integer",
+        "value": 123
+      },
+      {
+        "id": "Zu30",
+        "type": "layer",
+        "value": ""
+      },
+      {
+        "id": "Zu31",
+        "type": "flag",
+        "value": true
+      }
+    ]
+  },
+  {
+    "slug": "film-damage",
+    "event": "ZpFD",
+    "fields": [
+      {
+        "id": "ZpSv",
+        "type": "integer",
+        "value": 1
+      },
+      {
+        "id": "ZpId",
+        "type": "integer",
+        "value": 1514554417
+      },
+      {
+        "id": "Zk00",
+        "type": "number",
+        "value": 18
+      },
+      {
+        "id": "Zk01",
+        "type": "number",
+        "value": 1
+      },
+      {
+        "id": "Zk02",
+        "type": "number",
+        "value": 35
+      },
+      {
+        "id": "Zk03",
+        "type": "number",
+        "value": 20
+      },
+      {
+        "id": "Zk04",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zk05",
+        "type": "number",
+        "value": 92
+      },
+      {
+        "id": "Zk06",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zk07",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zk08",
+        "type": "number",
+        "value": 6
+      },
+      {
+        "id": "Zk09",
+        "type": "number",
+        "value": 2.8
+      },
+      {
+        "id": "Zk0A",
+        "type": "number",
+        "value": 80
+      },
+      {
+        "id": "Zk0B",
+        "type": "number",
+        "value": 35
+      },
+      {
+        "id": "Zk0C",
+        "type": "number",
+        "value": 0.8
+      },
+      {
+        "id": "Zk0D",
+        "type": "number",
+        "value": 140
+      },
+      {
+        "id": "Zk0E",
+        "type": "number",
+        "value": 35
+      },
+      {
+        "id": "Zk0F",
+        "type": "number",
+        "value": 85
+      },
+      {
+        "id": "Zk10",
+        "type": "number",
+        "value": 0.7
+      },
+      {
+        "id": "Zk11",
+        "type": "number",
+        "value": 85
+      },
+      {
+        "id": "Zk12",
+        "type": "number",
+        "value": 75
+      },
+      {
+        "id": "Zk13",
+        "type": "number",
+        "value": 45
+      },
+      {
+        "id": "Zk14",
+        "type": "number",
+        "value": 1.5
+      },
+      {
+        "id": "Zk15",
+        "type": "number",
+        "value": 28
+      },
+      {
+        "id": "Zk16",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zk17",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zk18",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zk19",
+        "type": "number",
+        "value": 70
+      },
+      {
+        "id": "Zk1A",
+        "type": "number",
+        "value": 25
+      },
+      {
+        "id": "Zk1B",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zk1C",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zk1D",
+        "type": "number",
+        "value": 0.8
+      },
+      {
+        "id": "Zk1E",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zk1F",
+        "type": "number",
+        "value": 22
+      },
+      {
+        "id": "Zk20",
+        "type": "number",
+        "value": 75
+      },
+      {
+        "id": "Zk21",
+        "type": "number",
+        "value": 55
+      },
+      {
+        "id": "Zk22",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zk23",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zk24",
+        "type": "number",
+        "value": 72
+      },
+      {
+        "id": "Zk25",
+        "type": "number",
+        "value": 1
+      },
+      {
+        "id": "Zk26",
+        "type": "number",
+        "value": 0.98
+      },
+      {
+        "id": "Zk27",
+        "type": "number",
+        "value": 0.94
+      },
+      {
+        "id": "Zk28",
+        "type": "number",
+        "value": 0.22
+      },
+      {
+        "id": "Zk29",
+        "type": "number",
+        "value": 0.1
+      },
+      {
+        "id": "Zk2A",
+        "type": "number",
+        "value": 0.025
+      },
+      {
+        "id": "Zk2B",
+        "type": "integer",
+        "value": 220
+      },
+      {
+        "id": "Zk2C",
+        "type": "integer",
+        "value": 5
+      },
+      {
+        "id": "Zk2D",
+        "type": "integer",
+        "value": 16
+      },
+      {
+        "id": "Zk2E",
+        "type": "integer",
+        "value": 6
+      },
+      {
+        "id": "Zk2F",
+        "type": "integer",
+        "value": 12
+      },
+      {
+        "id": "Zk30",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zk31",
+        "type": "integer",
+        "value": 413
+      },
+      {
+        "id": "Zk32",
+        "type": "flag",
+        "value": false
+      },
+      {
+        "id": "Zk33",
+        "type": "flag",
+        "value": false
+      },
+      {
+        "id": "Zk34",
+        "type": "flag",
+        "value": true
+      }
+    ]
+  },
+  {
+    "slug": "long-shadow",
+    "event": "ZpLs",
+    "input": "shape",
+    "fields": [
+      {
+        "id": "Zx00",
+        "type": "number",
+        "value": 45
+      },
+      {
+        "id": "Zx01",
+        "type": "number",
+        "value": 320
+      },
+      {
+        "id": "Zx02",
+        "type": "number",
+        "value": 82
+      },
+      {
+        "id": "Zx03",
+        "type": "number",
+        "value": 2
+      },
+      {
+        "id": "Zx04",
+        "type": "number",
+        "value": 35
+      },
+      {
+        "id": "Zx05",
+        "type": "number",
+        "value": 0.05
+      },
+      {
+        "id": "Zx06",
+        "type": "number",
+        "value": 0.07
+      },
+      {
+        "id": "Zx07",
+        "type": "number",
+        "value": 0.1
+      },
+      {
+        "id": "Zx08",
+        "type": "flag",
+        "value": false
+      },
+      {
+        "id": "Zx09",
+        "type": "flag",
+        "value": false
+      },
+      {
+        "id": "Zx10",
+        "type": "flag",
+        "value": false
+      },
+      {
+        "id": "Zx11",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zx12",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zx13",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zx14",
+        "type": "number",
+        "value": 50
+      },
+      {
+        "id": "Zx15",
+        "type": "number",
+        "value": 50
+      },
+      {
+        "id": "Zx16",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zx17",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zx18",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zx19",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "id": "Zx20",
+        "type": "number",
+        "value": 100
+      },
+      {
+        "id": "Zx21",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zx22",
+        "type": "number",
+        "value": 0
+      },
+      {
+        "id": "Zx23",
+        "type": "number",
+        "value": 14
+      }
+    ]
   }
 ]

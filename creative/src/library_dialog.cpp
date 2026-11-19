@@ -28,7 +28,7 @@ struct Context {
 void draw(psui::LibraryPanel& ui,Context& c){
  const auto b=c.host->documentInfo->bounds;const auto factory=defaults(effect_kind,b.right-b.left,b.bottom-b.top,b.left,b.top);ui.parameter_defaults(c.p,factory);auto& p=c.p;const float s=ui.scale();bool changed=false;
  ImGui::BeginChild("preview-side",{220*s,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-125*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ c.view.configure(psui::filter_document_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-125*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
  ui.items["creative.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
  const auto r=ui.items.at("image");if(ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({r.x,r.y},{r.z,r.w})&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){const auto m=ImGui::GetMousePos();p.cx=c.view.center_x()+(m.x-(r.x+r.z)*.5)/(c.view.percent*.01);p.cy=c.view.center_y()+(m.y-(r.y+r.w)*.5)/(c.view.percent*.01);changed=true;}
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);

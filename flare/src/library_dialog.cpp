@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "flare_host.hpp"
 #include "psui/library_panel.hpp"
+#include "psui/image_bounds.hpp"
 #include "psui/generator_controls.hpp"
 #include "psui/adaptive_preview.hpp"
 #include "psui/preview_point.hpp"
@@ -24,7 +25,7 @@ struct Context {
  Context(Parameters v,FilterRecord* f,const Image& s,const std::vector<psui::HostLayer>& l):p(v),host(f),source(s),layers(l){}
  bool read_mask(){worker.stop();mask={};if(!p.occlusion||!p.map_key)return true;
   const psui::HostLayer* found=nullptr;for(const auto& layer:layers)if(layer.name_key==p.map_key){if(found)return false;found=&layer;}if(!found)return false;
-  psui::LayerPixels pixels;if(psui::host_read_layer(host,*found,host->documentInfo->bounds,0,pixels))return false;mask=from_host(std::move(pixels));return true;
+  psui::LayerPixels pixels;if(psui::host_read_reference(host,*found,pixels))return false;mask=from_host(std::move(pixels));return true;
  }
 };
 void update(psui::LibraryPanel& ui,Context& c){
@@ -50,7 +51,7 @@ bool layer_control(psui::LibraryPanel& ui,Context& c){
 void draw(psui::LibraryPanel& ui,Context& c){
  const auto factory=defaults(c.source.width,c.source.height,c.source.left,c.source.top);ui.parameter_defaults(c.p,factory);const float s=ui.scale();bool changed=false,applied=false;auto& p=c.p;
  const float preview_width=(c.editor?380:310)*s;ImGui::BeginChild("preview-side",{preview_width,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),preview_width,std::clamp(ImGui::GetContentRegionAvail().y-footer-240*s,120*s,(c.editor?440:360)*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ c.view.configure(psui::filter_document_bounds(c.host),preview_width,std::clamp(ImGui::GetContentRegionAvail().y-footer-240*s,120*s,(c.editor?440:360)*s));update(ui,c);ui.image_view(c.view,c.proxy);
  changed|=c.handle==0?psui::preview_point(ui,c.view,p.hx,p.hy):psui::preview_point(ui,c.view,p.px,p.py);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  ui.choice("拖动控制点 / Drag Handle",c.handle,handles,2);

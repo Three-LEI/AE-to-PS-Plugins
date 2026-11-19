@@ -1,6 +1,6 @@
 # 0.37 · 23 款滤镜、性能优化与效果图集
 
-> 历史正式版。当前正式版见[0.38](RELEASE_0.38.md)，0.37继续保留供回溯。
+> 历史正式版。当前正式版见[0.39](RELEASE_0.39.md)，0.37继续保留供回溯。
 
 **安装请选择 [Windows-x64.zip 插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.37/AE-to-PS-Plugins-0.37-Windows-x64.zip)**。源码 ZIP 面向开发者。0.37 为新的正式发布起点；此前 Releases 已清理并在本地备份，Git 提交历史保留。
 

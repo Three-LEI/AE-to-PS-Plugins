@@ -8,6 +8,36 @@ inline VRect filter_bounds(const FilterRecord *f) {
                             : VRect{f->filterRect.top, f->filterRect.left,
                                     f->filterRect.bottom, f->filterRect.right};
 }
+// Channel Ports use document coordinates. FilterRecord rectangles use a
+// rebased image when a raster layer extends above/left of the canvas. This
+// origin still applies with a selection, when floatCoord is reset to zero.
+inline VPoint filter_origin(const FilterRecord* f) {
+  VPoint origin{};
+  if (!f || !f->documentInfo) return origin;
+  const auto* doc=f->documentInfo;
+  origin={doc->bounds.top,doc->bounds.left};
+  auto include=[&](const ReadChannelDesc* channel){
+    if(channel && channel->bounds.right>channel->bounds.left && channel->bounds.bottom>channel->bounds.top){
+      origin.h=std::min(origin.h,channel->bounds.left);
+      origin.v=std::min(origin.v,channel->bounds.top);
+    }
+  };
+  auto* channel=doc->targetCompositeChannels;
+  for(int i=0;i<3&&channel;i++,channel=channel->next)include(channel);
+  include(doc->targetTransparency);
+  return origin;
+}
+inline VRect filter_to_document(const FilterRecord* f,VRect r) {
+  const auto o=filter_origin(f);
+  return {r.top+o.v,r.left+o.h,r.bottom+o.v,r.right+o.h};
+}
+inline VRect document_to_filter(const FilterRecord* f,VRect r) {
+  const auto o=filter_origin(f);
+  return {r.top-o.v,r.left-o.h,r.bottom-o.v,r.right-o.h};
+}
+inline VRect filter_document_bounds(const FilterRecord* f) {
+  return filter_to_document(f,filter_bounds(f));
+}
 // View-only state. Percent is actual screen pixels per document pixel.
 // Never store it in filter parameters or use it to change final rendering.
 struct PreviewView {

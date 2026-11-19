@@ -8,3 +8,7 @@
 - `run-adaptive-panels.ps1`：生产界面的连续拖动、重置、取消和布局检查；会打开测试窗口。
 
 本地研究中依赖升级前二进制、原版 AE 参考、历史 PSD 或开发机安装路径的批处理不随仓库分发。历史文档中的 `evidence` 路径指开发记录，不是构建依赖。本次公开验证摘要见 [VALIDATION.md](../docs/VALIDATION.md)。
+
+## 图层越界读取
+
+完整构建后运行 `./qa/run-offcanvas-adapters.ps1`，直接加载全部实际DLL，验证画布与图层边界不同时的RGB8／16／32、四向移动、选区与旧／新坐标；Tint仅RGB8，Cell补测晶格化及锁定Alpha。模拟真实PS的FilterRecord重定位与Channel Ports文档坐标，包含选区重置floatCoord的情况；Optics Compensation零FOV逐像素核对完整恒等输出，防止只通过“不报错”而遗漏透明截断或位移。只使用模拟宿主，不打开Photoshop或个人文档。

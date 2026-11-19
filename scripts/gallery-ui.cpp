@@ -70,8 +70,17 @@ namespace effect=flare;
 #elif GALLERY_MODULE==20
 #include "etching_host.hpp"
 namespace effect=etching;
+#elif GALLERY_MODULE==21
+#include "caustics_host.hpp"
+namespace effect=caustics;
+#elif GALLERY_MODULE==22
+#include "filmdamage_host.hpp"
+namespace effect=filmdamage;
+#elif GALLERY_MODULE==23
+#include "longshadow_host.hpp"
+namespace effect=longshadow;
 #endif
-#include GALLERY_SETTINGS
+#include "gallery_settings.hpp"
 namespace {
 mock::Host* proxy_host=nullptr;
 std::vector<std::uint8_t> proxy_pixels;
@@ -148,9 +157,9 @@ int wmain(int argc,wchar_t** argv){try{
  effect::Image map;auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,layers,source,p,map);};
 #elif GALLERY_MODULE==3
  effect::Image mask,texture;auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,source,layers,p,mask,texture);};
-#elif GALLERY_MODULE==4 || GALLERY_MODULE==5 || GALLERY_MODULE==9 || GALLERY_MODULE==10 || GALLERY_MODULE==19
+#elif GALLERY_MODULE==4 || GALLERY_MODULE==5 || GALLERY_MODULE==9 || GALLERY_MODULE==10 || GALLERY_MODULE==19 || GALLERY_MODULE==21
  effect::Image map;auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,source,layers,p,map);};
-#elif GALLERY_MODULE==8 || GALLERY_MODULE==11 || GALLERY_MODULE==13 || GALLERY_MODULE==15 || GALLERY_MODULE==16 || GALLERY_MODULE==17 || GALLERY_MODULE==18 || GALLERY_MODULE==20
+#elif GALLERY_MODULE==8 || GALLERY_MODULE==11 || GALLERY_MODULE==13 || GALLERY_MODULE==15 || GALLERY_MODULE==16 || GALLERY_MODULE==17 || GALLERY_MODULE==18 || GALLERY_MODULE==20 || GALLERY_MODULE==22 || GALLERY_MODULE==23
  auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,source,p);};
 #elif GALLERY_MODULE==12
  effect::Prepared prepared;auto show=[&]{return effect::show_dialog(GetModuleHandleW(nullptr),nullptr,&host.f,source,p,prepared);};

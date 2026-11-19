@@ -34,7 +34,7 @@ void update(psui::LibraryPanel& ui,Context& c){
   c.view.dirty=false;c.dirty=true;
  }
  load_source(c);
- const auto p=c.p;const auto source=c.source;const auto doc=document_bounds(c.host);const auto full_geo=c.full_geometry,draft_geo=c.draft_geometry;const auto full=c.full_input,small=c.draft_input;
+ const auto p=c.p;const auto source=c.source;const auto doc=source_bounds(c.host);const auto full_geo=c.full_geometry,draft_geo=c.draft_geometry;const auto full=c.full_input,small=c.draft_input;
  try{PreviewFrame completed;
   if(c.worker.update(c.dirty,completed,[p,source,doc,full_geo,draft_geo,full,small](bool draft,const std::function<bool()>& cancel){
    const auto geometry=draft?draft_geo:full_geo;const auto input=draft?small:full;
@@ -58,7 +58,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  const float s=ui.scale();auto& p=c.p;bool changed=false;const auto doc=document_bounds(c.host);
  ImGui::BeginChild("preview-side",{205*s,0},0,ImGuiWindowFlags_NoScrollbar);
  const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- auto bounds=psui::filter_bounds(c.host);if(bounds.right<=bounds.left||bounds.bottom<=bounds.top)bounds=doc;
+ auto bounds=psui::filter_document_bounds(c.host);if(bounds.right<=bounds.left||bounds.bottom<=bounds.top)bounds=doc;
  c.view.configure(bounds,205*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-160*s,110*s,205*s));update(ui,c);ui.image_view(c.view,c.geometry);
  ui.items["cell.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
  const auto rect=ui.items.at("image");

@@ -77,7 +77,7 @@ void update(psui::LibraryPanel& ui,Context& c){
 void draw(psui::LibraryPanel& ui,Context& c){
  const auto b=c.host->documentInfo->bounds;const auto factory=defaults(effect_kind,b.right-b.left,b.bottom-b.top,b.left,b.top);ui.parameter_defaults(c.p,factory);auto& p=c.p;const float s=ui.scale();bool changed=false;
  ImGui::BeginChild("preview-side",{300*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);c.view.configure(psui::filter_bounds(c.host),300*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-190*s,140*s,350*s));
+ const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);c.view.configure(psui::filter_document_bounds(c.host),300*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-190*s,140*s,350*s));
  update(ui,c);ui.image_view(c.view,c.proxy);if(effect_kind==Kind::shine)changed|=psui::preview_point(ui,c.view,p.cx,p.cy);else if(p.use_mask)changed|=psui::preview_point(ui,c.view,p.mask_cx,p.mask_cy);
  ui.items["lightfx.state"]={float(c.frames),float(c.full_frames),c.last_draft?1.f:0.f,float(c.error)};ui.items["lightfx.timing"]={float(c.milliseconds),float(c.last.step),c.worker.pending()?1.f:0.f,0};
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;

@@ -1,6 +1,6 @@
 # Etching 蚀刻（0.38收录）
 
-**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
+**已收录0.38正式版。** [下载安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)；本文件名沿用开发阶段命名。`evidence`／`dist`路径为维护者本地历史记录，公开验证见[VALIDATION.md](VALIDATION.md)。
 
 将照片转为两组粗细随明暗变化的曲线，叠加轮廓细节，适合货币雕版、复古印刷和肖像版画。参考 [S_Etching公开参数](https://borisfx.com/documentation/sapphire/ae/etching/)，独立实现。
 
@@ -23,6 +23,6 @@
 
 应用在智能对象上，37个字段通过公共保存机制随PSD留存，包括模式、两组线条、形变、轮廓、颜色、纸纹、种子和输出控制。CPU计算，支持RGB8／16／32、中英文、蓝色单项及全部重置。
 
-[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.38/AE-to-PS-Plugins-0.38-Windows-x64.zip)中包含 `ZaYuEtching.8bf`。本机PS2020／2026已安装；PS2026本轮仅安装，Win7／CC2018保留旧系统加载与界面路径，仍需外机复测。最终验证摘要见本地 `evidence/etching-v01/qa.json`。
+[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)中包含 `ZaYuEtching.8bf`。本机PS2020／2026已安装；PS2026本轮仅安装，Win7／CC2018保留旧系统加载与界面路径，仍需外机复测。最终验证摘要见本地 `evidence/etching-v01/qa.json`。
 
 这是静态二维蚀刻重建，不包含原版程序、预设资源、Mocha或AE不透明度处理模式，也不声明逐像素复现。0.38正式版共28款／21模块。

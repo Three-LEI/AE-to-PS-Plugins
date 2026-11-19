@@ -150,7 +150,7 @@ bool render(const Image& src,const Parameters& p,Image& output,const Image* mask
  for(int y=int(first);y<int(last);++y){if(check())return false;for(int x=0;x<src.width;++x){
   if((x&127)==0&&check())return false;
   const auto i=(std::size_t(y)*src.width+x)*4;double mix=p.mix*.01;
-  if(mask){const auto q=sample(*mask,(x+.5)*mask->width/src.width-.5,(y+.5)*mask->height/src.height-.5,Edge::repeat);
+  if(mask){const auto q=sample(*mask,x+src.left-mask->left,y+src.top-mask->top,Edge::transparent);
    double m=p.mask_mode==0?unit(q[3]):unit(.2126f*q[0]+.7152f*q[1]+.0722f*q[2])*unit(q[3]);mix*=p.invert_mask?1-m:m;}
   if(mix==0){std::copy_n(src.rgba.data()+i,4,result.rgba.data()+i);continue;}
   const double dx=x-cx,dy=y-cy,distance=std::hypot(dx,dy);

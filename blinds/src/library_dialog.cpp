@@ -30,7 +30,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  const float s=ui.scale();bool changed=false,preset_applied=false;auto& p=c.p;
  ImGui::BeginChild("preview-side",{230*s,0},0,ImGuiWindowFlags_NoScrollbar);
  const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),230*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-180*s,100*s,230*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ c.view.configure(psui::filter_document_bounds(c.host),230*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-180*s,100*s,230*s));update(ui,c);ui.image_view(c.view,c.proxy);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  ui.items["blinds.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.completion),float(p.direction)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("预览失败，请重置或取消。 / Preview failed. Reset or cancel.").c_str());

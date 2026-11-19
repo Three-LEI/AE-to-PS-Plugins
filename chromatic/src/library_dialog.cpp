@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include "chromatic_host.hpp"
 #include "psui/library_panel.hpp"
+#include "psui/image_bounds.hpp"
 #include "psui/preview_background.hpp"
 #include "psui/adaptive_preview.hpp"
 #include <algorithm>
@@ -51,7 +52,7 @@ struct Context {
   worker.stop();adaptive_cache.clear();mask={};if(!p.mask_key)return true;const psui::HostLayer* selected=nullptr;
   for(const auto& l:layers)if(l.name_key==p.mask_key){if(selected)return false;selected=&l;}
   if(!selected)return false;psui::LayerPixels pixels;
-  if(psui::host_read_layer(host,*selected,host->documentInfo->bounds,0,pixels))return false;
+  if(psui::host_read_reference(host,*selected,pixels))return false;
   mask=from_host(std::move(pixels));return true;
  }
 };
@@ -90,7 +91,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  const float s=ui.scale();bool changed=false,preset_changed=false;auto& p=c.p;
  ImGui::BeginChild("preview-side",{205*s,0},0,ImGuiWindowFlags_NoScrollbar);
  const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),205*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-190*s,100*s,205*s));
+ c.view.configure(psui::filter_document_bounds(c.host),205*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-190*s,100*s,205*s));
  update(ui,c);ui.image_view(c.view,c.proxy);
  ui.items["chromatic.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
  const auto rect=ui.items.at("image");

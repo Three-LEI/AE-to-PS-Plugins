@@ -92,7 +92,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  auto& p=c.p;const float s=ui.scale();bool changed=false,preset_applied=false;
  ImGui::BeginChild("preview-side",{250*s,0},0,ImGuiWindowFlags_NoScrollbar);
  const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_bounds(c.host),250*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-210*s,120*s,270*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ c.view.configure(psui::filter_document_bounds(c.host),250*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-210*s,120*s,270*s));update(ui,c);ui.image_view(c.view,c.proxy);
  if(p.input==0)changed|=endpoints(ui,c);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  ui.check("显示端点 / Show Endpoints",c.show_points);ui.items["energy.state"]={c.last.valid()?1.f:0.f,float(c.error),float(c.inputs.path.curves.size()),float(p.input)};

@@ -9,7 +9,6 @@ inline Image from_host(psui::LayerPixels&& p){
   result.midpoint=p.depth==8?128./255:.5;
   result.rgba=std::move(p.rgba);return result;
 }
-inline VRect layer_bounds(const psui::HostLayer& l){return l.rgb[0]->bounds;}
 INT_PTR show_dialog(HINSTANCE,HWND,FilterRecord*,const std::vector<psui::HostLayer>&,
                     const Image&,Parameters&,Image&);
 }
