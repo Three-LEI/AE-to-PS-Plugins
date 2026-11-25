@@ -10,7 +10,7 @@ namespace cell {
 namespace {
 constexpr const char* modes[]={"气泡 / Bubbles","晶体 / Crystals","印板 / Plates","静态板 / Static Plates","晶格化 / Crystallize","枕状 / Pillow","晶体 HQ / Crystals HQ","印板 HQ / Plates HQ","静态板 HQ / Static Plates HQ","晶格化 HQ / Crystallize HQ","混合晶体 / Mixed Crystals","管状 / Tubular"};
 constexpr const char* overflows[]={"剪切 / Clip","柔和限制 / Soft Clamp","反绕 / Wrap Back"};
-constexpr const char* labels[]={"单元格图案 / Cell Pattern","反转 / Invert","对比度 / Contrast","锐度 / Sharpness","溢出 / Overflow","分散 / Disperse","大小 / Size","偏移 / Offset","平铺选项 / Tiling Options","启用平铺 / Enable Tiling","水平单元格 / Cells Horizontal","垂直单元格 / Cells Vertical","演化 / Evolution","演化（度） / Evolution (degrees)","演化选项 / Evolution Options","循环演化 / Cycle Evolution","循环（转数） / Cycle (revolutions)","随机种子 / Random Seed","偏移居中 / Center Offset","右键缩览图设置偏移。 / Right-click the preview to set the offset.","晶格化读取当前图层颜色；纯色输入仍为纯色。 / Crystallize samples the current layer; a uniform input stays uniform.","独立重建，随机布局及细节可能与 AE 不同。 / Independent reconstruction; layout and details may differ from AE.","正在更新… / Updating…","无法读取原图，晶格化需要可读取的 RGB 图层。 / Crystallize needs a readable RGB source layer.","计算失败，请重置或取消。 / Rendering failed. Reset or cancel.","预览取样为近似显示，最终输出使用原始分辨率。 / Preview sampling is approximate; final output uses native resolution.","平铺尺寸 / Tile Size"};
+constexpr const char* labels[]={"单元格图案 / Cell Pattern","反转 / Invert","对比度 / Contrast","锐度 / Sharpness","溢出 / Overflow","分散 / Disperse","大小 / Size","偏移 / Offset","平铺选项 / Tiling Options","启用平铺 / Enable Tiling","水平单元格 / Cells Horizontal","垂直单元格 / Cells Vertical","演化 / Evolution","演化（度） / Evolution (degrees)","演化选项 / Evolution Options","循环演化 / Cycle Evolution","循环（转数） / Cycle (revolutions)","随机种子 / Random Seed","偏移居中 / Center Offset","拖动预览中的偏移手柄。 / Drag the offset handle in the preview.","晶格化读取当前图层颜色；纯色输入仍为纯色。 / Crystallize samples the current layer; a uniform input stays uniform.","独立重建，随机布局及细节可能与 AE 不同。 / Independent reconstruction; layout and details may differ from AE.","正在更新… / Updating…","无法读取原图，晶格化需要可读取的 RGB 图层。 / Crystallize needs a readable RGB source layer.","计算失败，请重置或取消。 / Rendering failed. Reset or cancel.","预览取样为近似显示，最终输出使用原始分辨率。 / Preview sampling is approximate; final output uses native resolution.","平铺尺寸 / Tile Size"};
 enum Label{mode_label,invert_label,contrast_label,sharpness_label,overflow_label,disperse_label,size_label,offset_label,tiling_label,tile_label,cells_x_label,cells_y_label,evolution_label,degrees_label,evo_options_label,cycle_evo_label,cycle_label,seed_label,center_label,pick_label,source_help_label,disclaimer_label,working_label,source_error_label,error_label,approx_label,tile_size_label};
 struct PreviewFrame{Image image;psui::ProxyImage geometry;std::shared_ptr<psui::NativePreview> input;};
 struct Context {
@@ -55,16 +55,14 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.parameter_defaults(c.p, defaults_for_host(c.host));
  ui.inherit_choice_default(labels[mode_label],c.p.mode);
  ui.inherit_choice_default(labels[overflow_label],c.p.overflow);
- const float s=ui.scale();auto& p=c.p;bool changed=false;const auto doc=document_bounds(c.host);
- ImGui::BeginChild("preview-side",{205*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
+ auto& p=c.p;bool changed=false;const auto doc=document_bounds(c.host);
+ const float footer = ui.filter_footer_height();
  auto bounds=psui::filter_document_bounds(c.host);if(bounds.right<=bounds.left||bounds.bottom<=bounds.top)bounds=doc;
- c.view.configure(bounds,205*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-160*s,110*s,205*s));update(ui,c);ui.image_view(c.view,c.geometry);
+ ui.begin_filter_preview(c.view, bounds, footer);update(ui,c);
+ psui::PreviewAdjustments handles;
+ handles.point(labels[offset_label], p.offset_x, p.offset_y);
+ changed |= ui.image_view(c.view,c.geometry,handles);
  ui.items["cell.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
- const auto rect=ui.items.at("image");
- if(ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({rect.x,rect.y},{rect.z,rect.w})&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){
-  const auto mouse=ImGui::GetMousePos();p.offset_x=std::clamp(c.view.center_x()+(mouse.x-(rect.x+rect.z)*.5)/(c.view.percent*.01),double(doc.left),double(doc.right));p.offset_y=std::clamp(c.view.center_y()+(mouse.y-(rect.y+rect.w)*.5)/(c.view.percent*.01),double(doc.top),double(doc.bottom));changed=true;
- }
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
 
  if(c.error)ImGui::TextWrapped("%s",ui.text(labels[error_label]).c_str());
@@ -102,7 +100,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* host,Parameters& p){
  Context c(p,host);std::string glyphs;for(auto s:labels)glyphs+=s;for(auto s:modes)glyphs+=s;for(auto s:overflows)glyphs+=s;
- const auto result=psui::run_library_panel(module,owner,host,cell_title,740,540,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&cell_info);
+ const auto result=psui::run_filter_panel(module,owner,host,cell_title,740,540,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&cell_info);
  c.worker.stop();if(result==IDOK&&!c.error)p=c.p;return result;
 }
 }

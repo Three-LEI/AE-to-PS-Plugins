@@ -10,7 +10,7 @@
 
 ## 试用
 
-本机 PS2020／PS2026 已新增 `ZaYuASCIIDither.8bf`。从“滤镜 → ZaYu-AE 效果复刻 → ASCII Dither 字符抖动”打开，可先试绿色终端、彩色字符和二进制屏幕。检查字体轮廓时放大到 100%；需要保存可编辑参数时使用智能对象。
+本机 PS2020／PS2026 已新增 `ZaYuASCIIDither.8bf`。从“滤镜 → ZaYu-风格化 → ASCII Dither 字符抖动”打开，可先试绿色终端、彩色字符和二进制屏幕。检查字体轮廓时放大到 100%；需要保存可编辑参数时使用智能对象。
 
 从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)安装`ZaYuASCIIDither.8bf`。
 

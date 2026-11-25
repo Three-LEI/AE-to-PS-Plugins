@@ -1,0 +1,280 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Sphere",
+      "Category": "ZaYu-Perspective",
+      "Version": 4,
+      "SubVersion": 1,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 5,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuSphere",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/Sphere=Sphere 球面贴图",
+      "ZStringCategory": "$$$/ZaYu/Groups/Perspective=ZaYu-透视",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpSp"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Sphere",
+                "EventDescription": "Editable Sphere",
+                "ClassID": "ZpEf",
+                "EventType": "ZpSp",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "center_x",
+                    "ParamKeyword": "ZwA0",
+                    "ParamType": "doub",
+                    "ParamDescription": "center_x"
+                  },
+                  {
+                    "ParamName": "center_y",
+                    "ParamKeyword": "ZwA1",
+                    "ParamType": "doub",
+                    "ParamDescription": "center_y"
+                  },
+                  {
+                    "ParamName": "radius",
+                    "ParamKeyword": "ZwA2",
+                    "ParamType": "doub",
+                    "ParamDescription": "radius"
+                  },
+                  {
+                    "ParamName": "rotation_x",
+                    "ParamKeyword": "ZwA3",
+                    "ParamType": "doub",
+                    "ParamDescription": "rotation_x"
+                  },
+                  {
+                    "ParamName": "rotation_y",
+                    "ParamKeyword": "ZwA4",
+                    "ParamType": "doub",
+                    "ParamDescription": "rotation_y"
+                  },
+                  {
+                    "ParamName": "rotation_z",
+                    "ParamKeyword": "ZwA5",
+                    "ParamType": "doub",
+                    "ParamDescription": "rotation_z"
+                  },
+                  {
+                    "ParamName": "light_direction",
+                    "ParamKeyword": "ZwA6",
+                    "ParamType": "doub",
+                    "ParamDescription": "light_direction"
+                  },
+                  {
+                    "ParamName": "light_elevation",
+                    "ParamKeyword": "ZwA7",
+                    "ParamType": "doub",
+                    "ParamDescription": "light_elevation"
+                  },
+                  {
+                    "ParamName": "ambient",
+                    "ParamKeyword": "ZwA8",
+                    "ParamType": "doub",
+                    "ParamDescription": "ambient"
+                  },
+                  {
+                    "ParamName": "diffuse",
+                    "ParamKeyword": "ZwA9",
+                    "ParamType": "doub",
+                    "ParamDescription": "diffuse"
+                  },
+                  {
+                    "ParamName": "specular",
+                    "ParamKeyword": "ZwB0",
+                    "ParamType": "doub",
+                    "ParamDescription": "specular"
+                  },
+                  {
+                    "ParamName": "lighting",
+                    "ParamKeyword": "ZwB1",
+                    "ParamType": "bool",
+                    "ParamDescription": "lighting"
+                  },
+                  {
+                    "ParamName": "height",
+                    "ParamKeyword": "ZwB2",
+                    "ParamType": "doub",
+                    "ParamDescription": "height"
+                  },
+                  {
+                    "ParamName": "render_sides",
+                    "ParamKeyword": "ZwB3",
+                    "ParamType": "long",
+                    "ParamDescription": "render_sides"
+                  },
+                  {
+                    "ParamName": "wrap_angle",
+                    "ParamKeyword": "ZwB4",
+                    "ParamType": "doub",
+                    "ParamDescription": "wrap_angle"
+                  },
+                  {
+                    "ParamName": "local_decal",
+                    "ParamKeyword": "ZwB5",
+                    "ParamType": "bool",
+                    "ParamDescription": "local_decal"
+                  },
+                  {
+                    "ParamName": "decal_longitude",
+                    "ParamKeyword": "ZwB6",
+                    "ParamType": "doub",
+                    "ParamDescription": "decal_longitude"
+                  },
+                  {
+                    "ParamName": "decal_latitude",
+                    "ParamKeyword": "ZwB7",
+                    "ParamType": "doub",
+                    "ParamDescription": "decal_latitude"
+                  },
+                  {
+                    "ParamName": "decal_size",
+                    "ParamKeyword": "ZwB8",
+                    "ParamType": "doub",
+                    "ParamDescription": "decal_size"
+                  },
+                  {
+                    "ParamName": "texture_layer",
+                    "ParamKeyword": "ZwB9",
+                    "ParamType": "TEXT",
+                    "ParamDescription": "texture_layer"
+                  },
+                  {
+                    "ParamName": "keep_current",
+                    "ParamKeyword": "ZwC0",
+                    "ParamType": "bool",
+                    "ParamDescription": "keep_current"
+                  },
+                  {
+                    "ParamName": "cylinder_decal_angle",
+                    "ParamKeyword": "ZwC1",
+                    "ParamType": "doub",
+                    "ParamDescription": "cylinder_decal_angle"
+                  },
+                  {
+                    "ParamName": "cylinder_decal_position",
+                    "ParamKeyword": "ZwC2",
+                    "ParamType": "doub",
+                    "ParamDescription": "cylinder_decal_position"
+                  },
+                  {
+                    "ParamName": "cylinder_decal_height",
+                    "ParamKeyword": "ZwC3",
+                    "ParamType": "doub",
+                    "ParamDescription": "cylinder_decal_height"
+                  },
+                  {
+                    "ParamName": "keep_current_for_self_decal",
+                    "ParamKeyword": "ZwC4",
+                    "ParamType": "bool",
+                    "ParamDescription": "keep_current_for_self_decal"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -13,6 +13,7 @@
 #include "psui/host_layers.hpp"
 #include <algorithm>
 #include <cmath>
+#include <cfloat>
 #include <cstdint>
 #include <cstring>
 #include <d3d11.h>
@@ -20,6 +21,7 @@
 #include <exception>
 #include <filesystem>
 #include <fstream>
+#include <numbers>
 #include <shellapi.h>
 #include <vector>
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND, UINT, WPARAM,
@@ -174,6 +176,13 @@ struct LibraryPanel::Impl {
   std::string locale;
   bool running = true, accept = false;
   bool numeric_escape = false;
+  bool show_adjustments = true, has_adjustments = false;
+  struct AdjustmentDrag {
+    ImGuiID id = 0;
+    bool owns_press = false;
+    ImVec2 mouse{}, center{}, marker_offset{};
+    double value = 0, y = 0, zoom = 1, angle = 0, rotation = 0;
+  } adjustment_drag;
   int frames = 0;
   std::uintptr_t parameter_base = 0;
   std::vector<unsigned char> parameter_values;
@@ -192,6 +201,30 @@ struct LibraryPanel::Impl {
   ID3D11RenderTargetView *target = nullptr;
   ID3D11Texture2D *texture = nullptr;
   ID3D11ShaderResourceView *view = nullptr;
+  struct PreviewBitmap {
+    HBITMAP bitmap = nullptr;
+    const std::uint8_t *pixels = nullptr;
+    int width = 0, height = 0;
+    ~PreviewBitmap() { if (bitmap) DeleteObject(bitmap); }
+    bool resize(int w, int h) {
+      if (bitmap && width == w && height == h) return true;
+      BITMAPINFO info{};
+      info.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+      info.bmiHeader.biWidth = w;
+      info.bmiHeader.biHeight = -h;
+      info.bmiHeader.biPlanes = 1;
+      info.bmiHeader.biBitCount = 32;
+      void *bits = nullptr;
+      const auto next = CreateDIBSection(nullptr, &info, DIB_RGB_COLORS, &bits, nullptr, 0);
+      if (!next) return false;
+      if (bitmap) DeleteObject(bitmap);
+      bitmap = next;
+      pixels = static_cast<const std::uint8_t *>(bits);
+      width = w;
+      height = h;
+      return true;
+    }
+  } preview_bitmap;
   struct CachedImage {ID3D11ShaderResourceView* view=nullptr;int width=0,height=0;};
   std::map<std::string,CachedImage> cached_images;
   ID3D11BlendState *status_blend = nullptr;
@@ -661,37 +694,20 @@ bool LibraryPanel::preview(FilterRecord *host, const std::uint8_t *rgb, int w,
                            int h) {
   if (!rgb || w <= 0 || h <= 0)
     return false;
-  std::vector<std::uint32_t> pixels(static_cast<std::size_t>(w) * h);
-  HDC dc = CreateCompatibleDC(nullptr);
-  BITMAPINFO info{};
-  info.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-  info.bmiHeader.biWidth = w;
-  info.bmiHeader.biHeight = -h;
-  info.bmiHeader.biPlanes = 1;
-  info.bmiHeader.biBitCount = 32;
-  void *bits = nullptr;
-  HBITMAP bitmap =
-      dc ? CreateDIBSection(dc, &info, DIB_RGB_COLORS, &bits, nullptr, 0)
-         : nullptr;
-  if (bitmap) {
-    auto old = SelectObject(dc, bitmap);
-    if (host_display_rgb(host, dc, {0, 0, w, h}, rgb, w, h)) {
-      GdiFlush();
-      auto *source = static_cast<std::uint8_t *>(bits);
-      for (std::size_t i = 0; i < pixels.size(); ++i)
-        pixels[i] = source[i * 4 + 2] | (source[i * 4 + 1] << 8) |
-                    (source[i * 4] << 16) | 0xff000000U;
-    } else
-      for (std::size_t i = 0; i < pixels.size(); ++i)
-        pixels[i] = rgb[i * 3] | (rgb[i * 3 + 1] << 8) |
-                    (rgb[i * 3 + 2] << 16) | 0xff000000U;
-    SelectObject(dc, old);
-    DeleteObject(bitmap);
-    DeleteDC(dc);
-  } else {
-    if (dc)
+  const std::uint8_t *converted = nullptr;
+  auto &bitmap = impl->preview_bitmap;
+  if (host && host->displayPixels && bitmap.resize(w, h)) {
+    if (const auto dc = CreateCompatibleDC(nullptr)) {
+      const auto old = SelectObject(dc, bitmap.bitmap);
+      if (old && old != HGDI_ERROR) {
+        if (host_display_rgb(host, dc, {0, 0, w, h}, rgb, w, h)) {
+          GdiFlush();
+          converted = bitmap.pixels;
+        }
+        SelectObject(dc, old);
+      }
       DeleteDC(dc);
-    return false;
+    }
   }
   if (w != impl->image_w || h != impl->image_h) {
     D3D11_TEXTURE2D_DESC d{};
@@ -724,9 +740,19 @@ bool LibraryPanel::preview(FilterRecord *host, const std::uint8_t *rgb, int w,
   if (FAILED(impl->context->Map(impl->texture, 0, D3D11_MAP_WRITE_DISCARD, 0,
                                 &mapped)))
     return false;
-  for (int y = 0; y < h; ++y)
-    std::memcpy(static_cast<std::uint8_t *>(mapped.pData) + y * mapped.RowPitch,
-                pixels.data() + y * w, w * 4);
+  for (int y = 0; y < h; ++y) {
+    auto *row = reinterpret_cast<std::uint32_t *>(
+        static_cast<std::uint8_t *>(mapped.pData) + std::size_t(y) * mapped.RowPitch);
+    if (converted) {
+      const auto *source = converted + std::size_t(y) * w * 4;
+      for (int x = 0; x < w; ++x)
+        row[x] = source[x * 4 + 2] | (source[x * 4 + 1] << 8) | (source[x * 4] << 16) | 0xff000000U;
+    } else {
+      const auto *source = rgb + std::size_t(y) * w * 3;
+      for (int x = 0; x < w; ++x)
+        row[x] = source[x * 3] | (source[x * 3 + 1] << 8) | (source[x * 3 + 2] << 16) | 0xff000000U;
+    }
+  }
   impl->context->Unmap(impl->texture, 0);
   impl->color_sampler.pixels(rgb,w,h);
   return true;
@@ -759,7 +785,160 @@ void LibraryPanel::image(float width, float height) {
   const auto lo=ImGui::GetItemRectMin(),hi=ImGui::GetItemRectMax();
   impl->color_sampler.geometry(lo,hi,lo,hi);
 }
-void LibraryPanel::image_view(PreviewView &v, const ProxyImage &source) {
+namespace {
+
+using AdjustmentKind = PreviewAdjustments::Kind;
+using Adjustment = PreviewAdjustments::Control;
+
+struct AdjustmentPlacement {
+  ImVec2 marker{}, anchor{}, center{};
+  bool visible = false;
+};
+
+struct AdjustmentLayout {
+  ImVec2 lo, hi, middle;
+  const PreviewView& view;
+  float dpi;
+  ImVec2 screen(double x, double y) const {
+    const double z = view.percent * .01;
+    return {float(middle.x + (x - view.center_x()) * z), float(middle.y + (y - view.center_y()) * z)};
+  }
+
+  bool contains(ImVec2 point) const {
+    return point.x >= lo.x && point.x <= hi.x && point.y >= lo.y && point.y <= hi.y;
+  }
+
+  ImVec2 inset(ImVec2 point) const {
+    const float margin = 10 * dpi;
+    const float x = std::min(margin, (hi.x - lo.x) * .5f), y = std::min(margin, (hi.y - lo.y) * .5f);
+    return {std::clamp(point.x, lo.x + x, hi.x - x), std::clamp(point.y, lo.y + y, hi.y - y)};
+  }
+
+  AdjustmentPlacement place(const Adjustment& control) const {
+    AdjustmentPlacement result;
+    if (control.kind == AdjustmentKind::Point) {
+      result.marker = screen(control.point_space.x(*control.value), control.point_space.y(*control.y));
+    } else {
+      result.center = screen(control.x_center, control.y_center);
+      const double radians = std::remainder(control.phase + *control.value * control.units, 360.) * std::numbers::pi / 180;
+      const float length = 35 * dpi;
+      result.marker = {result.center.x + length * float(std::cos(radians)), result.center.y + length * float(std::sin(radians))};
+    }
+    result.anchor = result.marker;
+    set_marker(result, result.anchor);
+    return result;
+  }
+
+  void set_marker(AdjustmentPlacement& result, ImVec2 marker) const {
+    result.visible = contains(marker);
+    result.marker = inset(marker);
+  }
+};
+
+float distance_squared(ImVec2 a, ImVec2 b) {
+  const float dx = a.x - b.x, dy = a.y - b.y;
+  return dx * dx + dy * dy;
+}
+
+auto place_adjustments(const AdjustmentLayout& layout, std::span<const Adjustment> controls,
+                       const LibraryPanel::Impl::AdjustmentDrag& drag) {
+  std::array<AdjustmentPlacement, PreviewAdjustments::max_controls> placed{};
+  constexpr ImVec2 offsets[] = {{0, 0}, {1, 0}, {0, -1}, {-1, 0}, {0, 1}, {1, -1}, {-1, -1}, {-1, 1}, {1, 1}};
+  const float spacing = 21 * layout.dpi;
+  for (std::size_t i = 0; i < controls.size(); ++i) {
+    const auto& control = controls[i];
+    auto& placement = placed[i];
+    placement = layout.place(control);
+    if (!placement.visible) continue;
+    if (drag.id == ImGui::GetID(control.label)) {
+      layout.set_marker(placement, {placement.anchor.x + drag.marker_offset.x, placement.anchor.y + drag.marker_offset.y});
+      continue;
+    }
+    // Separate coincident controls while keeping their original document coordinates.
+    for (const auto& offset : offsets) {
+      const ImVec2 target{placement.anchor.x + offset.x * spacing, placement.anchor.y + offset.y * spacing};
+      if (!layout.contains(target)) continue;
+      const auto candidate = layout.inset(target);
+      bool overlaps = false;
+      for (std::size_t j = 0; j < i; ++j) {
+        if (placed[j].visible && distance_squared(candidate, placed[j].marker) < spacing * spacing * .95f) {
+          overlaps = true;
+          break;
+        }
+      }
+      if (!overlaps) {
+        layout.set_marker(placement, candidate);
+        break;
+      }
+    }
+  }
+  return placed;
+}
+
+double pointer_angle(ImVec2 mouse, ImVec2 center) {
+  return std::atan2(double(mouse.y - center.y), double(mouse.x - center.x)) * 180 / std::numbers::pi;
+}
+
+bool set_adjustment(const Adjustment& control, double value, double y) {
+  if (!std::isfinite(value) || (control.y && !std::isfinite(y))) return false;
+  value = std::clamp(value, control.minimum, control.maximum);
+  bool changed = value != *control.value;
+  *control.value = value;
+  if (control.y) {
+    y = std::clamp(y, control.minimum, control.maximum);
+    changed |= y != *control.y;
+    *control.y = y;
+  }
+  return changed;
+}
+
+bool drag_adjustment(const Adjustment& control, LibraryPanel::Impl::AdjustmentDrag& drag, ImVec2 mouse) {
+  if (control.kind == AdjustmentKind::Point) {
+    const double dx = mouse.x - drag.mouse.x, dy = mouse.y - drag.mouse.y;
+    return set_adjustment(control, drag.value + dx / (drag.zoom * control.point_space.x_units),
+                          drag.y + dy / (drag.zoom * control.point_space.y_units));
+  }
+  const ImVec2 pointer{mouse.x - drag.marker_offset.x, mouse.y - drag.marker_offset.y};
+  if (distance_squared(pointer, drag.center) < 1) return false;
+  const double angle = pointer_angle(pointer, drag.center);
+  drag.rotation += std::remainder(angle - drag.angle, 360.);
+  drag.angle = angle;
+  double value = drag.value + drag.rotation / control.units;
+  if (control.maximum - control.minimum >= 360) {
+    if (value < control.minimum) value += 360 * std::ceil((control.minimum - value) / 360);
+    if (value > control.maximum) value -= 360 * std::ceil((value - control.maximum) / 360);
+  }
+  return set_adjustment(control, value, 0);
+}
+
+constexpr ImU32 adjustment_ink = IM_COL32(255, 255, 255, 255);
+constexpr ImU32 adjustment_outline = IM_COL32(12, 15, 19, 190);
+
+void paint_adjustment_line(ImDrawList* list, ImVec2 from, ImVec2 to, float scale) {
+  list->AddLine(from, to, adjustment_outline, 2.5f * scale);
+  list->AddLine(from, to, adjustment_ink, scale);
+}
+
+void paint_adjustment(float s, const Adjustment& control,
+                      const AdjustmentPlacement& placement, bool selected) {
+  auto* list = ImGui::GetWindowDrawList();
+  const auto marker = placement.marker;
+  const auto anchor = placement.anchor;
+  if (distance_squared(anchor, marker) > 0) paint_adjustment_line(list, anchor, marker, s);
+  const float stroke = (selected ? 1.6f : 1.25f) * s;
+  if (control.kind == AdjustmentKind::Point) {
+    draw_position_icon(list, marker, 20 * s, selected, adjustment_outline, stroke + 1.5f * s);
+    draw_position_icon(list, marker, 20 * s, selected, adjustment_ink, stroke);
+  } else {
+    paint_adjustment_line(list, placement.center, anchor, s);
+    list->AddCircle(marker, 5 * s, adjustment_outline, 0, stroke + 1.5f * s);
+    list->AddCircle(marker, 5 * s, adjustment_ink, 0, stroke);
+  }
+}
+
+} // namespace
+
+bool LibraryPanel::image_view(PreviewView &v, const ProxyImage &source, const PreviewAdjustments &adjustments) {
   impl->color_sampler.visible=false;
   const auto a = ImGui::GetCursorScreenPos();
   ImGui::InvisibleButton("##preview-pan", {v.width, v.height}, ImGuiButtonFlags_MouseButtonLeft);
@@ -768,6 +947,69 @@ void LibraryPanel::image_view(PreviewView &v, const ProxyImage &source) {
   items["preview.source"]={float(source.origin_x),float(source.origin_y),float(source.origin_x+source.width*source.step),float(source.origin_y+source.height*source.step)};
   if (!v.dirty) impl->displayed_preview=v;
   const auto shown=impl->displayed_preview;
+  const ImVec2 end{a.x+v.width,a.y+v.height};
+  const ImVec2 mid{a.x+v.width*.5f,a.y+v.height*.5f};
+  const bool image_ready = impl->view && source.width > 0 && source.height > 0;
+  const auto controls = adjustments.controls();
+  impl->has_adjustments = !controls.empty();
+  const bool show = image_ready && impl->show_adjustments && impl->has_adjustments;
+  const AdjustmentLayout layout{a, end, mid, shown, scale()};
+  const ImVec2 mouse = ImGui::GetMousePos();
+  auto& drag = impl->adjustment_drag;
+  const bool hovered = ImGui::IsItemHovered(), active = ImGui::IsItemActive();
+  const bool pressed = ImGui::IsMouseDown(ImGuiMouseButton_Left);
+  const bool clicked = ImGui::IsMouseClicked(ImGuiMouseButton_Left);
+  const bool released = ImGui::IsItemDeactivated() && ImGui::IsMouseReleased(ImGuiMouseButton_Left);
+  if (!active && !released) drag = {};
+  int hot = -1, held = -1;
+  float distance = FLT_MAX;
+  bool changed = false;
+  std::array<AdjustmentPlacement, PreviewAdjustments::max_controls> placements{};
+  if (show) {
+    placements = place_adjustments(layout, controls, drag);
+    for (int i = 0; i < int(controls.size()); ++i) {
+      const auto& control = controls[i];
+      const auto& placement = placements[i];
+      if (drag.id == ImGui::GetID(control.label)) held = i;
+      if (!placement.visible || !hovered || picking_color() || (pressed && !clicked)) continue;
+      const float next = distance_squared(mouse, placement.marker);
+      if (next > 100 * scale() * scale()) continue;
+      if (next < distance) { hot = i; distance = next; }
+    }
+    if (hot >= 0 && active && clicked) {
+      const auto& control = controls[hot];
+      const auto& placement = placements[hot];
+      const auto center = placement.center;
+      drag = {};
+      drag.id = ImGui::GetID(control.label);
+      drag.owns_press = true;
+      drag.mouse = mouse;
+      drag.center = center;
+      drag.value = *control.value;
+      drag.y = control.y ? *control.y : 0;
+      drag.zoom = shown.percent * .01;
+      drag.marker_offset = {placement.marker.x - placement.anchor.x, placement.marker.y - placement.anchor.y};
+      const ImVec2 pointer{mouse.x - drag.marker_offset.x, mouse.y - drag.marker_offset.y};
+      drag.angle = pointer_angle(pointer, center);
+      held = hot;
+    }
+    if (drag.owns_press && active) ImGui::SetItemKeyOwner(ImGuiKey_Escape);
+    if (held >= 0 && !picking_color() && drag.zoom > 0) {
+      const auto& control = controls[held];
+      if (ImGui::IsKeyPressed(ImGuiKey_Escape, false)) {
+        changed = *control.value != drag.value || (control.y && *control.y != drag.y);
+        *control.value = drag.value;
+        if (control.y) *control.y = drag.y;
+        drag.id = 0;
+        held = -1;
+        impl->numeric_escape = true;
+      } else if (!clicked && ImGui::IsMousePosValid(&mouse) &&
+                 (ImGui::IsMouseDragging(ImGuiMouseButton_Left, 0) || released)) {
+        changed = drag_adjustment(control, drag, mouse);
+      }
+    }
+    if (changed) placements = place_adjustments(layout, controls, drag);
+  }
   impl->preview_rect={LONG(std::floor(a.x)),LONG(std::floor(a.y)),LONG(std::ceil(a.x+v.width)),LONG(std::ceil(a.y+v.height))};
   // Native wheel messages carry the event's actual screen position. Do not
   // use a possibly delayed ImGui hover position to route Windows scrolling.
@@ -781,7 +1023,7 @@ void LibraryPanel::image_view(PreviewView &v, const ProxyImage &source) {
     if(test_hook&&!test_hook->native_wheel_input&&!ImGui::IsMouseDown(0)&&io.MouseWheel!=0)
       v.wheel(io.MouseWheel,io.MousePos.x-a.x,io.MousePos.y-a.y);
   }
-  if (ImGui::IsItemHovered() || ImGui::IsItemActive()) {
+  if ((hovered || active) && !drag.owns_press && hot < 0 && !picking_color()) {
     if(v.limit_x()>0 || v.limit_y()>0) ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeAll);
     if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))v.recenter();
     else if(ImGui::IsItemActive() && ImGui::IsMouseDragging(0)) {
@@ -790,15 +1032,19 @@ void LibraryPanel::image_view(PreviewView &v, const ProxyImage &source) {
     if(ImGui::IsItemHovered() && !ImGui::IsMouseDown(0))
       ImGui::SetTooltip("%s",text("滚轮缩放；拖动平移；双击居中。 / Wheel to zoom; drag to pan; double-click to center.").c_str());
   }
+  if (hot >= 0 || held >= 0) {
+    const auto& control = controls[held >= 0 ? held : hot];
+    ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeAll);
+    const auto label = text(control.label);
+    if (control.y) ImGui::SetTooltip("%s  %.4g, %.4g", label.c_str(), *control.value, *control.y);
+    else ImGui::SetTooltip("%s  %.5g", label.c_str(), *control.value);
+  }
   auto *list = ImGui::GetWindowDrawList();
-  const ImVec2 end{a.x+v.width,a.y+v.height};
   items["preview.transform"]={float(v.percent),float(v.pan_x),float(v.pan_y),v.fitted?1.f:0.f};
   list->AddRectFilled(a,end,ImGui::GetColorU32(ImGuiCol_FrameBg));
   const auto border=[&]{list->AddRect(a,{end.x-1,end.y-1},ImGui::GetColorU32(ImGuiCol_Border),0,0,std::max(1.f,scale()));};
-  if (!impl->view || source.width <= 0 || source.height <= 0)
-    {border();return;}
+  if (!image_ready) {border();return changed;}
   const double z = shown.percent / 100;
-  const ImVec2 mid{a.x + v.width * .5f, a.y + v.height * .5f};
   const ImVec2 lo{float(mid.x + (source.origin_x - shown.center_x()) * z),
                   float(mid.y + (source.origin_y - shown.center_y()) * z)};
   const ImVec2 hi{float(lo.x + source.width * source.step * z),
@@ -816,9 +1062,52 @@ void LibraryPanel::image_view(PreviewView &v, const ProxyImage &source) {
   list->PopClipRect();
   impl->color_sampler.geometry(lo,hi,clip_lo,clip_hi);
   border();
+  if (test_hook) items["preview.adjustments"] = {float(controls.size()), show ? 1.f : 0.f, float(held), 0};
+  if (show) {
+    list->PushClipRect(a, end, true);
+    if (const auto* guide = adjustments.guide()) {
+      const auto p1 = layout.screen(guide->x1, guide->y1), p2 = layout.screen(guide->x2, guide->y2);
+      paint_adjustment_line(list, p1, p2, scale());
+    }
+    for (int i = 0; i < int(controls.size()); ++i) {
+      const auto& control = controls[i];
+      const auto& placement = placements[i];
+      if (!placement.visible) continue;
+      paint_adjustment(scale(), control, placement, i == hot || i == held);
+      if (test_hook) {
+        const auto key = "preview.adjustment." + std::to_string(i);
+        items[key] = {placement.marker.x, placement.marker.y, float(*control.value), control.y ? float(*control.y) : 0};
+      }
+    }
+    list->PopClipRect();
+  }
+  return changed;
 }
+void LibraryPanel::begin_filter_preview(PreviewView &view, VRect bounds, float extra_height) {
+  const float target = filter_preview_extent * scale();
+  const auto& style = ImGui::GetStyle();
+  const float width = std::clamp(ImGui::GetContentRegionAvail().x - style.ItemSpacing.x - 330 * scale(), 1.f, target);
+  ImGui::BeginChild("preview-side", {width, 0}, ImGuiChildFlags_None,
+                   ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+  // Preview, adaptive quality, background, handles and zoom slider. Also
+  // reserve the Fit row and room for optional preview messages.
+  const float controls = 5 * ImGui::GetFrameHeightWithSpacing() + button_height() + style.ItemSpacing.y +
+      2 * ImGui::GetTextLineHeightWithSpacing();
+  const float height = std::clamp(ImGui::GetContentRegionAvail().y - controls - extra_height, 1.f, target);
+  view.configure(bounds, width, height);
+}
+
+float LibraryPanel::filter_footer_height() const {
+  return 3 * (button_height() + ImGui::GetStyle().ItemSpacing.y);
+}
+
 bool LibraryPanel::preview_zoom(PreviewView &v) {
   ImGui::PushID("preview-zoom");
+  if (impl->has_adjustments) {
+    check("显示调整控件 / Show Adjustment Controls", impl->show_adjustments);
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal))
+      ImGui::SetTooltip("%s", text("左键拖动手柄调参，拖动空白处平移预览。 / Drag a handle with the left button. Drag empty space to pan.").c_str());
+  }
   const float row_y=ImGui::GetCursorPosY();
   ImGui::SetCursorPosY(row_y+std::max(0.f,(button_height()-ImGui::GetFrameHeight())*.5f));
   ImGui::AlignTextToFramePadding();
@@ -1058,6 +1347,7 @@ INT_PTR run_library_panel(HINSTANCE module, HWND owner, FilterRecord *host,
   glyph_builder.AddText(about_source);
   glyph_builder.AddText("无法打开浏览器。复制地址");
   glyph_builder.AddText("放大后拖动平移；双击居中。滚轮缩放；");
+  glyph_builder.AddText("显示调整控件 左键拖动手柄调参拖动空白处平移预览");
   glyph_builder.AddText("左右拖动；Shift 加快 10 倍；Ctrl 放慢 10 倍；点击输入。");
   glyph_builder.AddText("取色 打开 PS 拾色器。点击缩览图或 PS 画布取色；Esc 或右键取消。此处无法取色，请点击缩览图或 PS 画布。");
   glyph_builder.AddText("吸管：点击后取色，或按住拖到目标后松开。支持缩览图、PS 画布和全屏幕；Esc 或右键取消。点击屏幕取色，或拖到目标后松开；Esc 或右键取消。此处无法读取颜色，请重试或按 Esc 取消。");
@@ -1294,5 +1584,12 @@ INT_PTR run_library_panel(HINSTANCE module, HWND owner, FilterRecord *host,
   DestroyWindow(state.window);
   UnregisterClassW(cls, module);
   return result;
+}
+
+INT_PTR run_filter_panel(HINSTANCE module, HWND owner, FilterRecord* host, const wchar_t* title,
+                         int width, int height, const std::function<void(LibraryPanel&)>& draw,
+                         const char* localized_text, const PluginInfo* info) {
+  return run_library_panel(module, owner, host, title, std::max(width, 940), std::max(height, 720),
+                           draw, localized_text, info);
 }
 } // namespace psui

@@ -20,11 +20,11 @@ constexpr const char* burn_labels[]={"燃烧结构 / Burning Structure","焰体�
 constexpr const char* electric_labels[]={"光核畸变 / Core Distortion","外层电流光晕 / Outer Electric Glow","光晕畸变幅度（像素） / Glow Distortion (px)","光晕纹理尺度（像素） / Glow Noise Scale (px)","光晕厚度（像素） / Cloud Width (px)","云纹强度 / Cloud Intensity","细丝强度 / Filament Intensity","细丝数量 / Filament Count","光晕细节 / Glow Detail","光晕随机种子 / Glow Seed","光晕演化偏移 / Glow Evolution Offset","整体演化 / Overall Evolution","电流光晕使用分层发光；光核亮边跟随光核，外层纹理独立畸变。 / Electric Wisps uses Layered Glow: the bright rim follows the core while the outer texture distorts independently."};
 constexpr const char* extension_text[]={"材质预设 / Material Preset","样式 / Style","Alpha 阈值（%） / Alpha Threshold (%)","轮廓包括透明孔洞；完全不透明的图层会描画布边框。 / Contours include holes. An opaque layer outlines the canvas.","笔画模式直接使用原始透明度，宽度由源笔画决定。 / Stroke mode uses source alpha and its original width.","电流形态 / Electric Shape","扰动幅度（像素） / Distortion (px)","纹理尺度（像素） / Noise Scale (px)","细节 / Detail","分叉数量 / Branches","分叉长度（像素） / Branch Length (px)","火焰形态 / Flame Shape","火焰高度（像素） / Flame Height (px)","火焰飘动（像素） / Flame Spread (px)","火焰方向 / Flame Direction","外焰颜色 / Outer Flame Color","随机与演化 / Noise and Evolution","随机种子 / Random Seed","演化 / Evolution","笔画输入不使用弧长修剪、渐细和路径分叉。 / Stroke input does not use path trimming, taper or branches.","支持两点、钢笔路径和 Alpha 输入；材质为独立实现。 / Supports points, pen paths and alpha inputs with independently implemented materials."};
 constexpr const char* composites[]={"叠加原图 / Over Source","透明光束 / Transparent","黑底光束 / Black Background"};
-constexpr const char* labels[]={"输入 / Input","核心 / Core","发光 / Glow","路径范围 / Path Range","输出 / Output","起点 X / Start X","起点 Y / Start Y","终点 X / End X","终点 Y / End Y","核心宽度（像素） / Core Width (px)","亮度 / Brightness","核心白度（%） / Core Whiteness (%)","光晕半径（像素） / Glow Radius (px)","光晕强度 / Glow Intensity","光束颜色 / Beam Color","开始（%） / Start (%)","结束（%） / End (%)","起点渐细（%） / Start Taper (%)","终点渐细（%） / End Taper (%)","偏移 X / Offset X","偏移 Y / Offset Y","合成 / Composite","更新路径 / Update Path","文档路径 / Document Path","未读取路径 / No Path Snapshot","已保存路径快照 / Saved Path Snapshot","无可用路径 / No Available Paths","右键拖动最近的端点；左键平移预览。 / Right-drag the nearest endpoint; left-drag pans.","修改钢笔路径后点击更新路径。路径快照随 PSD 保存。 / Click Update Path after editing. The snapshot is saved in the PSD.","第一阶段：两点和钢笔路径；不包含原版全部材质预设。 / Stage 1: points and pen paths; full original material presets are not included.","效果受图层、画布和选区范围限制。智能对象请在内容文档中建立路径以保持定位。 / Layer, canvas and selection bounds apply. Create paths inside smart-object contents for reliable alignment.","预览失败，请重置或取消。 / Preview failed. Reset or cancel.","请选择路径并更新快照。 / Select a path and update its snapshot.","预览 / Preview","确定 / OK","取消 / Cancel","全部重置 / Reset All"};
+constexpr const char* labels[]={"输入 / Input","核心 / Core","发光 / Glow","路径范围 / Path Range","输出 / Output","起点 X / Start X","起点 Y / Start Y","终点 X / End X","终点 Y / End Y","核心宽度（像素） / Core Width (px)","亮度 / Brightness","核心白度（%） / Core Whiteness (%)","光晕半径（像素） / Glow Radius (px)","光晕强度 / Glow Intensity","光束颜色 / Beam Color","开始（%） / Start (%)","结束（%） / End (%)","起点渐细（%） / Start Taper (%)","终点渐细（%） / End Taper (%)","偏移 X / Offset X","偏移 Y / Offset Y","合成 / Composite","更新路径 / Update Path","文档路径 / Document Path","未读取路径 / No Path Snapshot","已保存路径快照 / Saved Path Snapshot","无可用路径 / No Available Paths","左键拖动预览中的起点或终点。 / Drag either endpoint in the preview.","修改钢笔路径后点击更新路径。路径快照随 PSD 保存。 / Click Update Path after editing. The snapshot is saved in the PSD.","第一阶段：两点和钢笔路径；不包含原版全部材质预设。 / Stage 1: points and pen paths; full original material presets are not included.","效果受图层、画布和选区范围限制。智能对象请在内容文档中建立路径以保持定位。 / Layer, canvas and selection bounds apply. Create paths inside smart-object contents for reliable alignment.","预览失败，请重置或取消。 / Preview failed. Reset or cancel.","请选择路径并更新快照。 / Select a path and update its snapshot.","预览 / Preview","确定 / OK","取消 / Cancel","全部重置 / Reset All"};
 struct Context {
- Parameters p,factory;Inputs inputs;FilterRecord* host;const Image& source;std::vector<HostPath> paths;int path_index=0,drag_endpoint=-1,path_token=0,preset=0;
+ Parameters p,factory;Inputs inputs;FilterRecord* host;const Image& source;std::vector<HostPath> paths;int path_index=0,path_token=0,preset=0;
  Path alpha_path;double alpha_level=-1;
- bool dirty=true,display_dirty=true,preview=true,show_points=true;OSErr error=noErr;std::string import_error;
+ bool dirty=true,display_dirty=true,preview=true;OSErr error=noErr;std::string import_error;
  Image last;psui::PreviewView view;psui::ProxyImage proxy,selection_geometry;psui::PreviewBackground background;std::vector<float> selection;std::vector<std::uint8_t> display;
  psui::PreviewSpace mapping;psui::DraftImageCache<Image> cache;psui::AdaptivePreview<psui::SpatialFrame<Image>> worker;
  Context(Parameters values,Inputs snapshot,FilterRecord* f,const Image& src):p(values),factory(values.engine?unified_defaults(src.width,src.height,src.left,src.top):calibrated_defaults(src.width,src.height,src.left,src.top)),inputs(std::move(snapshot)),host(f),source(src),paths(host_paths(f)){
@@ -53,17 +53,6 @@ void update(psui::LibraryPanel& ui,Context& c){
  }catch(...){c.error=memFullErr;}
  psui::compose_spatial_preview(ui,c.host,c.view,c.proxy,c.background,c.selection,c.selection_geometry,c.display,c.source,c.last,c.mapping,c.preview,c.display_dirty,c.error);
 }
-bool endpoints(psui::LibraryPanel& ui,Context& c){
- const auto r=ui.items.at("image");const auto mouse=ImGui::GetMousePos();const double z=c.view.percent*.01;
- auto pixel=[&](double x,double y){return ImVec2{float((r.x+r.z)*.5+(x-c.view.center_x())*z),float((r.y+r.w)*.5+(y-c.view.center_y())*z)};};
- auto a=pixel(c.p.start_x,c.p.start_y),b=pixel(c.p.end_x,c.p.end_y);bool changed=false;
- const bool hover=ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({r.x,r.y},{r.z,r.w})&&!ui.picking_color();
- if(hover&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){c.drag_endpoint=std::hypot(mouse.x-a.x,mouse.y-a.y)<std::hypot(mouse.x-b.x,mouse.y-b.y)?0:1;}
- if(!ImGui::IsMouseDown(ImGuiMouseButton_Right))c.drag_endpoint=-1;
- if(c.drag_endpoint>=0&&hover&&z>0){double& x=c.drag_endpoint?c.p.end_x:c.p.start_x;double& y=c.drag_endpoint?c.p.end_y:c.p.start_y;const double xx=std::clamp(c.view.center_x()+(mouse.x-(r.x+r.z)*.5)/z,-1e7,1e7),yy=std::clamp(c.view.center_y()+(mouse.y-(r.y+r.w)*.5)/z,-1e7,1e7);changed=x!=xx||y!=yy;x=xx;y=yy;}
- if(c.show_points){auto* draw=ImGui::GetWindowDrawList();draw->PushClipRect({r.x,r.y},{r.z,r.w},true);a=pixel(c.p.start_x,c.p.start_y);b=pixel(c.p.end_x,c.p.end_y);for(auto point:{a,b})draw->AddCircle(point,7*ui.scale(),IM_COL32(57,169,255,255),20,1.5f*ui.scale());draw->AddText({a.x+9,a.y},IM_COL32(120,210,255,255),"A");draw->AddText({b.x+9,b.y},IM_COL32(120,210,255,255),"B");draw->PopClipRect();}
- ui.items["beam.start"]={a.x,a.y,float(c.p.start_x),float(c.p.start_y)};ui.items["beam.end"]={b.x,b.y,float(c.p.end_x),float(c.p.end_y)};return changed;
-}
 bool common_controls(psui::LibraryPanel& ui,Context& c){
  auto& p=c.p;bool changed=false;
  auto integer=[&](const char* label,auto& value,int lo,int hi){ui.inherit_number_default(label,value);double n=value;if(ui.number(label,n,lo,hi,lo,hi,true,true)){value=static_cast<std::remove_reference_t<decltype(value)>>(n);return true;}return false;};
@@ -89,13 +78,18 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.inherit_choice_default("样式 / Style",c.p.style);ui.choice_default("材质预设 / Material Preset",1);
  ui.choice_default(common_labels[0],1);
  ui.inherit_choice_default(glow_labels[0],c.p.glow_model);
- auto& p=c.p;const float s=ui.scale();bool changed=false,preset_applied=false;
- ImGui::BeginChild("preview-side",{250*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),250*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-210*s,120*s,270*s));update(ui,c);ui.image_view(c.view,c.proxy);
- if(p.input==0)changed|=endpoints(ui,c);
+ auto& p=c.p;bool changed=false,preset_applied=false;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ psui::PreviewAdjustments handles;
+ if (p.input == 0) {
+  const auto space = psui::PreviewPointSpace::offset(p.offset_x, p.offset_y);
+  handles.point("起点 / Start", p.start_x, p.start_y, space).point("终点 / End", p.end_x, p.end_y, space)
+         .line(space.x(p.start_x), space.y(p.start_y), space.x(p.end_x), space.y(p.end_y));
+ }
+ changed |= ui.image_view(c.view,c.proxy,handles);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
- ui.check("显示端点 / Show Endpoints",c.show_points);ui.items["energy.state"]={c.last.valid()?1.f:0.f,float(c.error),float(c.inputs.path.curves.size()),float(p.input)};
+ ui.items["energy.state"]={c.last.valid()?1.f:0.f,float(c.error),float(c.inputs.path.curves.size()),float(p.input)};
  ui.items["energy.material"]={float(p.style),float(p.seed),float(p.alpha_threshold),float(p.evolution)};
  ui.items["energy.glow"]={float(p.glow_model),float(p.halo_intensity),float(p.glow_gamma),float(p.glow_bias)};
  ui.items["energy.unified"]={float(p.engine),float(p.core_noise),float(p.glow_noise),float(p.color_mix)};
@@ -168,11 +162,11 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* f,const Image& src,Parameters& p,Inputs& inputs){
- Context c(p,inputs,f,src);std::string glyphs="显示端点";for(auto label:labels)glyphs+=label;for(auto label:extension_text)glyphs+=label;for(auto mode:modes)glyphs+=mode;for(auto mode:styles)glyphs+=mode;for(auto mode:presets)glyphs+=mode;for(auto mode:composites)glyphs+=mode;for(const auto& path:c.paths)glyphs+=path.name;glyphs+=inputs.name;
+ Context c(p,inputs,f,src);std::string glyphs;for(auto label:labels)glyphs+=label;for(auto label:extension_text)glyphs+=label;for(auto mode:modes)glyphs+=mode;for(auto mode:styles)glyphs+=mode;for(auto mode:presets)glyphs+=mode;for(auto mode:composites)glyphs+=mode;for(const auto& path:c.paths)glyphs+=path.name;glyphs+=inputs.name;
  for(auto text:glow_models)glyphs+=text;for(auto text:glow_labels)glyphs+=text;for(auto text:band_sizes)glyphs+=text;for(auto text:band_gains)glyphs+=text;
  for(auto text:electric_labels)glyphs+=text;
  for(auto text:burn_labels)glyphs+=text;
  for(auto text:common_labels)glyphs+=text;for(auto text:common_presets)glyphs+=text;for(auto text:noise_types)glyphs+=text;
- const auto result=psui::run_library_panel(m,owner,f,title,860,650,[&](auto& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);c.worker.stop();if(result==IDOK&&!c.error){p=c.p;inputs=std::move(c.inputs);}return result;
+ const auto result=psui::run_filter_panel(m,owner,f,title,860,650,[&](auto& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);c.worker.stop();if(result==IDOK&&!c.error){p=c.p;inputs=std::move(c.inputs);}return result;
 }
 }

@@ -194,22 +194,19 @@ void update(psui::LibraryPanel &ui, Context &c) {
 }
 void draw(psui::LibraryPanel &ui, Context &c) {
  ui.parameter_defaults(c.p, c.defaults);
-  const auto scale = ui.scale();
   bool changed = false;
-  ImGui::BeginChild("preview-side", {190 * scale, 0}, 0,
-                    ImGuiWindowFlags_NoScrollbar);
-  const float view_height = std::clamp(
-      ImGui::GetContentRegionAvail().y - 245 * scale, 100 * scale, 190 * scale);
-  c.view.configure(psui::filter_bounds(c.host), 190 * scale, view_height);
+  const float footer = ui.filter_footer_height();
+  ui.begin_filter_preview(c.view, psui::filter_bounds(c.host), footer + ImGui::GetStyle().ItemSpacing.y);
   update(ui, c);
-  ui.image_view(c.view, c.source);
+  psui::PreviewAdjustments handles;
+  handles.point("偏移 / Offset", c.p.offset_x, c.p.offset_y, {0, 0, 1, 1, -2000000, 2000000});
+  changed |= ui.image_view(c.view, c.source, handles);
   ImGui::Spacing();
   changed |= ui.check("预览 / Preview", c.preview);
   c.worker.controls(ui,c.dirty);
   if(psui::preview_background_control(ui,c.background))c.dirty=true;
   ui.preview_zoom(c.view);
-  ImGui::SetCursorPosY(
-      std::max(ImGui::GetCursorPosY(), ImGui::GetWindowHeight() - 110 * scale));
+  ImGui::SetCursorPosY(ImGui::GetCursorPosY() + std::max(0.f, ImGui::GetContentRegionAvail().y - footer));
   if (ui.button("ok", "确定 / OK", -1) && valid(c.p))
     ui.close(true);
   if (ui.button("cancel", "取消 / Cancel", -1))
@@ -323,7 +320,7 @@ INT_PTR show_dialog(HINSTANCE module, HWND owner, FilterRecord *host,
     add(overflows);
     add(blends);
     add(combo_labels);
-    const auto result = psui::run_library_panel(
+    const auto result = psui::run_filter_panel(
         module, owner, host, L"Fractal Noise 分形杂色", 680, 480,
         [&](psui::LibraryPanel &ui) { draw(ui, c); }, glyphs.c_str(),
         &plugin_info);

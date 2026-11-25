@@ -66,11 +66,17 @@ void update(psui::LibraryPanel& ui,Context& c){
 }
 void draw(psui::LibraryPanel& ui,Context& c){
  ui.parameter_defaults(c.p, c.defaults);
- const float s=ui.scale();bool changed=false;
- ImGui::BeginChild("preview-side",{190*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),190*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-140*s,100*s,190*s));
- update(ui,c);ui.image_view(c.view,c.proxy);changed|=ui.check("预览 / Preview",c.preview);c.worker.controls(ui,c.dirty);
+ bool changed=false;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);
+ update(ui,c);
+ const auto bounds = c.view.bounds;
+ psui::PreviewAdjustments handles;
+ handles.point("置换量 / Displacement", c.p.amount_x, c.p.amount_y,
+               {(.5 * (double(bounds.left) + bounds.right)), (.5 * (double(bounds.top) + bounds.bottom)),
+                1, 1, -10000, 10000});
+ changed |= ui.image_view(c.view,c.proxy,handles);
+ changed|=ui.check("预览 / Preview",c.preview);c.worker.controls(ui,c.dirty);
  if(psui::preview_background_control(ui,c.background))c.dirty=true;
  ui.preview_zoom(c.view);
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));
@@ -105,7 +111,7 @@ INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* host,const std::ve
  Context c{p,source,host,layers};c.read_map();
  std::string glyphs="置换图层 用于水平置换 最大水平置换 用于垂直置换 最大垂直置换 置换图特性 像素回绕 源像素（不含图层蒙版） 输出限于 PS 当前滤镜作用范围。 无法读取此采样图层，请选择其他图层。";
  for(auto text:channels)glyphs+=text;for(auto text:placements)glyphs+=text;for(const auto& l:layers)glyphs+=l.name;
- const auto answer=psui::run_library_panel(module,owner,host,L"Displacement Map 置换图",760,440,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);
+ const auto answer=psui::run_filter_panel(module,owner,host,L"Displacement Map 置换图",760,440,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);
  if(answer==IDOK&&c.error==noErr){p=c.p;map=std::move(c.map);}
  return answer;
 }

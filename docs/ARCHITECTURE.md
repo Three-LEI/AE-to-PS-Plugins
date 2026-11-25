@@ -1,6 +1,6 @@
 # 结构与边界
 
-工作区有三十一款效果、二十四个模块；0.39公开发布三十一款／二十四个模块，新增Caustics焦散、Film Damage胶片损伤与Long Shadow长投影。清单见 [EFFECTS.md](EFFECTS.md)。
+0.40 包含 41 款效果、33 个模块。 [效果清单](EFFECTS.md)
 
 - 每个模块的 `include`／`src` 保存参数、独立 CPU 核心、Photoshop 入口、PiPL 资源和生产面板。
 - `native/common` 提供分块输出、完整输入缓存、像素混合、并行范围工具及共用描述符参数保存层。

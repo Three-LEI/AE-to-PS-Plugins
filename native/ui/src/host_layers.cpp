@@ -21,7 +21,6 @@ std::vector<HostLayer> host_layers(FilterRecord* f){
     auto* ch=l->compositeChannelsList;
     for(int i=0;i<3&&ch;++i,ch=ch->next)item.rgb[i]=ch;
     if(!item.rgb[2]||!item.rgb[0]->port||!item.rgb[1]->port||!item.rgb[2]->port)continue;
-    item.target=(target_index>=0&&intptr_t(item.id)==target_index)||item.rgb[0]->target || (target&&item.rgb[0]->port==target->port);
     if(l->maxVersion>=1&&l->unicodeName){
       int n=0;while(n<2048&&l->unicodeName[n])++n;
       const auto* wide=reinterpret_cast<const wchar_t*>(l->unicodeName);
@@ -42,6 +41,17 @@ std::vector<HostLayer> host_layers(FilterRecord* f){
     item.name_key=layer_name_key(item.name);
     result.push_back(std::move(item));
   }
+  // Photoshop can mark RGB channels as target on every layer. Prefer the
+  // layer index, and only use the channel flags when they identify one layer.
+  auto current=std::find_if(result.begin(),result.end(),[&](const HostLayer& layer){
+    return target_index>=0?intptr_t(layer.id)==target_index:target&&layer.rgb[0]->port==target->port;
+  });
+  if(current==result.end()&&target_index<0){
+    const auto marked=[](const HostLayer& layer){return layer.rgb[0]->target!=0;};
+    current=std::find_if(result.begin(),result.end(),marked);
+    if(current!=result.end()&&std::any_of(current+1,result.end(),marked))current=result.end();
+  }
+  if(current!=result.end())current->target=true;
   // Flat/background-only images can have target channels but no layer list.
   // This is a valid readable image, not an absent Channel Ports interface.
   if(result.empty() && (f->documentInfo->maxVersion<2 || !f->documentInfo->layersDescriptor)){

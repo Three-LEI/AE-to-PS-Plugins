@@ -1,6 +1,6 @@
 {
   "name": "AE-to-PS-Plugins",
-  "release": "0.39",
+  "release": "0.40",
   "repository": "https://github.com/Three-LEI/AE-to-PS-Plugins",
   "license": "MIT",
   "author": "淚泪泪",
@@ -28,7 +28,16 @@
     "etching",
     "caustics",
     "filmdamage",
-    "longshadow"
+    "longshadow",
+    "toner",
+    "mirror",
+    "repetile",
+    "noise",
+    "texturewrap",
+    "weather",
+    "channelblur",
+    "compoundblur",
+    "pixelsort"
   ],
   "development_status": "stable",
   "release_policy": {
@@ -37,7 +46,7 @@
     "channel": "stable",
     "automatic_publish": false
   },
-  "effect_count": 31,
+  "effect_count": 41,
   "unreleased_effects": [],
   "local_fixes": []
 }

@@ -3,7 +3,7 @@
     {
       "Kind": "Filter",
       "Name": "JPEG Damage",
-      "Category": "ZaYu-AE Recreated Effects",
+      "Category": "ZaYu-NoiseGrain",
       "Version": 4,
       "SubVersion": 0,
       "ComponentVersionShortNum": 0,
@@ -76,7 +76,7 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/JPEGDamage=JPEG Damage JPEG 损坏",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "ZStringCategory": "$$$/ZaYu/Groups/NoiseGrain=ZaYu-杂色和颗粒",
       "HasTerminology": {
         "ClassID": "ZpEf",
         "EventID": "ZpJd"

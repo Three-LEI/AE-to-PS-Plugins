@@ -27,9 +27,14 @@ void update(psui::LibraryPanel& ui,Context& c){
  preview::compose(ui,c.host,c.view,c.proxy,c.background,c.selection,c.selection_geometry,c.display,c.before_cache,c.source,c.last,c.mapping,c.preview,c.display_dirty,c.error);
 }
 void draw(psui::LibraryPanel& ui,Context& c){
- const Parameters factory;ui.parameter_defaults(c.p,factory);const float s=ui.scale();bool changed=false,applied=false;auto& p=c.p;
- ImGui::BeginChild("preview-side",{250*s,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),250*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-180*s,100*s,280*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ const Parameters factory;ui.parameter_defaults(c.p,factory);bool changed=false,applied=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ const auto bounds = c.view.bounds;
+ psui::PreviewAdjustments handles;
+ handles.point("像素网格偏移 / Pixel Grid Shift", p.shift_x, p.shift_y,
+               psui::PreviewPointSpace::offset(.5 * (double(bounds.left) + bounds.right), .5 * (double(bounds.top) + bounds.bottom)));
+ changed |= ui.image_view(c.view,c.proxy,handles);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  ui.items["dither.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.pixel_size),float(p.algorithm)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("预览失败，请重置或取消。 / Preview failed. Reset or cancel.").c_str());
@@ -59,6 +64,6 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){
  Context c(p,host,src);const char* glyphs="像素抖动 自定义 黑白像素 四阶灰度 复古绿屏 蓝色月光 八色像素 图形竖线 有序抖动 误差扩散 关闭抖动 聚集点阵 棋盘 横线 竖线 斜线 十字 双色 灰阶 限色 自定义四色 算法 图案 像素尺寸 抖动强度 蛇形扫描 调色板 颜色模式 级数 颜色 明暗与输出 明亮度 对比度 伽马 饱和度 线性光计算 效果混合 位置 像素网格偏移 为标准抖动降低可保留色块提高可强调纹理缩小预览会平均细像素可检查像素图案 预览失败请重置或取消";
- auto answer=psui::run_library_panel(m,owner,host,title,940,860,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
+ auto answer=psui::run_filter_panel(m,owner,host,title,940,860,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
 }
 }

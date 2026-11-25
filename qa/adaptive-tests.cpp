@@ -69,6 +69,43 @@ int main(int argc,char** argv){try{
  for(int i=0;i<150&&worker.pending();i++){worker.update(dirty,result,job);std::this_thread::sleep_for(std::chrono::milliseconds(5));}
  worker.update(dirty,result,job);check(seen>=10&&submit_ms<100,"continuous drag publishes frames without joining");check(result==2&&worker.full_frames>=1&&!worker.pending(),"idle refines to full quality");
  worker.fast=false;dirty=true;worker.update(dirty,result,job);for(int i=0;i<50&&worker.pending();i++){std::this_thread::sleep_for(std::chrono::milliseconds(3));worker.update(dirty,result,job);}check(result==2,"optional full-quality-only preview");
+ psui::AdaptivePreview<int> responsive;
+ auto quick=[](psui::PreviewPass pass,const auto&){return pass.draft?1:2;};
+ dirty=true;responsive.update(dirty,result,quick);
+ for(int i=0;i<150&&!responsive.full_frames;++i){
+  std::this_thread::sleep_for(std::chrono::milliseconds(4));responsive.update(dirty,result,quick);
+ }
+ check(responsive.full_frames==1,"native timing warmup");
+ const auto draft_count=responsive.draft_frames;
+ int precise=0;
+ for(int i=0;i<20;++i){
+  dirty=true;if(responsive.update(dirty,result,quick)&&result==2)++precise;
+  std::this_thread::sleep_for(std::chrono::milliseconds(5));
+ }
+ check(precise>=5&&responsive.draft_frames==draft_count,"in-budget drag publishes native frames");
+ std::atomic<bool> expensive_started=false;
+ auto sudden_cost=[&](psui::PreviewPass pass,const auto& cancel){
+  if(pass.draft)return 1;
+  expensive_started=true;
+  const auto end=std::chrono::steady_clock::now()+std::chrono::milliseconds(500);
+  while(std::chrono::steady_clock::now()<end){
+   if(cancel())return -10;
+   std::this_thread::sleep_for(std::chrono::milliseconds(1));
+  }
+  return 2;
+ };
+ dirty=true;responsive.update(dirty,result,sudden_cost);
+ for(int i=0;i<80&&!expensive_started;++i){
+  std::this_thread::sleep_for(std::chrono::milliseconds(2));
+ }
+ check(expensive_started,"native job was started after a parameter change");
+ bool fell_back=false;
+ for(int i=0;i<45&&!fell_back;++i){
+  dirty=true;fell_back=responsive.update(dirty,result,sudden_cost)&&result==1;
+  std::this_thread::sleep_for(std::chrono::milliseconds(6));
+ }
+ check(fell_back,"superseded heavy native job yields to drafts during interaction");
+ responsive.stop();
  // Starglow: reach and brightness must be independent, rotations stay thin,
  // and broad anime-style highlights must not blow out every direction.
  using namespace lightfx;Image impulse{257,257,0,0,1,std::vector<float>(257*257*4)};const int cx=128,cy=128;auto at=[&](int x,int y){return (std::size_t(y)*257+x)*4;};auto center=at(cx,cy);for(int k=0;k<4;k++)impulse.rgba[center+k]=1;

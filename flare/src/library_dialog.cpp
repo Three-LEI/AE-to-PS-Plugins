@@ -5,7 +5,6 @@
 #include "psui/image_bounds.hpp"
 #include "psui/generator_controls.hpp"
 #include "psui/adaptive_preview.hpp"
-#include "psui/preview_point.hpp"
 #include "preset_files.hpp"
 #include "thumbnail_renderer.hpp"
 #include <cstdio>
@@ -13,9 +12,8 @@ namespace flare {namespace {
 constexpr const char* presets[]={"自定义 / Custom","电影蓝光 / Cinematic Blue","暖阳 / Warm Sun","复古镜头 / Vintage Lens","彩虹光环 / Rainbow Halo","宽银幕蓝 / Anamorphic Blue","柔和自然光 / Soft Natural","洋红霓光 / Magenta Neon","棱镜光圈 / Prism Aperture"};
 constexpr const char* blends[]={"滤色 / Screen","相加 / Add","仅耀斑（透明） / Flare Only (Transparent)"};
 constexpr const char* masks[]={"关闭 / None","透明度 / Alpha","亮度 / Luminance"};
-constexpr const char* handles[]={"光源 / Hotspot","光学中心 / Pivot"};
 struct Context {
- Parameters p;FilterRecord* host;const Image& source;const std::vector<psui::HostLayer>& layers;Image mask,last;int selected=0,handle=0;
+ Parameters p;FilterRecord* host;const Image& source;const std::vector<psui::HostLayer>& layers;Image mask,last;int selected=0;
  psui::PreviewView view;psui::ProxyImage proxy,selection_geometry;psui::PreviewBackground background;
  std::vector<std::uint8_t> display;std::vector<float> selection;bool dirty=true,display_dirty=true,preview=true;OSErr error=noErr;
  psui::PreviewSpace mapping;psui::DraftImageCache<Image> cache;psui::AdaptivePreview<psui::SpatialFrame<Image>> worker;
@@ -49,13 +47,13 @@ bool layer_control(psui::LibraryPanel& ui,Context& c){
 }
 #include "designer.inc"
 void draw(psui::LibraryPanel& ui,Context& c){
- const auto factory=defaults(c.source.width,c.source.height,c.source.left,c.source.top);ui.parameter_defaults(c.p,factory);const float s=ui.scale();bool changed=false,applied=false;auto& p=c.p;
- const float preview_width=(c.editor?380:310)*s;ImGui::BeginChild("preview-side",{preview_width,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),preview_width,std::clamp(ImGui::GetContentRegionAvail().y-footer-240*s,120*s,(c.editor?440:360)*s));update(ui,c);ui.image_view(c.view,c.proxy);
- changed|=c.handle==0?psui::preview_point(ui,c.view,p.hx,p.hy):psui::preview_point(ui,c.view,p.px,p.py);
+ const auto factory=defaults(c.source.width,c.source.height,c.source.left,c.source.top);ui.parameter_defaults(c.p,factory);bool changed=false,applied=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ psui::PreviewAdjustments handles;
+ handles.point("光源位置 / Hotspot", p.hx, p.hy).point("光学中心 / Pivot", p.px, p.py);
+ changed |= ui.image_view(c.view,c.proxy,handles);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
- ui.choice("拖动控制点 / Drag Handle",c.handle,handles,2);
- ImGui::TextWrapped("%s",ui.text("右键拖动控制点；左键平移。 / Right-drag the handle; left-drag to pan.").c_str());
  ui.items["flare.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.brightness),float(p.hx)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("计算失败或参考层缺失，请重新选择、重置或取消。 / Render failed or input missing. Reselect, reset or cancel.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
@@ -105,8 +103,8 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,const std::vector<psui::HostLayer>& layers,Parameters& p,Image& mask,Design* design){
  Context c(p,host,src,layers);if(design)c.design=*design;if(!c.read_mask())c.error=filterBadParameters;
- const char* glyphs="镜头耀斑 电影蓝光 暖阳 复古镜头 彩虹光环 宽银幕蓝 柔和自然光 洋红霓光 棱镜光圈 自定义 主要 光源位置 光学中心 亮度 整体尺寸 高宽比 整体颜色 光源与光芒 光源亮度 光源尺寸 柔光亮度 光源颜色 射线亮度 射线数量 射线长度 射线粗细 旋转 度 镜头鬼影 鬼影亮度 鬼影数量 光圈叶片 鬼影尺寸 鬼影间距 鬼影柔和 鬼影颜色 光环与拉丝 光环亮度 光环尺寸 光谱色彩 拉丝亮度 拉丝长度 拉丝宽度 着色与气氛 伽马 饱和度 色相偏移 气氛强度 气氛纹理尺寸 随机种子 位置触发 边缘范围 边缘亮度倍率 中心范围 中心亮度倍率 遮挡通道 遮挡参考图层 当前图层 参考图层缺失 关闭 透明度 亮度 反转遮挡 遮挡柔和 像素 白色或不透明区域遮挡光源 修改外部层后需重新进入效果刷新 输出 混合模式 滤色 相加 仅耀斑 透明 背景亮度 效果混合 保留源透明度 独立实现的二维镜头耀斑 透明输出建议使用普通图层或智能对象 并预留画布边距 拖动控制点 右键拖动控制点 左键平移 计算失败或参考层缺失 请重新选择重置或取消";
+ const char* glyphs="镜头耀斑 电影蓝光 暖阳 复古镜头 彩虹光环 宽银幕蓝 柔和自然光 洋红霓光 棱镜光圈 自定义 主要 光源位置 光学中心 亮度 整体尺寸 高宽比 整体颜色 光源与光芒 光源亮度 光源尺寸 柔光亮度 光源颜色 射线亮度 射线数量 射线长度 射线粗细 旋转 度 镜头鬼影 鬼影亮度 鬼影数量 光圈叶片 鬼影尺寸 鬼影间距 鬼影柔和 鬼影颜色 光环与拉丝 光环亮度 光环尺寸 光谱色彩 拉丝亮度 拉丝长度 拉丝宽度 着色与气氛 伽马 饱和度 色相偏移 气氛强度 气氛纹理尺寸 随机种子 位置触发 边缘范围 边缘亮度倍率 中心范围 中心亮度倍率 遮挡通道 遮挡参考图层 当前图层 参考图层缺失 关闭 透明度 亮度 反转遮挡 遮挡柔和 像素 白色或不透明区域遮挡光源 修改外部层后需重新进入效果刷新 输出 混合模式 滤色 相加 仅耀斑 透明 背景亮度 效果混合 保留源透明度 独立实现的二维镜头耀斑 透明输出建议使用普通图层或智能对象 并预留画布边距 计算失败或参考层缺失 请重新选择重置或取消";
  std::string all_glyphs=std::string(glyphs)+designer_glyphs;for(const auto& e:c.design.elements)all_glyphs+=" "+e.name;for(const auto& f:files::list())all_glyphs+=" "+files::utf8_name(f);
- const auto answer=psui::run_library_panel(m,owner,host,title,1180,880,[&](psui::LibraryPanel& ui){draw(ui,c);},all_glyphs.c_str(),&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error){p=c.p;mask=std::move(c.mask);if(design)*design=std::move(c.design);}return answer;
+ const auto answer=psui::run_filter_panel(m,owner,host,title,1180,880,[&](psui::LibraryPanel& ui){draw(ui,c);},all_glyphs.c_str(),&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error){p=c.p;mask=std::move(c.mask);if(design)*design=std::move(c.design);}return answer;
 }
 }

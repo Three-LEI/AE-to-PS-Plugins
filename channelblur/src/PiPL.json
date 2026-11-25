@@ -1,0 +1,184 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Channel Blur",
+      "Category": "ZaYu-BlurSharpen",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 1,
+      "ComponentVersionDotRevNum": 1,
+      "ComponentName": "ZaYuChannelBlur",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/ChannelBlur=Channel Blur 通道模糊",
+      "ZStringCategory": "$$$/ZaYu/Groups/BlurSharpen=ZaYu-模糊和锐化",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpCb"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Channel Blur",
+                "EventDescription": "Editable Channel Blur",
+                "ClassID": "ZpEf",
+                "EventType": "ZpCb",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "mode",
+                    "ParamKeyword": "ZuB0",
+                    "ParamType": "long",
+                    "ParamDescription": "mode"
+                  },
+                  {
+                    "ParamName": "axis",
+                    "ParamKeyword": "ZuB1",
+                    "ParamType": "long",
+                    "ParamDescription": "axis"
+                  },
+                  {
+                    "ParamName": "red",
+                    "ParamKeyword": "ZuB2",
+                    "ParamType": "doub",
+                    "ParamDescription": "red"
+                  },
+                  {
+                    "ParamName": "green",
+                    "ParamKeyword": "ZuB3",
+                    "ParamType": "doub",
+                    "ParamDescription": "green"
+                  },
+                  {
+                    "ParamName": "blue",
+                    "ParamKeyword": "ZuB4",
+                    "ParamType": "doub",
+                    "ParamDescription": "blue"
+                  },
+                  {
+                    "ParamName": "alpha",
+                    "ParamKeyword": "ZuB5",
+                    "ParamType": "doub",
+                    "ParamDescription": "alpha"
+                  },
+                  {
+                    "ParamName": "luminance",
+                    "ParamKeyword": "ZuB6",
+                    "ParamType": "doub",
+                    "ParamDescription": "luminance"
+                  },
+                  {
+                    "ParamName": "chroma",
+                    "ParamKeyword": "ZuB7",
+                    "ParamType": "doub",
+                    "ParamDescription": "chroma"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "ZuB8",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

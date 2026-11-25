@@ -3,12 +3,14 @@
 #include "localization.hpp"
 #include "photoshop_host.hpp"
 #include "plugin_info.hpp"
-#include "preview_view.hpp"
+#include "preview_adjustments.hpp"
 #include <functional>
 #include <map>
 #include <string>
 #include <type_traits>
 namespace psui {
+inline constexpr float filter_preview_extent = 360;
+
 // Dear ImGui controls, popup lists, scrolling and preview share one swap chain.
 // No child HWND controls or direct on-screen GDI drawing are used.
 class LibraryPanel {
@@ -29,7 +31,10 @@ public:
   void close(bool accept);
   bool preview(FilterRecord *, const std::uint8_t *rgb, int width, int height);
   void image(float width, float height);
-  void image_view(PreviewView &, const ProxyImage &);
+  bool image_view(PreviewView &, const ProxyImage &, const PreviewAdjustments & = {});
+  // Opens the left child and configures its viewport. End it with ImGui::EndChild().
+  void begin_filter_preview(PreviewView &, VRect bounds, float extra_height = 0);
+  float filter_footer_height() const;
   // Immutable RGBA cards, uploaded once per key for this panel. Does not
   // replace the main preview or its color-sampling state. UI thread only.
   bool cached_image(const char *key,const std::uint8_t *rgba,int width,int height,
@@ -101,4 +106,7 @@ INT_PTR run_library_panel(HINSTANCE, HWND, FilterRecord *, const wchar_t *title,
                           const std::function<void(LibraryPanel &)> &draw,
                           const char *localized_text = nullptr,
                           const PluginInfo *info = nullptr);
+INT_PTR run_filter_panel(HINSTANCE, HWND, FilterRecord *, const wchar_t *title,
+                         int width, int height, const std::function<void(LibraryPanel &)> &draw,
+                         const char *localized_text, const PluginInfo *info);
 } // namespace psui

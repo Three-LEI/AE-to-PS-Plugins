@@ -1,14 +1,16 @@
 # 参数窗口图集 / Parameter-window gallery
 
-本工作区展示 31 款效果，均已随 0.39 发布。下图均为**实际生产参数窗口**，包含精细效果预览、主要参数及当前数值。首页分享封面保持，单项展示图使用PNG参数界面截图。
+0.40 收录 41 款滤镜。下图均为实际参数窗口，显示效果预览和当前参数。
 
-These are actual production parameter-window captures, including the full-quality effect preview and the configured controls. The homepage cover is unchanged. Individual examples use lossless PNG window captures rather than before/after cards.
+These are actual production parameter-window captures, including the full-quality effect preview and the configured controls. The gallery includes 41 lossless PNG captures.
 
-[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
+[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.40/AE-to-PS-Plugins-0.40-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
 
 ## 输入与复现
 
 照片由维护者提供，公开输入为已清理非必要元数据的 768×768 图像：[demo-source.png](assets/demo-source.png)。毛边使用椭圆 Alpha 输入，Starglow 输入添加少量高光点，置换图使用参考副本，Saber 使用明确的椭圆路径；各例在下方注明。
+
+球面和圆柱使用同一张自制标签展示两种局部贴图。渲染图集时自动生成标签。只截取这两款的参数窗口可直接准备[合成输入](../scripts/new-texturewrap-gallery-inputs.ps1)。
 
 截图工具复用插件的生产界面和预览代码，加载对应素材与参数，等待精细预览完成后截取窗口。它独立运行，不打开或修改个人 Photoshop 文档；不是原版 AE 参数面板。参数较多的效果保留窗口正常的分组折叠与滚动布局。
 
@@ -55,6 +57,16 @@ These are actual production parameter-window captures, including the full-qualit
 - [Caustics 焦散](#caustics)
 - [Film Damage 胶片损伤](#film-damage)
 - [Long Shadow 长投影](#long-shadow)
+- [Toner 多色调](#toner)
+- [Mirror 镜像](#mirror)
+- [RepeTile 重复拼贴](#repetile)
+- [Noise 综合杂色](#noise)
+- [Sphere 球面贴图](#sphere)
+- [Cylinder 圆柱贴图](#cylinder)
+- [Rain & Snow 雨雪模拟](#rain-snow)
+- [Channel Blur 通道模糊](#channel-blur)
+- [Compound Blur 复合模糊](#compound-blur)
+- [Pixel Sort 像素排序](#pixel-sort)
 
 <a id="tint"></a>
 
@@ -303,3 +315,83 @@ Bayer 8×8，黑白双色，像素尺寸 4，强度 100%，明亮度 3，对比�
 ![Long Shadow 长投影 — production parameter window and full effect preview](assets/effects/long-shadow.png)
 
 透明文字与圆形演示：方向45°，长度320像素，不透明度82%，扩张2像素，尾部渐隐35%，远端模糊14像素，纯色深蓝阴影。示例参数 / Transparent text and circle, angle 45°, length 320 px, opacity 82%, expansion 2 px, tail fade 35%, far blur 14 px, deep blue solid shadow. Included in 0.39.
+
+<a id="toner"></a>
+
+## 32. Toner 多色调
+
+![Toner 多色调 — production parameter window and full effect preview](assets/effects/toner.png)
+
+五色调暖调示例：高光米白、亮部浅桃、中间调橙棕、暗部蓝灰、阴影深海军蓝，混合原图 0%。按亮度线性映射，支持双色调、三色调、五色调和纯色。[使用说明](TONER_LOCAL.md)
+
+<a id="mirror"></a>
+
+## 33. Mirror 镜像
+
+![Mirror 镜像 — production parameter window and full effect preview](assets/effects/mirror.png)
+
+反射中心 384、384，角度 90°，把上侧镜像到下侧；预览缩放/平移时读取可见区及其镜像区并按文档坐标换算，镜像线不跟随视图移动，也不会把裁剪边缘拉伸进画面。[使用说明](../mirror/README.md)
+
+<a id="repetile"></a>
+
+## 34. RepeTile 重复拼贴
+
+![RepeTile 重复拼贴 — production parameter window and full effect preview](assets/effects/repetile.png)
+
+透明边距内四向扩展 192 像素，水平翻转模式，接缝混合 12 像素。演示照片被重复拼贴到透明区域。[使用说明](../repetile/README.md)
+
+<a id="noise"></a>
+
+## 35. Noise 综合杂色 0.2.1
+
+![Noise 综合杂色 — production parameter window and full effect preview](assets/effects/noise.png)
+
+高斯杂色 8%，颗粒强度 16%，颗粒尺寸 2.2 像素，粗糙度 60%，中间调位置 44%。叠加雪花 12%、横向干扰 25%、色度拖尾 10 像素和局部掉讯 28%，效果混合为 80%。 [使用说明](../noise/README.md)
+
+<a id="sphere"></a>
+
+## 36. Sphere 球面贴图 0.5
+
+![Sphere 球面贴图 — production parameter window and full effect preview](assets/effects/sphere.png)
+
+当前图层同时覆盖整球并作为局部贴花。贴花长边张角 84°，中心经度 26°、纬度 15°。 / The current layer wraps the sphere and supplies a local decal with an 84° long edge at 26° longitude and 15° latitude. [使用说明](../texturewrap/README.md)
+
+<a id="cylinder"></a>
+
+## 37. Cylinder 圆柱贴图 0.6
+
+![Cylinder 圆柱贴图 — production parameter window and full effect preview](assets/effects/cylinder.png)
+
+当前图层用于完整柱面和局部贴花。贴花覆盖 120° 弧段，周向位置 18°，上下位置 42%，高度为柱体的 62%。 / The current layer wraps the cylinder and supplies a decal over a 120° arc, 18° around the cylinder and 42% down its axis, with a height of 62%. [使用说明](../texturewrap/README.md)
+
+<a id="rain-snow"></a>
+
+## 38. Rain & Snow 雨雪模拟 0.2
+
+![Rain & Snow 雨雪模拟 — production parameter window and full effect preview](assets/effects/rain-snow.png)
+
+浅蓝色雨线合成到原图，风向 −27°，雨线长度 46 像素。雨和雪可分别选色。 / Custom light blue rain over the source with −27° wind and 46 px streaks. Rain and snow have independent colors. [使用说明](../weather/README.md)
+
+<a id="channel-blur"></a>
+
+## 39. Channel Blur 通道模糊 0.1.1
+
+![Channel Blur 通道模糊 — production parameter window and full effect preview](assets/effects/channel-blur.png)
+
+亮度与色度模式仅柔化色度，半径 26 像素。 / Luminance and Chroma mode with a 26 px chroma radius and zero luminance radius. [使用说明](../channelblur/README.md)
+
+<a id="compound-blur"></a>
+
+## 40. Compound Blur 复合模糊 0.1.1
+
+![Compound Blur 复合模糊 — production parameter window and full effect preview](assets/effects/compound-blur.png)
+
+四个色标组成径向灰度模糊图，中心保持清晰，最大半径 34 像素。 / Four stops define a radial blur map with a sharp center and a 34 px maximum radius. [使用说明](../compoundblur/README.md)
+
+<a id="pixel-sort"></a>
+
+## 41. Pixel Sort 像素排序 0.1
+
+![Pixel Sort 像素排序 — production parameter window and full effect preview](assets/effects/pixel-sort.png)
+
+亮度 16–68% 的像素沿水平条带从亮到暗排列，最大长度 124 像素。 / Horizontal stripes sort pixels in the 16–68% luminance range from light to dark, with a 124 px length cap. [使用说明](../pixelsort/README.md)

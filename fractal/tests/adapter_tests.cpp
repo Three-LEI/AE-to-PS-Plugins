@@ -120,7 +120,7 @@ int main() {
     check(FindResourceW(module,L"IMGUI_LICENSE",RT_RCDATA)!=nullptr,"embedded UI library license");
     const auto properties=legacy_pipl(module);
     check(properties.at("cmpt").find("ZaYuFractalNoiseReconstruction")!=std::string::npos,"embedded identity");
-    check(properties.at("catg").find("ZaYu-AE Recreated Effects")!=std::string::npos,"branded menu group embedded");
+    check(properties.at("catg").find("ZaYu-")!=std::string::npos,"branded menu group embedded");
     const auto cases=properties.at("fici");
     check(cases.size()==28,"seven binary filter cases");
     for(int i=0;i<7;++i){

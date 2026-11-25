@@ -104,11 +104,11 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.parameter_defaults(c.p, defaults(c.p.kind));
  ui.inherit_choice_default(labels[blend_label],c.p.blend);
  ui.inherit_choice_default(labels[operation_label],c.p.blend);
- const float s=ui.scale();bool changed=false;auto& p=c.p;const bool deep=p.kind==Kind::deep;
- ImGui::BeginChild("preview-side",{200*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),200*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-157*s,100*s,200*s));
- update(ui,c);ui.image_view(c.view,c.proxy);
+ bool changed=false;auto& p=c.p;const bool deep=p.kind==Kind::deep;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);
+ update(ui,c);
+ ui.image_view(c.view, c.proxy);
  ui.items["glow.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);
  if(psui::preview_background_control(ui,c.background))c.display_dirty=true;
@@ -184,7 +184,7 @@ INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* host,const Image& 
  auto add=[&](auto& options){for(auto text:options)glyphs+=text;};
  add(composites);add(colors);add(loops);add(dimensions);add(falloffs);add(thresholds);add(tints);add(tones);add(qualities);add(views);add(masks);
  for(const auto& l:layers)glyphs+=l.name;
- const auto result=psui::run_library_panel(module,owner,host,title,p.kind==Kind::deep?790:740,p.kind==Kind::deep?580:440,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);
+ const auto result=psui::run_filter_panel(module,owner,host,title,p.kind==Kind::deep?790:740,p.kind==Kind::deep?580:440,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);
  c.worker.stop();c.render_cache.clear();c.adaptive_cache.clear();if(result==IDOK&&!c.error){p=c.p;mask=std::move(c.mask);texture=std::move(c.texture);}
  return result;
 }

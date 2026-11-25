@@ -3,7 +3,7 @@
     {
       "Kind": "Filter",
       "Name": "Shine",
-      "Category": "ZaYu-AE Recreated Effects",
+      "Category": "ZaYu-Generate",
       "Version": 4,
       "SubVersion": 0,
       "ComponentVersionShortNum": 0,
@@ -76,7 +76,7 @@
         }
       ],
       "ZStringName": "$$$/ZaYu/Effects/Shine=Shine 放射光束",
-      "ZStringCategory": "$$$/ZaYu/Groups/RecreatedEffects=ZaYu-AE 效果复刻",
+      "ZStringCategory": "$$$/ZaYu/Groups/Generate=ZaYu-生成",
       "HasTerminology": {
         "ClassID": "ZpEf",
         "EventID": "ZpSh"

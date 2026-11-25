@@ -9,3 +9,5 @@
 The photo was supplied by the project maintainer for this project’s demonstrations. Photo-containing examples and the sharing cover are excluded from the code’s MIT license. Rights to the photo and depicted character remain with their respective holders; no general reuse, redistribution or commercial license is granted here. Use your own authorized material for derivative projects.
 
 原生渲染环境、输入条件与参数见[效果图集](../GALLERY.md)和[示例参数](../gallery-parameters.json)。
+
+局部贴花和圆柱包裹角度示例使用同一张由项目脚本绘制的标签。[生成脚本](../../scripts/new-texturewrap-gallery-inputs.ps1)

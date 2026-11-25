@@ -36,10 +36,14 @@ void update(psui::LibraryPanel& ui,Context& c){
  psui::compose_spatial_preview(ui,c.host,c.view,c.proxy,c.background,c.selection,c.selection_geometry,c.display,c.source,c.last,c.mapping,c.preview,c.display_dirty,c.error);
 }
 void draw(psui::LibraryPanel& ui,Context& c){
- const Parameters factory;ui.parameter_defaults(c.p,factory);const float s=ui.scale();bool changed=false,applied=false;auto& p=c.p;
- ImGui::BeginChild("preview-side",{250*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),250*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-180*s,100*s,280*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ const Parameters factory;ui.parameter_defaults(c.p,factory);bool changed=false,applied=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ const auto bounds = c.view.bounds;
+ psui::PreviewAdjustments handles;
+ handles.point("字符网格偏移 / Grid Shift", p.shift_x, p.shift_y,
+               psui::PreviewPointSpace::offset(.5 * (double(bounds.left) + bounds.right), .5 * (double(bounds.top) + bounds.bottom)));
+ changed |= ui.image_view(c.view,c.proxy,handles);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  ui.items["ascii.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.cell_width),float(p.dither)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("预览失败，请切换字体、重置或取消。 / Preview failed. Change font, reset or cancel.").c_str());
@@ -75,6 +79,6 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){
  Context c(p,host,src);const char* glyphs="字符抖动 自定义 绿色终端 黑字纸面 彩色字符 二进制屏幕 密集文本 透明字符 经典 精细字符 二进制 数字 关闭 有序抖动 误差扩散 单色 原图彩色 实色 透明 字符集 字体 粗体 字符宽度 像素 单元高宽比 字符填充 明暗与抖动 抖动方式 抖动强度 明亮度 对比度 伽马 反向映射 颜色与输出 字符颜色 字符色 底色 字符亮度 背景 效果混合 位置 字符网格偏移 实际字体 字符按实际疏密映射亮度 可放大到检查字形 透明背景适合叠层 预览失败请切换字体重置或取消";
- auto answer=psui::run_library_panel(m,owner,host,title,940,800,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
+ auto answer=psui::run_filter_panel(m,owner,host,title,940,800,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
 }
 }

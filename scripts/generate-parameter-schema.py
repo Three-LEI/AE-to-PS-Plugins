@@ -12,9 +12,13 @@ metadata=args.metadata.resolve();relative=metadata.relative_to(root).as_posix();
 if not profile:raise SystemExit(0)
 module=relative.split('/')[0];schema=catalog['modules'][module];fields=schema['fields'];assert len({f['id']for f in fields})==len(fields)
 for f in fields:assert len(f['id'])==4 and f['id'].isascii()
+# Effects that share a struct can retain their individual saved-field sets.
+excluded=set(profile.get('excluded_fields',[]))
+assert excluded<={f['id']for f in fields}, 'Unrecognized profile field'
+fields=[f for f in fields if f['id'] not in excluded]
 document=json.loads(metadata.read_text(encoding='utf-8-sig'));item=document['PiPLs'][0]
 params=[{'ParamName':'schemaVersion','ParamKeyword':'ZpSv','ParamType':'long','ParamDescription':'Parameter schema version'}, {'ParamName':'effectIdentity','ParamKeyword':'ZpId','ParamType':'long','ParamDescription':'Stable effect identity'}]
-for f in fields:params.append({'ParamName':f['name'],'ParamKeyword':f['id'],'ParamType':{'number':'doub','integer':'long','flag':'bool','layer':'TEXT'}[f['kind']],'ParamDescription':f['name']})
+for f in fields:params.append({'ParamName':f['name'],'ParamKeyword':f['id'],'ParamType':{'number':'doub','integer':'long','flag':'bool','layer':'TEXT','binary':'tdta'}[f['kind']],'ParamDescription':f['name']})
 for f in schema.get('descriptor_extras',[]):
  assert len(f['id'])==4 and f['id'].isascii() and f['id'] not in {p['ParamKeyword']for p in params}
  params.append({'ParamName':f['name'],'ParamKeyword':f['id'],'ParamType':f['type'],'ParamDescription':f['description']})

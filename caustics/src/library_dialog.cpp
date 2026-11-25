@@ -45,9 +45,15 @@ bool layer_control(psui::LibraryPanel& ui,Context& c){
  }return changed;
 }
 void draw(psui::LibraryPanel& ui,Context& c){
- const Parameters factory;ui.parameter_defaults(c.p,factory);const float s=ui.scale();bool changed=false,applied=false,reload=false;auto& p=c.p;
- ImGui::BeginChild("preview-side",{310*s,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),310*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-190*s,120*s,380*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ const Parameters factory;ui.parameter_defaults(c.p,factory);bool changed=false,applied=false,reload=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ const auto bounds = c.view.bounds;
+ const auto offset = p.surface == 0 && p.wave == 2 ? psui::PreviewPointSpace{} :
+     psui::PreviewPointSpace::offset(.5 * (double(bounds.left) + bounds.right), .5 * (double(bounds.top) + bounds.bottom));
+ psui::PreviewAdjustments handles;
+ handles.point("水波偏移 / Wave Shift", p.shift_x, p.shift_y, offset);
+ changed |= ui.image_view(c.view,c.proxy,handles);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  ui.items["caustics.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.scale),float(p.refraction)};
  const auto stats=c.transport.stats();ui.items["caustics.cache"]={float(stats.hits),float(stats.builds),float(stats.bytes),0};
@@ -97,7 +103,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,const std::vector<psui::HostLayer>& layers,Parameters& p,Image& map){
  Context c(p,host,src,layers);if(!c.read_map())c.error=filterBadParameters;
  const char* glyphs="焦散 自定义 清澈水光 深池光纹 暖阳水光 水下折射 同心涟漪 细碎光网 内置水波 当前图层 参考图层 自然水波 交错波浪 亮度 红 绿 蓝 透明度 与源图合成 焦散纹理 仅光纹透明 水面高度图 滤色 相加 水底照明 叠加 延伸边缘 镜像 重复 透明 标准 精细 最高 请选择图层 高度参考图层 参考图层缺失 计算失败或参考层缺失请重新选择重置或取消 水波来源 波形 水波尺寸像素 复杂度 演化度 高度通道 高度图平滑 波高 焦散光纹 光纹强度 聚焦倍率 光纹柔化 光纹阈值 光纹颜色 折射扭曲 水深 折射率 位置与随机 水波偏移 随机种子 质量与输出 采样质量 边缘处理 输出 混合模式 源图亮度 暗部颜色 保留源透明度 效果混合 修改参考图层后重新进入效果刷新";
- const auto answer=psui::run_library_panel(m,owner,host,title,1080,900,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();
+ const auto answer=psui::run_filter_panel(m,owner,host,title,1080,900,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();
  if(answer==IDOK&&!c.error){p=c.p;map=std::move(c.map);}return answer;
 }
 }

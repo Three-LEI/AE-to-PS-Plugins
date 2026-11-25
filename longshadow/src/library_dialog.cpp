@@ -45,11 +45,16 @@ void update(psui::LibraryPanel& ui,Context& c){
 }
 void draw(psui::LibraryPanel& ui,Context& c){
  const Parameters factory;auto& p=c.p;ui.parameter_defaults(p,factory);
- const float s=ui.scale();bool changed=false,preset_applied=false;
- ImGui::BeginChild("preview-side",{280*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),280*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-175*s,115*s,310*s));
- update(ui,c);ui.image_view(c.view,c.proxy);
+ bool changed=false,preset_applied=false;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);
+ update(ui,c);
+ const auto& src = c.source;
+ const auto mask = psui::PreviewPointSpace::percent({src.top, src.left, src.top + src.height, src.left + src.width}, -100, 200);
+ psui::PreviewAdjustments handles;
+ if (p.mask) handles.point("遮罩中心 / Mask Center", p.mask_x, p.mask_y, mask);
+ handles.angle("方向 / Angle", p.angle, mask.x(50), mask.y(50), -360, 360);
+ changed |= ui.image_view(c.view,c.proxy,handles);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;
  c.worker.controls(ui,c.dirty);
  if(psui::preview_background_control(ui,c.background))c.display_dirty=true;
@@ -106,7 +111,7 @@ namespace longshadow {
 INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* f,const Image& source,Parameters& p){
  Context c(p,f,source);
  const char* glyphs="自定义经典斜影柔和长靛蓝实暖砖投方向度长度像素颜色不透明扩张尾部渐隐仅输出阴源裁切启用起点终遮罩形状无矩椭圆中心宽高羽化反转使用带背景文字或抠图智能对象内请为预留空间失败重置取消悬浮软始距模式纯拉伸暗边近端模糊远";
- const auto answer=psui::run_library_panel(module,owner,f,title,1020,800,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&info);
+ const auto answer=psui::run_filter_panel(module,owner,f,title,1020,800,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&info);
  c.worker.stop();
  if(answer==IDOK&&!c.error)p=c.p;
  return answer==IDOK&&c.error?c.error:answer;

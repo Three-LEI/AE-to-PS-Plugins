@@ -5,6 +5,15 @@
 #include <cmath>
 #include <memory>
 namespace psfilter {
+inline int16 report_filter_error(FilterRecord* f,const char* text){
+ if(f->errorString){const auto n=std::min<std::size_t>(255,std::strlen(text));(*f->errorString)[0]=std::uint8_t(n);std::memcpy(*f->errorString+1,text,n);}return errReportString;
+}
+inline OSErr read_named_layer(FilterRecord* f,const std::vector<psui::HostLayer>& layers,std::uint64_t key,psui::LayerPixels& pixels){
+ const psui::HostLayer* found=nullptr;
+ for(const auto& layer:layers)if(layer.name_key==key){if(found)return report_filter_error(f,"Multiple layers have the saved input name. Reopen the filter and choose its input again.");found=&layer;}
+ if(!found)return report_filter_error(f,"The saved input layer is missing. Reopen the filter and choose its input again.");
+ return psui::host_read_reference(f,*found,pixels);
+}
 // A generator can reuse channel/error helpers without defining external inputs.
 // Keep the optional nested type behind substitution, even when recording is off.
 template<class Effect,class=void> struct OptionalFilterInputs {struct type {};};
@@ -20,7 +29,7 @@ template<class Effect> struct CachedRuntime {
  using FinalInputs=std::conditional_t<records_at_finish,typename OptionalFilterInputs<Effect>::type,EmptyInputs>;
  struct Session {typename Store::Saved saved;typename Effect::Image output;FinalInputs inputs;};
  static int16 report(FilterRecord* f,const char* text){
-  if(f->errorString){const auto n=std::min<std::size_t>(255,std::strlen(text));(*f->errorString)[0]=std::uint8_t(n);std::memcpy(*f->errorString+1,text,n);}return errReportString;
+  return report_filter_error(f,text);
  }
  static void request(FilterRecord* f,VRect r){
   if(f->bigDocumentData){f->bigDocumentData->inRect32={};f->bigDocumentData->outRect32=r;f->bigDocumentData->maskRect32={};}
@@ -29,10 +38,8 @@ template<class Effect> struct CachedRuntime {
    (f->filterCase==filterCaseEditableTransparencyNoSelection||f->filterCase==filterCaseEditableTransparencyWithSelection)?3:2;
  }
  static OSErr read_named(FilterRecord* f,const std::vector<psui::HostLayer>& layers,std::uint64_t key,typename Effect::Image& image){
-  image={};if(!key)return noErr;const psui::HostLayer* found=nullptr;
-  for(const auto& layer:layers)if(layer.name_key==key){if(found)return report(f,"Multiple layers have the saved input name. Reopen the filter and choose its input again.");found=&layer;}
-  if(!found)return report(f,"The saved input layer is missing. Reopen the filter and choose its input again.");
-  psui::LayerPixels pixels;const auto error=psui::host_read_reference(f,*found,pixels);
+  image={};if(!key)return noErr;
+  psui::LayerPixels pixels;const auto error=read_named_layer(f,layers,key,pixels);
   if(!error)image=Effect::from_host(std::move(pixels));return error;
  }
  static int16 start(HINSTANCE module,FilterRecord* f,intptr_t* data){

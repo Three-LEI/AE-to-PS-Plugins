@@ -11,7 +11,7 @@ namespace {
 constexpr const char* sizes[]={"边角点 / Corner Point","宽度滑块 / Width Slider","宽度与高度滑块 / Width and Height Sliders"};
 constexpr const char* grid_presets[]={"自定义 / Custom","默认 / Default","细网格 / Fine Grid","三分线 / Rule of Thirds","柔化网格 / Soft Grid"};
 constexpr const char* checker_presets[]={"自定义 / Custom","默认 / Default","大棋格 / Large Checks","矩形棋格 / Rectangular Checks","柔化棋格 / Soft Checks"};
-constexpr const char* labels[]={"预设 / Preset","图案 / Pattern","锚点 / Anchor","大小依据 / Size From","边角 / Corner","宽度 / Width","高度 / Height","边界 / Border","羽化 / Feather","羽化宽度 / Feather Width","羽化高度 / Feather Height","反转网格 / Invert Grid","交换棋格 / Swap Cells","颜色 / Color","不透明度（%） / Opacity (%)","混合模式 / Blending Mode","变换 / Transform","旋转 / Rotation","锚点居中 / Center Anchor","右键缩览图设置锚点。 / Right-click the preview to set the anchor.","无模式输出透明图案；其余模式与当前层混合。 / None outputs a transparent pattern; other modes composite with the current layer.","正在更新… / Updating…","无法读取原图；选择“无”可直接生成图案。 / Source unavailable; select None to generate the pattern.","计算失败，请重置或取消。 / Rendering failed. Reset or cancel."};
+constexpr const char* labels[]={"预设 / Preset","图案 / Pattern","锚点 / Anchor","大小依据 / Size From","边角 / Corner","宽度 / Width","高度 / Height","边界 / Border","羽化 / Feather","羽化宽度 / Feather Width","羽化高度 / Feather Height","反转网格 / Invert Grid","交换棋格 / Swap Cells","颜色 / Color","不透明度（%） / Opacity (%)","混合模式 / Blending Mode","变换 / Transform","旋转 / Rotation","锚点居中 / Center Anchor","拖动预览中的锚点或边角。 / Drag the anchor or corner in the preview.","无模式输出透明图案；其余模式与当前层混合。 / None outputs a transparent pattern; other modes composite with the current layer.","正在更新… / Updating…","无法读取原图；选择“无”可直接生成图案。 / Source unavailable; select None to generate the pattern.","计算失败，请重置或取消。 / Rendering failed. Reset or cancel."};
 enum Label{preset_label,main_label,anchor_label,size_label,corner_label,width_label,height_label,border_label,feather_label,feather_x_label,feather_y_label,invert_grid_label,invert_check_label,color_label,opacity_label,blend_label,transform_label,rotation_label,center_label,pick_label,none_help_label,working_label,source_error_label,error_label};
 struct PreviewFrame{Image image;psui::ProxyImage geometry;std::shared_ptr<psui::NativePreview> input;};
 struct Context {
@@ -51,17 +51,17 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.parameter_defaults(c.p, defaults_for_host(c.host));
  ui.inherit_choice_default(labels[size_label],c.p.size_from);
  ui.inherit_choice_default(labels[blend_label],c.p.blend);
- const float s=ui.scale();bool changed=false,preset_changed=false;auto& p=c.p;const auto doc=document_bounds(c.host);
- ImGui::BeginChild("preview-side",{205*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
+ bool changed=false,preset_changed=false;auto& p=c.p;const auto doc=document_bounds(c.host);
+ const float footer = ui.filter_footer_height();
  auto bounds=psui::filter_document_bounds(c.host);if(bounds.right<=bounds.left||bounds.bottom<=bounds.top)bounds=doc;
- c.view.configure(bounds,205*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-150*s,110*s,205*s));update(ui,c);ui.image_view(c.view,c.geometry);
+ ui.begin_filter_preview(c.view, bounds, footer);update(ui,c);
+ psui::PreviewAdjustments handles;
+ handles.point(labels[anchor_label], p.anchor_x, p.anchor_y);
+ if (p.size_from == SizeFrom::corner) handles.point(labels[corner_label], p.corner_x, p.corner_y)
+     .line(p.anchor_x, p.anchor_y, p.corner_x, p.corner_y);
+ handles.angle(labels[rotation_label], p.rotation, p.anchor_x, p.anchor_y, -360000, 360000);
+ changed |= ui.image_view(c.view,c.geometry,handles);
  ui.items["pattern.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
- const auto rect=ui.items.at("image");
- if(ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({rect.x,rect.y},{rect.z,rect.w})&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){
-  const auto mouse=ImGui::GetMousePos();const double x=c.view.center_x()+(mouse.x-(rect.x+rect.z)*.5)/(c.view.percent*.01),y=c.view.center_y()+(mouse.y-(rect.y+rect.w)*.5)/(c.view.percent*.01);
-  if(x>=doc.left&&x<doc.right&&y>=doc.top&&y<doc.bottom){p.anchor_x=x;p.anchor_y=y;changed=true;}
- }
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
 
  if(c.error)ImGui::TextWrapped("%s",ui.text(labels[error_label]).c_str());
@@ -93,7 +93,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
 INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* host,Parameters& p){
  Context c(p,host);if(p==defaults_for_host(host))c.preset=1;std::string glyphs;for(auto s:labels)glyphs+=s;
  for(auto s:sizes)glyphs+=s;for(auto s:grid_presets)glyphs+=s;for(auto s:checker_presets)glyphs+=s;for(auto s:psui::blend_labels)glyphs+=s;
- const auto result=psui::run_library_panel(module,owner,host,pattern_title,740,520,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&pattern_info);
+ const auto result=psui::run_filter_panel(module,owner,host,pattern_title,740,520,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&pattern_info);
  c.worker.stop();if(result==IDOK&&!c.error)p=c.p;return result;
 }
 }

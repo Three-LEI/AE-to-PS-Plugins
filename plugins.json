@@ -247,5 +247,85 @@
     "file": "ZaYuLongShadow.8bf",
     "module": "longshadow",
     "development_status": "stable"
+  },
+  {
+    "name": "Toner 多色调",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuToner.8bf",
+    "module": "toner",
+    "development_status": "stable"
+  },
+  {
+    "name": "Mirror 镜像",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuMirror.8bf",
+    "module": "mirror",
+    "development_status": "stable"
+  },
+  {
+    "name": "RepeTile 重复拼贴",
+    "version": "0.2-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuRepeTile.8bf",
+    "module": "repetile",
+    "development_status": "stable"
+  },
+  {
+    "name": "Noise 综合杂色",
+    "version": "0.2.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuNoise.8bf",
+    "module": "noise",
+    "development_status": "stable"
+  },
+  {
+    "name": "Sphere 球面贴图",
+    "version": "0.5-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuSphere.8bf",
+    "module": "texturewrap",
+    "development_status": "stable"
+  },
+  {
+    "name": "Cylinder 圆柱贴图",
+    "version": "0.6-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuCylinder.8bf",
+    "module": "texturewrap",
+    "development_status": "stable"
+  },
+  {
+    "name": "Rain & Snow 雨雪模拟",
+    "version": "0.2-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuRainSnow.8bf",
+    "module": "weather",
+    "development_status": "stable"
+  },
+  {
+    "name": "Channel Blur 通道模糊",
+    "version": "0.1.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuChannelBlur.8bf",
+    "module": "channelblur",
+    "development_status": "stable"
+  },
+  {
+    "name": "Compound Blur 复合模糊",
+    "version": "0.1.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuCompoundBlur.8bf",
+    "module": "compoundblur",
+    "development_status": "stable"
+  },
+  {
+    "name": "Pixel Sort 像素排序",
+    "version": "0.1-local",
+    "modes": "RGB8/16/32",
+    "file": "ZaYuPixelSort.8bf",
+    "module": "pixelsort",
+    "development_status": "stable"
   }
 ]

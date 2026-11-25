@@ -26,15 +26,21 @@ struct Context {
 };
 #include "preview_update.inc"
 void draw(psui::LibraryPanel& ui,Context& c){
- const auto b=c.host->documentInfo->bounds;const auto factory=defaults(effect_kind,b.right-b.left,b.bottom-b.top,b.left,b.top);ui.parameter_defaults(c.p,factory);auto& p=c.p;const float s=ui.scale();bool changed=false;
- ImGui::BeginChild("preview-side",{220*s,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-125*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ const auto b=c.host->documentInfo->bounds;const auto factory=defaults(effect_kind,b.right-b.left,b.bottom-b.top,b.left,b.top);ui.parameter_defaults(c.p,factory);auto& p=c.p;bool changed=false;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ psui::PreviewAdjustments handles;
+ if (effect_kind == Kind::turbulent) handles.point("偏移（湍流） / Offset", p.cx, p.cy);
+ else if (effect_kind == Kind::kaleida && !p.floating) handles.point("取样中心 / Sample Center", p.cx, p.cy);
+ else handles.point("中心 / Center", p.cx, p.cy);
+ if (effect_kind == Kind::sweep) handles.angle("方向 / Direction", p.direction, p.cx, p.cy, -360000, 360000, 90);
+ else if (effect_kind == Kind::kaleida) handles.angle("旋转 / Rotation", p.rotation, p.cx, p.cy, -360000, 360000);
+ changed |= ui.image_view(c.view,c.proxy,handles);
  ui.items["creative.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
- const auto r=ui.items.at("image");if(ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({r.x,r.y},{r.z,r.w})&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){const auto m=ImGui::GetMousePos();p.cx=c.view.center_x()+(m.x-(r.x+r.z)*.5)/(c.view.percent*.01);p.cy=c.view.center_y()+(m.y-(r.y+r.w)*.5)/(c.view.percent*.01);changed=true;}
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
 
  if(c.error)ImGui::TextWrapped("%s",ui.text("计算失败，请全部重置或取消。 / Render failed. Reset all or cancel.").c_str());
- ImGui::TextWrapped("%s",ui.text("右键预览可定位中心。 / Right-click the preview to set the center.").c_str());
+ ImGui::TextWrapped("%s",ui.text("拖动预览中的位置手柄。 / Drag the position handle in the preview.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.adaptive_cache.clear();p=factory;c.error=noErr;changed=true;}
  ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
@@ -58,8 +64,8 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){
- Context c(p,host,src);const auto answer=psui::run_library_panel(m,owner,host,title,900,760,[&](psui::LibraryPanel& ui){draw(ui,c);},
- "锁定 湍流置换 扫光 万花筒 湍流 膨胀 扭转 平滑 垂直 水平 交叉 置换类型 数量 大小 偏移 复杂度 固定边缘 无 全部边缘 左 右 上 下 左右 上下 左上 右上 左下 右下 除左边 除右边 除上边 除下边 图层扩展 关闭 固定边界 演化 度 循环演化 循环 转 随机种子 方向调整 水平强度 垂直强度 中心 方向 形状 线性 锐利 宽度 扫光强度 光照颜色 光照接收 叠加 合成 剪出 边缘 边缘强度 边缘厚度 镜像类型 展开 轮形 鱼头 罐形 翻转 花形 菱形十字 翻折 星形 旋转 浮动中心 输出 边界采样 透明 延伸 平铺 镜像 采样质量 快速 近邻 标准 双线性 高质量 四点 效果混合 正在计算 计算失败，请全部重置或取消。右键预览可定位中心。独立重建；随机形态及细节与可能不同。",&plugin_info);
+ Context c(p,host,src);const auto answer=psui::run_filter_panel(m,owner,host,title,900,760,[&](psui::LibraryPanel& ui){draw(ui,c);},
+ "锁定 湍流置换 扫光 万花筒 湍流 膨胀 扭转 平滑 垂直 水平 交叉 置换类型 数量 大小 偏移 复杂度 固定边缘 无 全部边缘 左 右 上 下 左右 上下 左上 右上 左下 右下 除左边 除右边 除上边 除下边 图层扩展 关闭 固定边界 演化 度 循环演化 循环 转 随机种子 方向调整 水平强度 垂直强度 中心 方向 形状 线性 锐利 宽度 扫光强度 光照颜色 光照接收 叠加 合成 剪出 边缘 边缘强度 边缘厚度 镜像类型 展开 轮形 鱼头 罐形 翻转 花形 菱形十字 翻折 星形 旋转 浮动中心 输出 边界采样 透明 延伸 平铺 镜像 采样质量 快速 近邻 标准 双线性 高质量 四点 效果混合 正在计算 计算失败，请全部重置或取消。取样中心独立重建；随机形态及细节与可能不同。",&plugin_info);
  c.worker.stop();c.adaptive_cache.clear();if(answer==IDOK&&!c.error)p=c.p;return answer;
 }
 }

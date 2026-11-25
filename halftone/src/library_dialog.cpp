@@ -28,10 +28,15 @@ void update(psui::LibraryPanel& ui,Context& c){
  psui::compose_spatial_preview(ui,c.host,c.view,c.proxy,c.background,c.selection,c.selection_geometry,c.display,c.source,c.last,c.mapping,c.preview,c.display_dirty,c.error);
 }
 void draw(psui::LibraryPanel& ui,Context& c){
- const Parameters factory;ui.parameter_defaults(c.p,factory);const float s=ui.scale();bool changed=false,applied=false;auto& p=c.p;
- ImGui::BeginChild("preview-side",{250*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),250*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-180*s,100*s,280*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ const Parameters factory;ui.parameter_defaults(c.p,factory);bool changed=false,applied=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ const auto bounds = c.view.bounds;
+ const double cx = .5 * (double(bounds.left) + bounds.right), cy = .5 * (double(bounds.top) + bounds.bottom);
+ psui::PreviewAdjustments handles;
+ handles.point("网纹偏移 / Screen Shift", p.shift_x, p.shift_y, psui::PreviewPointSpace::offset(cx, cy))
+        .angle("角度 / Angle", p.angle, cx + p.shift_x, cy + p.shift_y, -1e9, 1e9);
+ changed |= ui.image_view(c.view,c.proxy,handles);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  ui.items["halftone.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.spacing),float(p.angle)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("预览失败，请重置或取消。 / Preview failed. Reset or cancel.").c_str());
@@ -65,6 +70,6 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){
  Context c(p,host,src);const char* glyphs="网点印刷 自定义 标准网点 漫画细网 复古双色 冷色亮点 斜线印刷 透明油墨 圆点 方点 菱形 线条 暗色网点 亮色网点 纸色 透明 网纹 网点形状 网点类型 网点间距 像素 角度 宽高比 边缘柔化 明暗与细节 源平滑 明亮度 对比度 伽马 颜色与输出 暗色 亮色 背景 效果混合 位置 网纹偏移 间距越小网点越密 透明背景仅保留网点 适合叠加在其他图层上 独立重建的半调效果 背景层及锁定透明度会限制透明输出 预览失败请重置或取消";
- auto answer=psui::run_library_panel(m,owner,host,title,940,800,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
+ auto answer=psui::run_filter_panel(m,owner,host,title,940,800,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
 }
 }

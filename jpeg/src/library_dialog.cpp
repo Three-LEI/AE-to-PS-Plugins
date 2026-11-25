@@ -33,10 +33,10 @@ bool mask_control(psui::LibraryPanel& ui,Context& c){
  }ui.mark("mask.layer");if(changed)c.error=c.read_mask()?noErr:filterBadParameters;return changed;
 }
 void draw(psui::LibraryPanel& ui,Context& c){
- ui.parameter_defaults(c.p,Parameters{});auto& p=c.p;const float s=ui.scale();bool changed=false,preset_changed=false;
- ImGui::BeginChild("preview-side",{220*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-130*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ ui.parameter_defaults(c.p,Parameters{});auto& p=c.p;bool changed=false,preset_changed=false;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ ui.image_view(c.view, c.proxy);
  ui.items["jpeg.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
 
@@ -91,7 +91,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,const std::vector<psui::HostLayer>& layers,Parameters& p,Image& mask){
  Context c(p,host,src,layers);if(!c.read_mask())c.error=filterBadParameters;
- const auto answer=psui::run_library_panel(m,owner,host,title,900,760,[&](psui::LibraryPanel& ui){draw(ui,c);},
+ const auto answer=psui::run_filter_panel(m,owner,host,title,900,760,[&](psui::LibraryPanel& ui){draw(ui,c);},
  "压缩 质量 分辨率系数 横向比例 色度采样 色度量化 错误 错误率 损坏类型 错误块密度 错误幅度 错误聚集 块错位 像素 色彩错误 垂直翻转错误 随机种子 变化序号 换一组损坏 频率 全频缩放 频率缩放 低频缩放 中频缩放 高频缩放 影响亮度 影响色度 颜色与混合 高光缩放 暗部偏移 饱和度 保留超范围 混合 蒙版 蒙版图层 蒙版用途 模糊蒙版 反转蒙版 无 自定义 经典低质 重度压缩 传输损坏 块错位 色彩损坏 频率破碎 全色度 水平减半 双向减半 黑白 混合 频率噪声 亮度跳变 系数丢失 色彩跳变 亮度 正在计算 读取或计算失败，请重新选择蒙版、全部重置或取消。相同种子和变化序号得到相同损坏。独立压缩与损坏模型；不依赖，不保证原版逐像素一致。",&plugin_info);
  c.worker.stop();c.adaptive_cache.clear();if(answer==IDOK&&!c.error){p=c.p;mask=std::move(c.mask);}return answer;
 }

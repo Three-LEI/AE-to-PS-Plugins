@@ -27,10 +27,13 @@ void update(psui::LibraryPanel& ui,Context& c){
 }
 void draw(psui::LibraryPanel& ui,Context& c){
  const auto factory=defaults(c.source.width,c.source.height,c.source.left,c.source.top);ui.parameter_defaults(c.p,factory);
- const float s=ui.scale();bool changed=false,preset_applied=false;auto& p=c.p;
- ImGui::BeginChild("preview-side",{230*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),230*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-180*s,100*s,230*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ bool changed=false,preset_applied=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ psui::PreviewAdjustments handles;
+ handles.point("条纹中心 / Stripe Center", p.cx, p.cy)
+        .angle("方向 / Direction", p.direction, p.cx, p.cy, -1e9, 1e9);
+ changed |= ui.image_view(c.view,c.proxy,handles);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  ui.items["blinds.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.completion),float(p.direction)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("预览失败，请重置或取消。 / Preview failed. Reset or cancel.").c_str());
@@ -54,6 +57,6 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){
  Context c(p,host,src);std::string glyphs="百叶窗 预设 半开竖向 半开横向 斜向柔边 细密条纹 过渡完成 方向 度 宽度 像素 羽化 位置 条纹中心 中心居中 保留原图 完全隐藏 间隙显示下方图层 请使用普通图层或智能对象 背景层会以黑色呈现透明部分 锁定透明度时不能隐藏像素 预览失败 请重置或取消";
- const auto answer=psui::run_library_panel(m,owner,host,title,780,540,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
+ const auto answer=psui::run_filter_panel(m,owner,host,title,780,540,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
 }
 }

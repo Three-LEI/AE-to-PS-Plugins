@@ -1,4 +1,4 @@
-param([Parameter(Mandatory)][string]$Renders,[Parameter(Mandatory)][string]$Parameters,[string]$Assets='docs/assets',[string]$Proof='')
+param([Parameter(Mandatory)][string]$Renders,[Parameter(Mandatory)][string]$Parameters,[string]$Assets='docs/assets',[string]$Proof='',[switch]$CoverOnly)
 $ErrorActionPreference='Stop';Add-Type -AssemblyName System.Drawing
 $root=Split-Path $PSScriptRoot -Parent;$rendersPath=[IO.Path]::GetFullPath($Renders);$assetsPath=[IO.Path]::GetFullPath($Assets)
 New-Item -ItemType Directory -Path "$assetsPath/effects" -Force|Out-Null
@@ -15,9 +15,10 @@ function Checker($graphics,[int]$left,[int]$top,[int]$size){
  for($y=0;$y -lt $size;$y+=16){for($x=0;$x -lt $size;$x+=16){$brush=if((($x/16+$y/16)%2) -eq 0){$a}else{$b};$graphics.FillRectangle($brush,$left+$x,$top+$y,[Math]::Min(16,$size-$x),[Math]::Min(16,$size-$y))}}
  $a.Dispose();$b.Dispose()
 }
+$index=0;$manifest=@()
+if(!$CoverOnly){
 $proofBitmap=if($Proof){[Drawing.Bitmap]::new(1536,1112)}else{$null};$proofGraphics=if($Proof){[Drawing.Graphics]::FromImage($proofBitmap)}else{$null}
 if($Proof){$proofGraphics.Clear([Drawing.Color]::FromArgb(16,22,29));$proofGraphics.InterpolationMode=[Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic}
-$index=0;$manifest=@()
 foreach($row in $rows){
  $before=[Drawing.Image]::FromFile("$rendersPath/$($row.slug)-before.png");$after=[Drawing.Image]::FromFile("$rendersPath/$($row.slug)-after.png")
  $card=[Drawing.Bitmap]::new(1024,616);$g=[Drawing.Graphics]::FromImage($card);$g.Clear([Drawing.Color]::FromArgb(16,22,29));$g.InterpolationMode=[Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
@@ -33,13 +34,17 @@ Copy-Item -LiteralPath "$rendersPath/tint-before.png" -Destination "$assetsPath/
 & python "$root/scripts/strip-demo-metadata.py" "$assetsPath/demo-source.png"
 if($LASTEXITCODE){throw 'Demo metadata cleanup failed'}
 if($Proof){$proofBitmap.Save([IO.Path]::GetFullPath($Proof),[Drawing.Imaging.ImageFormat]::Png);$proofGraphics.Dispose();$proofBitmap.Dispose()}
+}
 $hero=[Drawing.Bitmap]::new(1280,640);$hg=[Drawing.Graphics]::FromImage($hero);$hg.Clear([Drawing.Color]::FromArgb(12,19,28));$hg.InterpolationMode=[Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
 $big=[Drawing.Font]::new('Segoe UI',66,[Drawing.FontStyle]::Bold,[Drawing.GraphicsUnit]::Pixel);$medium=[Drawing.Font]::new('Segoe UI',29,[Drawing.FontStyle]::Regular,[Drawing.GraphicsUnit]::Pixel);$cyan=[Drawing.SolidBrush]::new([Drawing.Color]::FromArgb(76,206,255))
-$hg.DrawString('AE → PS',$big,$white,[single]46,[single]102);$hg.DrawString('23 native Photoshop filters',$medium,$white,[single]48,[single]208)
+$hg.DrawString('AE → PS',$big,$white,[single]46,[single]102);$hg.DrawString("$($catalog.Count) native Photoshop filters",$medium,$white,[single]48,[single]208)
 $hg.DrawString('Glow · Glass · Energy · Noise',$smallFont,$muted,[single]50,[single]275);$hg.DrawString('Smart Filters · Fast previews',$smallFont,$cyan,[single]50,[single]324)
 $hg.DrawString('Windows x64  /  MIT source',$smallFont,$muted,[single]50,[single]460);$hg.DrawString('Three-LEI / AE-to-PS-Plugins',$smallFont,$muted,[single]50,[single]504)
 $tiles=@('deep-glow','chromatic-dispersion','glass','saber','starglow','roughen-edges')
 for($i=0;$i -lt $tiles.Count;$i++){$im=[Drawing.Image]::FromFile("$rendersPath/$($tiles[$i])-after.png");$x=650+($i%3)*200;$y=78+[Math]::Floor($i/3)*256;Checker $hg $x $y 186;$hg.DrawImage($im,[int]$x,[int]$y,186,186);$hg.DrawString($tiles[$i],$smallFont,$white,[single]$x,[single]($y+194));$im.Dispose()}
 $hero.Save("$assetsPath/social-preview.jpg",$encoder,$quality);$hg.Dispose();$hero.Dispose();$big.Dispose();$medium.Dispose();$cyan.Dispose();$titleFont.Dispose();$smallFont.Dispose();$white.Dispose();$muted.Dispose();$quality.Dispose()
-$manifest|ConvertTo-Json -Depth 5|Set-Content "$assetsPath/gallery-manifest.json" -Encoding UTF8
-'PASS: 23 native before/after cards, source image and 1280x640 sharing cover'
+if($CoverOnly){'PASS: 1280x640 sharing cover'}
+else{
+ $manifest|ConvertTo-Json -Depth 5|Set-Content "$assetsPath/gallery-manifest.json" -Encoding UTF8
+ "PASS: $($manifest.Count) native before/after cards, source image and 1280x640 sharing cover"
+}

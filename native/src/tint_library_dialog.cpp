@@ -80,11 +80,7 @@ void draw(psui::LibraryPanel &ui, Context &c) {
  ui.parameter_defaults(c.values, Parameters{});
   const auto s = ui.scale();
   bool changed = false;
-  ImGui::BeginChild("preview-side", {190 * s, 0}, 0,
-                    ImGuiWindowFlags_NoScrollbar);
-  const float preview_height = std::clamp(
-      ImGui::GetContentRegionAvail().y - 140 * s, 100 * s, 190 * s);
-  c.view.configure(psui::filter_bounds(c.host), 190 * s, preview_height);
+  ui.begin_filter_preview(c.view, psui::filter_bounds(c.host));
   update(ui, c);
   ui.image_view(c.view, c.source);
   changed |= ui.check("预览 / Preview", c.preview);
@@ -96,7 +92,7 @@ void draw(psui::LibraryPanel &ui, Context &c) {
   ImGui::BeginChild("parameters", {0, 0}, 0,
                     ImGuiWindowFlags_NoScrollbar |
                     ImGuiWindowFlags_NoScrollWithMouse);
-  const float footer = 3 * (ui.button_height() + ImGui::GetStyle().ItemSpacing.y);
+  const float footer = ui.filter_footer_height();
   ImGui::BeginChild("tint-controls", {0, -footer}, 0,
                     ImGuiWindowFlags_NoScrollWithMouse);
   for (int i = 0; i < 2; ++i) {
@@ -135,7 +131,7 @@ INT_PTR show_dialog(HINSTANCE module, HWND owner, FilterRecord *host,
                     Parameters &p) {
   try {
     Context c{p, host};
-    const auto result = psui::run_library_panel(
+    const auto result = psui::run_filter_panel(
         module, owner, host, L"Tint 色调", 640, 350,
         [&](psui::LibraryPanel &ui) { draw(ui, c); }, nullptr, &plugin_info);
     if (c.error != noErr)

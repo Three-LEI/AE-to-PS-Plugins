@@ -10,7 +10,7 @@
 
 ## 试用
 
-本机 PS2020／PS2026 安装后，在“滤镜 → ZaYu-AE 效果复刻 → Halftone 网点印刷”中打开。先试“复古双色”“漫画细网”或“斜线印刷”；制作透明网点叠层时选“透明油墨”。需要编辑参数时使用智能对象。
+本机 PS2020／PS2026 安装后，在“滤镜 → ZaYu-风格化 → Halftone 网点印刷”中打开。先试“复古双色”“漫画细网”或“斜线印刷”；制作透明网点叠层时选“透明油墨”。需要编辑参数时使用智能对象。
 
 从[0.38安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.39/AE-to-PS-Plugins-0.39-Windows-x64.zip)安装`ZaYuHalftone.8bf`。
 

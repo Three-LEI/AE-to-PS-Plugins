@@ -1,0 +1,286 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Noise",
+      "Category": "ZaYu-NoiseGrain",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 2,
+      "ComponentVersionDotRevNum": 1,
+      "ComponentName": "ZaYuNoiseReconstruction",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/Noise=Noise 综合杂色",
+      "ZStringCategory": "$$$/ZaYu/Groups/NoiseGrain=ZaYu-杂色和颗粒",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpNs"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Noise",
+                "EventDescription": "Editable Noise",
+                "ClassID": "ZpEf",
+                "EventType": "ZpNs",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "basic",
+                    "ParamKeyword": "Zn00",
+                    "ParamType": "bool",
+                    "ParamDescription": "basic"
+                  },
+                  {
+                    "ParamName": "distribution",
+                    "ParamKeyword": "Zn01",
+                    "ParamType": "long",
+                    "ParamDescription": "distribution"
+                  },
+                  {
+                    "ParamName": "amount",
+                    "ParamKeyword": "Zn02",
+                    "ParamType": "doub",
+                    "ParamDescription": "amount"
+                  },
+                  {
+                    "ParamName": "size",
+                    "ParamKeyword": "Zn03",
+                    "ParamType": "doub",
+                    "ParamDescription": "size"
+                  },
+                  {
+                    "ParamName": "color",
+                    "ParamKeyword": "Zn04",
+                    "ParamType": "doub",
+                    "ParamDescription": "color"
+                  },
+                  {
+                    "ParamName": "hue",
+                    "ParamKeyword": "Zn05",
+                    "ParamType": "doub",
+                    "ParamDescription": "hue"
+                  },
+                  {
+                    "ParamName": "lightness",
+                    "ParamKeyword": "Zn06",
+                    "ParamType": "doub",
+                    "ParamDescription": "lightness"
+                  },
+                  {
+                    "ParamName": "saturation",
+                    "ParamKeyword": "Zn07",
+                    "ParamType": "doub",
+                    "ParamDescription": "saturation"
+                  },
+                  {
+                    "ParamName": "grain",
+                    "ParamKeyword": "Zn08",
+                    "ParamType": "bool",
+                    "ParamDescription": "grain"
+                  },
+                  {
+                    "ParamName": "grain_amount",
+                    "ParamKeyword": "Zn09",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_amount"
+                  },
+                  {
+                    "ParamName": "grain_size",
+                    "ParamKeyword": "Zn0A",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_size"
+                  },
+                  {
+                    "ParamName": "grain_softness",
+                    "ParamKeyword": "Zn0B",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_softness"
+                  },
+                  {
+                    "ParamName": "grain_color",
+                    "ParamKeyword": "Zn0C",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_color"
+                  },
+                  {
+                    "ParamName": "shadows",
+                    "ParamKeyword": "Zn0D",
+                    "ParamType": "doub",
+                    "ParamDescription": "shadows"
+                  },
+                  {
+                    "ParamName": "midtones",
+                    "ParamKeyword": "Zn0E",
+                    "ParamType": "doub",
+                    "ParamDescription": "midtones"
+                  },
+                  {
+                    "ParamName": "highlights",
+                    "ParamKeyword": "Zn0F",
+                    "ParamType": "doub",
+                    "ParamDescription": "highlights"
+                  },
+                  {
+                    "ParamName": "signal",
+                    "ParamKeyword": "Zn10",
+                    "ParamType": "bool",
+                    "ParamDescription": "signal"
+                  },
+                  {
+                    "ParamName": "snow",
+                    "ParamKeyword": "Zn11",
+                    "ParamType": "doub",
+                    "ParamDescription": "snow"
+                  },
+                  {
+                    "ParamName": "bands",
+                    "ParamKeyword": "Zn12",
+                    "ParamType": "doub",
+                    "ParamDescription": "bands"
+                  },
+                  {
+                    "ParamName": "chroma_bleed",
+                    "ParamKeyword": "Zn13",
+                    "ParamType": "doub",
+                    "ParamDescription": "chroma_bleed"
+                  },
+                  {
+                    "ParamName": "dropouts",
+                    "ParamKeyword": "Zn14",
+                    "ParamType": "doub",
+                    "ParamDescription": "dropouts"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "Zn15",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "phase",
+                    "ParamKeyword": "Zn16",
+                    "ParamType": "long",
+                    "ParamDescription": "phase"
+                  },
+                  {
+                    "ParamName": "grain_midpoint",
+                    "ParamKeyword": "Zn17",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_midpoint"
+                  },
+                  {
+                    "ParamName": "grain_roughness",
+                    "ParamKeyword": "Zn18",
+                    "ParamType": "doub",
+                    "ParamDescription": "grain_roughness"
+                  },
+                  {
+                    "ParamName": "mix",
+                    "ParamKeyword": "Zn19",
+                    "ParamType": "doub",
+                    "ParamDescription": "mix"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

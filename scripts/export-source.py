@@ -12,6 +12,7 @@ for folder in ('scripts','docs','.github','third_party/imgui'):
 # Historical deployment/AE research wrappers depend on private snapshots and
 # machine paths. Export portable shared checks and fixtures needed by tests.
 portable_qa={'README.md','inspect_binaries.py','legacy_metadata.py','tiff_pixels.py','parameter-store.cpp','check-parameter-fields.py','run-parameter-store.ps1','cached-finish-smoke.cpp','about-link.cpp','run-about-link.ps1','adaptive-tests.cpp','adaptive-panel.cpp','run-adaptive-panels.ps1','preview-status.cpp','check-preview-status.py','run-preview-status.ps1','preview-quality-tests.cpp','run-preview-quality-tests.ps1','run-preview-quality-shared.ps1','performance-cache-tests.cpp','run-cache-tests.ps1','offcanvas-adapters.cpp','run-offcanvas-adapters.ps1'}
+portable_qa.update({'run-texturewrap-host.ps1', 'texturewrap-host.jsx', 'check-texturewrap-host.py', 'preview-adjustments-panel.cpp'})
 for path in (root/'qa').iterdir():
  if path.is_file()and(path.name in portable_qa or path.suffix=='.hpp'):selected.add(path)
 for module in project['modules']:

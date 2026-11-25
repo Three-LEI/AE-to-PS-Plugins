@@ -125,7 +125,7 @@ psui::PanelTestHook hook;hook.software=true;hook.host_locale=argc>1&&std::string
   libraryqa::actions_fit(ui);
   for(const char* key:{"ok","cancel","reset","交互快速预览 / Adaptive Preview"}){const auto r=ui.items.at(key);libraryqa::require(r.y>=0&&r.w<=size.y+.5f,"adaptive checkbox/footer fits viewport");}
   if(!ready&&state.y>=1&&state.w==0){for(const auto& [key,r]:ui.items)if(key.ends_with(".slider")&&key!="preview.zoom.slider"&&r.y>=0&&r.w<size.y){slider=key;break;}libraryqa::require(!slider.empty(),"visible parameter slider");ready=true;start=ui.frame();initial_draft=state.x;initial_full=state.y;}
-  if(ready){int n=ui.frame()-start;if(n==45){frames=int(state.x-initial_draft);libraryqa::require(frames>=2,"drafts continue during drag");}
+  if(ready){int n=ui.frame()-start;if(n==45){frames=int(state.x+state.y-initial_draft-initial_full);libraryqa::require(frames>=2,"preview frames continue during drag");}
    if(n>=130&&state.y>initial_full&&state.z==0&&state.w==0){complete=true;ui.close(true);}}
   if(ui.frame()>850)ui.close(false);
  };

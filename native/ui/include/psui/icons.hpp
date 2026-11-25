@@ -3,6 +3,25 @@
 #include <algorithm>
 #include <cmath>
 namespace psui {
+// The supplied 48-unit outlines share their center and stroke width.
+inline void draw_position_icon(ImDrawList* draw, ImVec2 center, float size, bool moving,
+                               ImU32 ink, float stroke) {
+ const float unit = size / 48;
+ const auto p = [&](float x, float y) { return ImVec2(center.x + (x - 24) * unit, center.y + (y - 24) * unit); };
+ draw->AddLine(p(4, 24), p(44, 24), ink, stroke);
+ draw->AddLine(p(24, 4), p(24, 44), ink, stroke);
+ if (moving) {
+  const ImVec2 arrows[][3] = {
+   {p(18, 10), p(24, 4), p(30, 10)}, {p(18, 38), p(24, 44), p(30, 38)},
+   {p(10, 18), p(4, 24), p(10, 30)}, {p(38, 18), p(44, 24), p(38, 30)}
+  };
+  for (const auto& arrow : arrows) draw->AddPolyline(arrow, 3, ink, ImDrawFlags_None, stroke);
+ } else {
+  draw->AddCircle(center, 17 * unit, ink, 0, stroke);
+  draw->AddCircle(center, 8 * unit, ink, 0, stroke);
+ }
+}
+
 // User-supplied 48x48 reset outline, rasterized as geometry rather than a glyph.
 inline void draw_reset_icon(ImDrawList* draw,ImVec2 center,float size,ImU32 ink){
  const float u=size/48.f,stroke=std::max(1.f,3.f*u);

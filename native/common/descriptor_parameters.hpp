@@ -65,6 +65,15 @@ struct Reader {
  void number(const char* key,double& value){if(has(key)){double next=0;if((error=q.d->GetFloat(q.desc,id(key),&next)))return;if(!std::isfinite(next)){error=filterBadParameters;return;}value=next;}}
  template<class T>void integer(const char* key,T& value){if(has(key)){int32 next=0;if((error=q.d->GetInteger(q.desc,id(key),&next)))return;value=static_cast<T>(next);}}
  void flag(const char* key,bool& value){if(has(key)){Boolean next=false;if((error=q.d->GetBoolean(q.desc,id(key),&next)))return;value=next!=0;}}
+ template<class T>void binary(const char* key,T& value){
+  if(!has(key))return;
+  int32 length=0;
+  if((error=q.d->GetDataLength(q.desc,id(key),&length)))return;
+  if(length<=0||length>4096){error=filterBadParameters;return;}
+  std::vector<std::uint8_t> bytes(length);
+  if((error=q.d->GetData(q.desc,id(key),bytes.data())))return;
+  if(!decode(bytes,value))error=filterBadParameters;
+ }
  void layer(const char* key,std::uint64_t& value,std::uint32_t* transient=nullptr){
   if(!has(key))return;std::string name;if(!text(q,q.desc,id(key),name)){error=filterBadParameters;return;}
   value=name.empty()?0:psui::layer_name_key(name);if(transient){*transient=0xffffffffu;for(const auto& layer:layers)if(layer.name==name){*transient=layer.id;break;}}
@@ -75,6 +84,12 @@ struct Writer {
  void number(const char* key,double value){if(!error){if(!std::isfinite(value))error=filterBadParameters;else error=q.d->PutFloat(q.desc,id(key),value);}}
  template<class T>void integer(const char* key,T value){if(!error){const auto bits=static_cast<std::uint32_t>(value);error=q.d->PutInteger(q.desc,id(key),std::bit_cast<int32>(bits));}}
  void flag(const char* key,bool value){if(!error)error=q.d->PutBoolean(q.desc,id(key),value);}
+ template<class T>void binary(const char* key,const T& value){
+  if(error)return;
+  auto bytes=encode(value);
+  if(bytes.empty()||bytes.size()>4096){error=filterBadParameters;return;}
+  error=q.d->PutData(q.desc,id(key),int32(bytes.size()),bytes.data());
+ }
  void layer(const char* key,std::uint64_t value,const std::uint32_t* =nullptr){
   if(error)return;std::string name;
   if(value){for(const auto& layer:layers)if(layer.name_key==value){if(!name.empty()){error=filterBadParameters;return;}name=layer.name;}if(name.empty()){error=filterBadParameters;return;}}
@@ -90,7 +105,9 @@ template<class Effect>OSErr read(FilterRecord* f,const std::vector<psui::HostLay
   Boolean present=false;if(q.d->HasKey(q.desc,id("ZpSv"),&present))return filterBadParameters;
   if(!present)return noErr; // Existing unscripted PSD: preserve the host parameter block.
   int32 version=0,identity=0;if(q.d->GetInteger(q.desc,id("ZpSv"),&version)||version!=1||q.d->GetInteger(q.desc,id("ZpId"),&identity)||static_cast<std::uint32_t>(identity)!=Effect::magic)return filterBadParameters;
-  auto next=values;Reader archive{q,layers};S::visit(archive,next);
+  auto next=values;
+  if constexpr(requires{Effect::descriptor_defaults(next);})Effect::descriptor_defaults(next);
+  Reader archive{q,layers};S::visit(archive,next);
   if(archive.error||!Effect::valid(next))return archive.error?archive.error:filterBadParameters;
   if constexpr(requires{next.kind;})if(next.kind!=values.kind)return filterBadParameters;
   values=next;interactive=dp->playInfo==plugInDialogDisplay;return noErr;

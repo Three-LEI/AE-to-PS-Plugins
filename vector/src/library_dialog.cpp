@@ -77,11 +77,12 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.inherit_choice_default(labels[type_label],c.p.type);
  ui.inherit_choice_default(labels[property_label],c.p.property);
  ui.inherit_choice_default(labels[edge_label],c.p.edge);
- const float s=ui.scale();bool changed=false,preset_changed=false;auto& p=c.p;
- ImGui::BeginChild("preview-side",{205*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),205*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-170*s,100*s,205*s));
- update(ui,c);ui.image_view(c.view,c.proxy);vectors(ui,c);
+ bool changed=false,preset_changed=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);
+ update(ui,c);
+ ui.image_view(c.view, c.proxy);
+ vectors(ui,c);
  ui.items["vector.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
  ui.items["vector.settings"]={float(p.type),float(p.amount),c.overlay?1.f:0.f,p.follow?1.f:0.f};
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);
@@ -124,7 +125,7 @@ INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* host,const Image& 
  Context c(p,host,source,layers);if(!c.read_map())c.error=filterBadParameters;
  std::string glyphs;for(auto label:labels)glyphs+=label;
  auto add=[&](const auto& list){for(auto text:list)glyphs+=text;};add(presets);add(types);add(properties);add(edges);add(qualities);for(const auto& layer:layers)glyphs+=layer.name;
- const auto answer=psui::run_library_panel(module,owner,host,title,780,570,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);
+ const auto answer=psui::run_filter_panel(module,owner,host,title,780,570,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);
  c.worker.stop();c.adaptive_cache.clear();if(answer==IDOK&&!c.error){p=c.p;map=std::move(c.map);}return answer;
 }
 }

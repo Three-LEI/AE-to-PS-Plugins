@@ -20,11 +20,15 @@ struct Context {
 };
 #include "preview_update.inc"
 void draw(psui::LibraryPanel& ui,Context& c){
- const auto factory=defaults();ui.parameter_defaults(c.p,factory);auto& p=c.p;const float s=ui.scale();bool changed=false;
- ImGui::BeginChild("preview-side",{220*s,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-125*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ const auto factory=defaults();ui.parameter_defaults(c.p,factory);auto& p=c.p;bool changed=false;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ const auto bounds = c.view.bounds;
+ psui::PreviewAdjustments handles;
+ handles.point("偏移（湍流） / Offset", p.offset_x, p.offset_y,
+               psui::PreviewPointSpace::offset(.5 * (double(bounds.left) + bounds.right), .5 * (double(bounds.top) + bounds.bottom)));
+ changed |= ui.image_view(c.view,c.proxy,handles);
  ui.items["roughen.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
- const auto r=ui.items.at("image");if(ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({r.x,r.y},{r.z,r.w})&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){const auto m=ImGui::GetMousePos();p.offset_x=c.view.center_x()+(m.x-(r.x+r.z)*.5)/(c.view.percent*.01);p.offset_y=c.view.center_y()+(m.y-(r.y+r.w)*.5)/(c.view.percent*.01);changed=true;}
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
 
  if(c.error)ImGui::TextWrapped("%s",ui.text("计算失败，请全部重置或取消。 / Render failed. Reset all or cancel.").c_str());
@@ -46,7 +50,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p,Prepared& cache){
- Context c(p,host,src,cache);const auto answer=psui::run_library_panel(m,owner,host,title,900,760,[&](psui::LibraryPanel& ui){draw(ui,c);},
+ Context c(p,host,src,cache);const auto answer=psui::run_filter_panel(m,owner,host,title,900,760,[&](psui::LibraryPanel& ui){draw(ui,c);},
  "毛边 边缘类型 粗糙化 颜色粗糙化 剪切 刺状 生锈 生锈颜色 影印 影印颜色 边缘颜色 边界 边缘锐度 分形影响 比例 伸缩宽度或高度 偏移 湍流 复杂度 演化 度 循环演化 循环 旋转次数 随机植入 输出 效果混合 正在计算 计算失败，请全部重置或取消。透明文字和图形可直接处理轮廓。独立重建；随机毛边和细节与可能不同。",&plugin_info);
  c.worker.stop();c.adaptive_cache.clear();if(answer==IDOK&&!c.error)p=c.p;return answer;
 }

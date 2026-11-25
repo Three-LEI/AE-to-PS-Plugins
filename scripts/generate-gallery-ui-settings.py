@@ -15,7 +15,13 @@ for row in rows:
  else:
   fields={f['id']:f for f in catalog['modules'][module]['fields']};values={}
   for f in row['fields']:
-   if f['id'] in fields and 'member' in fields[f['id']]:values[fields[f['id']]['member']]=f['value']
+   field=fields.get(f['id'])
+   if not field or 'member' not in field:continue
+   if field['kind']=='binary':
+    data=bytes.fromhex(f['value'])
+    literal=','.join(map(str,data))
+    lines.append(f' if(!decode(std::array<std::uint8_t,{len(data)}>{{{literal}}},p.{field["member"]}))throw std::runtime_error("invalid gallery data");')
+   else:values[field['member']]=f['value']
  for member,value in values.items():
   if isinstance(value,str):literal='layers[1].name_key' if value else '0'
   elif isinstance(value,bool):literal='true' if value else 'false'

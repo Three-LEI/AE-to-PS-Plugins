@@ -34,15 +34,18 @@ bool map_control(psui::LibraryPanel& ui,Context& c){
  }ui.mark("map.layer");if(changed)c.error=c.read_map()?noErr:filterBadParameters;return changed;
 }
 void draw(psui::LibraryPanel& ui,Context& c){
- const auto document=c.host->documentInfo->bounds;const auto factory=defaults(effect_kind,document.right-document.left,document.bottom-document.top,document.left,document.top);ui.parameter_defaults(c.p,factory);auto& p=c.p;const float s=ui.scale();bool changed=false;
- ImGui::BeginChild("preview-side",{220*s,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),220*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-150*s,110*s,220*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ const auto document=c.host->documentInfo->bounds;const auto factory=defaults(effect_kind,document.right-document.left,document.bottom-document.top,document.left,document.top);ui.parameter_defaults(c.p,factory);auto& p=c.p;bool changed=false;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ psui::PreviewAdjustments handles;
+ if (p.light_type == 1) handles.point("灯光位置 / Light Position", p.light_x, p.light_y);
+ else handles.angle("灯光方向 / Light Direction", p.direction,
+     .5 * (double(document.left) + document.right), .5 * (double(document.top) + document.bottom), -360000, 360000);
+ changed |= ui.image_view(c.view,c.proxy,handles);
  ui.items["surface.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
- const auto rect=ui.items.at("image");if(p.light_type==1&&ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({rect.x,rect.y},{rect.z,rect.w})&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){const auto mouse=ImGui::GetMousePos();p.light_x=c.view.center_x()+(mouse.x-(rect.x+rect.z)*.5)/(c.view.percent*.01);p.light_y=c.view.center_y()+(mouse.y-(rect.y+rect.w)*.5)/(c.view.percent*.01);changed=true;}
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
 
  if(c.error)ImGui::TextWrapped("%s",ui.text("读取或计算失败，请重新选择贴图、全部重置或取消。 / Failed to read or render. Reselect the map, reset all, or cancel.").c_str());
- ImGui::TextWrapped("%s",ui.text("点光模式可右键预览定位灯光。 / In Point Light mode, right-click the preview to position the light.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.adaptive_cache.clear();p=factory;c.map={};c.binding={};c.selected=-1;c.error=noErr;changed=true;}
  ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
@@ -70,8 +73,8 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,const std::vector<psui::HostLayer>& layers,Parameters& p,Image& map,MapBinding* binding){
  Context c(p,host,src,layers,binding);if(!c.read_map())c.error=filterBadParameters;
- const auto answer=psui::run_library_panel(m,owner,host,title,900,760,[&](psui::LibraryPanel& ui){draw(ui,c);},
- "胶状化 玻璃 胶状 表面 胶状图层 凹凸贴图 重新读取贴图 属性 柔和度 切除 高度 置换 灯光 效果灯光 灯光强度 灯光颜色 灯光类型 远光 点光 灯光高度 灯光位置 灯光方向 度 材质 环境光 漫反射 镜面反射 粗糙度 金属 当前图层 红色 绿色 蓝色 亮度 明度 正在计算 读取或计算失败，请重新选择贴图、全部重置或取消。点光模式可右键预览定位灯光。独立重建；参考参数和同源输出，边缘与细节仍可能不同。",&plugin_info);
+ const auto answer=psui::run_filter_panel(m,owner,host,title,900,760,[&](psui::LibraryPanel& ui){draw(ui,c);},
+ "胶状化 玻璃 胶状 表面 胶状图层 凹凸贴图 重新读取贴图 属性 柔和度 切除 高度 置换 灯光 效果灯光 灯光强度 灯光颜色 灯光类型 远光 点光 灯光高度 灯光位置 灯光方向 度 材质 环境光 漫反射 镜面反射 粗糙度 金属 当前图层 红色 绿色 蓝色 亮度 明度 正在计算 读取或计算失败，请重新选择贴图、全部重置或取消。独立重建；参考参数和同源输出，边缘与细节仍可能不同。",&plugin_info);
  c.worker.stop();c.adaptive_cache.clear();if(answer==IDOK&&!c.error){p=c.p;map=std::move(c.map);if(binding)*binding=c.binding;}return answer;
 }
 }

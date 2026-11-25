@@ -76,7 +76,7 @@ Fractal 的 Region 新增完整文档中心 center_x / center_y。宿主渲染�
 
 验证入口：`--qa-about-zh / --qa-about-en / --qa-about-200` 检查共用弹窗、作者字形、关闭、真实裁切缩放、“适合”及滤镜参数逐字节保持；既有语言、主题、DPI、透明源回归继续通过。核心测试检查所有 17 个模型（含透视偏移）在偏移后改变角度/缩放时中心采样不变、非统一缩放的逆映射、带中心的分块一致性；DLL 适配测试检查完整文档尺寸传递。新 Region 字段属于渲染上下文，没有改变存储参数结构或旧参数迁移格式。
 
-接入新效果时，窗口调用为 `run_library_panel(..., glyphs, &plugin_info)`；预览先按视口配置 `PreviewView`，视图 dirty 时调用 `host_read_proxy_area`，然后按 ProxyImage 的 origin_x / origin_y / step 计算结果并显示。生成类效果仍需自行声明 0.6 的透明度协议。组件包 examples 提供两款窗口、参数/版本头文件及生成滤镜 PiPL；完整算法与构建入口保留在主工程。
+新效果通过 `run_filter_panel(..., glyphs, &plugin_info)` 打开参数窗口，用 `LibraryPanel::begin_filter_preview` 配置共用的 360 × 360 逻辑像素预览区。需要在预览列底部放置操作按钮时，把 `filter_footer_height()` 传给布局函数。视图更新时调用 `host_read_proxy_area`，再按 ProxyImage 的 origin_x / origin_y / step 计算结果并显示。生成类效果仍需自行声明 0.6 的透明度协议。组件包 examples 提供两款窗口、参数/版本头文件及生成滤镜 PiPL；完整算法与构建入口保留在主工程。
 
 0.7 发行包根目录的 `build-library-ui.ps1` 已改为独立构建入口，同时生成两份静态库，不依赖本机工程路径。传入 `-Toolchain <LLVM-MinGW的bin目录> -PhotoshopSdk <官方pluginsdk目录>`，可选 `-OutputDir <输出目录>`；ImGui 源码使用包内 `third_party/imgui`。包内 tests 保留主工程相对路径，作为集成回归参考；不是单独可运行的 Photoshop SDK 测试工程。
 
@@ -146,7 +146,7 @@ metrics_tests.cpp 检查滑钮与轨道比例、热区、端点和字号；两�
 ## 新效果接入
 
 1. 内核继续是独立 C++ 像素算法。通过 `filter_runtime.hpp` 处理 PS 选择器、参数存储、分块、取消和进度。
-2. 对话框调用 `psui::run_library_panel(module,owner,host,title,width,height,draw)`。在回调中用 `LibraryPanel::number / choice / check / section / button` 描述参数，不再添加原生子控件。
+2. 对话框调用 `psui::run_filter_panel(module, owner, host, title, width, height, draw, glyphs, &plugin_info)`。在回调中用 `LibraryPanel::number / choice / check / section / button` 描述参数，用 `begin_filter_preview` 接入共用预览布局。
 3. 用 `host_read_proxy` 获取目标图层的只读代理图。参数变化时合并更新；计算完成后 `LibraryPanel::preview` 上传完整纹理，用 `image` 显示。
 4. 确定时 `close(true)`，取消时 `close(false)`。只有返回 IDOK 才把临时参数复制回宿主参数。不要在参数预览阶段写 PS 主文档。
 5. 每个效果定义默认值、范围、参数启用关系和算法。中文英文使用 UTF-8 字符串；库从 Windows 加载微软雅黑字体，字体文件不打包分发。PS 的四档主题由共用宿主桥接读取。

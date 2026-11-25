@@ -25,9 +25,15 @@ void update(psui::LibraryPanel& ui,Context& c){
  preview::compose(ui,c.host,c.view,c.proxy,c.background,c.selection,c.selection_geometry,c.display,c.before_cache,c.source,c.last,c.mapping,c.preview,c.display_dirty,c.error);
 }
 void draw(psui::LibraryPanel& ui,Context& c){
- const Parameters factory;ui.parameter_defaults(c.p,factory);const float s=ui.scale();bool changed=false,applied=false;auto& p=c.p;
- ImGui::BeginChild("preview-side",{310*s,0},0,ImGuiWindowFlags_NoScrollbar);const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),310*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-190*s,120*s,380*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ const Parameters factory;ui.parameter_defaults(c.p,factory);bool changed=false,applied=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ const auto bounds = c.view.bounds;
+ const double cx = .5 * (double(bounds.left) + bounds.right), cy = .5 * (double(bounds.top) + bounds.bottom);
+ psui::PreviewAdjustments handles;
+ handles.point("线条偏移 / Lines Shift", p.shift_x, p.shift_y, psui::PreviewPointSpace::offset(cx, cy))
+        .angle("整体角度 / Lines Angle", p.angle, cx + p.shift_x, cy + p.shift_y, -1e9, 1e9, 90);
+ changed |= ui.image_view(c.view,c.proxy,handles);
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  ui.items["etching.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.frequency),float(p.mode)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("预览失败，请重置或取消。 / Preview failed. Reset or cancel.").c_str());
@@ -62,6 +68,6 @@ void draw(psui::LibraryPanel& ui,Context& c){
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){
  Context c(p,host,src);const char* glyphs="蚀刻 自定义 经典蚀刻 绿钞雕版 复古棕墨 单线肖像 交叉排线 蓝墨版画 双线蚀刻 单线版画 暗部交叉排线 纸色背景 仅墨线 透明 预览失败请重置或取消 主要 线刻模式 线条频率 整体角度 度 线条锐度 线宽增减 源图平滑 像素 两组线条 第一组频率倍率 第一组相对角度 第二组频率倍率 第二组相对角度 交叉排线强度 交叉起始暗度 波形与扭曲 波形幅度 波形频率 亮度扭曲 扭曲平滑 线条偏移 轮廓细节 边缘强度 边缘阈值 边缘宽度 边缘锐度 着色与纸张 墨线颜色 纸张颜色 保留源色 纸张颗粒 纸纹尺寸 随机种子 色调与输出 明亮度 对比度 伽马 背景 效果混合 频率越高线条越密缩放可检查细线";
- const auto answer=psui::run_library_panel(m,owner,host,title,1080,900,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
+ const auto answer=psui::run_filter_panel(m,owner,host,title,1080,900,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs,&plugin_info);c.worker.stop();if(answer==IDOK&&!c.error)p=c.p;return answer;
 }
 }

@@ -25,8 +25,8 @@ constexpr const char* labels[]={
  "距离系数 / Distance Factor","偏移 X / Offset X","偏移 Y / Offset Y","缩放（%） / Scale (%)","旋转 / Rotation","模糊（像素） / Blur (px)",
  "高光 / Highlights","仅处理高光 / Highlights Only","高光阈值（%） / Highlight Threshold (%)","阈值平滑（%） / Threshold Smoothness (%)","线性光插值 / Linear-Light Interpolation","工作伽马 / Working Gamma",
  "边缘与透明度 / Edges and Alpha","边缘处理 / Edge Handling","透明度 / Alpha Handling","遮罩 / Mask","遮罩图层 / Mask Layer","遮罩模式 / Mask Mode","反转遮罩 / Invert Mask","无 / None",
- "计算预览中… / Rendering preview…","预览读取失败，请重置或取消。 / Preview failed. Reset or cancel.","显示中心 / Show Center",
- "右键缩览图设置中心。 / Right-click the preview to set the center.",
+ "计算预览中… / Rendering preview…","预览读取失败，请重置或取消。 / Preview failed. Reset or cancel.",
+ "拖动预览中的中心手柄。 / Drag the center handle in the preview.",
  "光谱模式使用 RGB 近似，不是完整光学光谱模拟。 / Spectrum mode is an RGB approximation, not a full optical simulation.",
  "输出受 PS 画布和选区范围限制。 / Output is limited to Photoshop canvas and selection bounds.",
  "遮罩图层名称不唯一或无法读取。 / Mask name is ambiguous or the layer is unreadable."};
@@ -36,13 +36,13 @@ enum Label {preset_label,main_section,mode_label,geometry_label,amount_label,ang
  factor_label,x_label,y_label,scale_label,rotation_label,blur_label,
  highlights_section,highlights_label,threshold_label,knee_label,linear_label,gamma_label,
  edges_section,edge_label,alpha_label,mask_section,mask_layer_label,mask_mode_label,invert_mask_label,none_label,
- working_label,error_label,show_center_label,pick_center_label,approximation_label,bounds_label,mask_error_label};
+ working_label,error_label,pick_center_label,approximation_label,bounds_label,mask_error_label};
 #include "preview_adapter.hpp"
 struct Context {
  Parameters p;FilterRecord* host;const Image& source;const std::vector<psui::HostLayer>& layers;
  Image mask,last;psui::PreviewView view;psui::ProxyImage proxy,selection_geometry;psui::PreviewBackground background;
  std::vector<float> selection;bool selection_approximate=false;
- std::vector<std::uint8_t> display;bool preview=true,dirty=true,display_dirty=true,show_center=false;
+ std::vector<std::uint8_t> display;bool preview=true,dirty=true,display_dirty=true;
  int preset=0;OSErr error=noErr;ULONGLONG update_at=0;
   psui::PreviewSpace adaptive_mapping;psui::DraftImageCache<Image> adaptive_cache;
  psui::ProxyImage adaptive_selection_geometry;std::vector<float> adaptive_selection;
@@ -88,26 +88,18 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.inherit_choice_default(labels[geometry_label],c.p.geometry);
  ui.inherit_choice_default(labels[edge_label],c.p.edge);
  ui.inherit_choice_default(labels[alpha_label],c.p.alpha);
- const float s=ui.scale();bool changed=false,preset_changed=false;auto& p=c.p;
- ImGui::BeginChild("preview-side",{205*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),205*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-190*s,100*s,205*s));
- update(ui,c);ui.image_view(c.view,c.proxy);
+ bool changed=false,preset_changed=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);
+ update(ui,c);
+ psui::PreviewAdjustments handles;
+ if (p.mode != Mode::defocus) handles.point("中心 / Center", p.center_x, p.center_y,
+     {double(c.source.left), double(c.source.top), double(c.source.width), double(c.source.height), 0, 1});
+ changed |= ui.image_view(c.view,c.proxy,handles);
  ui.items["chromatic.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
- const auto rect=ui.items.at("image");
- if(p.mode!=Mode::defocus&&ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({rect.x,rect.y},{rect.z,rect.w})&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){
-  const auto mouse=ImGui::GetMousePos();const double x=c.view.center_x()+(mouse.x-(rect.x+rect.z)*.5)/(c.view.percent*.01),y=c.view.center_y()+(mouse.y-(rect.y+rect.w)*.5)/(c.view.percent*.01);
-  const double nx=(x-c.source.left)/c.source.width,ny=(y-c.source.top)/c.source.height;
-  if(nx>=0&&nx<=1&&ny>=0&&ny<=1){p.center_x=nx;p.center_y=ny;changed=true;}
- }
- if(c.show_center&&p.mode!=Mode::defocus){
-  const float x=float((rect.x+rect.z)*.5+(c.source.left+p.center_x*c.source.width-c.view.center_x())*c.view.percent*.01);
-  const float y=float((rect.y+rect.w)*.5+(c.source.top+p.center_y*c.source.height-c.view.center_y())*c.view.percent*.01);
-  auto* list=ImGui::GetWindowDrawList();list->PushClipRect({rect.x,rect.y},{rect.z,rect.w},true);list->AddLine({x-6*s,y},{x+6*s,y},IM_COL32(85,190,255,255),s);list->AddLine({x,y-6*s},{x,y+6*s},IM_COL32(85,190,255,255),s);list->PopClipRect();
- }
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);
  if(psui::preview_background_control(ui,c.background))c.display_dirty=true;
- ui.preview_zoom(c.view);if(p.mode!=Mode::defocus)ui.check(labels[show_center_label],c.show_center);
+ ui.preview_zoom(c.view);
 
  if(c.selection_approximate)ImGui::TextDisabled("%s",ui.text("选区缩览为矩形近似 / Rectangular selection preview").c_str());
  if(c.error)ImGui::TextWrapped("%s",ui.text(labels[error_label]).c_str());
@@ -182,7 +174,7 @@ INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* host,const Image& 
  std::string glyphs;for(auto label:labels)glyphs+=label;
  glyphs+="变换强度 红端变换 蓝端变换 散焦半径 像素 光圈与色环 光圈形状 环宽 光圈旋转 光圈长宽比 光圈圆润度 红色半径 绿色半径 蓝色半径 散焦质量";
  auto add=[&](const auto& list){for(auto text:list)glyphs+=text;};add(apertures);add(defocus_qualities);add(presets);add(modes);add(geometries);add(edges);add(alphas);add(masks);add(channels);for(const auto& layer:layers)glyphs+=layer.name;
- const auto answer=psui::run_library_panel(module,owner,host,title,815,620,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);
+ const auto answer=psui::run_filter_panel(module,owner,host,title,815,620,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);
  c.worker.stop();c.adaptive_cache.clear();if(answer==IDOK&&!c.error){p=c.p;mask=std::move(c.mask);}return answer;
 }
 }

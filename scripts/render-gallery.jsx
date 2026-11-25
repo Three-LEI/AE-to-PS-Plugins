@@ -18,17 +18,20 @@
   }else if(row.legacy==='roughen'){
    d=ZyRoughen.params(0,768,768,0);number(d,'ZrBo',26);number(d,'ZrSc',64);number(d,'ZrMx',100);number(d,'ZrIn',1);d.putInteger(c('ZrCE'),0);
   }
-  for(var i=0;i<row.fields.length;i++){var f=row.fields[i];if(f.kind==='number')d.putDouble(c(f.id),f.value);else if(f.kind==='integer')d.putInteger(c(f.id),f.value);else if(f.kind==='flag')d.putBoolean(c(f.id),f.value);else d.putString(c(f.id),f.value);}
-  if(row.geometry){var binary='';for(i=0;i<row.geometry.length;i+=2)binary+=String.fromCharCode(parseInt(row.geometry.substr(i,2),16));d.putData(c('ZePG'),binary);d.putString(c('ZePN'),'Gallery ellipse');}
+  function raw(hex){var data='';for(var j=0;j<hex.length;j+=2)data+=String.fromCharCode(parseInt(hex.substr(j,2),16));return data;}
+  for(var i=0;i<row.fields.length;i++){var f=row.fields[i],kind=f.kind||f.type;if(kind==='number')d.putDouble(c(f.id),f.value);else if(kind==='integer')d.putInteger(c(f.id),f.value);else if(kind==='flag')d.putBoolean(c(f.id),f.value);else if(kind==='binary')d.putData(c(f.id),raw(f.value));else d.putString(c(f.id),f.value);}
+  if(row.geometry){d.putData(c('ZePG'),raw(row.geometry));d.putString(c('ZePN'),'Gallery ellipse');}
   return d;
  }
  try{
   app.displayDialogs=DialogModes.NO;app.preferences.rulerUnits=Units.PIXELS;
   for(var index=0;index<GALLERY_ROWS.length;index++){
    var row=GALLERY_ROWS[index],wanted=!GALLERY_ONLY.length;for(var pick=0;pick<GALLERY_ONLY.length;pick++)if(GALLERY_ONLY[pick]===row.slug)wanted=true;if(!wanted)continue;
-   doc=app.open(new File(GALLERY_SOURCE));if(doc.activeLayer.isBackgroundLayer)doc.activeLayer.isBackgroundLayer=false;
+   var texture=(row.input==='globe'||row.input==='label')&&typeof GALLERY_TEXTURE_SOURCE!=='undefined';
+   var path=texture?GALLERY_TEXTURE_SOURCE+'/'+row.slug+'-before.png':GALLERY_SOURCE;
+   doc=app.open(new File(path));if(doc.activeLayer.isBackgroundLayer)doc.activeLayer.isBackgroundLayer=false;
    try{doc.convertProfile('sRGB IEC61966-2.1',Intent.RELATIVECOLORIMETRIC,true,false);}catch(ignore){}
-   var target=doc.activeLayer;target.name='Demo photo';
+   var target=doc.activeLayer;target.name=texture?'Demo texture':'Demo photo';
    if(row.input==='map'){var ref=target.duplicate();ref.name='DemoMap';ref.visible=false;doc.activeLayer=target;}
    if(row.input==='alpha'){
     var points=[];for(var n=0;n<128;n++){var angle=n*Math.PI*2/128;points.push([384+302*Math.cos(angle),384+326*Math.sin(angle)]);}

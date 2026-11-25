@@ -1,0 +1,232 @@
+{
+  "PiPLs": [
+    {
+      "Kind": "Filter",
+      "Name": "Rain & Snow",
+      "Category": "ZaYu-Simulation",
+      "Version": 4,
+      "SubVersion": 0,
+      "ComponentVersionShortNum": 0,
+      "ComponentVersionMinorRevNum": 2,
+      "ComponentVersionDotRevNum": 0,
+      "ComponentName": "ZaYuRainSnow",
+      "CodeEntryPointWin64": "PluginMain",
+      "SupportedModes": {
+        "RGBColor": true
+      },
+      "EnableInfo": "(PSHOP_ImageMode == RGBMode || PSHOP_ImageMode == RGB48Mode || PSHOP_ImageMode == 16) && (PSHOP_ImageDepth == 8 || PSHOP_ImageDepth == 16 || PSHOP_ImageDepth == 32)",
+      "PlugInMaxSize": [
+        2000000,
+        2000000
+      ],
+      "MonitorScalingAware": true,
+      "FilterLayerSupport": true,
+      "FilterCaseInfo": [
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InCantFilter",
+          "OutputHandling": "OutCantFilter"
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": true,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        },
+        {
+          "InputHandling": "InStraightData",
+          "OutputHandling": "OutStraightData",
+          "WriteOutsideSelection": false,
+          "FiltersLayerMasks": false,
+          "WorksWithBlankData": false,
+          "DontCopySourceToDestination": false
+        }
+      ],
+      "ZStringName": "$$$/ZaYu/Effects/RainSnow=Rain & Snow 雨雪模拟",
+      "ZStringCategory": "$$$/ZaYu/Groups/Simulation=ZaYu-模拟",
+      "HasTerminology": {
+        "ClassID": "ZpEf",
+        "EventID": "ZpWs"
+      },
+      "Terminology": {
+        "MajorVersion": 1,
+        "MinorVersion": 0,
+        "Language": 0,
+        "ScriptCode": 0,
+        "Suites": [
+          {
+            "SuitName": "AEPS Saved Parameters",
+            "SuitID": "ZpEf",
+            "SuitLevel": 1,
+            "SuitVersion": 1,
+            "SuitDescription": "Persistent native effect settings",
+            "Events": [
+              {
+                "EventName": "Rain & Snow",
+                "EventDescription": "Editable Rain & Snow",
+                "ClassID": "ZpEf",
+                "EventType": "ZpWs",
+                "ReplyType": "null",
+                "DirectParamType": "#ImR",
+                "DirectParamFlagBits": {
+                  "DirectParamOptional": true,
+                  "Enumerated": true,
+                  "ChangesState": true
+                },
+                "Parameters": [
+                  {
+                    "ParamName": "schemaVersion",
+                    "ParamKeyword": "ZpSv",
+                    "ParamType": "long",
+                    "ParamDescription": "Parameter schema version"
+                  },
+                  {
+                    "ParamName": "effectIdentity",
+                    "ParamKeyword": "ZpId",
+                    "ParamType": "long",
+                    "ParamDescription": "Stable effect identity"
+                  },
+                  {
+                    "ParamName": "mode",
+                    "ParamKeyword": "ZwR0",
+                    "ParamType": "long",
+                    "ParamDescription": "mode"
+                  },
+                  {
+                    "ParamName": "output",
+                    "ParamKeyword": "ZwR1",
+                    "ParamType": "long",
+                    "ParamDescription": "output"
+                  },
+                  {
+                    "ParamName": "seed",
+                    "ParamKeyword": "ZwR2",
+                    "ParamType": "long",
+                    "ParamDescription": "seed"
+                  },
+                  {
+                    "ParamName": "density",
+                    "ParamKeyword": "ZwR3",
+                    "ParamType": "doub",
+                    "ParamDescription": "density"
+                  },
+                  {
+                    "ParamName": "opacity",
+                    "ParamKeyword": "ZwR4",
+                    "ParamType": "doub",
+                    "ParamDescription": "opacity"
+                  },
+                  {
+                    "ParamName": "wind",
+                    "ParamKeyword": "ZwR5",
+                    "ParamType": "doub",
+                    "ParamDescription": "wind"
+                  },
+                  {
+                    "ParamName": "rain_length",
+                    "ParamKeyword": "ZwR6",
+                    "ParamType": "doub",
+                    "ParamDescription": "rain_length"
+                  },
+                  {
+                    "ParamName": "rain_width",
+                    "ParamKeyword": "ZwR7",
+                    "ParamType": "doub",
+                    "ParamDescription": "rain_width"
+                  },
+                  {
+                    "ParamName": "snow_size",
+                    "ParamKeyword": "ZwR8",
+                    "ParamType": "doub",
+                    "ParamDescription": "snow_size"
+                  },
+                  {
+                    "ParamName": "near_blur",
+                    "ParamKeyword": "ZwR9",
+                    "ParamType": "doub",
+                    "ParamDescription": "near_blur"
+                  },
+                  {
+                    "ParamName": "far_blur",
+                    "ParamKeyword": "ZwRA",
+                    "ParamType": "doub",
+                    "ParamDescription": "far_blur"
+                  },
+                  {
+                    "ParamName": "rain_red",
+                    "ParamKeyword": "ZwRB",
+                    "ParamType": "doub",
+                    "ParamDescription": "rain_red"
+                  },
+                  {
+                    "ParamName": "rain_green",
+                    "ParamKeyword": "ZwRC",
+                    "ParamType": "doub",
+                    "ParamDescription": "rain_green"
+                  },
+                  {
+                    "ParamName": "rain_blue",
+                    "ParamKeyword": "ZwRD",
+                    "ParamType": "doub",
+                    "ParamDescription": "rain_blue"
+                  },
+                  {
+                    "ParamName": "snow_red",
+                    "ParamKeyword": "ZwRE",
+                    "ParamType": "doub",
+                    "ParamDescription": "snow_red"
+                  },
+                  {
+                    "ParamName": "snow_green",
+                    "ParamKeyword": "ZwRF",
+                    "ParamType": "doub",
+                    "ParamDescription": "snow_green"
+                  },
+                  {
+                    "ParamName": "snow_blue",
+                    "ParamKeyword": "ZwRG",
+                    "ParamType": "doub",
+                    "ParamDescription": "snow_blue"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

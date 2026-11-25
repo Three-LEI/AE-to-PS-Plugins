@@ -8,7 +8,7 @@
 #include <cmath>
 namespace lens {namespace {
 constexpr const char* axes[]={"水平 / Horizontal","垂直 / Vertical","对角线 / Diagonal"};
-constexpr const char* labels[]={"视场 (FOV) / Field Of View","反转镜头扭曲 / Reverse Lens Distortion","FOV 方向 / FOV Orientation","视图中心 / View Center","最佳像素（非可逆） / Optimal Pixels (Non-reversible)","中心 / Center","大小 / Size","收敛度 / Convergence","中心居中 / Center","调整大小：关闭（PS画布固定）。保留边缘需先扩展画布。 / Resize: Off (fixed Photoshop canvas). Enlarge the canvas first to retain edges.","最佳像素使用同源参考拟合，细节可能与AE不同。 / Optimal Pixels is fitted to native references; details can differ from AE.","右键缩览图设置中心。 / Right-click the preview to set the center.","正在计算… / Rendering preview…","计算失败，请重置或取消。 / Rendering failed. Reset or cancel.","独立复刻，不调用AE或原版插件。 / Independent reconstruction; no AE or original plug-in dependency."};
+constexpr const char* labels[]={"视场 (FOV) / Field Of View","反转镜头扭曲 / Reverse Lens Distortion","FOV 方向 / FOV Orientation","视图中心 / View Center","最佳像素（非可逆） / Optimal Pixels (Non-reversible)","中心 / Center","大小 / Size","收敛度 / Convergence","中心居中 / Center","调整大小：关闭（PS画布固定）。保留边缘需先扩展画布。 / Resize: Off (fixed Photoshop canvas). Enlarge the canvas first to retain edges.","最佳像素使用同源参考拟合，细节可能与AE不同。 / Optimal Pixels is fitted to native references; details can differ from AE.","拖动预览中的中心手柄。 / Drag the center handle in the preview.","正在计算… / Rendering preview…","计算失败，请重置或取消。 / Rendering failed. Reset or cancel.","独立复刻，不调用AE或原版插件。 / Independent reconstruction; no AE or original plug-in dependency."};
 #include "preview_adapter.hpp"
 struct Context {
  Parameters p;FilterRecord* host;const Image& source;Image last;
@@ -37,14 +37,14 @@ void update(psui::LibraryPanel& ui,Context& c){
 }
 void draw(psui::LibraryPanel& ui,Context& c){
  ui.parameter_defaults(c.p, defaults(effect_kind,c.source.width,c.source.height,c.source.left,c.source.top));
- const float s=ui.scale();bool changed=false;auto& p=c.p;
- ImGui::BeginChild("preview-side",{205*s,0},0,ImGuiWindowFlags_NoScrollbar);
- const float footer=3*(ui.button_height()+ImGui::GetStyle().ItemSpacing.y);
- c.view.configure(psui::filter_document_bounds(c.host),205*s,std::clamp(ImGui::GetContentRegionAvail().y-footer-ImGui::GetFrameHeight()-ImGui::GetStyle().ItemSpacing.y-120*s,110*s,205*s));update(ui,c);ui.image_view(c.view,c.proxy);
+ bool changed=false;auto& p=c.p;
+ const float footer = ui.filter_footer_height();
+ ui.begin_filter_preview(c.view, psui::filter_document_bounds(c.host), footer);update(ui,c);
+ psui::PreviewAdjustments handles;
+ const bool optics = effect_kind == Kind::optics;
+ handles.point(labels[optics ? 3 : 5], p.cx, p.cy);
+ changed |= ui.image_view(c.view,c.proxy,handles);
  ui.items["lens.state"]={c.last.valid()?1.f:0.f,c.worker.pending()?1.f:0.f,c.dirty?1.f:0.f,float(c.error)};
- const auto rect=ui.items.at("image");if(ImGui::IsWindowHovered()&&ImGui::IsMouseHoveringRect({rect.x,rect.y},{rect.z,rect.w})&&ImGui::IsMouseClicked(ImGuiMouseButton_Right)){
-  const auto mouse=ImGui::GetMousePos();p.cx=c.view.center_x()+(mouse.x-(rect.x+rect.z)*.5)/(c.view.percent*.01);p.cy=c.view.center_y()+(mouse.y-(rect.y+rect.w)*.5)/(c.view.percent*.01);changed=true;
- }
  if(ui.check("预览 / Preview",c.preview))c.display_dirty=true;c.worker.controls(ui,c.dirty);if(psui::preview_background_control(ui,c.background))c.display_dirty=true;ui.preview_zoom(c.view);
  if(c.error)ImGui::TextWrapped("%s",ui.text(labels[13]).c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));
@@ -58,5 +58,5 @@ void draw(psui::LibraryPanel& ui,Context& c){
  if(changed){c.dirty=true;c.error=noErr;c.due=GetTickCount64()+35;}
 }
 }
-INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* f,const Image& src,Parameters& p){Context c(p,f,src);std::string glyphs;for(auto label:labels)glyphs+=label;for(auto axis:axes)glyphs+=axis;const auto answer=psui::run_library_panel(m,owner,f,title,760,520,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);c.worker.stop();c.adaptive_cache.clear();if(answer==IDOK&&!c.error)p=c.p;return answer;}
+INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* f,const Image& src,Parameters& p){Context c(p,f,src);std::string glyphs;for(auto label:labels)glyphs+=label;for(auto axis:axes)glyphs+=axis;const auto answer=psui::run_filter_panel(m,owner,f,title,760,520,[&](psui::LibraryPanel& ui){draw(ui,c);},glyphs.c_str(),&plugin_info);c.worker.stop();c.adaptive_cache.clear();if(answer==IDOK&&!c.error)p=c.p;return answer;}
 }

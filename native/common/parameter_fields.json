@@ -4244,6 +4244,783 @@
           "kind": "number"
         }
       ]
+    },
+    "toner": {
+      "type": "toner::Parameters",
+      "fields": [
+        {
+          "name": "mode",
+          "kind": "integer",
+          "member": "mode",
+          "id": "Zc00"
+        },
+        {
+          "name": "highlights0",
+          "kind": "number",
+          "member": "highlights[0]",
+          "id": "Zc01"
+        },
+        {
+          "name": "highlights1",
+          "kind": "number",
+          "member": "highlights[1]",
+          "id": "Zc02"
+        },
+        {
+          "name": "highlights2",
+          "kind": "number",
+          "member": "highlights[2]",
+          "id": "Zc03"
+        },
+        {
+          "name": "brights0",
+          "kind": "number",
+          "member": "brights[0]",
+          "id": "Zc04"
+        },
+        {
+          "name": "brights1",
+          "kind": "number",
+          "member": "brights[1]",
+          "id": "Zc05"
+        },
+        {
+          "name": "brights2",
+          "kind": "number",
+          "member": "brights[2]",
+          "id": "Zc06"
+        },
+        {
+          "name": "midtones0",
+          "kind": "number",
+          "member": "midtones[0]",
+          "id": "Zc07"
+        },
+        {
+          "name": "midtones1",
+          "kind": "number",
+          "member": "midtones[1]",
+          "id": "Zc08"
+        },
+        {
+          "name": "midtones2",
+          "kind": "number",
+          "member": "midtones[2]",
+          "id": "Zc09"
+        },
+        {
+          "name": "darktones0",
+          "kind": "number",
+          "member": "darktones[0]",
+          "id": "Zc0A"
+        },
+        {
+          "name": "darktones1",
+          "kind": "number",
+          "member": "darktones[1]",
+          "id": "Zc0B"
+        },
+        {
+          "name": "darktones2",
+          "kind": "number",
+          "member": "darktones[2]",
+          "id": "Zc0C"
+        },
+        {
+          "name": "shadows0",
+          "kind": "number",
+          "member": "shadows[0]",
+          "id": "Zc0D"
+        },
+        {
+          "name": "shadows1",
+          "kind": "number",
+          "member": "shadows[1]",
+          "id": "Zc0E"
+        },
+        {
+          "name": "shadows2",
+          "kind": "number",
+          "member": "shadows[2]",
+          "id": "Zc0F"
+        },
+        {
+          "name": "blend",
+          "kind": "number",
+          "member": "blend",
+          "id": "Zc10"
+        }
+      ]
+    },
+    "mirror": {
+      "type": "mirror::Parameters",
+      "fields": [
+        {
+          "name": "cx",
+          "kind": "number",
+          "member": "cx",
+          "id": "Zi00"
+        },
+        {
+          "name": "cy",
+          "kind": "number",
+          "member": "cy",
+          "id": "Zi01"
+        },
+        {
+          "name": "angle",
+          "kind": "number",
+          "member": "angle",
+          "id": "Zi02"
+        }
+      ]
+    },
+    "repetile": {
+      "type": "repetile::Parameters",
+      "fields": [
+        {
+          "name": "left",
+          "kind": "number",
+          "member": "left",
+          "id": "Zr00"
+        },
+        {
+          "name": "right",
+          "kind": "number",
+          "member": "right",
+          "id": "Zr01"
+        },
+        {
+          "name": "up",
+          "kind": "number",
+          "member": "up",
+          "id": "Zr02"
+        },
+        {
+          "name": "down",
+          "kind": "number",
+          "member": "down",
+          "id": "Zr03"
+        },
+        {
+          "name": "blend",
+          "kind": "number",
+          "member": "blend",
+          "id": "Zr04"
+        },
+        {
+          "name": "tiling",
+          "kind": "integer",
+          "member": "tiling",
+          "id": "Zr05"
+        },
+        {
+          "name": "seed",
+          "kind": "integer",
+          "member": "seed",
+          "id": "Zr06"
+        }
+      ]
+    },
+    "noise": {
+      "type": "noise::Parameters",
+      "fields": [
+        {
+          "name": "basic",
+          "kind": "flag",
+          "member": "basic",
+          "id": "Zn00"
+        },
+        {
+          "name": "distribution",
+          "kind": "integer",
+          "member": "distribution",
+          "id": "Zn01"
+        },
+        {
+          "name": "amount",
+          "kind": "number",
+          "member": "amount",
+          "id": "Zn02"
+        },
+        {
+          "name": "size",
+          "kind": "number",
+          "member": "size",
+          "id": "Zn03"
+        },
+        {
+          "name": "color",
+          "kind": "number",
+          "member": "color",
+          "id": "Zn04"
+        },
+        {
+          "name": "hue",
+          "kind": "number",
+          "member": "hue",
+          "id": "Zn05"
+        },
+        {
+          "name": "lightness",
+          "kind": "number",
+          "member": "lightness",
+          "id": "Zn06"
+        },
+        {
+          "name": "saturation",
+          "kind": "number",
+          "member": "saturation",
+          "id": "Zn07"
+        },
+        {
+          "name": "grain",
+          "kind": "flag",
+          "member": "grain",
+          "id": "Zn08"
+        },
+        {
+          "name": "grain_amount",
+          "kind": "number",
+          "member": "grain_amount",
+          "id": "Zn09"
+        },
+        {
+          "name": "grain_size",
+          "kind": "number",
+          "member": "grain_size",
+          "id": "Zn0A"
+        },
+        {
+          "name": "grain_softness",
+          "kind": "number",
+          "member": "grain_softness",
+          "id": "Zn0B"
+        },
+        {
+          "name": "grain_color",
+          "kind": "number",
+          "member": "grain_color",
+          "id": "Zn0C"
+        },
+        {
+          "name": "shadows",
+          "kind": "number",
+          "member": "shadows",
+          "id": "Zn0D"
+        },
+        {
+          "name": "midtones",
+          "kind": "number",
+          "member": "midtones",
+          "id": "Zn0E"
+        },
+        {
+          "name": "highlights",
+          "kind": "number",
+          "member": "highlights",
+          "id": "Zn0F"
+        },
+        {
+          "name": "signal",
+          "kind": "flag",
+          "member": "signal",
+          "id": "Zn10"
+        },
+        {
+          "name": "snow",
+          "kind": "number",
+          "member": "snow",
+          "id": "Zn11"
+        },
+        {
+          "name": "bands",
+          "kind": "number",
+          "member": "bands",
+          "id": "Zn12"
+        },
+        {
+          "name": "chroma_bleed",
+          "kind": "number",
+          "member": "chroma_bleed",
+          "id": "Zn13"
+        },
+        {
+          "name": "dropouts",
+          "kind": "number",
+          "member": "dropouts",
+          "id": "Zn14"
+        },
+        {
+          "name": "seed",
+          "kind": "integer",
+          "member": "seed",
+          "id": "Zn15"
+        },
+        {
+          "name": "phase",
+          "kind": "integer",
+          "member": "phase",
+          "id": "Zn16"
+        },
+        {
+          "name": "grain_midpoint",
+          "kind": "number",
+          "member": "grain_midpoint",
+          "id": "Zn17"
+        },
+        {
+          "name": "grain_roughness",
+          "kind": "number",
+          "member": "grain_roughness",
+          "id": "Zn18"
+        },
+        {
+          "name": "mix",
+          "kind": "number",
+          "member": "mix",
+          "id": "Zn19"
+        }
+      ]
+    },
+    "texturewrap": {
+      "type": "texturewrap::Parameters",
+      "fields": [
+        {
+          "name": "center_x",
+          "kind": "number",
+          "member": "center_x",
+          "id": "ZwA0"
+        },
+        {
+          "name": "center_y",
+          "kind": "number",
+          "member": "center_y",
+          "id": "ZwA1"
+        },
+        {
+          "name": "radius",
+          "kind": "number",
+          "member": "radius",
+          "id": "ZwA2"
+        },
+        {
+          "name": "rotation_x",
+          "kind": "number",
+          "member": "rotation_x",
+          "id": "ZwA3"
+        },
+        {
+          "name": "rotation_y",
+          "kind": "number",
+          "member": "rotation_y",
+          "id": "ZwA4"
+        },
+        {
+          "name": "rotation_z",
+          "kind": "number",
+          "member": "rotation_z",
+          "id": "ZwA5"
+        },
+        {
+          "name": "light_direction",
+          "kind": "number",
+          "member": "light_direction",
+          "id": "ZwA6"
+        },
+        {
+          "name": "light_elevation",
+          "kind": "number",
+          "member": "light_elevation",
+          "id": "ZwA7"
+        },
+        {
+          "name": "ambient",
+          "kind": "number",
+          "member": "ambient",
+          "id": "ZwA8"
+        },
+        {
+          "name": "diffuse",
+          "kind": "number",
+          "member": "diffuse",
+          "id": "ZwA9"
+        },
+        {
+          "name": "specular",
+          "kind": "number",
+          "member": "specular",
+          "id": "ZwB0"
+        },
+        {
+          "name": "lighting",
+          "kind": "flag",
+          "member": "lighting",
+          "id": "ZwB1"
+        },
+        {
+          "name": "height",
+          "kind": "number",
+          "member": "height",
+          "id": "ZwB2"
+        },
+        {
+          "name": "render_sides",
+          "kind": "integer",
+          "member": "render_sides",
+          "id": "ZwB3"
+        },
+        {
+          "name": "wrap_angle",
+          "kind": "number",
+          "member": "wrap_angle",
+          "id": "ZwB4"
+        },
+        {
+          "name": "local_decal",
+          "kind": "flag",
+          "member": "local_decal",
+          "id": "ZwB5"
+        },
+        {
+          "name": "decal_longitude",
+          "kind": "number",
+          "member": "decal_longitude",
+          "id": "ZwB6"
+        },
+        {
+          "name": "decal_latitude",
+          "kind": "number",
+          "member": "decal_latitude",
+          "id": "ZwB7"
+        },
+        {
+          "name": "decal_size",
+          "kind": "number",
+          "member": "decal_size",
+          "id": "ZwB8"
+        },
+        {
+          "name": "texture_layer",
+          "kind": "layer",
+          "member": "texture_key",
+          "id": "ZwB9"
+        },
+        {
+          "name": "keep_current",
+          "kind": "flag",
+          "member": "keep_current",
+          "id": "ZwC0"
+        },
+        {
+          "name": "cylinder_decal_angle",
+          "kind": "number",
+          "member": "cylinder_decal_angle",
+          "id": "ZwC1"
+        },
+        {
+          "name": "cylinder_decal_position",
+          "kind": "number",
+          "member": "cylinder_decal_position",
+          "id": "ZwC2"
+        },
+        {
+          "name": "cylinder_decal_height",
+          "kind": "number",
+          "member": "cylinder_decal_height",
+          "id": "ZwC3"
+        },
+        {
+          "name": "keep_current_for_self_decal",
+          "kind": "flag",
+          "member": "keep_current_for_self_decal",
+          "id": "ZwC4"
+        }
+      ]
+    },
+    "weather": {
+      "type": "weather::Parameters",
+      "fields": [
+        {
+          "name": "mode",
+          "kind": "integer",
+          "member": "mode",
+          "id": "ZwR0"
+        },
+        {
+          "name": "output",
+          "kind": "integer",
+          "member": "output",
+          "id": "ZwR1"
+        },
+        {
+          "name": "seed",
+          "kind": "integer",
+          "member": "seed",
+          "id": "ZwR2"
+        },
+        {
+          "name": "density",
+          "kind": "number",
+          "member": "density",
+          "id": "ZwR3"
+        },
+        {
+          "name": "opacity",
+          "kind": "number",
+          "member": "opacity",
+          "id": "ZwR4"
+        },
+        {
+          "name": "wind",
+          "kind": "number",
+          "member": "wind",
+          "id": "ZwR5"
+        },
+        {
+          "name": "rain_length",
+          "kind": "number",
+          "member": "rain_length",
+          "id": "ZwR6"
+        },
+        {
+          "name": "rain_width",
+          "kind": "number",
+          "member": "rain_width",
+          "id": "ZwR7"
+        },
+        {
+          "name": "snow_size",
+          "kind": "number",
+          "member": "snow_size",
+          "id": "ZwR8"
+        },
+        {
+          "name": "near_blur",
+          "kind": "number",
+          "member": "near_blur",
+          "id": "ZwR9"
+        },
+        {
+          "name": "far_blur",
+          "kind": "number",
+          "member": "far_blur",
+          "id": "ZwRA"
+        },
+        {
+          "name": "rain_red",
+          "kind": "number",
+          "member": "rain_color[0]",
+          "id": "ZwRB"
+        },
+        {
+          "name": "rain_green",
+          "kind": "number",
+          "member": "rain_color[1]",
+          "id": "ZwRC"
+        },
+        {
+          "name": "rain_blue",
+          "kind": "number",
+          "member": "rain_color[2]",
+          "id": "ZwRD"
+        },
+        {
+          "name": "snow_red",
+          "kind": "number",
+          "member": "snow_color[0]",
+          "id": "ZwRE"
+        },
+        {
+          "name": "snow_green",
+          "kind": "number",
+          "member": "snow_color[1]",
+          "id": "ZwRF"
+        },
+        {
+          "name": "snow_blue",
+          "kind": "number",
+          "member": "snow_color[2]",
+          "id": "ZwRG"
+        }
+      ]
+    },
+    "channelblur": {
+      "type": "channelblur::Parameters",
+      "fields": [
+        {
+          "name": "mode",
+          "kind": "integer",
+          "member": "mode",
+          "id": "ZuB0"
+        },
+        {
+          "name": "axis",
+          "kind": "integer",
+          "member": "axis",
+          "id": "ZuB1"
+        },
+        {
+          "name": "red",
+          "kind": "number",
+          "member": "red",
+          "id": "ZuB2"
+        },
+        {
+          "name": "green",
+          "kind": "number",
+          "member": "green",
+          "id": "ZuB3"
+        },
+        {
+          "name": "blue",
+          "kind": "number",
+          "member": "blue",
+          "id": "ZuB4"
+        },
+        {
+          "name": "alpha",
+          "kind": "number",
+          "member": "alpha",
+          "id": "ZuB5"
+        },
+        {
+          "name": "luminance",
+          "kind": "number",
+          "member": "luminance",
+          "id": "ZuB6"
+        },
+        {
+          "name": "chroma",
+          "kind": "number",
+          "member": "chroma",
+          "id": "ZuB7"
+        },
+        {
+          "name": "mix",
+          "kind": "number",
+          "member": "mix",
+          "id": "ZuB8"
+        }
+      ]
+    },
+    "compoundblur": {
+      "type": "compoundblur::Parameters",
+      "fields": [
+        {
+          "name": "source",
+          "kind": "integer",
+          "member": "source",
+          "id": "ZqB0"
+        },
+        {
+          "name": "channel",
+          "kind": "integer",
+          "member": "channel",
+          "id": "ZqB1"
+        },
+        {
+          "name": "shape",
+          "kind": "integer",
+          "member": "placement.shape",
+          "id": "ZqB2"
+        },
+        {
+          "name": "layer",
+          "kind": "layer",
+          "member": "layer_key",
+          "id": "ZqB3"
+        },
+        {
+          "name": "gradient",
+          "kind": "binary",
+          "member": "gradient",
+          "id": "ZqB4"
+        },
+        {
+          "name": "radius",
+          "kind": "number",
+          "member": "radius",
+          "id": "ZqB5"
+        },
+        {
+          "name": "mix",
+          "kind": "number",
+          "member": "mix",
+          "id": "ZqB6"
+        },
+        {
+          "name": "angle",
+          "kind": "number",
+          "member": "placement.angle",
+          "id": "ZqB7"
+        },
+        {
+          "name": "span",
+          "kind": "number",
+          "member": "placement.span",
+          "id": "ZqB8"
+        },
+        {
+          "name": "center_x",
+          "kind": "number",
+          "member": "placement.center_x",
+          "id": "ZqB9"
+        },
+        {
+          "name": "center_y",
+          "kind": "number",
+          "member": "placement.center_y",
+          "id": "ZqBA"
+        },
+        {
+          "name": "invert",
+          "kind": "flag",
+          "member": "invert",
+          "id": "ZqBB"
+        }
+      ]
+    },
+    "pixelsort": {
+      "type": "pixelsort::Parameters",
+      "fields": [
+        {
+          "name": "direction",
+          "kind": "integer",
+          "member": "direction",
+          "id": "ZqS0"
+        },
+        {
+          "name": "order",
+          "kind": "integer",
+          "member": "order",
+          "id": "ZqS1"
+        },
+        {
+          "name": "low",
+          "kind": "number",
+          "member": "low",
+          "id": "ZqS2"
+        },
+        {
+          "name": "high",
+          "kind": "number",
+          "member": "high",
+          "id": "ZqS3"
+        },
+        {
+          "name": "length",
+          "kind": "number",
+          "member": "length",
+          "id": "ZqS4"
+        },
+        {
+          "name": "mix",
+          "kind": "number",
+          "member": "mix",
+          "id": "ZqS5"
+        }
+      ]
     }
   },
   "profiles": {
@@ -4346,6 +5123,46 @@
     "filmdamage/src/PiPL.json": {
       "event": "ZpFD",
       "magic": 1514554417
+    },
+    "toner/src/PiPL.json": {
+      "event": "ZpCt",
+      "magic": 1514361905
+    },
+    "mirror/src/PiPL.json": {
+      "event": "ZpMr",
+      "magic": 1515016753
+    },
+    "repetile/src/PiPL.json": {
+      "event": "ZpRt",
+      "magic": 1515344945
+    },
+    "noise/src/PiPL.json": {
+      "event": "ZpNs",
+      "magic": 1515082545
+    },
+    "texturewrap/src/PiPL-Sphere.json": {
+      "event": "ZpSp",
+      "magic": 1515409457
+    },
+    "texturewrap/src/PiPL-Cylinder.json": {
+      "event": "ZpCy",
+      "magic": 1514363185
+    },
+    "weather/src/PiPL.json": {
+      "event": "ZpWs",
+      "magic": 1515672625
+    },
+    "channelblur/src/PiPL.json": {
+      "event": "ZpCb",
+      "magic": 1514357297
+    },
+    "compoundblur/src/PiPL.json": {
+      "event": "ZpCp",
+      "magic": 1514360113
+    },
+    "pixelsort/src/PiPL.json": {
+      "event": "ZpPx",
+      "magic": 1515213617
     }
   }
 }
