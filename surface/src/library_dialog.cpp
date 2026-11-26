@@ -48,7 +48,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  if(c.error)ImGui::TextWrapped("%s",ui.text("读取或计算失败，请重新选择贴图、全部重置或取消。 / Failed to read or render. Reselect the map, reset all, or cancel.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.adaptive_cache.clear();p=factory;c.map={};c.binding={};c.selected=-1;c.error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  auto number=[&](const char* label,double& value,double lo,double hi,double slo,double shi,bool enabled=true){changed|=ui.number(label,value,lo,hi,slo,shi,enabled);};
  if(ui.section(effect_kind==Kind::blob?"胶状 / Blobbiness":"表面 / Surface",true)){
   changed|=map_control(ui,c);ImGui::BeginDisabled(!p.map_key);if(ui.button("refresh-map","重新读取贴图 / Refresh Map",-1)){c.error=c.read_map()?noErr:filterBadParameters;c.binding.revision=(c.binding.revision+1)%1000000000;changed=true;}ImGui::EndDisabled();changed|=ui.choice("属性 / Property",p.property,properties,6);number("柔和度 / Softness",p.softness,0,500,0,100);
@@ -68,7 +68,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
   number("粗糙度 / Roughness",p.roughness,.001,.5,.001,.5);number("金属（%） / Metal (%)",p.metal,0,100,0,100);
  }
  ImGui::TextWrapped("%s",ui.text("独立重建；参考 AE 参数和同源输出，边缘与细节仍可能不同。 / Independent reconstruction from AE parameters and same-source references; edges and fine detail can differ.").c_str());
- ImGui::EndChild();if(changed){c.dirty=true;c.due=GetTickCount64()+35;}
+ ui.end_filter_parameters();if(changed){c.dirty=true;c.due=GetTickCount64()+35;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,const std::vector<psui::HostLayer>& layers,Parameters& p,Image& map,MapBinding* binding){

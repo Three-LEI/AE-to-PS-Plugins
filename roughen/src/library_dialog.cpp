@@ -35,7 +35,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::TextWrapped("%s",ui.text("透明文字和图形可直接处理轮廓。 / Use transparent text or graphics to roughen their contours.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.adaptive_cache.clear();p=factory;c.error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  auto num=[&](const char* label,double& value,double lo,double hi,double slo,double shi,bool enabled=true,bool integer=false){changed|=ui.number(label,value,lo,hi,slo,shi,enabled,integer);};
  if(ui.section("毛边 / Roughen Edges",true)){
   changed|=ui.choice("边缘类型 / Edge Type",p.type,types,8);
@@ -46,7 +46,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  if(ui.section("演化 / Evolution",true)){num("演化（度） / Evolution (deg)",p.evolution,-1e9,1e9,-720,720);changed|=ui.check("循环演化 / Cycle Evolution",p.cycle);num("循环（旋转次数） / Cycle",p.cycles,1,88,1,10,p.cycle,true);num("随机植入 / Random Seed",p.seed,0,100000,0,1000,true,true);}
  if(ui.section("输出 / Output",true))num("效果混合（%） / Effect Mix (%)",p.mix,0,100,0,100);
  ImGui::TextWrapped("%s",ui.text("独立重建；随机毛边和细节与AE可能不同。 / Independent reconstruction; random edges and details may differ from AE.").c_str());
- ImGui::EndChild();if(changed){c.dirty=true;c.due=GetTickCount64()+35;}
+ ui.end_filter_parameters();if(changed){c.dirty=true;c.due=GetTickCount64()+35;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p,Prepared& cache){

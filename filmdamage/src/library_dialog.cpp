@@ -32,7 +32,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.items["filmdamage.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.grain),float(p.dust)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("预览失败，请重置或取消。 / Preview failed. Reset or cancel.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
- if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  auto number=[&](const char* label,double& value,double lo,double hi,double a,double b){changed|=ui.number(label,value,lo,hi,a,b);};
  auto integer=[&](const char* label,auto& value,int lo,int hi,int slider){ui.inherit_number_default(label,value);double d=value;if(ui.number(label,d,lo,hi,lo,slider,true,true)){value=static_cast<std::remove_reference_t<decltype(value)>>(d);changed=true;}};
  if(ui.choice("预设 / Preset",c.selected,presets,9)&&c.selected){p=preset(c.selected-1);changed=applied=true;}
@@ -72,7 +72,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  }
  integer("随机种子 / Random Seed",p.seed,0,2147483647,1000);integer("样式变化 / Variation",p.variation,0,1000000,100);
  ImGui::TextWrapped("%s",ui.text("独立重建的静态胶片损伤。 / Independently reconstructed static film damage.").c_str());
- ImGui::EndChild();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
+ ui.end_filter_parameters();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){

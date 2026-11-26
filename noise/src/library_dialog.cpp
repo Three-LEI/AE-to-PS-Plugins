@@ -118,7 +118,7 @@ void draw(psui::LibraryPanel& ui, Context& c) {
     ImGui::EndChild();
 
     ImGui::SameLine();
-    ImGui::BeginChild("parameters", {0, 0});
+    ui.begin_filter_parameters();
     constexpr const char* presets[] = {
         "自定义 / Custom", "细微杂色 / Fine Noise", "柔和胶片 / Soft Film",
         "电视雪花 / TV Snow", "VHS 干扰 / VHS Interference", "胶片与 VHS / Film and VHS",
@@ -149,20 +149,23 @@ void draw(psui::LibraryPanel& ui, Context& c) {
     integer("相位 / Phase", p.phase);
     percent("效果混合（%） / Effect Mix (%)", p.mix);
 
-    changed |= ui.check("基础杂色 / Basic Noise", p.basic);
+    changed |= ui.section_check("基础杂色 / Basic Noise", p.basic);
     if (p.basic) {
         constexpr const char* distributions[] = {"平均（均匀） / Uniform", "高斯 / Gaussian"};
         percent("杂色数量（%） / Noise Amount (%)", p.amount, 30);
         changed |= ui.choice("分布 / Distribution", p.distribution, distributions, 2);
         changed |= ui.number("噪点尺寸（像素） / Noise Size (px)", p.size, 1, 64, 1, 12);
         percent("彩色杂色（%） / Color Noise (%)", p.color);
+        const float inset = 10 * ui.scale();
+        ImGui::Indent(inset);
         if (ui.section("色相、明度和饱和度 / Hue, Lightness and Saturation")) {
             percent("色相杂色（%） / Hue Noise (%)", p.hue);
             percent("明度杂色（%） / Lightness Noise (%)", p.lightness);
             percent("饱和度杂色（%） / Saturation Noise (%)", p.saturation);
         }
+        ImGui::Unindent(inset);
     }
-    changed |= ui.check("胶片颗粒 / Film Grain", p.grain);
+    changed |= ui.section_check("胶片颗粒 / Film Grain", p.grain);
     if (p.grain) {
         percent("颗粒强度（%） / Grain Amount (%)", p.grain_amount, 40);
         changed |= ui.number("颗粒尺寸（像素） / Grain Size (px)", p.grain_size, .25, 40, .25, 8);
@@ -174,14 +177,14 @@ void draw(psui::LibraryPanel& ui, Context& c) {
         percent("亮部颗粒（%） / Highlight Grain (%)", p.highlights);
         changed |= ui.number("中间调位置（%） / Grain Midpoint (%)", p.grain_midpoint, 1, 99, 1, 99);
     }
-    changed |= ui.check("模拟信号 / Analog Signal", p.signal);
+    changed |= ui.section_check("模拟信号 / Analog Signal", p.signal);
     if (p.signal) {
         percent("电视雪花（%） / TV Snow (%)", p.snow);
         percent("横向干扰（%） / Line Interference (%)", p.bands);
         changed |= ui.number("色度拖尾（像素） / Chroma Trail (px)", p.chroma_bleed, 0, 128, 0, 32);
         percent("局部掉讯（%） / Dropouts (%)", p.dropouts);
     }
-    ImGui::EndChild();
+    ui.end_filter_parameters();
 
     if (changed) {
         c.preset_index = 0;

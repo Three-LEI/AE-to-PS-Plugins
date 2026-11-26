@@ -83,7 +83,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::BeginDisabled(c.error!=noErr||!c.map.valid());if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();
  if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.p=c.defaults;c.selected=c.default_selected;c.read_map();changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(ui.parameter_label("置换图层 / Displacement Map Layer",c.p.layer_id)){c.selected=c.default_selected;c.read_map();changed=true;}
  ImGui::SetNextItemWidth(-1);
  if(ImGui::BeginCombo("##source-layer",c.layers[c.selected].name.c_str())){
@@ -104,7 +104,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  changed|=ui.check("像素回绕 / Wrap Pixels Around",c.p.wrap);
  ImGui::Spacing();ImGui::TextWrapped("%s",ui.text("输出限于 PS 当前滤镜作用范围。 / Output is limited to the current Photoshop filter bounds.").c_str());
  if(c.error)ImGui::TextWrapped("%s (%d)",ui.text("无法读取此采样图层，请选择其他图层。 / Unable to read this map layer. Choose another layer.").c_str(),int(c.error));
- ImGui::EndChild();if(changed)c.dirty=true;
+ ui.end_filter_parameters();if(changed)c.dirty=true;
 }
 }
 INT_PTR show_dialog(HINSTANCE module,HWND owner,FilterRecord* host,const std::vector<psui::HostLayer>& layers,const Image& source,Parameters& p,Image& map){

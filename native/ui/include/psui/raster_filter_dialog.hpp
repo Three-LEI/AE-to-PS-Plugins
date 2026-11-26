@@ -113,12 +113,12 @@ INT_PTR run_raster_filter_dialog(HINSTANCE module, HWND owner, FilterRecord* hos
                 }
                 ImGui::EndChild();
                 ImGui::SameLine();
-                ImGui::BeginChild("parameters", {0, 0});
+                ui.begin_filter_parameters();
                 if (controls(ui, values)) {
                     dirty = true;
                     error = noErr;
                 }
-                ImGui::EndChild();
+                ui.end_filter_parameters();
             }, glyphs, &info);
         worker.stop();
         if (result != IDOK) return result;

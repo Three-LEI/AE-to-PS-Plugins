@@ -39,7 +39,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.items["dither.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.pixel_size),float(p.algorithm)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("预览失败，请重置或取消。 / Preview failed. Reset or cancel.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
- if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(ui.choice("预设 / Preset",c.selected,presets,7)&&c.selected){p=preset(c.selected-1);changed=applied=true;}
  if(ui.section("抖动 / Dither",true)){
   changed|=ui.choice("算法 / Algorithm",p.algorithm,algorithms,4);ImGui::BeginDisabled(p.algorithm!=0);changed|=ui.choice("图案 / Pattern",p.pattern,patterns,9);ImGui::EndDisabled();
@@ -59,7 +59,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  }
  if(ui.section("位置 / Position",false))changed|=psui::point_control(ui,"像素网格偏移 / Pixel Grid Shift",p.shift_x,p.shift_y);
  ImGui::TextWrapped("%s",ui.text("100% 为标准抖动，降低可保留色块，提高可强调纹理。缩小预览会平均细像素，100% 可检查像素图案。 / 100% is standard dithering. Lower values keep bands; higher values emphasize texture. Zoom to 100% to inspect the pixel pattern.").c_str());
- ImGui::EndChild();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
+ ui.end_filter_parameters();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){

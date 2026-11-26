@@ -34,6 +34,8 @@ public:
   bool image_view(PreviewView &, const ProxyImage &, const PreviewAdjustments & = {});
   // Opens the left child and configures its viewport. End it with ImGui::EndChild().
   void begin_filter_preview(PreviewView &, VRect bounds, float extra_height = 0);
+  void begin_filter_parameters(ImGuiWindowFlags flags = 0);
+  void end_filter_parameters();
   float filter_footer_height() const;
   // Immutable RGBA cards, uploaded once per key for this panel. Does not
   // replace the main preview or its color-sampling state. UI thread only.
@@ -77,7 +79,10 @@ public:
               bool integer = false);
   bool choice(const char *label, int &, const char *const *labels, int count);
   bool check(const char *label, bool &);
+  // Starts an aligned label/value table. End successful calls with ImGui::EndTable().
+  bool begin_parameter_row(const char *id, bool with_secondary = false);
   bool section(const char *label, bool open = false);
+  bool section_check(const char *label, bool &);
   bool button(const char *key, const char *label, float width = 0);
   // Use the actual action height when reserving a footer; numeric rows retain
   // their compact frame height.

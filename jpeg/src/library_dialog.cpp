@@ -45,7 +45,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));
  ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.adaptive_cache.clear();p=Parameters{};c.mask={};c.preset=1;c.error=noErr;changed=preset_changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(ui.choice("预设 / Preset",c.preset,presets,7)&&c.preset){c.worker.stop();c.adaptive_cache.clear();p=jpegfx::preset(c.preset-1);c.mask={};c.error=noErr;changed=preset_changed=true;}
  auto number=[&](const char* label,double& value,double lo,double hi,double slo,double shi,bool enabled=true,bool integer=false){changed|=ui.number(label,value,lo,hi,slo,shi,enabled,integer);};
  auto integer=[&](const char* label,int& value){ui.inherit_number_default(label,value);double v=value;if(ui.number(label,v,0,1000000,0,1000,true,true)){value=int(std::lround(v));changed=true;}};
@@ -85,7 +85,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
   changed|=ui.choice("蒙版用途 / Mask Use",p.mask_mode,masks,2);number("模糊蒙版（像素） / Mask Blur (px)",p.mask_blur,0,256,0,64);changed|=ui.check("反转蒙版 / Invert Mask",p.invert_mask);ImGui::EndDisabled();
  }
  ImGui::TextWrapped("%s",ui.text("独立 DCT 压缩与损坏模型；不依赖 Sapphire，不保证原版逐像素一致。 / Independent DCT compression and damage model; no Sapphire dependency or pixel-parity claim.").c_str());
- ImGui::EndChild();
+ ui.end_filter_parameters();
  if(changed){c.dirty=true;c.due=GetTickCount64()+35;if(!preset_changed)c.preset=0;}
 }
 }

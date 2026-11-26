@@ -72,7 +72,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::BeginDisabled(c.error||source_error);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();
  if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=defaults_for_host(c.host);c.error=noErr;c.source_error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  int mode=int(p.mode);if(ui.choice(labels[mode_label],mode,modes,12)){p.mode=Mode(mode);changed=true;}
  changed|=ui.check(labels[invert_label],p.invert);
  changed|=number(ui,sharpness_mode(p.mode)?sharpness_label:contrast_label,p.contrast,0,10000,0,600);
@@ -94,7 +94,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  if(ui.button("center",labels[center_label],-1)){p.offset_x=(doc.left+doc.right)*.5;p.offset_y=(doc.top+doc.bottom)*.5;changed=true;}
  ImGui::Spacing();ImGui::TextWrapped("%s",ui.text(labels[pick_label]).c_str());
  if(samples_source(p.mode)){ImGui::TextWrapped("%s",ui.text(labels[source_help_label]).c_str());if(c.source&&(c.source->width<doc.right-doc.left||c.source->height<doc.bottom-doc.top))ImGui::TextDisabled("%s",ui.text(labels[approx_label]).c_str());}
- ImGui::TextWrapped("%s",ui.text(labels[disclaimer_label]).c_str());ImGui::EndChild();
+ ImGui::TextWrapped("%s",ui.text(labels[disclaimer_label]).c_str());ui.end_filter_parameters();
  if(changed){c.dirty=true;c.update_at=GetTickCount64()+35;}
 }
 }

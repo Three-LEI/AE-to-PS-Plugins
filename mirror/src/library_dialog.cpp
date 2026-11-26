@@ -256,7 +256,7 @@ void draw(psui::LibraryPanel& ui, Context& c) {
     ui.preview_zoom(c.view);
     ImGui::EndChild();
     ImGui::SameLine();
-    ImGui::BeginChild("parameters", {0, 0}, 0, ImGuiWindowFlags_NoScrollbar);
+    ui.begin_filter_parameters(ImGuiWindowFlags_NoScrollbar);
     const float footer = ui.filter_footer_height();
     ImGui::BeginChild("mirror-controls", {0, -footer}, 0, ImGuiWindowFlags_NoScrollWithMouse);
     changed |= psui::point_control(ui, "反射中心 / Reflection Center", c.values.cx, c.values.cy);
@@ -271,7 +271,7 @@ void draw(psui::LibraryPanel& ui, Context& c) {
         c.values = factory;
         c.dirty = true;
     }
-    ImGui::EndChild();
+    ui.end_filter_parameters();
     if (changed) c.dirty = true;
 }
 } // namespace

@@ -43,7 +43,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::TextWrapped("%s",ui.text("拖动预览中的位置手柄。 / Drag the position handle in the preview.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.adaptive_cache.clear();p=factory;c.error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  auto num=[&](const char* label,double& value,double lo,double hi,double slo,double shi,bool enabled=true,bool integer=false){changed|=ui.number(label,value,lo,hi,slo,shi,enabled,integer);};
  if(effect_kind==Kind::turbulent){
   if(ui.section("湍流 / Turbulence",true)){
@@ -60,7 +60,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  }
  if(ui.section("输出 / Output",true)){if(effect_kind!=Kind::sweep){changed|=ui.choice("边界采样 / Edge Sampling",p.edge,edges,4);changed|=ui.choice("采样质量 / Quality",p.quality,qualities,3);}num("效果混合（%） / Effect Mix (%)",p.mix,0,100,0,100);}
  ImGui::TextWrapped("%s",ui.text("独立重建；随机形态及细节与AE可能不同。 / Independent reconstruction; random patterns and details may differ from AE.").c_str());
- ImGui::EndChild();if(changed){c.dirty=true;c.due=GetTickCount64()+35;}
+ ui.end_filter_parameters();if(changed){c.dirty=true;c.due=GetTickCount64()+35;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){

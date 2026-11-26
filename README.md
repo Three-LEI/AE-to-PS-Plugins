@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/assets/social-preview.jpg" alt="AE to PS · Photoshop 原生滤镜" width="1280"></p>
+<p align="center"><img src="docs/assets/social-preview.jpg" alt="AE to PS · 41 款 Photoshop 原生滤镜与七种实渲示例" width="1280"></p>
 
 # AE-to-PS-Plugins
 
@@ -6,15 +6,14 @@
 
 [English](README.en.md)
 
-**[下载 0.40 安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.40/AE-to-PS-Plugins-0.40-Windows-x64.zip)** · [效果清单](docs/EFFECTS.md) · [参数窗口图集](docs/GALLERY.md)
+**[下载 0.41 安装包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.41/AE-to-PS-Plugins-0.41-Windows-x64.zip)** · [效果清单](docs/EFFECTS.md) · [参数窗口图集](docs/GALLERY.md)
 
-## 0.40 更新
+## 0.41 更新
 
-- 新增综合杂色、球面与圆柱贴图、雨雪模拟、复合模糊等 10 款滤镜。
-- 统一 360 × 360 默认预览区。有手柄的效果支持用左键直接调整位置和方向。
-- 滤镜归入九个 `ZaYu-` 分组，支持中英文参数界面、快速预览和智能滤镜保存。
+- 41 款滤镜的右侧参数统一分组和对齐。窄窗中的长标签会自动换行。
+- 复选框直接切换效果开关。「全部重置」可恢复整套效果参数。
 
-[发行说明](docs/RELEASE_0.40.md) · [预览操作](docs/ADAPTIVE_PREVIEW.md)
+[发行说明](docs/RELEASE_0.41.md) · [预览操作](docs/ADAPTIVE_PREVIEW.md)
 
 ## 安装与使用
 

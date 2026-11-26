@@ -85,7 +85,7 @@ void draw(psui::LibraryPanel& ui, Context& c) {
     ui.preview_zoom(c.view);
     ImGui::EndChild();
     ImGui::SameLine();
-    ImGui::BeginChild("parameters", {0, 0}, 0, ImGuiWindowFlags_NoScrollbar);
+    ui.begin_filter_parameters(ImGuiWindowFlags_NoScrollbar);
     const float footer = ui.filter_footer_height();
     ImGui::BeginChild("repetile-controls", {0, -footer}, 0, ImGuiWindowFlags_NoScrollWithMouse);
     changed |= ui.number("向左扩展（像素） / Expand Left (px)", c.values.left, 0, 100000, 0, 500);
@@ -120,7 +120,7 @@ void draw(psui::LibraryPanel& ui, Context& c) {
         c.values = factory;
         c.dirty = true;
     }
-    ImGui::EndChild();
+    ui.end_filter_parameters();
     if (changed) c.dirty = true;
 }
 } // namespace

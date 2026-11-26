@@ -57,8 +57,8 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.items["flare.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.brightness),float(p.hx)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("计算失败或参考层缺失，请重新选择、重置或取消。 / Render failed or input missing. Reselect, reset or cancel.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
- if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.design={};c.editor=false;c.mask={};c.undo.clear();c.redo.clear();c.history_pending=false;c.element=0;c.solo=-1;c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
- if(c.editor){changed|=draw_designer(ui,c);ImGui::EndChild();if(changed){c.selected=0;c.dirty=true;}return;}
+ if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.design={};c.editor=false;c.mask={};c.undo.clear();c.redo.clear();c.history_pending=false;c.element=0;c.solo=-1;c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
+ if(c.editor){changed|=draw_designer(ui,c);ui.end_filter_parameters();if(changed){c.selected=0;c.dirty=true;}return;}
  auto number=[&](const char* label,double& value,double lo,double hi,double sl,double sh){changed|=ui.number(label,value,lo,hi,sl,sh);};
  auto integer=[&](const char* label,int& value,int lo,int hi){double n=value;ui.inherit_number_default(label,value);if(ui.number(label,n,lo,hi,lo,hi,true,true)){value=int(n);changed=true;}};
  if(ui.choice("预设 / Preset",c.selected,presets,9)&&c.selected){const double hx=p.hx,hy=p.hy,px=p.px,py=p.py;p=preset(c.selected-1,c.source.width,c.source.height,c.source.left,c.source.top);p.hx=hx;p.hy=hy;p.px=px;p.py=py;c.worker.stop();c.mask={};changed=applied=true;}
@@ -98,7 +98,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
   changed|=ui.choice("混合模式 / Blend Mode",p.blend,blends,3);number("背景亮度（%） / Background (%)",p.background,0,100,0,100);number("效果混合（%） / Effect Mix (%)",p.mix,0,100,0,100);ImGui::BeginDisabled(p.blend==2);changed|=ui.check("保留源透明度 / Preserve Source Alpha",p.preserve_alpha);ImGui::EndDisabled();
  }
  ImGui::TextWrapped("%s",ui.text("独立实现的二维镜头耀斑。透明输出建议使用普通图层或智能对象，并预留画布边距。 / Independent 2D lens flare. For transparent output use a regular layer or smart object with canvas margins.").c_str());
- ImGui::EndChild();if(changed){if(!applied)c.selected=0;c.dirty=true;}
+ ui.end_filter_parameters();if(changed){if(!applied)c.selected=0;c.dirty=true;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,const std::vector<psui::HostLayer>& layers,Parameters& p,Image& mask,Design* design){

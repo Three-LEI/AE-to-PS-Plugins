@@ -50,11 +50,11 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));
  ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.adaptive_cache.clear();p=defaults(effect_kind,c.source.width,c.source.height,c.source.left,c.source.top);c.error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(effect_kind==Kind::optics){changed|=ui.number(labels[0],p.fov,0,179.99998,0,179);changed|=ui.check(labels[1],p.reverse);changed|=ui.choice(labels[2],p.axis,axes,3);changed|=psui::point_control(ui,labels[3],p.cx,p.cy);changed|=ui.check(labels[4],p.optimal);ImGui::TextWrapped("%s",ui.text(labels[9]).c_str());if(p.optimal)ImGui::TextWrapped("%s",ui.text(labels[10]).c_str());}
  else {changed|=psui::point_control(ui,labels[5],p.cx,p.cy);changed|=ui.number(labels[6],p.size,0,500,0,200);changed|=ui.number(labels[7],p.convergence,-200,100,-200,100);}
  if(ui.button("center",labels[8],-1)){p.cx=c.source.left+c.source.width*.5;p.cy=c.source.top+c.source.height*.5;changed=true;}
- ImGui::TextWrapped("%s",ui.text(labels[11]).c_str());ImGui::TextWrapped("%s",ui.text(labels[14]).c_str());ImGui::EndChild();
+ ImGui::TextWrapped("%s",ui.text(labels[11]).c_str());ImGui::TextWrapped("%s",ui.text(labels[14]).c_str());ui.end_filter_parameters();
  if(changed){c.dirty=true;c.error=noErr;c.due=GetTickCount64()+35;}
 }
 }

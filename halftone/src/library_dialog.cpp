@@ -43,7 +43,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));
  ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.selected=0;c.error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(ui.choice("预设 / Preset",c.selected,presets,7)&&c.selected){p=preset(c.selected-1);changed=applied=true;}
  if(ui.section("网纹 / Screen",true)){
   changed|=ui.choice("网点形状 / Dot Shape",p.shape,shapes,4);changed|=ui.choice("网点类型 / Dot Type",p.polarity,polarities,2);
@@ -65,7 +65,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  if(ui.section("位置 / Position",false))changed|=psui::point_control(ui,"网纹偏移 / Screen Shift",p.shift_x,p.shift_y);
  ImGui::TextWrapped("%s",ui.text("间距越小网点越密。透明背景仅保留网点，适合叠加在其他图层上。 / Smaller spacing makes finer dots. Transparent background keeps only the dots for layer compositing.").c_str());
  ImGui::TextWrapped("%s",ui.text("独立重建的半调效果。背景层及锁定透明度会限制透明输出。 / Independently implemented halftone. Background layers and locked transparency restrict transparent output.").c_str());
- ImGui::EndChild();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
+ ui.end_filter_parameters();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){

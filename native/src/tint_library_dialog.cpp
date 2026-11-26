@@ -89,17 +89,22 @@ void draw(psui::LibraryPanel &ui, Context &c) {
   ui.preview_zoom(c.view);
   ImGui::EndChild();
   ImGui::SameLine();
-  ImGui::BeginChild("parameters", {0, 0}, 0,
-                    ImGuiWindowFlags_NoScrollbar |
-                    ImGuiWindowFlags_NoScrollWithMouse);
+  ui.begin_filter_parameters(ImGuiWindowFlags_NoScrollbar |
+                             ImGuiWindowFlags_NoScrollWithMouse);
   const float footer = ui.filter_footer_height();
   ImGui::BeginChild("tint-controls", {0, -footer}, 0,
                     ImGuiWindowFlags_NoScrollWithMouse);
   for (int i = 0; i < 2; ++i) {
     auto *color = i == 0 ? c.values.black : c.values.white;
-    changed |= ui.parameter_label(i == 0 ? "将黑色映射到 / Map Black To" : "将白色映射到 / Map White To",color,3*sizeof(double));
     ImGui::PushID(i);
-    changed |= ui.color_swatch(i == 0 ? "black" : "white",c.host,color,{64*s,22*s});
+    if (ui.begin_parameter_row("mapping")) {
+      ImGui::TableNextColumn();
+      changed |= ui.parameter_label(i == 0 ? "将黑色映射到 / Map Black To" : "将白色映射到 / Map White To",
+                                    color, 3 * sizeof(double));
+      ImGui::TableNextColumn();
+      changed |= ui.color_swatch(i == 0 ? "black" : "white", c.host, color, {64*s, 22*s});
+      ImGui::EndTable();
+    }
     ImGui::PopID();
   }
   ui.number_default("着色量 / Amount", Parameters{}.amount * 100);
@@ -108,7 +113,7 @@ void draw(psui::LibraryPanel &ui, Context &c) {
     c.values.amount = amount / 100;
     changed = true;
   }
-  if (ui.button("swap", "交换颜色 / Swap Colors", -1)) {
+  if (ui.button("swap", "交换颜色 / Swap Colors")) {
     for (int k = 0; k < 3; ++k)
       std::swap(c.values.black[k], c.values.white[k]);
     changed = true;
@@ -122,7 +127,7 @@ void draw(psui::LibraryPanel &ui, Context &c) {
     c.values = Parameters{};
     changed = true;
   }
-  ImGui::EndChild();
+  ui.end_filter_parameters();
   if (changed)
     c.dirty = true;
 }

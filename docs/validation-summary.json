@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "release": "0.40",
+  "release": "0.41",
   "date": "2026-11-26",
   "repository": "https://github.com/Three-LEI/AE-to-PS-Plugins",
   "effects": 41,
@@ -8,7 +8,7 @@
     "modules": 33,
     "status": "PASS",
     "clean_export": "PASS: all 33 modules and their required checks",
-    "distribution": "All 41 tested binaries match the clean build after normalizing the PE timestamp and build ID"
+    "distribution": "All tested files match the clean build after normalizing the PE timestamp and build ID"
   },
   "plugins": [
     {
@@ -16,373 +16,379 @@
       "file": "ZaYuTint.8bf",
       "module": "native",
       "component_version": "0.23",
-      "sha256": "0978b83f1820e0abec1cc76f24cb0628156dee08478a2b6ec24beccc78d93965",
-      "bytes": 2662912
+      "sha256": "97476d865f859e66c016b26fa69aad615d6d541b0c324b466b02c5c105d1b529",
+      "bytes": 2664960
     },
     {
       "name": "Fractal Noise 分形杂色",
       "file": "ZaYuFractalNoise.8bf",
       "module": "fractal",
       "component_version": "0.18",
-      "sha256": "cdbef6029d7dbb36662c3977eabb98a56bbc35738d6c40a6f1752fbde7a59e21",
-      "bytes": 2715136
+      "sha256": "1c2b82e1a31b55595a7ee7658a7b3af84553c372a05c144efe682c4ea4afb804",
+      "bytes": 2716160
     },
     {
       "name": "Displacement Map 置换图",
       "file": "ZaYuDisplacementMap.8bf",
       "module": "displacement",
       "component_version": "0.10",
-      "sha256": "d83b69daaabbfd9e296fe6590dc51ff50a691b37094634ff8adb0b9c587f1590",
-      "bytes": 2681856
+      "sha256": "10a8bbe18da52e694207f05cdf9b0db0e110776d4a4d0a6e8ec1808e06625e17",
+      "bytes": 2683392
     },
     {
       "name": "Glow 发光",
       "file": "ZaYuGlow.8bf",
       "module": "glow",
       "component_version": "0.9",
-      "sha256": "691cfe518fdbf39f4b4ad1b50a8e9b49ebba6854d91395864ec0491f395c5546",
-      "bytes": 2786304
+      "sha256": "2c161f0040d60db02af94b3085885d2e88edbfc80f06725bbf01538fc77a5c27",
+      "bytes": 2788352
     },
     {
       "name": "Deep Glow 深度发光",
       "file": "ZaYuDeepGlow.8bf",
       "module": "glow",
       "component_version": "0.10",
-      "sha256": "3944cac8b24e1e4fc6fbd5066aebafbf624be0808f8362dd26d61c1e3f0f25f2",
-      "bytes": 2786304
+      "sha256": "87c6d2fc4fb3cbb6c0bd45a960b82516d288c51934a7bbc5454b3ede934cbe35",
+      "bytes": 2788352
     },
     {
       "name": "Chromatic Dispersion 色差色散",
       "file": "ZaYuChromaticDispersion.8bf",
       "module": "chromatic",
       "component_version": "0.9-local",
-      "sha256": "0750c38ff4e28d5f7ae0f6d53b578066c119f6a5325386e7bcdd7aa3f17dbc1c",
-      "bytes": 2832896
+      "sha256": "3e53fa6207832b979ebf266ef6759347393e8757d65c6849c3a94eeb4dac4b8a",
+      "bytes": 2835456
     },
     {
       "name": "Vector Blur 矢量模糊",
       "file": "ZaYuVectorBlur.8bf",
       "module": "vector",
       "component_version": "0.7",
-      "sha256": "d980c6ce5e772d7cdee01b4a14660d764abfd7c5f76358a1b813480aaa916838",
-      "bytes": 2746368
+      "sha256": "c918e5eaf15390610c32c06ac6c87d53b82dfdc084ee46c7b07b4a6423751c7d",
+      "bytes": 2747904
     },
     {
       "name": "Grid 网格",
       "file": "ZaYuGrid.8bf",
       "module": "patterns",
       "component_version": "0.6",
-      "sha256": "2c099f6f6f7d438681713eb5c9d566e055fb98c1860bb395c99bdc0111ac91e4",
-      "bytes": 2700800
+      "sha256": "7e1445853ca12d707fae21bc704605cb7ae82dd04f0777e3a28b0779da6a58b2",
+      "bytes": 2703360
     },
     {
       "name": "Checkerboard 棋盘",
       "file": "ZaYuCheckerboard.8bf",
       "module": "patterns",
       "component_version": "0.6",
-      "sha256": "3ad97731c513357aa672df7db4a86e79767c4db82f225863d3383cfc0c5e892a",
-      "bytes": 2701312
+      "sha256": "5e457cb58ae678f72daac1b8c6af9bcf107b63642f75fb57accf3a6a758eef6b",
+      "bytes": 2702848
     },
     {
       "name": "Cell Pattern 单元格图案",
       "file": "ZaYuCellPattern.8bf",
       "module": "cell",
       "component_version": "0.3",
-      "sha256": "4aec82dd8b52471f2950624e1c15bd3dece7326b0583bf4c55f15cac806931f8",
-      "bytes": 2703872
+      "sha256": "da56a408c195393d0e2b3d2d49071c67c244d4699678e5b7c27d86a916ca6c05",
+      "bytes": 2705920
     },
     {
       "name": "Optics Compensation 光学补偿",
       "file": "ZaYuOpticsCompensation.8bf",
       "module": "lens",
       "component_version": "0.2",
-      "sha256": "0a1875477f098c10175c10d08ea329c9ba742014e01dc51c40f662b56d28b642",
-      "bytes": 2720256
+      "sha256": "29f10e49ca10a5e8fa279197aadbea5ff02cbc50737d722edb11667bf039495f",
+      "bytes": 2722304
     },
     {
       "name": "Lens 镜头",
       "file": "ZaYuCCLens.8bf",
       "module": "lens",
       "component_version": "0.3",
-      "sha256": "96cb3aec55a4bc435623e3522a9b92e656e349c8d2e15ef4bd4f4c3a9b8b5f27",
-      "bytes": 2719744
+      "sha256": "ecd00e4e8a4b09270750fd2adcad8771d42850a99943accc2dab2ec230e71a27",
+      "bytes": 2721280
     },
     {
       "name": "JPEG Damage JPEG 损坏",
       "file": "ZaYuJPEGDamage.8bf",
       "module": "jpeg",
       "component_version": "0.1",
-      "sha256": "f1f685a5b4bf8abde69c4605a29a9b7067f54d8b4aa856b0455aa1d118767f8d",
-      "bytes": 2785280
+      "sha256": "48825b5984c707f0d984a4daaa6eafa5bdd809a33b129dadd0985540d294e7c2",
+      "bytes": 2787328
     },
     {
       "name": "Blobbylize 胶状化",
       "file": "ZaYuBlobbylize.8bf",
       "module": "surface",
       "component_version": "0.2",
-      "sha256": "b468eebcd8c458d3ee9b4ca7f2b49e4756906c487c07cc2b57e670790ea5dafe",
-      "bytes": 2755584
+      "sha256": "62eb15cac6626bfc0f937121ef6361552fd7f5a9d77d1157c5b8041c2a5d8515",
+      "bytes": 2756608
     },
     {
       "name": "Glass 玻璃",
       "file": "ZaYuGlass.8bf",
       "module": "surface",
       "component_version": "0.2",
-      "sha256": "3c9ea9bde6373ceb15174215f61961b3377b14f1d5fc259e8f04e47f7c857050",
-      "bytes": 2755584
+      "sha256": "3b91b089fe8f49af2d30ecb7d52ca4906810e0bf074ac232dfff05170ec1ce01",
+      "bytes": 2756608
     },
     {
       "name": "Turbulent Displace 湍流置换",
       "file": "ZaYuTurbulentDisplace.8bf",
       "module": "creative",
       "component_version": "0.1",
-      "sha256": "85acf76a408cdc46e2e0a15d2e37d268ac265f99216988fa0173657d17d3119f",
-      "bytes": 2732032
+      "sha256": "2f00b2b83a992bf01510e639a7f5068fe90fad29543fceff25bc870eb6f33ecb",
+      "bytes": 2733568
     },
     {
       "name": "Light Sweep 扫光",
       "file": "ZaYuLightSweep.8bf",
       "module": "creative",
       "component_version": "0.1",
-      "sha256": "e7dad897dc2d53de47baae5684d2d7937d5d47e5b3d1345a106ee57e0d17d62c",
-      "bytes": 2730496
+      "sha256": "238ec19257f7a5922c2d170dc9fceb4525e2c9e0854bd9e322db412791ddbb43",
+      "bytes": 2732032
     },
     {
       "name": "Kaleida 万花筒",
       "file": "ZaYuKaleida.8bf",
       "module": "creative",
       "component_version": "0.1",
-      "sha256": "dac2f0c1ac6d30cc25deb7455fbb4b3f2fc57e6409e90cdf32989acce4cbddf6",
-      "bytes": 2730496
+      "sha256": "3bcc2913b21690038d063ff43c620d19b8821460f312a84412ebe272af31ebcd",
+      "bytes": 2732032
     },
     {
       "name": "Roughen Edges 毛边",
       "file": "ZaYuRoughenEdges.8bf",
       "module": "roughen",
       "component_version": "0.1",
-      "sha256": "963e32a59655a19cbf9e158b37254e499906aacc9311548f29dc31a092dfbce7",
-      "bytes": 2740736
+      "sha256": "9506f31385534adc321799d9fc15d4a1e28cc98e38365debb06df7e3b1ae7a35",
+      "bytes": 2741760
     },
     {
       "name": "Starglow 星芒",
       "file": "ZaYuStarglow.8bf",
       "module": "lightfx",
       "component_version": "0.1-local",
-      "sha256": "b1f75fabe18d9ecb1af175add5da8ee3746e15dad8b9b1b109fc46e030038e33",
-      "bytes": 2795008
+      "sha256": "c040ed89409423a296fb1c1cc2c856a727654b316415726f96fd2692d8b6f042",
+      "bytes": 2796544
     },
     {
       "name": "Shine 放射光束",
       "file": "ZaYuShine.8bf",
       "module": "lightfx",
       "component_version": "0.1-local",
-      "sha256": "2acf051bd1ff62aa971c96acce5ecd8a732823673e2765006bd78661016d7337",
-      "bytes": 2792960
+      "sha256": "942f513262e64c92d2b0a25409ed36eb3b69bbbe6719d591c41b7f12c9b02655",
+      "bytes": 2794496
     },
     {
       "name": "Saber 能量光束",
       "file": "ZaYuSaber.8bf",
       "module": "energy",
       "component_version": "0.7-local",
-      "sha256": "795d524eba33cada50ba2651571f4d354fd9517055dd7f1b507e512e1b03a38d",
-      "bytes": 3011584
+      "sha256": "7c9e43113f9387918ac286448aee27a9914dded0dfc7c6df90639f756350f562",
+      "bytes": 3013120
     },
     {
       "name": "Venetian Blinds 百叶窗",
       "file": "ZaYuVenetianBlinds.8bf",
       "module": "blinds",
       "component_version": "0.1-local",
-      "sha256": "ce5f71ea6e28e957b7a781d4ca2853d12d768ccd9c24a2f83529c85242b860ce",
-      "bytes": 2720768
+      "sha256": "07cc8d916ed500a74209400c9a5cd175e5bbc3d048bbd253f3c467cfcf4bf604",
+      "bytes": 2723328
     },
     {
       "name": "Halftone 网点印刷",
       "file": "ZaYuHalftone.8bf",
       "module": "halftone",
       "component_version": "0.1-local",
-      "sha256": "87e596c605094798c0eb3c583ecf4d46d0dd00ed388b228cd102f716b59363f0",
-      "bytes": 2750976
+      "sha256": "3f9dc775d5cbba9001a9f1d15644cb727e383562e4e444bddcbcf74f2697c04f",
+      "bytes": 2753024
     },
     {
       "name": "ASCII Dither 字符抖动",
       "file": "ZaYuASCIIDither.8bf",
       "module": "ascii",
       "component_version": "0.1-local",
-      "sha256": "ca9f13bb3b8f055d15e32641b87d18cefa728bb7c9471d5111f7475f381c88a1",
-      "bytes": 2759680
+      "sha256": "aa0a5f4bbc1e4088c20d50955890575a7a2af8513b01fb7bf69d673d7204c574",
+      "bytes": 2761728
     },
     {
       "name": "Dither 像素抖动",
       "file": "ZaYuDither.8bf",
       "module": "dither",
       "component_version": "0.1-local",
-      "sha256": "c45f4fe8767a99ca632f27aeb82ef35534859af25348ba254f2c898db4c84560",
-      "bytes": 2792960
+      "sha256": "7b197ce0282c1ba75ff9ebd8b434d41452ab5824ef08255a3b68379524939892",
+      "bytes": 2793984
     },
     {
       "name": "Lens Flare 镜头耀斑",
       "file": "ZaYuLensFlare.8bf",
       "module": "flare",
       "component_version": "0.3-local",
-      "sha256": "e8a5c00017f40f56e17575a0b0766aaa4f3162b7f19ff0f97aefcf61c24fe067",
-      "bytes": 2963456
+      "sha256": "39e91854c7109d4d316eb454be4537b63538c2a4f94abd5326482d0930f80d98",
+      "bytes": 2964992
     },
     {
       "name": "Etching 蚀刻",
       "file": "ZaYuEtching.8bf",
       "module": "etching",
       "component_version": "0.1-local",
-      "sha256": "4d994e91a4fde8d8382c5f44a42cd5e72013b76a06d047b91817732d4c5d7db1",
-      "bytes": 2785792
+      "sha256": "a7f7c2e208dd80a31596d8629c9d20cbee27b0a3c6d56eadabb169a078a8709f",
+      "bytes": 2787328
     },
     {
       "name": "Caustics 焦散",
       "file": "ZaYuCaustics.8bf",
       "module": "caustics",
       "component_version": "0.2-local",
-      "sha256": "9d3d718045a25c3a6f34bae6628dd3829f01f9930880198aaea4ed24f34a23b1",
-      "bytes": 2809856
+      "sha256": "43603579ccb0389ec2d86900eaca4b3674909bb791b7ca33a4ff91a8bd2a39d3",
+      "bytes": 2811904
     },
     {
       "name": "Film Damage 胶片损伤",
       "file": "ZaYuFilmDamage.8bf",
       "module": "filmdamage",
       "component_version": "0.5-local",
-      "sha256": "87804064381a00e4f3697c049b7d36b9376f065a11340256be2cd23b0f7cc076",
-      "bytes": 2800128
+      "sha256": "42f204b71183e2565a744778a8889ddf5d981df98cda82a273c01065de5eeecb",
+      "bytes": 2802688
     },
     {
       "name": "Long Shadow 长投影",
       "file": "ZaYuLongShadow.8bf",
       "module": "longshadow",
       "component_version": "0.3-local",
-      "sha256": "61842a2fb915854465ae1db24efb31b2266eb46e5c43e4c2d750d32df85ec156",
-      "bytes": 2821632
+      "sha256": "a404d26d6f28c1c949845e2051ab2279c22d337222ac2d9aa0add04650ad52da",
+      "bytes": 2823680
     },
     {
       "name": "Toner 多色调",
       "file": "ZaYuToner.8bf",
       "module": "toner",
       "component_version": "0.1-local",
-      "sha256": "c5fe7d8c307054f8b204dd07a04dfec51f8b7f3eeb123c8b97909558f54173ca",
-      "bytes": 2676224
+      "sha256": "3d13c99373b4cf5751756cc2b4cbbac1466383542dffe86813f33951d2512abb",
+      "bytes": 2677760
     },
     {
       "name": "Mirror 镜像",
       "file": "ZaYuMirror.8bf",
       "module": "mirror",
       "component_version": "0.1-local",
-      "sha256": "4d780b2313adc9d1e3b950171c5c38b1de10840801dfa677f791b7b8941b4ba7",
-      "bytes": 2673152
+      "sha256": "437a730737122b7367067319de1ab90fe1d116773d187c0e0d83b041527ee920",
+      "bytes": 2675200
     },
     {
       "name": "RepeTile 重复拼贴",
       "file": "ZaYuRepeTile.8bf",
       "module": "repetile",
       "component_version": "0.2-local",
-      "sha256": "1ffa495ca71c607e3efce3488e087da66f7b885b8e991b4bbd98ffe226096822",
-      "bytes": 2716160
+      "sha256": "3e4cbed410ef63807fa2baf08a99038d97752c9e9fcd962da516de4cc57a020b",
+      "bytes": 2718208
     },
     {
       "name": "Noise 综合杂色",
       "file": "ZaYuNoise.8bf",
       "module": "noise",
       "component_version": "0.2.1-local",
-      "sha256": "50bf894e7ba36ea649e074c371cc09fb2ec757cb688b7ad67e9ee6e5db661f21",
-      "bytes": 2738176
+      "sha256": "d3a9b65a2f80e6417c0919b341a77ec23145668d2f86335c4b7ecd59f97b7279",
+      "bytes": 2740224
     },
     {
       "name": "Sphere 球面贴图",
       "file": "ZaYuSphere.8bf",
       "module": "texturewrap",
       "component_version": "0.5-local",
-      "sha256": "891e28d36993b1f55a4572c8a5e212ca09777a2b587f7fbaa388f3a87bf44ea3",
-      "bytes": 2743808
+      "sha256": "6146238656e0022e5a8e8984c144240da1e38a39b64692e7518e63354d1e8137",
+      "bytes": 2745344
     },
     {
       "name": "Cylinder 圆柱贴图",
       "file": "ZaYuCylinder.8bf",
       "module": "texturewrap",
       "component_version": "0.6-local",
-      "sha256": "5cf47d1ff161a8228edde1ce7adab726e903d5a727e205405b8bbbce957dfdb5",
-      "bytes": 2743808
+      "sha256": "43ae1d6f6fb711044afbba2c8731476e21abec5da93b0d235898297b19facb62",
+      "bytes": 2745344
     },
     {
       "name": "Rain & Snow 雨雪模拟",
       "file": "ZaYuRainSnow.8bf",
       "module": "weather",
       "component_version": "0.2-local",
-      "sha256": "505813ab4207aa7256e923b572b3247f4ab118545abb6fbcb431fe6e8e9a7ee6",
-      "bytes": 2730496
+      "sha256": "17ebc4cb5f90d5ee14d566de076c4d858536157de5b0d8acd564ff138ddcba99",
+      "bytes": 2732032
     },
     {
       "name": "Channel Blur 通道模糊",
       "file": "ZaYuChannelBlur.8bf",
       "module": "channelblur",
       "component_version": "0.1.1-local",
-      "sha256": "7258b62d2fb5f9757901d5fbd11995da4c8871e8afa388eac108be1fd65cea09",
-      "bytes": 2767872
+      "sha256": "90e72dfd7eee08476c06735cbcb23f021fd32252082240a4d452311de81a2f7e",
+      "bytes": 2770432
     },
     {
       "name": "Compound Blur 复合模糊",
       "file": "ZaYuCompoundBlur.8bf",
       "module": "compoundblur",
       "component_version": "0.1.1-local",
-      "sha256": "815b99d68e98b211cd9b897e163aae9272aceda9f0e3da2757d8a32344a13a25",
-      "bytes": 2795008
+      "sha256": "1383dedc277a05282ab8d289c99ae967f412a04dbe15895025b5838a28841a14",
+      "bytes": 2796544
     },
     {
       "name": "Pixel Sort 像素排序",
       "file": "ZaYuPixelSort.8bf",
       "module": "pixelsort",
       "component_version": "0.1-local",
-      "sha256": "2787ec6b94de9df42128341184aa2ce25b884bfe0989c077b31f512e14bf0798",
-      "bytes": 2744832
+      "sha256": "087801bc9e3f71262af8bad5d25c56575df36ce2fb59fa8b86f81fcb52d5f8cd",
+      "bytes": 2746368
     }
-  ],
-  "added": [
-    "ZaYuToner.8bf",
-    "ZaYuMirror.8bf",
-    "ZaYuRepeTile.8bf",
-    "ZaYuNoise.8bf",
-    "ZaYuSphere.8bf",
-    "ZaYuCylinder.8bf",
-    "ZaYuRainSnow.8bf",
-    "ZaYuChannelBlur.8bf",
-    "ZaYuCompoundBlur.8bf",
-    "ZaYuPixelSort.8bf"
   ],
   "release_validation": {
     "hosts": [
       {
-        "photoshop": "2020",
-        "version": "21.2.9",
         "os": "Windows 11 x64",
-        "filters": 41,
-        "ordinary_effect_depth_cases": 121,
-        "pixel_exact_undo_checks": 121,
-        "sphere_smart_filter_create_reopen_recalculate": "PASS (RGB8/16/32)",
-        "installation_hash_matches": 41,
-        "cylinder_smart_filter_create_reopen_recalculate": "PASS (RGB8/16/32)"
+        "photoshop": 2020,
+        "version": "21.2.9",
+        "outputs_pixel_identical_to_0_40": 121,
+        "undos_pixel_identical_to_0_40": 121,
+        "installed_hash_matches": 41
       },
       {
-        "photoshop": "2026",
-        "version": "27.7.0",
         "os": "Windows 11 x64",
-        "filters": 41,
-        "ordinary_effect_depth_cases": 121,
-        "pixel_exact_undo_checks": 121,
-        "sphere_smart_filter_create_reopen_recalculate": "PASS (RGB8/16/32)",
-        "installation_hash_matches": 41,
-        "cylinder_smart_filter_create_reopen_recalculate": "PASS (RGB8/16/32)"
+        "photoshop": 2026,
+        "version": "27.7.0",
+        "outputs_pixel_identical_to_0_40": 121,
+        "undos_pixel_identical_to_0_40": 121,
+        "installed_hash_matches": 41
       }
+    ],
+    "checkbox_main_dialogs_checked": 41,
+    "flare_designer_checkbox_profiles": [
+      "en 100%",
+      "zh 200% legacy DPI"
+    ],
+    "single_and_global_reset_profiles": [
+      "100%",
+      "200% legacy DPI"
     ],
     "offcanvas_dll_cases": 2032,
     "offcanvas_dll_checks": 8536878,
-    "window_captures": 41,
-    "sphere_and_cylinder_decal_and_pan_checks": "PASS",
-    "compound_blur_gradient_editor": "PASS",
-    "win7_ps2018": "Legacy display and DPI fallbacks retained; real-host retest pending"
+    "production_window_captures": 41,
+    "cover": {
+      "dimensions": [
+        1280,
+        640
+      ],
+      "host": "Photoshop 2020 21.2.9",
+      "rendered_effects": [
+        "deep-glow",
+        "pixel-dither",
+        "long-shadow",
+        "channel-blur",
+        "saber",
+        "shine",
+        "ascii-dither"
+      ],
+      "sha256": "5a64d379637d518b8bec11b114d8bf32e99525bf3dd50990b8107a8334e2a559"
+    },
+    "win7_ps2018": "Real-host retest pending"
   },
   "binary_registration": {
     "status": "PASS",
@@ -393,7 +399,7 @@
       0
     ],
     "traditional_pipl_aete": true,
-    "required_win10_dpi_or_d3dcompiler_imports": false
+    "new_required_imports": 0
   },
-  "component_numbering": "Individual filter version identifiers are retained. The stable bundle version is 0.40."
+  "component_numbering": "Individual filter version identifiers are retained. The stable bundle version is 0.41."
 }

@@ -129,11 +129,8 @@ void update_preview(psui::LibraryPanel& ui, Context& c) {
 bool source_control(psui::LibraryPanel& ui, Context& c) {
     auto& key = c.values.texture_key;
     bool changed = false;
-    if (ImGui::BeginTable("texture-source", 2)) {
-        ImGui::TableSetupColumn("name", ImGuiTableColumnFlags_WidthStretch, .43f);
-        ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch, .57f);
+    if (ui.begin_parameter_row("texture-source")) {
         ImGui::TableNextColumn();
-        ImGui::AlignTextToFramePadding();
         changed = ui.parameter_label("贴图来源 / Texture Source", key);
         ImGui::TableNextColumn();
 
@@ -212,7 +209,7 @@ void draw(psui::LibraryPanel& ui, Context& c) {
     ImGui::EndChild();
 
     ImGui::SameLine();
-    ImGui::BeginChild("parameters", {0, 0});
+    ui.begin_filter_parameters();
     if (ui.section("位置与尺寸 / Position and Size", true)) {
         changed |= ui.number("中心 X（%） / Center X (%)", p.center_x, -200, 300, 0, 100);
         changed |= ui.number("中心 Y（%） / Center Y (%)", p.center_y, -200, 300, 0, 100);
@@ -270,7 +267,7 @@ void draw(psui::LibraryPanel& ui, Context& c) {
         changed |= ui.number("高光（%） / Highlight (%)", p.specular, 0, 100, 0, 100);
         ImGui::EndDisabled();
     }
-    ImGui::EndChild();
+    ui.end_filter_parameters();
     if (reload) {
         c.worker.stop();
         c.read_source();

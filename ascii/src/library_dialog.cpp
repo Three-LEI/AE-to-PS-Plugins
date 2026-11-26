@@ -50,7 +50,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));
  ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.selected=0;c.error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(ui.choice("预设 / Preset",c.selected,presets,7)&&c.selected){p=preset(c.selected-1);changed=applied=true;}
  if(ui.section("字符 / Characters",true)){
   changed|=ui.choice("字符集 / Character Set",p.charset,charsets,4);changed|=ui.choice("字体 / Font",p.font,fonts,3);changed|=ui.check("粗体 / Bold",p.bold);
@@ -74,7 +74,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  if(ui.section("位置 / Position",false))changed|=psui::point_control(ui,"字符网格偏移 / Grid Shift",p.shift_x,p.shift_y);
  if(!c.family.empty())ImGui::TextDisabled("%s: %s",ui.text("实际字体 / Actual Typeface").c_str(),c.family.c_str());
  ImGui::TextWrapped("%s",ui.text("字符按实际疏密映射亮度。可放大到 100% 检查字形；透明背景适合叠层。 / Character density follows brightness. Zoom to 100% to inspect glyphs; transparent output supports compositing.").c_str());
- ImGui::EndChild();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
+ ui.end_filter_parameters();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){

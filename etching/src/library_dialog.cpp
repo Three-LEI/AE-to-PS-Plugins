@@ -38,7 +38,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ui.items["etching.state"]={c.last.valid()?1.f:0.f,float(c.error),float(p.frequency),float(p.mode)};
  if(c.error)ImGui::TextWrapped("%s",ui.text("预览失败，请重置或取消。 / Preview failed. Reset or cancel.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
- if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  auto number=[&](const char* label,double& value,double lo,double hi,double a,double b){changed|=ui.number(label,value,lo,hi,a,b);};
  if(ui.choice("预设 / Preset",c.selected,presets,7)&&c.selected){const auto x=p.shift_x,y=p.shift_y;p=preset(c.selected-1);p.shift_x=x;p.shift_y=y;changed=applied=true;}
  if(ui.section("主要 / Main",true)){
@@ -63,7 +63,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
   number("明亮度 / Brightness",p.brightness,-100,100,-100,100);number("对比度（%） / Contrast (%)",p.contrast,0,400,0,200);number("伽马 / Gamma",p.gamma,.1,5,.1,3);changed|=ui.choice("背景 / Background",p.background,backgrounds,2);number("效果混合（%） / Effect Mix (%)",p.mix,0,100,0,100);
  }
  ImGui::TextWrapped("%s",ui.text("频率越高线条越密；100%缩放可检查细线。 / Higher frequency produces finer lines. Use 100% zoom to inspect them.").c_str());
- ImGui::EndChild();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
+ ui.end_filter_parameters();if(changed){if(!applied)c.selected=0;c.dirty=true;c.error=noErr;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){

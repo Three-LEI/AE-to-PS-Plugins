@@ -34,9 +34,7 @@ struct PreviewRenderer {
 
 bool layer_control(psui::LibraryPanel& ui, const std::vector<psui::HostLayer>& layers, std::uint64_t& key) {
     bool changed = false;
-    if (ImGui::BeginTable("blur-reference", 2)) {
-        ImGui::TableSetupColumn("label", ImGuiTableColumnFlags_WidthStretch, .43f);
-        ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch, .57f);
+    if (ui.begin_parameter_row("blur-reference")) {
         ImGui::TableNextColumn();
         changed |= ui.parameter_label("参考图层 / Reference Layer", key);
         ImGui::TableNextColumn();

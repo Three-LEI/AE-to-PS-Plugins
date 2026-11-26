@@ -100,7 +100,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));
  ImGui::BeginDisabled(c.error!=noErr||missing);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=c.factory;c.inputs={};c.preset=1;c.import_error.clear();c.error=noErr;changed=preset_applied=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(!p.engine){
   ImGui::TextWrapped("%s",ui.text(common_labels[19]).c_str());
   if(ui.button("common.convert",common_labels[20],-1)){c.worker.stop();p=to_unified(p);c.factory=unified_defaults(c.source.width,c.source.height,c.source.left,c.source.top);c.preset=0;changed=preset_applied=true;}
@@ -158,7 +158,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  }
  if(ui.section("路径范围 / Path Range",false)){if(p.input!=3){changed|=ui.number(labels[15],p.trim_start,0,100,0,100);changed|=ui.number(labels[16],p.trim_end,0,100,0,100);changed|=ui.number(labels[17],p.taper_start,0,100,0,100);changed|=ui.number(labels[18],p.taper_end,0,100,0,100);}else ImGui::TextWrapped("%s",ui.text(extension_text[19]).c_str());changed|=ui.number(labels[19],p.offset_x,-1e7,1e7,-500,500);changed|=ui.number(labels[20],p.offset_y,-1e7,1e7,-500,500);}
  if(ui.section("输出 / Output",true))changed|=ui.choice("合成 / Composite",p.composite,composites,3);
- ImGui::TextWrapped("%s",ui.text(extension_text[20]).c_str());ImGui::TextWrapped("%s",ui.text(labels[30]).c_str());ImGui::EndChild();if(changed){if(!preset_applied)c.preset=0;c.dirty=true;c.error=noErr;}
+ ImGui::TextWrapped("%s",ui.text(extension_text[20]).c_str());ImGui::TextWrapped("%s",ui.text(labels[30]).c_str());ui.end_filter_parameters();if(changed){if(!preset_applied)c.preset=0;c.dirty=true;c.error=noErr;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* f,const Image& src,Parameters& p,Inputs& inputs){

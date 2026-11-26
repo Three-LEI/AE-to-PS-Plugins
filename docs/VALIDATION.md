@@ -1,3 +1,17 @@
+# 0.41 验证范围
+
+41 款滤镜和 33 个模块在 Windows 11 x64 上完成检查。
+
+- Photoshop 2020（21.2.9）和 Photoshop 2026（27.7.0）各通过 121 个效果与位深用例。输出及单步撤销与 0.40 逐像素一致。
+- 逐款核对 41 个主参数窗口的复选框，另检查了耀斑设计器和 100%／200% DPI 下的单项与全部重置。
+- 33 个模块通过干净源码构建。41 个二进制核对 x64 PE 6.0、传统 PiPL／aete 及强制导入。实际 DLL 通过 2,032 个画布边界、选区和位深用例。
+- 图集更新了 41 个生产参数窗口。双语首图中的七种效果均在 Photoshop 2020 中实际渲染。 [参数窗口图集](GALLERY.md)
+- Win7／CC2018 待实机复测。
+
+[验证摘要](validation-summary.json) · [0.41 发行说明](RELEASE_0.41.md)
+
+---
+
 # 0.40 验证范围
 
 0.40 包含 41 款滤镜和 33 个模块。以下结果来自 Windows 11 x64。
@@ -13,7 +27,7 @@
 - 41 款效果均有显示精细预览与参数值的生产窗口截图。 [参数窗口图集](GALLERY.md)
 - 保留 WARP 软件显示及旧 DPI 回退。Win7／CC2018 待实机复测。
 
-[验证摘要](validation-summary.json) · [0.40 发行说明](RELEASE_0.40.md)
+[0.40 验证摘要](https://github.com/Three-LEI/AE-to-PS-Plugins/blob/v0.40/docs/validation-summary.json) · [0.40 发行说明](RELEASE_0.40.md)
 
 ---
 

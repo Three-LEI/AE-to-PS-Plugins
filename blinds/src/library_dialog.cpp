@@ -40,7 +40,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));
  ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.preset=0;c.error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(ui.choice("预设 / Preset",c.preset,presets,5)&&c.preset){p.completion=50;p.direction=c.preset==2?90:c.preset==3?30:0;p.width=c.preset==4?8:20;p.feather=c.preset==3?5:0;changed=preset_applied=true;}
  changed|=ui.number("过渡完成（%） / Transition Completion (%)",p.completion,0,100,0,100);
  changed|=ui.number("方向（度） / Direction (deg)",p.direction,-1e9,1e9,-180,180);
@@ -52,7 +52,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  }
  ImGui::TextWrapped("%s",ui.text("0% 保留原图，100% 完全隐藏；间隙显示下方图层。 / 0% keeps the source; 100% hides it. Gaps reveal layers below.").c_str());
  ImGui::TextWrapped("%s",ui.text("请使用普通图层或智能对象；背景层会以黑色呈现透明部分，锁定透明度时不能隐藏像素。 / Use a regular layer or smart object. Background layers flatten gaps to black; locked transparency cannot remove pixels.").c_str());
- ImGui::EndChild();if(changed){if(!preset_applied)c.preset=0;c.dirty=true;c.error=noErr;}
+ ui.end_filter_parameters();if(changed){if(!preset_applied)c.preset=0;c.dirty=true;c.error=noErr;}
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){

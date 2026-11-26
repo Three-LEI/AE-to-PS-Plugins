@@ -59,7 +59,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  const auto stats=c.transport.stats();ui.items["caustics.cache"]={float(stats.hits),float(stats.builds),float(stats.bytes),0};
  if(c.error)ImGui::TextWrapped("%s",ui.text("计算失败或参考层缺失，请重新选择、重置或取消。 / Render failed or input missing. Reselect, reset or cancel.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
- if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.transport.clear();p=factory;c.map={};c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.transport.clear();p=factory;c.map={};c.selected=0;c.error=noErr;changed=true;}ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  auto number=[&](const char* label,double& v,double lo,double hi,double a,double b){changed|=ui.number(label,v,lo,hi,a,b);};
  if(ui.choice("预设 / Preset",c.selected,presets,8)&&c.selected){
   c.worker.stop();const auto key=p.map_key;const auto surf=p.surface;const auto channel=p.channel;const auto x=p.shift_x,y=p.shift_y;
@@ -96,7 +96,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
   changed|=ui.check("保留源透明度 / Preserve Source Alpha",p.preserve_alpha);number("效果混合（%） / Effect Mix (%)",p.mix,0,100,0,100);
  }
  if(p.surface==2)ImGui::TextWrapped("%s",ui.text("修改参考图层后，重新进入效果刷新。 / Reopen the effect after editing its reference layer.").c_str());
- ImGui::EndChild();if(reload){c.error=c.read_map()?noErr:filterBadParameters;changed=true;}
+ ui.end_filter_parameters();if(reload){c.error=c.read_map()?noErr:filterBadParameters;changed=true;}
  if(changed){if(!applied)c.selected=0;c.dirty=true;}
 }
 }

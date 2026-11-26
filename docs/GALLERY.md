@@ -1,10 +1,10 @@
 # 参数窗口图集 / Parameter-window gallery
 
-0.40 收录 41 款滤镜。下图均为实际参数窗口，显示效果预览和当前参数。
+0.41 收录 41 款滤镜。下图均为实际参数窗口，显示效果预览和当前参数。
 
 These are actual production parameter-window captures, including the full-quality effect preview and the configured controls. The gallery includes 41 lossless PNG captures.
 
-[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.40/AE-to-PS-Plugins-0.40-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
+[返回首页](../README.md) · [下载插件包](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.41/AE-to-PS-Plugins-0.41-Windows-x64.zip) · [完整参数数据](gallery-parameters.json) · [演示素材许可](assets/README.md)
 
 ## 输入与复现
 

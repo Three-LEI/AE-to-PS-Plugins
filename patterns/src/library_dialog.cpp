@@ -71,7 +71,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::BeginDisabled(c.error||source_error);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();
  if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=defaults_for_host(c.host);c.preset=1;c.error=noErr;changed=preset_changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(ui.choice(labels[preset_label],c.preset,pattern_kind==Kind::grid?grid_presets:checker_presets,5)&&c.preset){p=patterns::preset(pattern_kind,c.preset-1,doc.right-doc.left,doc.bottom-doc.top);changed=preset_changed=true;}
  if(ui.section(labels[main_label],true)){
   changed|=psui::point_control(ui,labels[anchor_label],p.anchor_x,p.anchor_y);
@@ -86,7 +86,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  changed|=psui::color_control(ui,c.host,labels[color_label],p.color);changed|=number(ui,opacity_label,p.opacity,0,100,0,100);
  int blend=int(p.blend);if(ui.choice(labels[blend_label],blend,psui::blend_labels,int(Blend::count))){p.blend=Blend(blend);changed=true;}
  if(ui.section(labels[transform_label],false)){changed|=number(ui,rotation_label,p.rotation,-360000,360000,-180,180);if(ui.button("center",labels[center_label],-1)){p.anchor_x=(doc.left+doc.right)*.5;p.anchor_y=(doc.top+doc.bottom)*.5;changed=true;}}
- ImGui::Spacing();ImGui::TextWrapped("%s",ui.text(labels[pick_label]).c_str());ImGui::TextWrapped("%s",ui.text(labels[none_help_label]).c_str());ImGui::EndChild();
+ ImGui::Spacing();ImGui::TextWrapped("%s",ui.text(labels[pick_label]).c_str());ImGui::TextWrapped("%s",ui.text(labels[none_help_label]).c_str());ui.end_filter_parameters();
  if(changed){if(!preset_changed)c.preset=0;c.dirty=true;c.update_at=GetTickCount64()+40;}
 }
 }

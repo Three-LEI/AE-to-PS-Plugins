@@ -65,7 +65,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();
  if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();p=factory;c.selected=0;c.error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(ui.choice("预设 / Preset",c.selected,presets,6)&&c.selected){p=preset(c.selected-1);changed=preset_applied=true;}
  auto number=[&](const char* label,double& val,double lo,double hi,double a,double b){changed|=ui.number(label,val,lo,hi,a,b);};
  if(ui.section("投影 / Shadow",true)){
@@ -103,7 +103,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
   ImGui::EndDisabled();
  }
  ImGui::TextWrapped("%s",ui.text("使用带透明背景的文字、形状或抠图；智能对象内请为投影预留透明空间。 / Use text, shapes, or cutouts on transparency. Leave room for shadows inside Smart Objects.").c_str());
- ImGui::EndChild();
+ ui.end_filter_parameters();
  if(changed){c.dirty=true;if(!preset_applied)c.selected=0;}
 }
 }}

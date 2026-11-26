@@ -141,6 +141,10 @@ template <class T> void release(T *&p) {
 ImVec4 color(COLORREF c) {
   return {GetRValue(c) / 255.f, GetGValue(c) / 255.f, GetBValue(c) / 255.f, 1};
 }
+ImVec4 mix_color(const ImVec4 &from, const ImVec4 &to, float amount) {
+  return {std::lerp(from.x, to.x, amount), std::lerp(from.y, to.y, amount),
+          std::lerp(from.z, to.z, amount), 1};
+}
 void style(const Palette &c) {
   auto &s = ImGui::GetStyle();
   auto *p = s.Colors;
@@ -549,6 +553,18 @@ void LibraryPanel::choice_default(const char *label, int value) {
   std::memcpy(bytes.data(), &value, sizeof(value));
 }
 namespace {
+ImVec4 section_background() {
+  const auto *colors = ImGui::GetStyle().Colors;
+  return mix_color(colors[ImGuiCol_ChildBg], colors[ImGuiCol_Button], .65f);
+}
+
+void draw_parameter_label(LibraryPanel &ui, const char *label) {
+  ImGui::AlignTextToFramePadding();
+  ImGui::PushTextWrapPos(0);
+  ImGui::TextUnformatted(ui.text(label).c_str());
+  ImGui::PopTextWrapPos();
+}
+
 bool parameter_reset_icon(LibraryPanel &ui, const char *label) {
   ImGui::PushID(label);
   const float s=ui.scale(), h=ImGui::GetFrameHeight();
@@ -557,8 +573,11 @@ bool parameter_reset_icon(LibraryPanel &ui, const char *label) {
   const auto a=ImGui::GetItemRectMin();
   const ImVec2 center{a.x+9*s,a.y+h*.5f};
   auto *draw=ImGui::GetWindowDrawList();
-  const auto blue=ImGui::GetColorU32(numeric_color(ImGui::GetStyle().Colors[ImGuiCol_WindowBg]));
-  draw_reset_icon(draw,center,16*s,blue);
+  const auto *colors = ImGui::GetStyle().Colors;
+  const auto blue = numeric_color(colors[ImGuiCol_WindowBg]);
+  const bool hot = ImGui::IsItemHovered() || ImGui::IsItemActive();
+  const auto ink = hot ? blue : mix_color(colors[ImGuiCol_ChildBg], blue, .71f);
+  draw_reset_icon(draw, center, 16*s, ImGui::GetColorU32(ink));
   if(ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal))
     ImGui::SetTooltip("%s",ui.text("重置此参数 / Reset this parameter").c_str());
   ImGui::PopID();ImGui::SameLine(0,3*s);
@@ -575,37 +594,54 @@ bool LibraryPanel::parameter_label(const char *label, void *value, size_t bytes)
   if(found && parameter_reset_icon(*this,label) && std::memcmp(value,defaults.data(),bytes)!=0) {
     std::memcpy(value,defaults.data(),bytes);changed=true;
   }
-  ImGui::AlignTextToFramePadding();ImGui::TextUnformatted(text(label).c_str());
+  draw_parameter_label(*this, label);
   return changed;
 }
 bool LibraryPanel::point_label(const char *label, double &x, double &y) {
   double dx{},dy{};bool changed=false;
   if(parameter_default(&x,&dx,sizeof(dx)) && parameter_default(&y,&dy,sizeof(dy)) &&
      parameter_reset_icon(*this,label) && (x!=dx || y!=dy)) {x=dx;y=dy;changed=true;}
-  ImGui::AlignTextToFramePadding();ImGui::TextUnformatted(text(label).c_str());
+  draw_parameter_label(*this, label);
   return changed;
 }
 bool LibraryPanel::check(const char *label, bool &value) {
   ImGui::PushID(label);
-  bool result=false, defaults=false;
-  if(parameter_default(&value,&defaults,sizeof(defaults)) && parameter_reset_icon(*this,label) && value!=defaults) {value=defaults;result=true;}
-  result |=
+  const bool changed =
       ImGui::Checkbox((text(label) + "###check").c_str(), &value);
   mark(label);
   ImGui::PopID();
-  return result;
+  return changed;
 }
 bool LibraryPanel::section(const char *label, bool open) {
+  const float s = scale();
+  ImGui::Spacing();
   ImGui::PushID(label);
+  ImGui::PushStyleColor(ImGuiCol_Header, section_background());
   ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 0);
+  ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {6*s, 5*s});
   const bool result =
       ImGui::CollapsingHeader((text(label) + "###section").c_str(),
                               open ? ImGuiTreeNodeFlags_DefaultOpen : 0);
   mark(label);
-  ImGui::PopStyleVar();
+  ImGui::PopStyleVar(2);
+  ImGui::PopStyleColor();
   ImGui::PopID();
-  ImGui::Separator();
   return result;
+}
+bool LibraryPanel::section_check(const char *label, bool &value) {
+  const float s = scale();
+  ImGui::Spacing();
+  ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {6*s, 5*s});
+  const auto start = ImGui::GetCursorScreenPos();
+  const auto available = ImGui::GetContentRegionAvail();
+  ImGui::GetWindowDrawList()->AddRectFilled(
+      {start.x - 5*s, start.y},
+      {start.x + available.x + 5*s, start.y + ImGui::GetFrameHeight()},
+      ImGui::GetColorU32(section_background()), ImGui::GetStyle().FrameRounding);
+  ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 3*s);
+  const bool changed = check(label, value);
+  ImGui::PopStyleVar();
+  return changed;
 }
 bool LibraryPanel::numeric_value(const char *id, double &value, double minimum,
                                  double maximum, double units_per_pixel,
@@ -617,20 +653,29 @@ bool LibraryPanel::numeric_value(const char *id, double &value, double minimum,
     ImGui::SetTooltip("%s", text("左右拖动；Shift 加快 10 倍；Ctrl 放慢 10 倍；点击输入。 / Drag horizontally; Shift: 10x faster; Ctrl: 10x finer; click to type.").c_str());
   return result.changed;
 }
+bool LibraryPanel::begin_parameter_row(const char *id, bool with_secondary) {
+  const float width = ImGui::GetContentRegionAvail().x;
+  if (!ImGui::BeginTable(id, with_secondary ? 3 : 2, ImGuiTableFlags_SizingFixedFit))
+    return false;
+
+  const float gap = ImGui::GetStyle().CellPadding.x;
+  ImGui::TableSetupColumn("label", ImGuiTableColumnFlags_WidthFixed,
+                          std::max(1.f, std::floor(width * .43f) - gap));
+  if (with_secondary) {
+    const float number = std::max(1.f, std::min(86 * scale(), std::floor(width * .24f)));
+    ImGui::TableSetupColumn("number", ImGuiTableColumnFlags_WidthFixed, number);
+  }
+  ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch, 1);
+  return true;
+}
 bool LibraryPanel::number(const char *label, double &value, double minimum,
                           double maximum, double slide_min, double slide_max,
                           bool enabled, bool integer) {
   ImGui::PushID(label);
   ImGui::BeginDisabled(!enabled);
   bool changed = false;
-  if (ImGui::BeginTable("row", 3, ImGuiTableFlags_SizingStretchProp)) {
-    ImGui::TableSetupColumn("name", ImGuiTableColumnFlags_WidthStretch, 0.43f);
-    ImGui::TableSetupColumn("number", ImGuiTableColumnFlags_WidthStretch,
-                            0.22f);
-    ImGui::TableSetupColumn("slider", ImGuiTableColumnFlags_WidthStretch,
-                            0.35f);
+  if (begin_parameter_row("row", true)) {
     ImGui::TableNextColumn();
-    ImGui::AlignTextToFramePadding();
     changed |= parameter_label(label,value);
     ImGui::TableNextColumn();
     ImGui::SetNextItemWidth(-1);
@@ -659,11 +704,8 @@ bool LibraryPanel::choice(const char *label, int &value,
                           const char *const *labels, int count) {
   ImGui::PushID(label);
   bool changed = false;
-  if (ImGui::BeginTable("row", 2, ImGuiTableFlags_SizingStretchProp)) {
-    ImGui::TableSetupColumn("name", ImGuiTableColumnFlags_WidthStretch, 0.43f);
-    ImGui::TableSetupColumn("value", ImGuiTableColumnFlags_WidthStretch, 0.57f);
+  if (begin_parameter_row("row")) {
     ImGui::TableNextColumn();
-    ImGui::AlignTextToFramePadding();
     changed |= parameter_label(label,value);
     ImGui::TableNextColumn();
     ImGui::SetNextItemWidth(-1);
@@ -1095,6 +1137,25 @@ void LibraryPanel::begin_filter_preview(PreviewView &view, VRect bounds, float e
       2 * ImGui::GetTextLineHeightWithSpacing();
   const float height = std::clamp(ImGui::GetContentRegionAvail().y - controls - extra_height, 1.f, target);
   view.configure(bounds, width, height);
+}
+
+void LibraryPanel::begin_filter_parameters(ImGuiWindowFlags flags) {
+  const float s = scale();
+  const auto *colors = ImGui::GetStyle().Colors;
+  ImGui::PushStyleColor(ImGuiCol_ChildBg,
+      mix_color(colors[ImGuiCol_WindowBg], colors[ImGuiCol_FrameBg], .43f));
+  ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, {10*s, 10*s});
+  ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 6*s);
+  ImGui::BeginChild("parameters", {0, 0}, ImGuiChildFlags_AlwaysUseWindowPadding, flags);
+  ImGui::PopStyleVar(2);
+  ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4*s);
+  ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, {5*s, 1*s});
+}
+
+void LibraryPanel::end_filter_parameters() {
+  ImGui::PopStyleVar(2);
+  ImGui::EndChild();
+  ImGui::PopStyleColor();
 }
 
 float LibraryPanel::filter_footer_height() const {

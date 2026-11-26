@@ -217,8 +217,7 @@ void draw(psui::LibraryPanel &ui, Context &c) {
   }
   ImGui::EndChild();
   ImGui::SameLine();
-  ImGui::BeginChild("parameters", {0, 0}, 0,
-                    ImGuiWindowFlags_AlwaysVerticalScrollbar);
+  ui.begin_filter_parameters(ImGuiWindowFlags_AlwaysVerticalScrollbar);
   auto n = [&](int i, bool enabled = true) {
     ui.number_default(nums[i].text, nums[i].member ? c.defaults.*nums[i].member : double(c.defaults.seed));
     double value =
@@ -291,7 +290,7 @@ void draw(psui::LibraryPanel &ui, Context &c) {
     n(6);
     combo(3, blends);
   }
-  ImGui::EndChild();
+  ui.end_filter_parameters();
   if (changed)
     c.dirty = true;
 }

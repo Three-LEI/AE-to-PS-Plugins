@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/assets/social-preview.jpg" alt="AE to PS · Native Photoshop filters" width="1280"></p>
+<p align="center"><img src="docs/assets/social-preview.jpg" alt="AE to PS · 41 native Photoshop filters and seven rendered examples" width="1280"></p>
 
 # AE-to-PS-Plugins
 
@@ -6,15 +6,14 @@
 
 [简体中文](README.md)
 
-**[Download 0.40 for Windows](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.40/AE-to-PS-Plugins-0.40-Windows-x64.zip)** · [Effect catalog](docs/EFFECTS.md) · [Gallery](docs/GALLERY.md)
+**[Download 0.41 for Windows](https://github.com/Three-LEI/AE-to-PS-Plugins/releases/download/v0.41/AE-to-PS-Plugins-0.41-Windows-x64.zip)** · [Effect catalog](docs/EFFECTS.md) · [Gallery](docs/GALLERY.md)
 
-## What's new in 0.40
+## What's new in 0.41
 
-- Ten additions, including Noise, Sphere, Cylinder, Rain & Snow, and Compound Blur.
-- A shared 360 × 360 default preview with draggable position and direction handles where supported.
-- Nine `ZaYu-` menu groups, Chinese and English controls, adaptive previews, and editable Smart Filters.
+- All 41 filters share clearer section headings and aligned parameter fields. Long labels wrap in narrow windows.
+- Click a checkbox to toggle its setting. Reset All restores the effect's defaults.
 
-[Release notes](docs/RELEASE_0.40.md) · [Preview controls](docs/ADAPTIVE_PREVIEW.md)
+[Release notes](docs/RELEASE_0.41.md) · [Preview controls](docs/ADAPTIVE_PREVIEW.md)
 
 ## Install
 

@@ -85,7 +85,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  if(c.error)ImGui::TextWrapped("%s",ui.text("计算失败，请全部重置或取消。 / Render failed. Reset all or cancel.").c_str());
  ImGui::SetCursorPosY(ImGui::GetCursorPosY()+std::max(0.f,ImGui::GetContentRegionAvail().y-footer));ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.invalidate();p=factory;c.error=noErr;c.preset_index=0;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  auto number=[&](const char* label,double& value,double lo,double hi,double slo,double shi){changed|=ui.number(label,value,lo,hi,slo,shi);};
  if(ui.choice("预设 / Preset",c.preset_index,effect_kind==Kind::starglow?stars:shines,5)){p=preset(p,c.preset_index);changed=true;}
  if(ui.section("高光提取 / Highlight Extraction",true)){
@@ -119,7 +119,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
   changed|=ui.choice("混合模式 / Blend Mode",p.blend,blends,3);number("源不透明度（%） / Source Opacity (%)",p.source_opacity,0,100,0,100);number("光效不透明度（%） / Effect Opacity (%)",p.effect_opacity,0,100,0,100);number("效果混合（%） / Effect Mix (%)",p.mix,0,100,0,100);changed|=ui.check("保留源透明度 / Preserve Source Alpha",p.preserve_alpha);
  }
  ImGui::TextWrapped("%s",ui.text("独立实现；快速预览不改变最终输出质量。 / Independent implementation; fast preview does not change final quality.").c_str());
- ImGui::EndChild();if(changed)c.need_request=true;
+ ui.end_filter_parameters();if(changed)c.need_request=true;
 }
 }
 INT_PTR show_dialog(HINSTANCE m,HWND owner,FilterRecord* host,const Image& src,Parameters& p){

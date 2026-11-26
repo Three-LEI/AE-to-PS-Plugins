@@ -119,7 +119,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  ImGui::BeginDisabled(c.error!=noErr);if(ui.button("ok","确定 / OK",-1))ui.close(true);ImGui::EndDisabled();
  if(ui.button("cancel","取消 / Cancel",-1))ui.close(false);
  if(ui.button("reset","全部重置 / Reset All",-1)){c.worker.stop();c.adaptive_cache.clear();p=defaults(p.kind);c.mask={};c.texture={};c.error=noErr;changed=true;}
- ImGui::EndChild();ImGui::SameLine();ImGui::BeginChild("parameters",{0,0});
+ ImGui::EndChild();ImGui::SameLine();ui.begin_filter_parameters();
  if(deep){
   if(ui.section(labels[main_section],true)){
    changed|=choice(ui,falloff_label,p.falloff,falloffs,2);
@@ -171,7 +171,7 @@ void draw(psui::LibraryPanel& ui,Context& c){
  }
  ImGui::Spacing();ImGui::TextWrapped("%s",ui.text(labels[bounds_label]).c_str());
  if(c.error)ImGui::TextWrapped("%s",ui.text(labels[input_error_label]).c_str());
- ImGui::EndChild();
+ ui.end_filter_parameters();
  if(changed){if((!p.mask_key||c.mask.valid())&&(!p.texture_key||c.texture.valid()))c.error=noErr;c.dirty=true;c.update_at=GetTickCount64()+50;}
 }
 }
